@@ -1475,7 +1475,10 @@ std::vector<PoseWithVelocityStamped> convert_to_predicted_path(
       vel = std::clamp(vel, 0.0, lane_change_path.info.velocity.prepare);
     } else {
       vel = std::clamp(
-        vel, lc_param_ptr->trajectory.min_lane_changing_velocity,
+        vel,
+        std::min(
+          lc_param_ptr->trajectory.min_lane_changing_velocity,
+          lane_change_path.info.velocity.lane_changing),
         lane_change_path.info.velocity.lane_changing);
     }
     return vel;
@@ -1501,6 +1504,43 @@ std::vector<std::vector<PoseWithVelocityStamped>> convert_to_predicted_paths(
   const CommonDataPtr & common_data_ptr, const LaneChangePath & lane_change_path,
   const size_t deceleration_sampling_num, const bool is_approved)
 {
+  if (lane_change_path.type == PathType::LowSpeed) {
+    const auto & path = lane_change_path.path;
+    if (path.points.size() < 2) return {};
+    const auto start = motion_utils::calcSignedArcLength(
+      path.points, path.points.front().point.pose.position,
+      common_data_ptr->get_ego_pose().position);
+    const auto end = motion_utils::calcSignedArcLength(
+      path.points, path.points.front().point.pose.position,
+      lane_change_path.info.lane_changing_end.position);
+    const auto max_velocity = lane_change_path.info.velocity.lane_changing;
+    const auto acceleration = std::min(
+      common_data_ptr->bpp_param_ptr->max_acc,
+      common_data_ptr->lc_param_ptr->trajectory.max_longitudinal_acc);
+    const auto dt =
+      common_data_ptr->lc_param_ptr->safety.collision_check.prediction_time_resolution;
+    if (dt <= 0.0 || acceleration <= 0.0 || max_velocity <= 0.0) return {};
+    std::vector<PoseWithVelocityStamped> prediction;
+    auto arc = start;
+    auto velocity = std::clamp(common_data_ptr->get_ego_speed(), 0.0, max_velocity);
+    const auto jerk = common_data_ptr->lc_param_ptr->trajectory_safety.max_jerk;
+    if (!std::isfinite(jerk) || jerk <= 0.0) return {};
+    auto current_acceleration = 0.0;
+    const auto duration = lane_change_path.info.duration.sum() + acceleration / jerk;
+    for (double time = 0.0; time <= duration + dt; time += dt) {
+      const auto pose = time == 0.0 ? common_data_ptr->get_ego_pose()
+                                    : motion_utils::calcInterpolatedPose(path.points, arc, false);
+      prediction.emplace_back(time, pose, velocity);
+      if (arc >= end) break;
+      const auto next_acceleration = std::min(acceleration, current_acceleration + jerk * dt);
+      const auto next_velocity =
+        std::min(max_velocity, velocity + (current_acceleration + next_acceleration) * dt * 0.5);
+      arc = std::min(end, arc + (velocity + next_velocity) * dt * 0.5);
+      velocity = next_velocity;
+      current_acceleration = next_acceleration;
+    }
+    return {prediction};
+  }
   static constexpr double floating_err_th{1e-3};
   const auto bpp_param = *common_data_ptr->bpp_param_ptr;
   const auto global_min_acc = bpp_param.min_acc;

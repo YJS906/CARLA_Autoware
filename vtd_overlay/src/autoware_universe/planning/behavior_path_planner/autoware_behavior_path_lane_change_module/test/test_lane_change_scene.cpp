@@ -259,6 +259,9 @@ TEST_F(TestNormalLaneChange, DISABLED_testFilteredObjects)
 TEST_F(TestNormalLaneChange, testGetPathWhenValid)
 {
   constexpr auto is_approved = true;
+  // This is the clear-corridor validity fixture. The object-filter YAML places a seven-metre
+  // vehicle immediately in front of this pose; it is tested separately as a blocked corridor.
+  planner_data_->dynamic_object = std::make_shared<PredictedObjects>();
   ego_pose_ = autoware::test_utils::createPose(1.0, 1.75, 0.0, 0.0, 0.0, 0.0);
   planner_data_->self_odometry = set_odometry(ego_pose_);
   normal_lane_change_->setData(planner_data_);
@@ -274,6 +277,19 @@ TEST_F(TestNormalLaneChange, testGetPathWhenValid)
   const auto & lc_status = normal_lane_change_->getLaneChangeStatus();
 
   ASSERT_TRUE(lc_status.is_valid_path);
+}
+
+TEST_F(TestNormalLaneChange, CurrentLaneObstacleTooCloseCannotBeApproved)
+{
+  ego_pose_ = autoware::test_utils::createPose(1.0, 1.75, 0.0, 0.0, 0.0, 0.0);
+  planner_data_->self_odometry = set_odometry(ego_pose_);
+  normal_lane_change_->setData(planner_data_);
+  set_previous_approved_path();
+  normal_lane_change_->update_lanes(false);
+  normal_lane_change_->update_filtered_objects();
+  normal_lane_change_->update_transient_data(false);
+  normal_lane_change_->updateLaneChangeStatus();
+  EXPECT_FALSE(normal_lane_change_->getLaneChangeStatus().is_safe);
 }
 
 TEST_F(TestNormalLaneChange, testAvoidanceFromPreferredLaneHasAdjacentShiftInterval)
@@ -303,6 +319,50 @@ TEST_F(TestNormalLaneChange, testAvoidanceFromPreferredLaneHasAdjacentShiftInter
   EXPECT_TRUE(std::isfinite(distance_buffer.min));
   EXPECT_LT(lane_change_length.min, std::numeric_limits<double>::max());
   EXPECT_LT(distance_buffer.min, std::numeric_limits<double>::max());
+}
+
+TEST_F(TestNormalLaneChange, ObstacleDistanceEnablesSafeJointCandidateOnRealRoute)
+{
+  using autoware::behavior_path_planner::LaneChangePath;
+  ego_pose_ = autoware::test_utils::createPose(1.0, 1.75, 0.0, 0.0, 0.0, 0.0);
+  auto odometry = set_odometry(ego_pose_);
+  odometry->twist.twist.linear.x = 4.0;
+  planner_data_->self_odometry = odometry;
+  planner_data_->self_acceleration =
+    std::make_shared<geometry_msgs::msg::AccelWithCovarianceStamped>();
+  auto objects = std::make_shared<PredictedObjects>();
+  autoware_perception_msgs::msg::PredictedObject obstacle;
+  obstacle.kinematics.initial_pose_with_covariance.pose = ego_pose_;
+  obstacle.kinematics.initial_pose_with_covariance.pose.position.x = 20.0;
+  obstacle.shape.type = autoware_perception_msgs::msg::Shape::BOUNDING_BOX;
+  obstacle.shape.dimensions.x = 1.0;
+  obstacle.shape.dimensions.y = 0.5;
+  obstacle.shape.dimensions.z = 1.0;
+  autoware_perception_msgs::msg::ObjectClassification classification;
+  classification.label = autoware_perception_msgs::msg::ObjectClassification::UNKNOWN;
+  classification.probability = 1.0;
+  obstacle.classification.push_back(classification);
+  objects->objects.push_back(obstacle);
+  planner_data_->dynamic_object = objects;
+  lc_param_ptr_->time_limit = 2000.0;
+  normal_lane_change_->setData(planner_data_);
+  set_previous_approved_path();
+  normal_lane_change_->update_lanes(false);
+  normal_lane_change_->update_filtered_objects();
+  normal_lane_change_->update_transient_data(false);
+  const auto common = get_common_data_ptr();
+  ASSERT_TRUE(std::isfinite(common->transient_data.distance_to_static_obstacle));
+  const auto distance = common->transient_data.distance_to_static_obstacle;
+  common->transient_data.distance_to_static_obstacle = std::numeric_limits<double>::infinity();
+  LaneChangePath nominal;
+  EXPECT_FALSE(normal_lane_change_->getSafePath(nominal).second);
+  common->transient_data.distance_to_static_obstacle = distance;
+  LaneChangePath shortened;
+  const auto [valid, safe] = normal_lane_change_->getSafePath(shortened);
+  EXPECT_TRUE(valid);
+  ASSERT_TRUE(safe);
+  EXPECT_LT(shortened.info.duration.prepare, 4.0);
+  EXPECT_LE(shortened.info.velocity.prepare, 4.0);
 }
 
 TEST_F(TestNormalLaneChange, testAvoidanceLongitudinalCapRejectsArtificiallyCompressedCandidate)

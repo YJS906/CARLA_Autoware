@@ -9,10 +9,12 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/interface.cpp
   src/manager.cpp
   src/scene.cpp
+  src/obstacle_aware.cpp
   src/utils/calculation.cpp
   src/utils/markers.cpp
   src/utils/utils.cpp
   src/utils/path.cpp
+  src/utils/low_speed.cpp
 )
 
 if(BUILD_TESTING)
@@ -20,6 +22,7 @@ if(BUILD_TESTING)
     test/test_behavior_path_planner_node_interface.cpp
     test/test_lane_change_utils.cpp
     test/test_lane_change_scene.cpp
+    test/test_obstacle_aware.cpp
     test/test_planning_factor.cpp
   )
 

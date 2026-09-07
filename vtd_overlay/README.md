@@ -10,6 +10,10 @@ were recovered from the clean nested workspace at commit
 `b10300980e9009e61721808de13dbc27b414f1a3`. Their package-level provenance
 and changed-file lists are in [origin.yaml](origin.yaml).
 
+The external-request lane-change plugin is also built from that exact upstream
+snapshot. It derives from the modified lane-change classes, so it must be rebuilt
+with them; loading the underlay's prebuilt plugin would mix incompatible C++ layouts.
+
 The `vtd_ros2_bridge` package is local-only and requires the external VTD RDB
 headers during the Docker build. `scripts/build-vtd-image.sh` provides those
 headers to BuildKit as a read-only named context; they are not copied into the

@@ -77,7 +77,7 @@ target_include_directories(vtd_rdb_core
 )
 target_link_libraries(vtd_rdb_core pthread)
 
-add_executable(vtd_bridge_node src/vtd_bridge_node.cpp)
+add_executable(vtd_bridge_node src/vtd_bridge_node.cpp src/hlvtd_traffic_light_mapping.cpp)
 target_include_directories(vtd_bridge_node PRIVATE ${VTD_RDB_INCLUDE_DIR} ${VTD_COMMON_INCLUDE_DIR})
 target_link_libraries(vtd_bridge_node vtd_rdb_core)
 ament_target_dependencies(vtd_bridge_node
@@ -119,6 +119,7 @@ install(DIRECTORY include/ DESTINATION include)
 install(DIRECTORY config launch DESTINATION share/${PROJECT_NAME})
 install(PROGRAMS
   scripts/generate_traffic_light_id_map.py
+  scripts/generate_hlvtd_traffic_light_id_map.py
   scripts/run_bridge_docker.sh
   DESTINATION lib/${PROJECT_NAME}
 )

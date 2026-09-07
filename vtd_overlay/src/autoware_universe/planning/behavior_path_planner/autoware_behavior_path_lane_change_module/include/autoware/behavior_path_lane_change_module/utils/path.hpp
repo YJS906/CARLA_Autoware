@@ -99,6 +99,11 @@ LaneChangePath construct_candidate_path(
   const PathWithLaneId & prepare_segment, const PathWithLaneId & target_lane_reference_path,
   const std::vector<std::vector<int64_t>> & sorted_lane_ids);
 
+// Generates geometry from the measured pose to a point target_distance ahead along the target
+// reference, at the requested crawl speed. Caller checks lane containment and traffic safety.
+std::optional<LaneChangePath> generate_low_speed_path(
+  const CommonDataPtr & data, double target_distance, double velocity);
+
 /**
  * @brief Generates candidate trajectories in the Frenet frame for a lane change maneuver.
  *

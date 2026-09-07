@@ -15,6 +15,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/utils/path_utils.cpp
   src/utils/traffic_light_utils.cpp
   src/utils/path_safety_checker/safety_check.cpp
+  src/utils/path_safety_checker/trajectory_collision.cpp
   src/utils/path_safety_checker/objects_filtering.cpp
   src/utils/path_shifter/path_shifter.cpp
   src/utils/drivable_area_expansion/static_drivable_area.cpp
@@ -74,6 +75,7 @@ if(BUILD_TESTING)
 
   ament_add_ros_isolated_gmock(test_${PROJECT_NAME}_safety_check
     test/test_safety_check.cpp
+    test/test_trajectory_collision.cpp
     test/test_objects_filtering.cpp
   )
 

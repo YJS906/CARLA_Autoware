@@ -250,6 +250,8 @@ struct TransientData
 
   std::vector<std::pair<double, double>> interval_dist_no_lane_change_lines;
   double lane_change_prepare_duration{0.0};
+  // Clearance of the full ego footprint along the current path, measured from ego.
+  double distance_to_static_obstacle{std::numeric_limits<double>::infinity()};
 
   bool is_ego_near_current_terminal_start{false};
   bool is_ego_stuck{false};

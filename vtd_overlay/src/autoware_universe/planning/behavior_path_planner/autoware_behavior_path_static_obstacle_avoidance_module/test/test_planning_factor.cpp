@@ -93,6 +93,15 @@ TEST(PlanningFactorTest, NodeTestWithPredictedObjects)
   auto test_target_node = generateNode(
     {"static_obstacle_avoidance"},
     {"autoware::behavior_path_planner::StaticObstacleAvoidanceModuleManager"});
+  // This fixture contains CAR/BUS labels, while the VTD deployment configuration enables only
+  // UNKNOWN. Declare the test's classification requirements explicitly, without changing VTD.
+  for (const auto & result : test_target_node->set_parameters(
+         {rclcpp::Parameter("avoidance.target_filtering.target_type.car", true),
+          rclcpp::Parameter("avoidance.target_filtering.target_type.bus", true),
+          rclcpp::Parameter("avoidance.safety_check.target_type.car", true),
+          rclcpp::Parameter("avoidance.safety_check.target_type.bus", true)})) {
+    ASSERT_TRUE(result.successful) << result.reason;
+  }
   publishMandatoryTopics(test_manager, test_target_node);
 
   test_manager->publishInput(

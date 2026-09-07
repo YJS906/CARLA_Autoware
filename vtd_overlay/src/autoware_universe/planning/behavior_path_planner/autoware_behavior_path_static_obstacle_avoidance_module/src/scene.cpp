@@ -22,6 +22,7 @@
 #include "autoware/behavior_path_planner_common/utils/traffic_light_utils.hpp"
 #include "autoware/behavior_path_planner_common/utils/utils.hpp"
 #include "autoware/behavior_path_static_obstacle_avoidance_module/debug.hpp"
+#include "autoware/behavior_path_static_obstacle_avoidance_module/static_collision.hpp"
 #include "autoware/behavior_path_static_obstacle_avoidance_module/utils.hpp"
 
 #include <autoware/lanelet2_utils/nn_search.hpp>
@@ -85,7 +86,9 @@ StaticObstacleAvoidanceModule::StaticObstacleAvoidanceModule(
   std::unordered_map<std::string, std::shared_ptr<ObjectsOfInterestMarkerInterface>> &
     objects_of_interest_marker_interface_ptr_map,
   const std::shared_ptr<PlanningFactorInterface> & planning_factor_interface)
-: SceneModuleInterface{name, node, rtc_interface_ptr_map, objects_of_interest_marker_interface_ptr_map, planning_factor_interface},  // NOLINT
+: SceneModuleInterface{
+    name, node, rtc_interface_ptr_map, objects_of_interest_marker_interface_ptr_map,
+    planning_factor_interface},  // NOLINT
   helper_{std::make_shared<AvoidanceHelper>(parameters)},
   parameters_{parameters},
   generator_{parameters}
@@ -400,17 +403,17 @@ void StaticObstacleAvoidanceModule::rebaseToNewReferenceLane(
 
   // The old maneuver is represented by the new reference lane itself. Finish its RTC entries and
   // discard old-frame shift lines before evaluating another obstacle on the new lane.
-  const auto finish_registered_shift = [&](const std::string & direction,
-                                           const RegisteredShiftLineArray & shifts) {
-    for (const auto & shift : shifts) {
-      const auto & rtc = rtc_interface_ptr_map_.at(direction);
-      if (rtc->isRegistered(shift.uuid)) {
-        rtc->updateCooperateStatus(
-          shift.uuid, true, State::SUCCEEDED, std::numeric_limits<double>::lowest(),
-          std::numeric_limits<double>::lowest(), clock_->now());
+  const auto finish_registered_shift =
+    [&](const std::string & direction, const RegisteredShiftLineArray & shifts) {
+      for (const auto & shift : shifts) {
+        const auto & rtc = rtc_interface_ptr_map_.at(direction);
+        if (rtc->isRegistered(shift.uuid)) {
+          rtc->updateCooperateStatus(
+            shift.uuid, true, State::SUCCEEDED, std::numeric_limits<double>::lowest(),
+            std::numeric_limits<double>::lowest(), clock_->now());
+        }
       }
-    }
-  };
+    };
   finish_registered_shift("left", left_shift_array_);
   finish_registered_shift("right", right_shift_array_);
   removeCandidateRTCStatus();
@@ -556,10 +559,8 @@ ObjectData StaticObstacleAvoidanceModule::createObjectData(
   // Keep the signed lateral deviation as the recoverable source of truth for the object side.
   // Some avoidance bookkeeping lines do not retain the active direction metadata.  Losing that
   // metadata must not terminate the whole behavior-planning component container.
-  object_data.to_centerline =
-    calc_lateral_deviation(object_closest_pose, object_pose.position);
-  object_data.direction =
-    object_data.to_centerline > 0.0 ? Direction::LEFT : Direction::RIGHT;
+  object_data.to_centerline = calc_lateral_deviation(object_closest_pose, object_pose.position);
+  object_data.direction = object_data.to_centerline > 0.0 ? Direction::LEFT : Direction::RIGHT;
   object_data.preferred_direction = object_data.direction;
 
   return object_data;
@@ -992,6 +993,58 @@ bool StaticObstacleAvoidanceModule::isSafePath(
 
   if (!has_left_shift && !has_right_shift) {
     return true;
+  }
+
+  if (!planner_data_->dynamic_object || shifted_path.path.points.size() < 2) {
+    return false;
+  }
+  const auto & path = shifted_path.path;
+  const auto & origin = path.points.front().point.pose.position;
+  const double ego_arc =
+    autoware::motion_utils::calcSignedArcLength(path.points, origin, getEgoPosition());
+  double end_arc =
+    ego_arc + std::max(helper_->getFeasibleDecelDistance(0.0), p.vehicle_info.vehicle_length_m);
+  auto lines = path_shifter_.getShiftLines();
+  const auto new_lines =
+    utils::static_obstacle_avoidance::toShiftLineArray(avoid_data_.new_shift_line);
+  lines.insert(lines.end(), new_lines.begin(), new_lines.end());
+  for (const auto & line : lines) {
+    end_arc = std::max(
+      end_arc, autoware::motion_utils::calcSignedArcLength(path.points, origin, line.end.position));
+  }
+  // If the return line is not available yet, still check through the first obstacle being passed.
+  const auto target = std::find_if(
+    avoid_data_.target_objects.begin(), avoid_data_.target_objects.end(),
+    [](const auto & object) { return object.avoid_required && object.longitudinal > 0.0; });
+  if (target != avoid_data_.target_objects.end()) {
+    end_arc = std::max(
+      end_arc,
+      autoware::motion_utils::calcSignedArcLength(
+        path.points, origin, target->object.kinematics.initial_pose_with_covariance.pose.position) +
+        target->length + p.vehicle_info.rear_overhang_m);
+  }
+  UUID collided_object;
+  const auto ego_pose = getEgoPose();
+  if (
+    utils::static_obstacle_avoidance::hasStaticObstacleCollision(
+      path, *planner_data_->dynamic_object, p.vehicle_info, *parameters_, ego_arc, end_arc,
+      &collided_object, &ego_pose)) {
+    const auto & objects = planner_data_->dynamic_object->objects;
+    const auto collision = std::find_if(objects.begin(), objects.end(), [&](const auto & object) {
+      return object.object_id == collided_object && !object.classification.empty();
+    });
+    if (collision != objects.end()) {
+      const auto extended = utils::path_safety_checker::transform(
+        *collision, parameters_->ego_predicted_path_params.time_horizon_for_front_object,
+        parameters_->ego_predicted_path_params.time_resolution);
+      auto collision_debug = utils::path_safety_checker::createObjectDebug(extended);
+      utils::path_safety_checker::updateCollisionCheckDebugMap(
+        debug.collision_check, collision_debug, false);
+    }
+    safe_count_ = 0;
+    RCLCPP_DEBUG(
+      getLogger(), "static avoidance candidate intersects a stationary object footprint");
+    return false;
   }
 
   const auto hysteresis_factor = safe_ ? 1.0 : parameters_->hysteresis_factor_expand_rate;
@@ -1615,9 +1668,10 @@ bool StaticObstacleAvoidanceModule::isValidShiftLine(
       const size_t start_idx = shift_line.start_idx;
       const size_t end_idx = shift_line.end_idx;
 
-      if (is_return_shift(
-            shift_line.start_shift_length, shift_line.end_shift_length,
-            parameters_->lateral_small_shift_threshold)) {
+      if (
+        is_return_shift(
+          shift_line.start_shift_length, shift_line.end_shift_length,
+          parameters_->lateral_small_shift_threshold)) {
         continue;
       }
 
@@ -1699,9 +1753,10 @@ bool StaticObstacleAvoidanceModule::is_operator_approval_required(
   if (is_close_distance_avoidance) {
     return parameters_->policy_close_distance_avoidance == "manual";
   }
-  if (is_return_shift(
-        shift_line.start_shift_length, shift_line.end_shift_length,
-        parameters_->lateral_small_shift_threshold)) {
+  if (
+    is_return_shift(
+      shift_line.start_shift_length, shift_line.end_shift_length,
+      parameters_->lateral_small_shift_threshold)) {
     return false;
   }
 

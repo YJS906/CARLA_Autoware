@@ -36,6 +36,15 @@ void StaticObstacleAvoidanceModuleManager::init(rclcpp::Node * node)
 
   auto p = getParameter(node);
 
+  const auto & unknown = p.object_parameters.at(ObjectClassification::UNKNOWN);
+  RCLCPP_INFO(
+    node->get_logger(),
+    "Static avoidance safety: obstacle_stop UNKNOWN margin=%.2f m, optimization budget=%.2f m, "
+    "effective hard margin=%.2f m, envelope=%.2f m",
+    p.trajectory_collision.class_lateral_margins.at(ObjectClassification::UNKNOWN),
+    p.trajectory_collision.optimization_margin, unknown.lateral_hard_margin,
+    unknown.envelope_buffer_margin);
+
   parameters_ = std::make_shared<AvoidanceParameters>(p);
 }
 
@@ -317,6 +326,8 @@ void StaticObstacleAvoidanceModuleManager::updateModuleParams(
     update_param<bool>(parameters, ns + "enable_misc_marker", p->enable_misc_marker);
   }
 
+  // Runtime avoidance tuning must not lower the startup-loaded downstream safety floor.
+  utils::static_obstacle_avoidance::enforceTrajectorySafetyMargins(*p);
   std::for_each(observers_.begin(), observers_.end(), [&p](const auto & observer) {
     if (!observer.expired()) observer.lock()->updateModuleParams(p);
   });

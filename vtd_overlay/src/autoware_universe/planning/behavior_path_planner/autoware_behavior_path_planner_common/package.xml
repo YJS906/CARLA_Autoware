@@ -43,6 +43,7 @@
   <depend>autoware_lanelet2_extension</depend>
   <depend>autoware_lanelet2_utils</depend>
   <depend>autoware_motion_utils</depend>
+  <depend>autoware_motion_velocity_planner_common</depend>
   <depend>autoware_object_recognition_utils</depend>
   <depend>autoware_objects_of_interest_marker_interface</depend>
   <depend>autoware_perception_msgs</depend>

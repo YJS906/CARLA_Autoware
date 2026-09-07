@@ -21,7 +21,9 @@
 
 #include <rclcpp/rclcpp.hpp>
 
+#include <cstdint>
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 
@@ -45,10 +47,15 @@ public:
 
   bool isExecutionRequested() const override;
 
-  void processOnEntry() override;
-
 protected:
+  // LaneChangeInterface starts in WAITING_APPROVAL. Use that state machine rather than
+  // latching the legacy waitApproval() flag, which does not clear on RTC auto approval.
   void updateRTCStatus(const double start_distance, const double finish_distance) override;
+
+  void update_rtc_status(
+    const double start_distance, const double finish_distance,
+    const std::optional<bool> safe = std::nullopt,
+    const std::optional<uint8_t> state = std::nullopt) override;
 };
 }  // namespace autoware::behavior_path_planner
 

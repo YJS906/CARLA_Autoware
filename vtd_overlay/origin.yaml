@@ -40,6 +40,14 @@ packages:
       - test/test_lane_change_scene.cpp
     source_tree_sha256: d333c74954f6f429be4267102729927de18b9d24bc2fc38bc5d3a0be7efdf8f4
     license: Apache-2.0
+  - package: autoware_behavior_path_external_request_lane_change_module
+    origin_url: https://github.com/autowarefoundation/autoware_universe.git
+    upstream_ref: 0.52.0
+    upstream_commit: 6e477c645efec33f7909095eea684474e97f5e3d
+    repository_path: vtd_overlay/src/autoware_universe/planning/behavior_path_planner/autoware_behavior_path_external_request_lane_change_module
+    reason: Rebuild derived plugin with the modified lane-change C++ ABI.
+    changed_files: []
+    license: Apache-2.0
   - package: autoware_behavior_path_avoidance_by_lane_change_module
     origin_url: https://github.com/autowarefoundation/autoware_universe.git
     upstream_ref: 0.52.0

@@ -45,7 +45,6 @@ def generate_launch_description():
                     config,
                     {
                         "control.host": control_host,
-                        "traffic_light.rdb_host": control_host,
                         "control.port": ParameterValue(
                             control_port, value_type=int
                         ),

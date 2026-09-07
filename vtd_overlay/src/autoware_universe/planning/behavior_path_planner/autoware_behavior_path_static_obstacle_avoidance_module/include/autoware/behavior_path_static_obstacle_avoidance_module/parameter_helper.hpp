@@ -17,6 +17,7 @@
 #include "autoware_utils/ros/parameter.hpp"
 
 #include <autoware/behavior_path_static_obstacle_avoidance_module/data_structs.hpp>
+#include <autoware/behavior_path_static_obstacle_avoidance_module/static_collision.hpp>
 #include <rclcpp/node.hpp>
 
 #include <autoware_perception_msgs/msg/detail/object_classification__struct.hpp>
@@ -32,6 +33,7 @@ using autoware_utils::get_or_declare_parameter;
 AvoidanceParameters getParameter(rclcpp::Node * node)
 {
   AvoidanceParameters p{};
+  p.trajectory_collision = utils::path_safety_checker::loadTrajectoryCollisionParameters(*node);
   // general params
   {
     const std::string ns = "avoidance.";
@@ -459,6 +461,7 @@ AvoidanceParameters getParameter(rclcpp::Node * node)
     p.enable_misc_marker = get_or_declare_parameter<bool>(*node, ns + "enable_misc_marker");
   }
 
+  utils::static_obstacle_avoidance::enforceTrajectorySafetyMargins(p);
   return p;
 }
 }  // namespace autoware::behavior_path_planner

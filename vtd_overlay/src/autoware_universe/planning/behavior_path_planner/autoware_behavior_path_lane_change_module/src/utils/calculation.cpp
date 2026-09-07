@@ -447,8 +447,16 @@ std::pair<double, double> calc_min_max_acceleration(
     std::min(bpp_params.max_acc, lc_params.trajectory.max_longitudinal_acc);
 
   // calculate minimum and maximum acceleration
-  const auto min_acc = calc_minimum_acceleration(
-    lc_params, current_ego_velocity, min_accel_threshold, prepare_duration);
+  const auto min_velocity = std::min(
+    lc_params.trajectory.min_lane_changing_velocity, lc_params.obstacle_min_lane_changing_velocity);
+  const auto min_acc =
+    std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)
+      ? (prepare_duration < eps
+           ? min_accel_threshold
+           : std::clamp(
+               (min_velocity - current_ego_velocity) / prepare_duration, min_accel_threshold, 0.0))
+      : calc_minimum_acceleration(
+          lc_params, current_ego_velocity, min_accel_threshold, prepare_duration);
   const auto max_acc = calc_maximum_acceleration(
     prepare_duration, current_ego_velocity, max_path_velocity, max_accel_threshold);
 
@@ -496,7 +504,10 @@ std::vector<double> calc_lon_acceleration_samples(
   const auto & max_accel = min_max_accel.second;
 
   const auto is_sampling_required = std::invoke([&]() -> bool {
-    if (max_accel < 0.0 || transient_data.is_ego_stuck) return true;
+    if (
+      max_accel < 0.0 || transient_data.is_ego_stuck ||
+      std::isfinite(transient_data.distance_to_static_obstacle))
+      return true;
 
     const auto max_dist_buffer = transient_data.current_dist_buffer.max;
     if (max_dist_buffer > transient_data.dist_to_terminal_end) return true;
@@ -524,7 +535,10 @@ double calc_lane_changing_acceleration(
   if (prepare_longitudinal_acc <= 0.0) {
     const auto & params = common_data_ptr->lc_param_ptr->trajectory;
     const auto lane_changing_acc =
-      common_data_ptr->transient_data.is_ego_near_current_terminal_start
+      // PathShifter uses nonnegative longitudinal acceleration. For obstacle-aware candidates,
+      // decelerate during preparation and hold the resulting speed throughout the lateral shift.
+      (common_data_ptr->transient_data.is_ego_near_current_terminal_start &&
+       !std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle))
         ? prepare_longitudinal_acc * params.lane_changing_decel_factor
         : 0.0;
     return lane_changing_acc;
@@ -561,6 +575,22 @@ double calc_actual_prepare_duration(
 std::vector<double> calc_prepare_durations(const CommonDataPtr & common_data_ptr)
 {
   const auto & lc_param_ptr = common_data_ptr->lc_param_ptr;
+  const auto & data = common_data_ptr->transient_data;
+  if (std::isfinite(data.distance_to_static_obstacle)) {
+    // Sample the remaining clearance budget before ego's footprint reaches the obstacle.
+    // A short prepare phase is useful only if the following lateral maneuver also clears it.
+    const auto max_duration = std::min(
+      data.lane_change_prepare_duration,
+      std::max(0.0, data.distance_to_static_obstacle) /
+        std::max(
+          common_data_ptr->get_ego_speed(), lc_param_ptr->obstacle_min_lane_changing_velocity));
+    std::vector<double> durations{max_duration};
+    for (double duration = max_duration - 0.5; duration > eps; duration -= 0.5) {
+      durations.push_back(duration);
+    }
+    if (max_duration > eps) durations.push_back(0.0);
+    return durations;
+  }
   const auto threshold = common_data_ptr->bpp_param_ptr->base_link2front +
                          lc_param_ptr->min_length_for_turn_signal_activation;
 
@@ -585,10 +615,18 @@ std::vector<PhaseMetrics> calc_prepare_phase_metrics(
   const double max_path_velocity, const double min_length_threshold,
   const double max_length_threshold)
 {
-  const auto & min_lc_vel = common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity;
-  const auto & max_vel = common_data_ptr->bpp_param_ptr->max_vel;
+  const auto min_lc_vel =
+    std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)
+      ? std::min(
+          common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity,
+          common_data_ptr->lc_param_ptr->obstacle_min_lane_changing_velocity)
+      : common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity;
+  const auto max_vel = std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)
+                         ? std::min(common_data_ptr->bpp_param_ptr->max_vel, max_path_velocity)
+                         : common_data_ptr->bpp_param_ptr->max_vel;
 
   std::vector<PhaseMetrics> metrics;
+  if (!std::isfinite(max_vel) || max_vel < min_lc_vel) return metrics;
 
   auto is_skip = [&](const double prepare_length) {
     if (prepare_length > max_length_threshold || prepare_length < min_length_threshold) {
@@ -616,8 +654,23 @@ std::vector<PhaseMetrics> calc_prepare_phase_metrics(
                                      ? 0.0
                                      : ((prepare_velocity - current_velocity) / prepare_duration);
 
-      const auto prepare_length =
-        calc_phase_length(current_velocity, max_vel, prepare_accel, prepare_duration);
+      // Clamping the speed must not manufacture an instantaneous or unreachable acceleration.
+      if (std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)) {
+        const auto & trajectory = common_data_ptr->lc_param_ptr->trajectory;
+        if (
+          (prepare_duration < 1e-3 && std::abs(prepare_velocity - current_velocity) > eps) ||
+          prepare_accel >
+            std::min(trajectory.max_longitudinal_acc, common_data_ptr->bpp_param_ptr->max_acc) +
+              eps ||
+          prepare_accel <
+            std::max(trajectory.min_longitudinal_acc, common_data_ptr->bpp_param_ptr->min_acc) -
+              eps) {
+          continue;
+        }
+      }
+
+      const auto prepare_length = calc_phase_length(
+        current_velocity, std::max(current_velocity, max_vel), prepare_accel, prepare_duration);
 
       if (is_skip(prepare_length)) continue;
 
@@ -633,15 +686,20 @@ std::vector<PhaseMetrics> calc_shift_phase_metrics(
   const CommonDataPtr & common_data_ptr, const double shift_length, const double initial_velocity,
   const double max_path_velocity, const double lon_accel, const double max_length_threshold)
 {
-  const auto & min_lc_vel = common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity;
+  const auto min_lc_vel =
+    std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)
+      ? std::min(
+          common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity,
+          common_data_ptr->lc_param_ptr->obstacle_min_lane_changing_velocity)
+      : common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity;
   const auto & max_vel = common_data_ptr->bpp_param_ptr->max_vel;
 
   // get lateral acceleration range
   const auto [min_lateral_acc, max_lateral_acc] =
     common_data_ptr->lc_param_ptr->trajectory.lat_acc_map.find(initial_velocity);
-  const auto lateral_acc_resolution =
-    std::abs(max_lateral_acc - min_lateral_acc) /
-    common_data_ptr->lc_param_ptr->trajectory.lat_acc_sampling_num;
+  const auto lateral_acc_resolution = std::max(
+    eps, std::abs(max_lateral_acc - min_lateral_acc) /
+           common_data_ptr->lc_param_ptr->trajectory.lat_acc_sampling_num);
 
   std::vector<PhaseMetrics> metrics;
 

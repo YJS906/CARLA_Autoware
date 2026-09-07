@@ -1373,6 +1373,23 @@ The shift points are modified by a filtering process in order to get the expecte
 - Similar gradient removal: Connect two shift points with a straight line, and remove the shift points in between if their shift amount is in the vicinity of the straight line.
 - Remove momentary returns: For shift points that reduce the avoidance width (for going back to the center line), if there is enough long distance in the longitudinal direction, remove them.
 
+## VTD shared downstream clearance
+
+The VTD launch loads the same `obstacle_stop` class margins and trajectory-polygon settings into
+the behavior and motion-velocity planners. Static avoidance uses the shared downstream swept
+footprint implementation; final candidate checks include the actual ego pose and its convergence
+to the path. Virtual side-corridor probes instead use the pose on the probed corridor.
+
+At parameter loading/update, each object's hard clearance is bounded below by its downstream
+nominal margin plus `trajectory_safety.optimization_margin` (default 0.15 m). Envelope buffers are
+bounded below by the nominal margin. Larger configured margins and existing soft margins remain.
+For VTD UNKNOWN objects this gives a 0.30 m envelope and at least 0.45 m hard clearance; the old
+negative hard margin cannot reduce the clearance. This changes the calculated shift, not the
+maximum allowed shift or road-boundary constraints. It does not disable downstream stopping.
+
+Avoidance necessity intersects the object's signed lateral interval with the ego corridor, so an
+object straddling the centerline cannot be discarded solely because its center changes sides.
+
 ## Appendix: All parameters
 
 Location of the avoidance specific parameter configuration file: `src/autoware/launcher/planning_launch/config/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/autoware_behavior_path_static_obstacle_avoidance_module/static_obstacle_avoidance.param.yaml`.

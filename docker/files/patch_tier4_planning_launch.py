@@ -165,6 +165,18 @@ def patch_behavior_planning() -> None:
     )
 
 
+def patch_lane_change_trajectory_safety() -> None:
+    path = ROOT / "scenario_planning/lane_driving/behavior_planning/behavior_planning.launch.xml"
+    replace_once(
+        path,
+        '        <param from="$(var behavior_path_planner_common_param_path)"/>\n',
+        '        <param from="$(var behavior_path_planner_common_param_path)"/>\n'
+        '        <!-- Share swept-footprint and stop margins with motion velocity planning. -->\n'
+        '        <param from="$(var motion_velocity_planner_param_path)"/>\n'
+        '        <param from="$(var motion_velocity_planner_obstacle_stop_module_param_path)"/>\n',
+    )
+
+
 def patch_motion_planning() -> None:
     path = ROOT / "scenario_planning/lane_driving/motion_planning/motion_planning.launch.xml"
     replace_once(
@@ -228,6 +240,7 @@ def main() -> None:
     patch_scenario_planning()
     patch_lane_driving()
     patch_behavior_planning()
+    patch_lane_change_trajectory_safety()
     patch_motion_planning()
     validate_patched_launch_files()
 

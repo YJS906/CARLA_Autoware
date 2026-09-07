@@ -18,6 +18,11 @@
         disable_near_goal: true
         stop_at_boundary: false
 
+      # Local search when an obstacle limits preparation or an approved path is blocked.
+      obstacle_aware:
+        min_lane_changing_velocity: 1.0 # [m/s] attainable preparation speed floor
+        stopped_replan_velocity: 1.5 # [m/s] ceiling after a stopped-pose replan
+
       # trajectory generation
       trajectory:
         max_prepare_duration: 3.0

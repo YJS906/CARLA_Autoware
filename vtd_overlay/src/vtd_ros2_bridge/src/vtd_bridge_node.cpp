@@ -1,10 +1,13 @@
 #include "vtd_ros2_bridge/hlvtd_control_client.hpp"
+#include "vtd_ros2_bridge/hlvtd_traffic_light_mapping.hpp"
+#include "vtd_ros2_bridge/msg/vtd_ego_state.hpp"
+#include "vtd_ros2_bridge/msg/vtd_object_array.hpp"
+#include "vtd_ros2_bridge/msg/vtd_traffic_light_array.hpp"
 #include "vtd_ros2_bridge/rdb_codec.hpp"
-#include "vtd_ros2_bridge/rdb_tcp_client.hpp"
-
-#include <VtdToolkit/viRDBIcd.h>
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
+#include <rclcpp/rclcpp.hpp>
+
 #include <autoware_adapi_v1_msgs/msg/localization_initialization_state.hpp>
 #include <autoware_control_msgs/msg/control.hpp>
 #include <autoware_internal_planning_msgs/msg/path_with_lane_id.hpp>
@@ -30,19 +33,16 @@
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <nav_msgs/msg/occupancy_grid.hpp>
 #include <nav_msgs/msg/odometry.hpp>
-#include <rclcpp/rclcpp.hpp>
 #include <rosgraph_msgs/msg/clock.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <sensor_msgs/msg/point_field.hpp>
-#include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
-#include <tf2_ros/transform_broadcaster.h>
 
-#include "vtd_ros2_bridge/msg/vtd_ego_state.hpp"
-#include "vtd_ros2_bridge/msg/vtd_object_array.hpp"
-#include "vtd_ros2_bridge/msg/vtd_traffic_light_array.hpp"
+#include <VtdToolkit/viRDBIcd.h>
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2_ros/transform_broadcaster.h>
 
 #include <algorithm>
 #include <array>
@@ -59,14 +59,17 @@
 #include <mutex>
 #include <optional>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
 
-namespace vtd_ros2_bridge {
+namespace vtd_ros2_bridge
+{
 
-namespace {
+namespace
+{
 
 using autoware_adapi_v1_msgs::msg::LocalizationInitializationState;
 using autoware_control_msgs::msg::Control;
@@ -103,358 +106,313 @@ using vtd_ros2_bridge::msg::VtdTrafficLight;
 using vtd_ros2_bridge::msg::VtdTrafficLightArray;
 
 constexpr double kNanosecondsPerSecond = 1.0e9;
-constexpr double kEgoTfForwardOffsetM = 1.0;
+// Keep the verified rear-axle reference while restoring the API-only transport.
+// A display-only forward offset adds offset * yaw_rate to odometry lateral velocity.
+constexpr double kEgoTfForwardOffsetM = 0.0;
 constexpr std::size_t kApiMaxObjects = 30U;
 
-builtin_interfaces::msg::Time sim_stamp(const double seconds) {
+builtin_interfaces::msg::Time sim_stamp(const double seconds)
+{
   builtin_interfaces::msg::Time stamp;
-  const auto nanoseconds = static_cast<std::int64_t>(
-      std::llround(std::max(0.0, seconds) * kNanosecondsPerSecond));
+  const auto nanoseconds =
+    static_cast<std::int64_t>(std::llround(std::max(0.0, seconds) * kNanosecondsPerSecond));
   stamp.sec = static_cast<std::int32_t>(nanoseconds / 1000000000LL);
   stamp.nanosec = static_cast<std::uint32_t>(nanoseconds % 1000000000LL);
   return stamp;
 }
 
-std::array<float, 3> autoware_box_center(const VtdObject &object) {
+// Historical API-only compatibility convention. The 1109-byte record has no
+// RDB geo.offX/offY/offZ; this is a geometric assumption, not measured metadata.
+std::array<float, 3> autoware_box_center(const VtdObject & object)
+{
   const float half_length = 0.5F * object.length;
-  return {object.x + half_length * std::cos(object.heading),
-          object.y + half_length * std::sin(object.heading),
-          object.z + 0.5F * object.height};
+  return {
+    object.x + half_length * std::cos(object.heading),
+    object.y + half_length * std::sin(object.heading), object.z + 0.5F * object.height};
 }
 
-std::string rdb_name(const char *data, const std::size_t capacity) {
+std::string rdb_name(const char * data, const std::size_t capacity)
+{
   return std::string(data, ::strnlen(data, capacity));
 }
 
 template <typename T>
-void append_value(DiagnosticStatus &status, const std::string &key,
-                  const T &value) {
+void append_value(DiagnosticStatus & status, const std::string & key, const T & value)
+{
   KeyValue item;
   item.key = key;
   item.value = std::to_string(value);
   status.values.push_back(std::move(item));
 }
 
-void append_value(DiagnosticStatus &status, const std::string &key,
-                  const std::string &value) {
+void append_value(DiagnosticStatus & status, const std::string & key, const std::string & value)
+{
   KeyValue item;
   item.key = key;
   item.value = value;
   status.values.push_back(std::move(item));
 }
 
-} // namespace
+}  // namespace
 
-class VtdBridgeNode : public rclcpp::Node {
+class VtdBridgeNode : public rclcpp::Node
+{
 public:
-  VtdBridgeNode() : Node("vtd_bridge") {
+  VtdBridgeNode() : Node("vtd_bridge")
+  {
     control_host_ = declare_parameter<std::string>("control.host", "127.0.0.1");
     control_port_ = declare_parameter<int>("control.port", 9910);
-    control_reconnect_delay_ms_ =
-        declare_parameter<int>("control.reconnect_delay_ms", 1000);
-    control_send_period_ms_ =
-        declare_parameter<int>("control.send_period_ms", 40);
-    traffic_light_rdb_host_ = declare_parameter<std::string>(
-        "traffic_light.rdb_host", control_host_);
-    traffic_light_rdb_port_ =
-        declare_parameter<int>("traffic_light.rdb_port", RDB_DEFAULT_PORT);
-    traffic_light_rdb_max_age_sec_ = declare_parameter<double>(
-        "traffic_light.rdb_max_age_sec", 1.0);
+    control_reconnect_delay_ms_ = declare_parameter<int>("control.reconnect_delay_ms", 1000);
+    control_send_period_ms_ = declare_parameter<int>("control.send_period_ms", 40);
     ego_player_id_ = declare_parameter<int>("ego_player_id", -1);
     ego_name_ = declare_parameter<std::string>("ego_name", "Ego");
     camera_id_ = declare_parameter<int>("camera_id", -1);
     lidar_emitter_id_ = declare_parameter<int>("lidar_emitter_id", -1);
     shm_key_ = declare_parameter<int>("shm.key", 0);
-    shm_check_mask_ =
-        declare_parameter<int>("shm.check_mask", RDB_SHM_BUFFER_FLAG_IG);
+    shm_check_mask_ = declare_parameter<int>("shm.check_mask", RDB_SHM_BUFFER_FLAG_IG);
     optix_return_index_ = declare_parameter<int>("shm.optix_return_index", 0);
     optix_camera_id_ = declare_parameter<int>("shm.optix_camera_id", -1);
 
     map_frame_ = declare_parameter<std::string>("map_frame", "map");
     base_frame_ = declare_parameter<std::string>("base_frame", "base_link");
     lidar_frame_ = declare_parameter<std::string>("lidar_frame", "lidar_link");
-    camera_frame_ =
-        declare_parameter<std::string>("camera_frame", "camera_optical_link");
+    camera_frame_ = declare_parameter<std::string>("camera_frame", "camera_optical_link");
     map_offset_x_ = declare_parameter<double>("map_offset.x", 0.0);
     map_offset_y_ = declare_parameter<double>("map_offset.y", 0.0);
     map_offset_z_ = declare_parameter<double>("map_offset.z", 0.0);
     map_yaw_offset_ = declare_parameter<double>("map_offset.yaw", 0.0);
     flatten_z_ = declare_parameter<bool>("flatten_z", true);
     publish_clock_ = declare_parameter<bool>("publish_clock", true);
-    anchor_clock_to_system_time_ =
-        declare_parameter<bool>("clock.anchor_to_system_time", true);
-    clock_reset_threshold_sec_ =
-        declare_parameter<double>("clock.reset_threshold_sec", 0.5);
-    clock_restart_gap_sec_ =
-        declare_parameter<double>("clock.restart_gap_sec", 0.05);
+    anchor_clock_to_system_time_ = declare_parameter<bool>("clock.anchor_to_system_time", true);
+    clock_reset_threshold_sec_ = declare_parameter<double>("clock.reset_threshold_sec", 0.5);
+    clock_restart_gap_sec_ = declare_parameter<double>("clock.restart_gap_sec", 0.05);
     publish_tf_ = declare_parameter<bool>("publish_map_to_base_tf", true);
-    flip_image_vertical_ =
-        declare_parameter<bool>("flip_image_vertical", false);
+    flip_image_vertical_ = declare_parameter<bool>("flip_image_vertical", false);
 
-    control_timeout_sec_ =
-        declare_parameter<double>("control_timeout_sec", 0.5);
-    watchdog_deceleration_ =
-        declare_parameter<double>("watchdog_deceleration", -2.0);
-    min_acceleration_ =
-        declare_parameter<double>("limits.min_acceleration", -6.0);
-    max_acceleration_ =
-        declare_parameter<double>("limits.max_acceleration", 3.0);
-    max_steering_angle_ =
-        declare_parameter<double>("limits.max_steering_angle", 0.7);
-    report_autonomous_mode_ =
-        declare_parameter<bool>("report_autonomous_mode", true);
-    report_commanded_gear_ =
-        declare_parameter<bool>("report_commanded_gear", true);
-    report_commanded_lights_ =
-        declare_parameter<bool>("report_commanded_lights", true);
-    default_autoware_gear_ =
-        declare_parameter<int>("default_autoware_gear", GearCommand::DRIVE);
+    control_timeout_sec_ = declare_parameter<double>("control_timeout_sec", 0.5);
+    watchdog_deceleration_ = declare_parameter<double>("watchdog_deceleration", -2.0);
+    min_acceleration_ = declare_parameter<double>("limits.min_acceleration", -6.0);
+    max_acceleration_ = declare_parameter<double>("limits.max_acceleration", 3.0);
+    max_steering_angle_ = declare_parameter<double>("limits.max_steering_angle", 0.7);
+    report_autonomous_mode_ = declare_parameter<bool>("report_autonomous_mode", true);
+    report_commanded_gear_ = declare_parameter<bool>("report_commanded_gear", true);
+    report_commanded_lights_ = declare_parameter<bool>("report_commanded_lights", true);
+    default_autoware_gear_ = declare_parameter<int>("default_autoware_gear", GearCommand::DRIVE);
     command_.gear = default_autoware_gear_;
 
-    publish_empty_occupancy_grid_ =
-        declare_parameter<bool>("publish_empty_occupancy_grid", true);
+    publish_empty_occupancy_grid_ = declare_parameter<bool>("publish_empty_occupancy_grid", true);
     publish_empty_obstacle_pointcloud_ =
-        declare_parameter<bool>("publish_empty_obstacle_pointcloud", true);
+      declare_parameter<bool>("publish_empty_obstacle_pointcloud", true);
     perception_object_max_range_m_ =
-        declare_parameter<double>("perception.object_max_range_m", 200.0);
-    occupancy_grid_resolution_ =
-        declare_parameter<double>("occupancy_grid.resolution", 0.5);
+      declare_parameter<double>("perception.object_max_range_m", 200.0);
+    occupancy_grid_resolution_ = declare_parameter<double>("occupancy_grid.resolution", 0.5);
     occupancy_grid_width_ = declare_parameter<int>("occupancy_grid.width", 400);
-    occupancy_grid_height_ =
-        declare_parameter<int>("occupancy_grid.height", 400);
+    occupancy_grid_height_ = declare_parameter<int>("occupancy_grid.height", 400);
     occupancy_grid_period_sec_ =
-        declare_parameter<double>("occupancy_grid.publish_period_sec", 0.5);
+      declare_parameter<double>("occupancy_grid.publish_period_sec", 0.5);
 
     camera_fx_ = declare_parameter<double>("camera.fallback_fx", 0.0);
     camera_fy_ = declare_parameter<double>("camera.fallback_fy", 0.0);
     camera_cx_ = declare_parameter<double>("camera.fallback_cx", 0.0);
     camera_cy_ = declare_parameter<double>("camera.fallback_cy", 0.0);
 
-    const auto odometry_topic = declare_parameter<std::string>(
-        "topics.odometry", "/localization/kinematic_state");
-    const auto acceleration_topic = declare_parameter<std::string>(
-        "topics.acceleration", "/localization/acceleration");
-    const auto localization_initialization_state_topic =
-        declare_parameter<std::string>(
-            "topics.localization_initialization_state",
-            "/localization/initialization_state");
-    const auto occupancy_grid_topic = declare_parameter<std::string>(
-        "topics.occupancy_grid", "/perception/occupancy_grid_map/map");
+    const auto odometry_topic =
+      declare_parameter<std::string>("topics.odometry", "/localization/kinematic_state");
+    const auto acceleration_topic =
+      declare_parameter<std::string>("topics.acceleration", "/localization/acceleration");
+    const auto localization_initialization_state_topic = declare_parameter<std::string>(
+      "topics.localization_initialization_state", "/localization/initialization_state");
+    const auto occupancy_grid_topic =
+      declare_parameter<std::string>("topics.occupancy_grid", "/perception/occupancy_grid_map/map");
     const auto obstacle_pointcloud_topic = declare_parameter<std::string>(
-        "topics.obstacle_pointcloud",
-        "/perception/obstacle_segmentation/pointcloud");
-    const auto pointcloud_topic = declare_parameter<std::string>(
-        "topics.pointcloud", "/sensing/lidar/top/pointcloud_raw");
-    const auto image_topic = declare_parameter<std::string>(
-        "topics.image", "/sensing/camera/camera0/image_raw");
-    const auto camera_info_topic = declare_parameter<std::string>(
-        "topics.camera_info", "/sensing/camera/camera0/camera_info");
+      "topics.obstacle_pointcloud", "/perception/obstacle_segmentation/pointcloud");
+    const auto pointcloud_topic =
+      declare_parameter<std::string>("topics.pointcloud", "/sensing/lidar/top/pointcloud_raw");
+    const auto image_topic =
+      declare_parameter<std::string>("topics.image", "/sensing/camera/camera0/image_raw");
+    const auto camera_info_topic =
+      declare_parameter<std::string>("topics.camera_info", "/sensing/camera/camera0/camera_info");
     const auto ego_state_topic =
-        declare_parameter<std::string>("topics.ego_state", "/vtd/ego_state");
-    const auto objects_topic =
-        declare_parameter<std::string>("topics.objects", "/vtd/objects");
-    const auto traffic_lights_topic = declare_parameter<std::string>(
-        "topics.traffic_lights", "/vtd/traffic_lights");
+      declare_parameter<std::string>("topics.ego_state", "/vtd/ego_state");
+    const auto objects_topic = declare_parameter<std::string>("topics.objects", "/vtd/objects");
+    const auto traffic_lights_topic =
+      declare_parameter<std::string>("topics.traffic_lights", "/vtd/traffic_lights");
     const auto autoware_traffic_lights_topic = declare_parameter<std::string>(
-        "topics.autoware_traffic_lights", "/simulator/input/traffic_signals");
+      "topics.autoware_traffic_lights", "/simulator/input/traffic_signals");
     const auto road_speed_limit_source_topic = declare_parameter<std::string>(
-        "topics.road_speed_limit_source",
-        "/planning/scenario_planning/lane_driving/behavior_planning/"
-        "path_with_lane_id");
+      "topics.road_speed_limit_source",
+      "/planning/scenario_planning/lane_driving/behavior_planning/"
+      "path_with_lane_id");
     const auto rviz_velocity_limit_topic = declare_parameter<std::string>(
-        "topics.rviz_velocity_limit",
-        "/planning/scenario_planning/applied_velocity_limit");
+      "topics.rviz_velocity_limit", "/planning/scenario_planning/applied_velocity_limit");
     const auto default_traffic_light_id_map =
-        ament_index_cpp::get_package_share_directory("vtd_ros2_bridge") +
-        "/config/traffic_light_id_map.csv";
-    traffic_light_id_map_file_ = declare_parameter<std::string>(
-        "traffic_light.id_map_file", default_traffic_light_id_map);
+      ament_index_cpp::get_package_share_directory("vtd_ros2_bridge") +
+      "/config/hlvtd_traffic_light_id_map.csv";
+    traffic_light_id_map_file_ =
+      declare_parameter<std::string>("traffic_light.id_map_file", default_traffic_light_id_map);
     publish_unmapped_traffic_light_ids_ =
-        declare_parameter<bool>("traffic_light.publish_unmapped_ids", false);
-    const auto control_topic = declare_parameter<std::string>(
-        "topics.control_command", "/control/command/control_cmd");
-    const auto gear_topic = declare_parameter<std::string>(
-        "topics.gear_command", "/control/command/gear_cmd");
-    const auto turn_indicators_topic =
-        declare_parameter<std::string>("topics.turn_indicators_command",
-                                       "/control/command/turn_indicators_cmd");
+      declare_parameter<bool>("traffic_light.publish_unmapped_ids", false);
+    if (publish_unmapped_traffic_light_ids_) {
+      throw std::invalid_argument(
+        "traffic_light.publish_unmapped_ids must be false: 9910 approach IDs are not map group "
+        "IDs");
+    }
+    const auto control_topic =
+      declare_parameter<std::string>("topics.control_command", "/control/command/control_cmd");
+    const auto gear_topic =
+      declare_parameter<std::string>("topics.gear_command", "/control/command/gear_cmd");
+    const auto turn_indicators_topic = declare_parameter<std::string>(
+      "topics.turn_indicators_command", "/control/command/turn_indicators_cmd");
     const auto hazard_lights_topic = declare_parameter<std::string>(
-        "topics.hazard_lights_command", "/control/command/hazard_lights_cmd");
+      "topics.hazard_lights_command", "/control/command/hazard_lights_cmd");
 
     odometry_pub_ = create_publisher<Odometry>(odometry_topic, rclcpp::QoS(10));
-    acceleration_pub_ = create_publisher<AccelWithCovarianceStamped>(
-        acceleration_topic, rclcpp::QoS(10));
-    localization_initialization_state_pub_ =
-        create_publisher<LocalizationInitializationState>(
-            localization_initialization_state_topic,
-            rclcpp::QoS(1).transient_local().reliable());
+    acceleration_pub_ =
+      create_publisher<AccelWithCovarianceStamped>(acceleration_topic, rclcpp::QoS(10));
+    localization_initialization_state_pub_ = create_publisher<LocalizationInitializationState>(
+      localization_initialization_state_topic, rclcpp::QoS(1).transient_local().reliable());
     occupancy_grid_pub_ = create_publisher<OccupancyGrid>(
-        occupancy_grid_topic, rclcpp::QoS(1).transient_local().reliable());
-    obstacle_pointcloud_pub_ = create_publisher<PointCloud2>(
-        obstacle_pointcloud_topic, rclcpp::QoS(1).reliable());
-    velocity_pub_ = create_publisher<VelocityReport>(
-        "/vehicle/status/velocity_status", rclcpp::QoS(10));
-    steering_pub_ = create_publisher<SteeringReport>(
-        "/vehicle/status/steering_status", rclcpp::QoS(10));
-    gear_pub_ = create_publisher<GearReport>("/vehicle/status/gear_status",
-                                             rclcpp::QoS(10));
+      occupancy_grid_topic, rclcpp::QoS(1).transient_local().reliable());
+    obstacle_pointcloud_pub_ =
+      create_publisher<PointCloud2>(obstacle_pointcloud_topic, rclcpp::QoS(1).reliable());
+    velocity_pub_ =
+      create_publisher<VelocityReport>("/vehicle/status/velocity_status", rclcpp::QoS(10));
+    steering_pub_ =
+      create_publisher<SteeringReport>("/vehicle/status/steering_status", rclcpp::QoS(10));
+    gear_pub_ = create_publisher<GearReport>("/vehicle/status/gear_status", rclcpp::QoS(10));
     turn_indicators_pub_ = create_publisher<TurnIndicatorsReport>(
-        "/vehicle/status/turn_indicators_status", rclcpp::QoS(10));
-    hazard_lights_pub_ = create_publisher<HazardLightsReport>(
-        "/vehicle/status/hazard_lights_status", rclcpp::QoS(10));
-    control_mode_pub_ = create_publisher<ControlModeReport>(
-        "/vehicle/status/control_mode", rclcpp::QoS(10));
-    pointcloud_pub_ = create_publisher<PointCloud2>(pointcloud_topic,
-                                                    rclcpp::SensorDataQoS());
+      "/vehicle/status/turn_indicators_status", rclcpp::QoS(10));
+    hazard_lights_pub_ =
+      create_publisher<HazardLightsReport>("/vehicle/status/hazard_lights_status", rclcpp::QoS(10));
+    control_mode_pub_ =
+      create_publisher<ControlModeReport>("/vehicle/status/control_mode", rclcpp::QoS(10));
+    pointcloud_pub_ = create_publisher<PointCloud2>(pointcloud_topic, rclcpp::SensorDataQoS());
     image_pub_ = create_publisher<Image>(image_topic, rclcpp::SensorDataQoS());
-    camera_info_pub_ = create_publisher<CameraInfo>(camera_info_topic,
-                                                    rclcpp::SensorDataQoS());
-    ego_state_pub_ =
-        create_publisher<VtdEgoState>(ego_state_topic, rclcpp::QoS(10));
-    objects_pub_ =
-        create_publisher<VtdObjectArray>(objects_topic, rclcpp::QoS(10));
+    camera_info_pub_ = create_publisher<CameraInfo>(camera_info_topic, rclcpp::SensorDataQoS());
+    ego_state_pub_ = create_publisher<VtdEgoState>(ego_state_topic, rclcpp::QoS(10));
+    objects_pub_ = create_publisher<VtdObjectArray>(objects_topic, rclcpp::QoS(10));
     detected_objects_pub_ = create_publisher<DetectedObjects>(
-        "/perception/object_recognition/detection/objects",
-        rclcpp::QoS(1).reliable());
-    traffic_lights_pub_ = create_publisher<VtdTrafficLightArray>(
-        traffic_lights_topic, rclcpp::QoS(10));
-    autoware_traffic_lights_pub_ = create_publisher<TrafficLightGroupArray>(
-        autoware_traffic_lights_topic, rclcpp::QoS(10));
+      "/perception/object_recognition/detection/objects", rclcpp::QoS(1).reliable());
+    traffic_lights_pub_ =
+      create_publisher<VtdTrafficLightArray>(traffic_lights_topic, rclcpp::QoS(10));
+    autoware_traffic_lights_pub_ =
+      create_publisher<TrafficLightGroupArray>(autoware_traffic_lights_topic, rclcpp::QoS(10));
     rviz_velocity_limit_pub_ = create_publisher<VelocityLimit>(
-        rviz_velocity_limit_topic, rclcpp::QoS(1).transient_local().reliable());
-    diagnostics_pub_ =
-        create_publisher<DiagnosticArray>("/diagnostics", rclcpp::QoS(10));
+      rviz_velocity_limit_topic, rclcpp::QoS(1).transient_local().reliable());
+    diagnostics_pub_ = create_publisher<DiagnosticArray>("/diagnostics", rclcpp::QoS(10));
     if (publish_clock_) {
-      clock_pub_ = create_publisher<rosgraph_msgs::msg::Clock>("/clock",
-                                                               rclcpp::QoS(10));
+      clock_pub_ = create_publisher<rosgraph_msgs::msg::Clock>("/clock", rclcpp::QoS(10));
     }
     if (publish_tf_) {
       tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
     }
 
     control_sub_ = create_subscription<Control>(
-        control_topic, rclcpp::QoS(10),
-        [this](const Control::SharedPtr message) { on_control(*message); });
+      control_topic, rclcpp::QoS(10),
+      [this](const Control::SharedPtr message) { on_control(*message); });
     gear_sub_ = create_subscription<GearCommand>(
-        gear_topic, rclcpp::QoS(10),
-        [this](const GearCommand::SharedPtr message) { on_gear(*message); });
+      gear_topic, rclcpp::QoS(10),
+      [this](const GearCommand::SharedPtr message) { on_gear(*message); });
     turn_indicators_sub_ = create_subscription<TurnIndicatorsCommand>(
-        turn_indicators_topic, rclcpp::QoS(10),
-        [this](const TurnIndicatorsCommand::SharedPtr message) {
-          on_turn_indicators(*message);
-        });
+      turn_indicators_topic, rclcpp::QoS(10),
+      [this](const TurnIndicatorsCommand::SharedPtr message) { on_turn_indicators(*message); });
     hazard_lights_sub_ = create_subscription<HazardLightsCommand>(
-        hazard_lights_topic, rclcpp::QoS(10),
-        [this](const HazardLightsCommand::SharedPtr message) {
-          on_hazard_lights(*message);
-        });
+      hazard_lights_topic, rclcpp::QoS(10),
+      [this](const HazardLightsCommand::SharedPtr message) { on_hazard_lights(*message); });
     road_speed_limit_sub_ = create_subscription<PathWithLaneId>(
-        road_speed_limit_source_topic, rclcpp::QoS(1).reliable(),
-        [this](const PathWithLaneId::ConstSharedPtr message) {
-          if (message->points.empty()) {
+      road_speed_limit_source_topic, rclcpp::QoS(1).reliable(),
+      [this](const PathWithLaneId::ConstSharedPtr message) {
+        if (message->points.empty()) {
+          return;
+        }
+        double ego_x = 0.0;
+        double ego_y = 0.0;
+        {
+          std::lock_guard<std::mutex> lock(ego_pose_mutex_);
+          if (!ego_pose_received_) {
             return;
           }
-          double ego_x = 0.0;
-          double ego_y = 0.0;
-          {
-            std::lock_guard<std::mutex> lock(ego_pose_mutex_);
-            if (!ego_pose_received_) {
-              return;
-            }
-            ego_x = ego_x_;
-            ego_y = ego_y_;
-          }
-          const auto squared_distance = [ego_x, ego_y](const auto &point) {
-            const auto dx = point.point.pose.position.x - ego_x;
-            const auto dy = point.point.pose.position.y - ego_y;
-            return dx * dx + dy * dy;
-          };
-          const auto nearest = std::min_element(
-              message->points.begin(), message->points.end(),
-              [&squared_distance](const auto &lhs, const auto &rhs) {
-                return squared_distance(lhs) < squared_distance(rhs);
+          ego_x = ego_x_;
+          ego_y = ego_y_;
+        }
+        const auto squared_distance = [ego_x, ego_y](const auto & point) {
+          const auto dx = point.point.pose.position.x - ego_x;
+          const auto dy = point.point.pose.position.y - ego_y;
+          return dx * dx + dy * dy;
+        };
+        const auto nearest = std::min_element(
+          message->points.begin(), message->points.end(),
+          [&squared_distance](const auto & lhs, const auto & rhs) {
+            return squared_distance(lhs) < squared_distance(rhs);
+          });
+        const auto & current_lane_ids = nearest->lane_ids;
+        float road_speed_limit = 0.0F;
+        for (const auto & point : message->points) {
+          const bool same_lane =
+            current_lane_ids.empty() ||
+            std::any_of(
+              point.lane_ids.begin(), point.lane_ids.end(),
+              [&current_lane_ids](const auto lane_id) {
+                return std::find(current_lane_ids.begin(), current_lane_ids.end(), lane_id) !=
+                       current_lane_ids.end();
               });
-          const auto &current_lane_ids = nearest->lane_ids;
-          float road_speed_limit = 0.0F;
-          for (const auto &point : message->points) {
-            const bool same_lane =
-                current_lane_ids.empty() ||
-                std::any_of(point.lane_ids.begin(), point.lane_ids.end(),
-                            [&current_lane_ids](const auto lane_id) {
-                              return std::find(current_lane_ids.begin(),
-                                               current_lane_ids.end(),
-                                               lane_id) !=
-                                     current_lane_ids.end();
-                            });
-            if (same_lane) {
-              road_speed_limit =
-                  std::max(road_speed_limit,
-                           std::abs(point.point.longitudinal_velocity_mps));
-            }
+          if (same_lane) {
+            road_speed_limit =
+              std::max(road_speed_limit, std::abs(point.point.longitudinal_velocity_mps));
           }
-          if (road_speed_limit <= 0.0F) {
-            return;
-          }
-          VelocityLimit output;
-          output.stamp = message->header.stamp;
-          output.max_velocity = road_speed_limit;
-          output.sender = "behavior_path/current_road_speed_limit";
-          rviz_velocity_limit_pub_->publish(output);
-        });
+        }
+        if (road_speed_limit <= 0.0F) {
+          return;
+        }
+        VelocityLimit output;
+        output.stamp = message->header.stamp;
+        output.max_velocity = road_speed_limit;
+        output.sender = "behavior_path/current_road_speed_limit";
+        rviz_velocity_limit_pub_->publish(output);
+      });
 
     control_client_ = std::make_unique<HlvtdControlClient>(
-        control_host_, control_port_,
-        [this](const bool connected) {
-          on_hlvtd_connection(connected);
-          RCLCPP_INFO(get_logger(), "HLVTD DATA/CONTROL channel %s (%s:%d)",
-                      connected ? "connected" : "disconnected",
-                      control_host_.c_str(), control_port_);
-        },
-        std::chrono::milliseconds(std::max(1, control_reconnect_delay_ms_)),
-        [this](const HlvtdParticipantData &data) {
-          on_hlvtd_participant_data(data);
-        });
-    traffic_light_rdb_client_ = std::make_unique<RdbTcpClient>(
-        "traffic-light", traffic_light_rdb_host_, traffic_light_rdb_port_,
-        [this](const std::uint8_t *data, const std::size_t size) {
-          on_traffic_light_rdb_message(data, size);
-        },
-        [this](const bool connected) {
-          RCLCPP_INFO(get_logger(),
-                      "VTD RDB traffic-light channel %s (%s:%d)",
-                      connected ? "connected" : "disconnected",
-                      traffic_light_rdb_host_.c_str(), traffic_light_rdb_port_);
-        });
+      control_host_, control_port_,
+      [this](const bool connected) {
+        on_hlvtd_connection(connected);
+        RCLCPP_INFO(
+          get_logger(), "HLVTD DATA/CONTROL channel %s (%s:%d)",
+          connected ? "connected" : "disconnected", control_host_.c_str(), control_port_);
+      },
+      std::chrono::milliseconds(std::max(1, control_reconnect_delay_ms_)),
+      [this](const HlvtdParticipantData & data) { on_hlvtd_participant_data(data); });
 
-    diagnostics_timer_ = create_wall_timer(std::chrono::seconds(1),
-                                           [this]() { publish_diagnostics(); });
+    diagnostics_timer_ =
+      create_wall_timer(std::chrono::seconds(1), [this]() { publish_diagnostics(); });
     control_send_timer_ = create_wall_timer(
-        std::chrono::milliseconds(std::max(1, control_send_period_ms_)),
-        [this]() { send_control(); });
+      std::chrono::milliseconds(std::max(1, control_send_period_ms_)),
+      [this]() { send_control(); });
 
     load_traffic_light_id_map();
 
-    traffic_light_rdb_client_->start();
     control_client_->start();
 
-    RCLCPP_INFO(get_logger(),
-                "VTD bridge ready: HLVTD DATA/CONTROL=%s:%d, LiDAR=UDP/9912, "
-                "supplemental traffic lights=RDB %s:%d",
-                control_host_.c_str(), control_port_,
-                traffic_light_rdb_host_.c_str(), traffic_light_rdb_port_);
+    RCLCPP_INFO(
+      get_logger(),
+      "VTD bridge ready: HLVTD DATA/CONTROL=%s:%d, LiDAR=UDP/9912, "
+      "raw RDB TCP disabled",
+      control_host_.c_str(), control_port_);
+    RCLCPP_WARN(
+      get_logger(),
+      "API-only compatibility: steering status is command-based, not "
+      "measured feedback; object centers use the historical half-length convention");
   }
 
-  ~VtdBridgeNode() override {
-    if (traffic_light_rdb_client_) {
-      traffic_light_rdb_client_->stop();
-    }
+  ~VtdBridgeNode() override
+  {
     if (control_client_) {
       control_client_->stop();
     }
   }
 
 private:
-  struct CommandState {
+  struct CommandState
+  {
     bool received{false};
     float acceleration{0.0F};
     float steering_angle{0.0F};
@@ -464,25 +422,29 @@ private:
     std::chrono::steady_clock::time_point last_received{};
   };
 
-  struct VehicleState {
+  struct VehicleState
+  {
     float steering_angle{0.0F};
     std::uint8_t vtd_gear{RDB_GEAR_BOX_POS_D};
     std::uint32_t light_mask{RDB_VEHICLE_LIGHT_OFF};
   };
 
-  struct TimeUpdate {
+  struct TimeUpdate
+  {
     double ros_time{};
     bool session_reset{};
     double previous_raw_time{};
   };
 
-  struct ParticipantTimeUpdate {
+  struct ParticipantTimeUpdate
+  {
     double ros_time{};
     double dt{};
     bool derivative_valid{};
   };
 
-  struct ParticipantMotionState {
+  struct ParticipantMotionState
+  {
     bool valid{};
     bool velocity_valid{};
     double x{};
@@ -494,19 +456,18 @@ private:
     double heading_rate{};
   };
 
-  static double system_time_seconds() {
-    return std::chrono::duration<double>(
-               std::chrono::system_clock::now().time_since_epoch())
-        .count();
+  static double system_time_seconds()
+  {
+    return std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch())
+      .count();
   }
 
-  TimeUpdate update_time_mapping(const double raw_sim_time,
-                                 const std::uint32_t frame_no) {
+  TimeUpdate update_time_mapping(const double raw_sim_time, const std::uint32_t frame_no)
+  {
     std::lock_guard<std::mutex> lock(time_mutex_);
     if (!time_mapping_initialized_) {
-      const double offset = anchor_clock_to_system_time_
-                                ? system_time_seconds() - raw_sim_time
-                                : 0.0;
+      const double offset =
+        anchor_clock_to_system_time_ ? system_time_seconds() - raw_sim_time : 0.0;
       sim_time_offset_.store(offset);
       last_raw_state_sim_time_ = raw_sim_time;
       last_ros_state_time_ = raw_sim_time + offset;
@@ -517,16 +478,15 @@ private:
 
     const double previous_raw_time = last_raw_state_sim_time_;
     const bool time_moved_back =
-        raw_sim_time + clock_reset_threshold_sec_ < last_raw_state_sim_time_;
+      raw_sim_time + clock_reset_threshold_sec_ < last_raw_state_sim_time_;
     const bool frame_moved_back = frame_no < last_raw_state_frame_;
     const bool session_reset = time_moved_back || frame_moved_back;
     if (session_reset) {
       const double minimum_next_time =
-          last_ros_state_time_ + std::max(clock_restart_gap_sec_, 1.0e-6);
-      const double restart_anchor =
-          anchor_clock_to_system_time_
-              ? std::max(minimum_next_time, system_time_seconds())
-              : minimum_next_time;
+        last_ros_state_time_ + std::max(clock_restart_gap_sec_, 1.0e-6);
+      const double restart_anchor = anchor_clock_to_system_time_
+                                      ? std::max(minimum_next_time, system_time_seconds())
+                                      : minimum_next_time;
       sim_time_offset_.store(restart_anchor - raw_sim_time);
     }
 
@@ -540,15 +500,18 @@ private:
     return {ros_time, session_reset, previous_raw_time};
   }
 
-  builtin_interfaces::msg::Time message_stamp(const double raw_sim_time) const {
+  builtin_interfaces::msg::Time message_stamp(const double raw_sim_time) const
+  {
     return sim_stamp(raw_sim_time + sim_time_offset_.load());
   }
 
-  static double normalize_angle(const double angle) {
+  static double normalize_angle(const double angle)
+  {
     return std::atan2(std::sin(angle), std::cos(angle));
   }
 
-  void on_hlvtd_connection(const bool connected) {
+  void on_hlvtd_connection(const bool connected)
+  {
     if (connected) {
       return;
     }
@@ -558,122 +521,48 @@ private:
     state_frame_received_ = false;
   }
 
-  ParticipantTimeUpdate next_participant_time() {
+  ParticipantTimeUpdate next_participant_time()
+  {
     const auto steady_now = std::chrono::steady_clock::now();
     std::lock_guard<std::mutex> lock(time_mutex_);
     if (!participant_time_initialized_) {
       const double minimum_next =
-          time_mapping_initialized_
-              ? last_ros_state_time_ + std::max(clock_restart_gap_sec_, 1.0e-6)
-              : 0.0;
-      last_ros_state_time_ = anchor_clock_to_system_time_
-                                 ? std::max(minimum_next, system_time_seconds())
-                                 : minimum_next;
+        time_mapping_initialized_ ? last_ros_state_time_ + std::max(clock_restart_gap_sec_, 1.0e-6)
+                                  : 0.0;
+      last_ros_state_time_ =
+        anchor_clock_to_system_time_ ? std::max(minimum_next, system_time_seconds()) : minimum_next;
       last_participant_receive_time_ = steady_now;
       participant_time_initialized_ = true;
       time_mapping_initialized_ = true;
       return {last_ros_state_time_, 0.0, false};
     }
 
-    const double dt = std::chrono::duration<double>(
-                          steady_now - last_participant_receive_time_)
-                          .count();
+    const double dt =
+      std::chrono::duration<double>(steady_now - last_participant_receive_time_).count();
     last_participant_receive_time_ = steady_now;
     if (std::isfinite(dt) && dt > 0.0) {
       last_ros_state_time_ += dt;
     }
-    return {last_ros_state_time_, dt,
-            std::isfinite(dt) && dt >= 1.0e-4 && dt <= 1.0};
+    return {last_ros_state_time_, dt, std::isfinite(dt) && dt >= 1.0e-4 && dt <= 1.0};
   }
 
-  static bool finite_ego(const HlvtdParticipantData &data) {
-    return std::isfinite(data.ego_x) && std::isfinite(data.ego_y) &&
-           std::isfinite(data.ego_z) && std::isfinite(data.ego_heading) &&
-           std::isfinite(data.ego_pitch) && std::isfinite(data.ego_roll);
+  static bool finite_ego(const HlvtdParticipantData & data)
+  {
+    return std::isfinite(data.ego_x) && std::isfinite(data.ego_y) && std::isfinite(data.ego_z) &&
+           std::isfinite(data.ego_heading) && std::isfinite(data.ego_pitch) &&
+           std::isfinite(data.ego_roll);
   }
 
-  static bool finite_object(const HlvtdParticipantObject &object) {
-    return std::isfinite(object.x) && std::isfinite(object.y) &&
-           std::isfinite(object.z) && std::isfinite(object.heading) &&
-           std::isfinite(object.speed) && std::isfinite(object.length) &&
-           std::isfinite(object.width) && std::isfinite(object.height);
+  static bool finite_object(const HlvtdParticipantObject & object)
+  {
+    return std::isfinite(object.x) && std::isfinite(object.y) && std::isfinite(object.z) &&
+           std::isfinite(object.heading) && std::isfinite(object.speed) &&
+           std::isfinite(object.length) && std::isfinite(object.width) &&
+           std::isfinite(object.height);
   }
 
-  void on_traffic_light_rdb_message(const std::uint8_t *data,
-                                    const std::size_t size) {
-    if (size < sizeof(RDB_MSG_HDR_t)) {
-      ++parse_errors_;
-      return;
-    }
-
-    bool contains_traffic_lights = false;
-    std::string error;
-    const bool valid = parse_rdb_message(
-        data, size,
-        [this, &contains_traffic_lights](const RDB_MSG_HDR_t &,
-                                         const RdbEntryView &entry) {
-          if (entry.header->pkgId != RDB_PKG_ID_TRAFFIC_LIGHT) {
-            return;
-          }
-          contains_traffic_lights = true;
-          handle_traffic_lights(entry);
-        },
-        &error);
-    if (!valid) {
-      ++parse_errors_;
-      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
-                           "Rejected traffic-light RDB message: %s",
-                           error.c_str());
-      return;
-    }
-    if (contains_traffic_lights) {
-      std::lock_guard<std::mutex> lock(api_mutex_);
-      last_rdb_traffic_light_update_ = std::chrono::steady_clock::now();
-      rdb_traffic_light_received_ = true;
-      ++rdb_traffic_light_frames_;
-    }
-  }
-
-  std::vector<VtdTrafficLight> current_traffic_lights(
-      const HlvtdParticipantTrafficLight &fallback) {
-    std::vector<VtdTrafficLight> traffic_lights;
-    const auto now = std::chrono::steady_clock::now();
-    {
-      std::lock_guard<std::mutex> lock(api_mutex_);
-      const bool cache_is_fresh =
-          rdb_traffic_light_received_ &&
-          std::chrono::duration<double>(now - last_rdb_traffic_light_update_)
-                  .count() <= traffic_light_rdb_max_age_sec_;
-      if (cache_is_fresh && !traffic_lights_by_id_.empty()) {
-        traffic_lights.reserve(traffic_lights_by_id_.size());
-        for (const auto &[id, traffic_light] : traffic_lights_by_id_) {
-          (void)id;
-          traffic_lights.push_back(traffic_light);
-        }
-      }
-    }
-
-    if (!traffic_lights.empty()) {
-      traffic_light_source_.store(1);
-      return traffic_lights;
-    }
-
-    traffic_light_source_.store(0);
-    if (fallback.id == 0) {
-      return traffic_lights;
-    }
-    if (fallback.state > 6U) {
-      ++parse_errors_;
-      return traffic_lights;
-    }
-    VtdTrafficLight light;
-    light.id = fallback.id;
-    light.state = fallback.state;
-    traffic_lights.push_back(light);
-    return traffic_lights;
-  }
-
-  void on_hlvtd_participant_data(const HlvtdParticipantData &data) {
+  void on_hlvtd_participant_data(const HlvtdParticipantData & data)
+  {
     if (!finite_ego(data)) {
       ++parse_errors_;
       return;
@@ -696,14 +585,15 @@ private:
 
     std::vector<VtdObject> objects;
     objects.reserve(kHlvtdObjectCount);
-    for (const auto &source : data.objects) {
+    for (const auto & source : data.objects) {
       // The fixed array has no count field. An all-zero ID denotes an unused
       // slot in the supplied participant interface.
       if (source.id == 0U) {
         continue;
       }
-      if (!finite_object(source) || source.length <= 0.0F ||
-          source.width <= 0.0F || source.height <= 0.0F) {
+      if (
+        !finite_object(source) || source.length <= 0.0F || source.width <= 0.0F ||
+        source.height <= 0.0F) {
         ++objects_dropped_;
         continue;
       }
@@ -721,12 +611,24 @@ private:
       objects.push_back(object);
     }
 
-    auto traffic_lights = current_traffic_lights(data.traffic_light);
+    std::vector<VtdTrafficLight> traffic_lights;
+    last_traffic_light_id_.store(data.traffic_light.id);
+    last_traffic_light_state_.store(data.traffic_light.state);
+    if (data.traffic_light.id != 0) {
+      if (data.traffic_light.state <= 6U) {
+        VtdTrafficLight light;
+        light.id = data.traffic_light.id;
+        light.state = data.traffic_light.state;
+        traffic_lights.push_back(light);
+      } else {
+        ++parse_errors_;
+      }
+    }
     publish_api_arrays(stamp, std::move(objects), std::move(traffic_lights));
   }
 
-  void reset_session_state(const double previous_raw_time,
-                           const double new_raw_time) {
+  void reset_session_state(const double previous_raw_time, const double new_raw_time)
+  {
     selected_ego_id_.store(-1);
     last_occupancy_grid_sim_time_.store(-1.0);
     last_api_publish_frame_.store(std::numeric_limits<std::uint32_t>::max());
@@ -755,25 +657,26 @@ private:
       traffic_lights_by_id_.clear();
     }
     ++session_resets_;
-    RCLCPP_WARN(get_logger(),
-                "VTD session reset detected (sim time %.3f -> %.3f); "
-                "preserving monotonic ROS time and clearing bridge state",
-                previous_raw_time, new_raw_time);
+    RCLCPP_WARN(
+      get_logger(),
+      "VTD session reset detected (sim time %.3f -> %.3f); "
+      "preserving monotonic ROS time and clearing bridge state",
+      previous_raw_time, new_raw_time);
   }
 
-  void on_rdb_message(const std::string &channel, const std::uint8_t *data,
-                      const std::size_t size) {
+  void on_rdb_message(
+    const std::string & channel, const std::uint8_t * data, const std::size_t size)
+  {
     if (size < sizeof(RDB_MSG_HDR_t)) {
       ++parse_errors_;
       return;
     }
-    const auto *message = reinterpret_cast<const RDB_MSG_HDR_t *>(data);
+    const auto * message = reinterpret_cast<const RDB_MSG_HDR_t *>(data);
     if (channel == "state/control") {
       const bool first_state_frame = !state_frame_received_.exchange(true);
       const auto previous_frame = last_frame_no_.exchange(message->frameNo);
       if (first_state_frame || previous_frame != message->frameNo) {
-        const auto time_update =
-            update_time_mapping(message->simTime, message->frameNo);
+        const auto time_update = update_time_mapping(message->simTime, message->frameNo);
         if (time_update.session_reset) {
           reset_session_state(time_update.previous_raw_time, message->simTime);
         }
@@ -792,67 +695,67 @@ private:
     std::string error;
     std::size_t custom_optix_index = 0U;
     const bool valid = parse_rdb_message(
-        data, size,
-        [this, &channel, &custom_optix_index](const RDB_MSG_HDR_t &header,
-                                              const RdbEntryView &entry) {
-          handle_entry(channel, header, entry, custom_optix_index);
-        },
-        &error);
+      data, size,
+      [this, &channel, &custom_optix_index](
+        const RDB_MSG_HDR_t & header, const RdbEntryView & entry) {
+        handle_entry(channel, header, entry, custom_optix_index);
+      },
+      &error);
     if (!valid) {
       ++parse_errors_;
-      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
-                           "Rejected RDB message: %s", error.c_str());
+      RCLCPP_WARN_THROTTLE(
+        get_logger(), *get_clock(), 5000, "Rejected RDB message: %s", error.c_str());
     }
   }
 
-  void handle_entry(const std::string &channel, const RDB_MSG_HDR_t &message,
-                    const RdbEntryView &entry,
-                    std::size_t &custom_optix_index) {
+  void handle_entry(
+    const std::string & channel, const RDB_MSG_HDR_t & message, const RdbEntryView & entry,
+    std::size_t & custom_optix_index)
+  {
     switch (entry.header->pkgId) {
-    case RDB_PKG_ID_OBJECT_STATE:
-      handle_object_states(message, entry);
-      break;
-    case RDB_PKG_ID_TRAFFIC_LIGHT:
-      handle_traffic_lights(entry);
-      break;
-    case RDB_PKG_ID_VEHICLE_SYSTEMS:
-      handle_vehicle_systems(entry);
-      break;
-    case RDB_PKG_ID_DRIVETRAIN:
-      handle_drivetrain(entry);
-      break;
-    case RDB_PKG_ID_CAMERA:
-      handle_camera_config(entry);
-      break;
-    case RDB_PKG_ID_IMAGE:
-      handle_images(message, entry);
-      break;
-    case RDB_PKG_ID_RAY:
-      handle_rays(message, entry);
-      break;
-    case RDB_PKG_ID_CUSTOM_OPTIX_START:
-      handle_optix_lidar(message, entry, custom_optix_index);
-      break;
-    case RDB_PKG_ID_END_OF_FRAME:
-      if (channel == "state/control") {
-        const auto previous_api_frame =
-            last_api_publish_frame_.exchange(message.frameNo);
-        if (previous_api_frame != message.frameNo) {
-          publish_api_arrays(message);
+      case RDB_PKG_ID_OBJECT_STATE:
+        handle_object_states(message, entry);
+        break;
+      case RDB_PKG_ID_TRAFFIC_LIGHT:
+        handle_traffic_lights(entry);
+        break;
+      case RDB_PKG_ID_VEHICLE_SYSTEMS:
+        handle_vehicle_systems(entry);
+        break;
+      case RDB_PKG_ID_DRIVETRAIN:
+        handle_drivetrain(entry);
+        break;
+      case RDB_PKG_ID_CAMERA:
+        handle_camera_config(entry);
+        break;
+      case RDB_PKG_ID_IMAGE:
+        handle_images(message, entry);
+        break;
+      case RDB_PKG_ID_RAY:
+        handle_rays(message, entry);
+        break;
+      case RDB_PKG_ID_CUSTOM_OPTIX_START:
+        handle_optix_lidar(message, entry, custom_optix_index);
+        break;
+      case RDB_PKG_ID_END_OF_FRAME:
+        if (channel == "state/control") {
+          const auto previous_api_frame = last_api_publish_frame_.exchange(message.frameNo);
+          if (previous_api_frame != message.frameNo) {
+            publish_api_arrays(message);
+          }
+          const auto previous_control_frame = last_control_queue_frame_.exchange(message.frameNo);
+          if (previous_control_frame != message.frameNo) {
+            send_control();
+          }
         }
-        const auto previous_control_frame =
-            last_control_queue_frame_.exchange(message.frameNo);
-        if (previous_control_frame != message.frameNo) {
-          send_control();
-        }
-      }
-      break;
-    default:
-      break;
+        break;
+      default:
+        break;
     }
   }
 
-  bool is_ego(const RDB_OBJECT_STATE_BASE_t &object) {
+  bool is_ego(const RDB_OBJECT_STATE_BASE_t & object)
+  {
     if (ego_player_id_ >= 0) {
       return object.id == static_cast<std::uint32_t>(ego_player_id_);
     }
@@ -868,27 +771,25 @@ private:
       return false;
     }
     int expected = -1;
-    selected_ego_id_.compare_exchange_strong(expected,
-                                             static_cast<int>(object.id));
+    selected_ego_id_.compare_exchange_strong(expected, static_cast<int>(object.id));
     return selected_ego_id_.load() == static_cast<int>(object.id);
   }
 
-  void handle_object_states(const RDB_MSG_HDR_t &message,
-                            const RdbEntryView &entry) {
-    if (entry.header->elementSize < sizeof(RDB_OBJECT_STATE_BASE_t) ||
-        entry.header->elementSize == 0U) {
+  void handle_object_states(const RDB_MSG_HDR_t & message, const RdbEntryView & entry)
+  {
+    if (
+      entry.header->elementSize < sizeof(RDB_OBJECT_STATE_BASE_t) ||
+      entry.header->elementSize == 0U) {
       return;
     }
     const auto count = entry.data_size / entry.header->elementSize;
     for (std::size_t index = 0; index < count; ++index) {
-      const auto *bytes = entry.data + index * entry.header->elementSize;
-      const auto *base =
-          reinterpret_cast<const RDB_OBJECT_STATE_BASE_t *>(bytes);
-      const bool extended =
-          (entry.header->flags & RDB_PKG_FLAG_EXTENDED) != 0U &&
-          entry.header->elementSize >= sizeof(RDB_OBJECT_STATE_t);
-      const auto *full = reinterpret_cast<const RDB_OBJECT_STATE_t *>(bytes);
-      const auto *extension = extended ? &full->ext : nullptr;
+      const auto * bytes = entry.data + index * entry.header->elementSize;
+      const auto * base = reinterpret_cast<const RDB_OBJECT_STATE_BASE_t *>(bytes);
+      const bool extended = (entry.header->flags & RDB_PKG_FLAG_EXTENDED) != 0U &&
+                            entry.header->elementSize >= sizeof(RDB_OBJECT_STATE_t);
+      const auto * full = reinterpret_cast<const RDB_OBJECT_STATE_t *>(bytes);
+      const auto * extension = extended ? &full->ext : nullptr;
       if (is_ego(*base)) {
         publish_ego_state(message, *base, extension);
         ++ego_updates_;
@@ -907,8 +808,8 @@ private:
       object.height = base->geo.dimZ;
       if (extension) {
         const auto speed = body_vector(extension->speed, base->pos.h);
-        object.speed = static_cast<float>(std::sqrt(
-            speed[0] * speed[0] + speed[1] * speed[1] + speed[2] * speed[2]));
+        object.speed = static_cast<float>(
+          std::sqrt(speed[0] * speed[0] + speed[1] * speed[1] + speed[2] * speed[2]));
       }
       {
         std::lock_guard<std::mutex> lock(api_mutex_);
@@ -921,46 +822,47 @@ private:
     }
   }
 
-  static std::uint8_t api_traffic_light_state(const std::uint8_t phase) {
+  static std::uint8_t api_traffic_light_state(const std::uint8_t phase)
+  {
     switch (phase) {
-    case RDB_TRLIGHT_PHASE_STOP:
-      return 1U; // red
-    case RDB_TRLIGHT_PHASE_STOP_ATTN:
-    case RDB_TRLIGHT_PHASE_ATTN:
-      return 2U; // yellow
-    case RDB_TRLIGHT_PHASE_GO:
-      return 3U; // green
-    case RDB_TRLIGHT_PHASE_GO_EXCL:
-      return 5U; // green + left arrow
-    case RDB_TRLIGHT_PHASE_BLINK:
-      return 6U; // flashing
-    default:
-      return 0U; // off/unassigned/unknown
+      case RDB_TRLIGHT_PHASE_STOP:
+        return 1U;  // red
+      case RDB_TRLIGHT_PHASE_STOP_ATTN:
+      case RDB_TRLIGHT_PHASE_ATTN:
+        return 2U;  // yellow
+      case RDB_TRLIGHT_PHASE_GO:
+        return 3U;  // green
+      case RDB_TRLIGHT_PHASE_GO_EXCL:
+        return 5U;  // green + left arrow
+      case RDB_TRLIGHT_PHASE_BLINK:
+        return 6U;  // flashing
+      default:
+        return 0U;  // off/unassigned/unknown
     }
   }
 
-  static std::uint8_t
-  api_traffic_light_state_from_signal(const std::int32_t signal_type,
-                                      const std::uint32_t state_mask) {
+  static std::uint8_t api_traffic_light_state_from_signal(
+    const std::int32_t signal_type, const std::uint32_t state_mask)
+  {
     if (state_mask == 0U) {
       return 0U;
     }
     switch (signal_type) {
-    case 1000020:
-      return 1U; // red lamp
-    case 1000008:
-      return 2U; // amber lamp
-    case 1000012:
-      return 3U; // green lamp or green arrow
-    default:
-      return 0U;
+      case 1000020:
+        return 1U;  // red lamp
+      case 1000008:
+        return 2U;  // amber lamp
+      case 1000012:
+        return 3U;  // green lamp or green arrow
+      default:
+        return 0U;
     }
   }
 
-  static std::uint8_t
-  active_traffic_light_phase(const RDB_TRAFFIC_LIGHT_BASE_t &light,
-                             const RDB_TRAFFIC_LIGHT_PHASE_t *phases,
-                             const std::size_t phase_count) {
+  static std::uint8_t active_traffic_light_phase(
+    const RDB_TRAFFIC_LIGHT_BASE_t & light, const RDB_TRAFFIC_LIGHT_PHASE_t * phases,
+    const std::size_t phase_count)
+  {
     if (phases == nullptr || phase_count == 0U || !std::isfinite(light.state)) {
       return RDB_TRLIGHT_PHASE_UNKNOWN;
     }
@@ -968,8 +870,7 @@ private:
     float phase_end = 0.0F;
     std::uint8_t last_valid_phase = RDB_TRLIGHT_PHASE_UNKNOWN;
     for (std::size_t index = 0; index < phase_count; ++index) {
-      if (!std::isfinite(phases[index].duration) ||
-          phases[index].duration <= 0.0F) {
+      if (!std::isfinite(phases[index].duration) || phases[index].duration <= 0.0F) {
         continue;
       }
       last_valid_phase = phases[index].type;
@@ -981,9 +882,11 @@ private:
     return last_valid_phase;
   }
 
-  void handle_traffic_lights(const RdbEntryView &entry) {
-    if (entry.header->elementSize < sizeof(RDB_TRAFFIC_LIGHT_BASE_t) ||
-        entry.header->elementSize == 0U) {
+  void handle_traffic_lights(const RdbEntryView & entry)
+  {
+    if (
+      entry.header->elementSize < sizeof(RDB_TRAFFIC_LIGHT_BASE_t) ||
+      entry.header->elementSize == 0U) {
       return;
     }
 
@@ -991,202 +894,89 @@ private:
     const auto count = entry.data_size / entry.header->elementSize;
     traffic_lights.reserve(count);
     for (std::size_t index = 0; index < count; ++index) {
-      const auto *bytes = entry.data + index * entry.header->elementSize;
-      const auto *light =
-          reinterpret_cast<const RDB_TRAFFIC_LIGHT_BASE_t *>(bytes);
-      const RDB_TRAFFIC_LIGHT_PHASE_t *phases = nullptr;
+      const auto * bytes = entry.data + index * entry.header->elementSize;
+      const auto * light = reinterpret_cast<const RDB_TRAFFIC_LIGHT_BASE_t *>(bytes);
+      const RDB_TRAFFIC_LIGHT_PHASE_t * phases = nullptr;
       std::size_t phase_count = 0U;
-      if ((entry.header->flags & RDB_PKG_FLAG_EXTENDED) != 0U &&
-          entry.header->elementSize >= sizeof(RDB_TRAFFIC_LIGHT_t)) {
-        const auto *full = reinterpret_cast<const RDB_TRAFFIC_LIGHT_t *>(bytes);
-        const auto phase_capacity =
-            (entry.header->elementSize - sizeof(RDB_TRAFFIC_LIGHT_t)) /
-            sizeof(RDB_TRAFFIC_LIGHT_PHASE_t);
+      if (
+        (entry.header->flags & RDB_PKG_FLAG_EXTENDED) != 0U &&
+        entry.header->elementSize >= sizeof(RDB_TRAFFIC_LIGHT_t)) {
+        const auto * full = reinterpret_cast<const RDB_TRAFFIC_LIGHT_t *>(bytes);
+        const auto phase_capacity = (entry.header->elementSize - sizeof(RDB_TRAFFIC_LIGHT_t)) /
+                                    sizeof(RDB_TRAFFIC_LIGHT_PHASE_t);
         phase_count = std::min<std::size_t>(
-            full->ext.noPhases,
-            std::min<std::size_t>(full->ext.dataSize /
-                                      sizeof(RDB_TRAFFIC_LIGHT_PHASE_t),
-                                  phase_capacity));
-        phases = reinterpret_cast<const RDB_TRAFFIC_LIGHT_PHASE_t *>(
-            bytes + sizeof(RDB_TRAFFIC_LIGHT_t));
+          full->ext.noPhases,
+          std::min<std::size_t>(
+            full->ext.dataSize / sizeof(RDB_TRAFFIC_LIGHT_PHASE_t), phase_capacity));
+        phases =
+          reinterpret_cast<const RDB_TRAFFIC_LIGHT_PHASE_t *>(bytes + sizeof(RDB_TRAFFIC_LIGHT_t));
       }
 
       VtdTrafficLight item;
       item.id = light->id;
       const auto signal_type = traffic_light_signal_types_.find(light->id);
       item.state =
-          signal_type != traffic_light_signal_types_.end()
-              ? api_traffic_light_state_from_signal(signal_type->second,
-                                                    light->stateMask)
-              : api_traffic_light_state(
-                    active_traffic_light_phase(*light, phases, phase_count));
+        signal_type != traffic_light_signal_types_.end()
+          ? api_traffic_light_state_from_signal(signal_type->second, light->stateMask)
+          : api_traffic_light_state(active_traffic_light_phase(*light, phases, phase_count));
       traffic_lights.push_back(item);
     }
 
     std::lock_guard<std::mutex> lock(api_mutex_);
-    for (auto &traffic_light : traffic_lights) {
-      traffic_lights_by_id_.insert_or_assign(traffic_light.id,
-                                             std::move(traffic_light));
+    for (auto & traffic_light : traffic_lights) {
+      traffic_lights_by_id_.insert_or_assign(traffic_light.id, std::move(traffic_light));
     }
   }
 
-  void load_traffic_light_id_map() {
+  void load_traffic_light_id_map()
+  {
     std::ifstream input(traffic_light_id_map_file_);
     if (!input) {
-      RCLCPP_ERROR(get_logger(), "Cannot open traffic-light ID map: %s",
-                   traffic_light_id_map_file_.c_str());
-      return;
+      throw std::runtime_error(
+        "Cannot open 9910 traffic-light ID map: " + traffic_light_id_map_file_);
     }
-
-    std::string line;
+    traffic_light_group_ids_ = load_hlvtd_traffic_light_id_map(input);
     std::size_t pair_count = 0U;
-    while (std::getline(input, line)) {
-      if (line.empty() || line.front() == '#') {
-        continue;
-      }
-      std::istringstream row(line);
-      std::string vtd_id_text;
-      std::string group_id_text;
-      std::string signal_type_text;
-      std::string signal_subtype_text;
-      if (!std::getline(row, vtd_id_text, ',') ||
-          !std::getline(row, group_id_text, ',')) {
-        continue;
-      }
-      std::getline(row, signal_type_text, ',');
-      std::getline(row, signal_subtype_text);
-      try {
-        const auto vtd_id = static_cast<std::int32_t>(std::stol(vtd_id_text));
-        const auto group_id =
-            static_cast<std::int64_t>(std::stoll(group_id_text));
-        traffic_light_group_ids_[vtd_id].push_back(group_id);
-        if (!signal_type_text.empty()) {
-          traffic_light_signal_types_[vtd_id] =
-              static_cast<std::int32_t>(std::stol(signal_type_text));
-        }
-        if (!signal_subtype_text.empty()) {
-          traffic_light_shapes_[vtd_id] = shape_from_signal_subtype(
-              static_cast<std::int32_t>(std::stol(signal_subtype_text)));
-        }
-        ++pair_count;
-      } catch (const std::exception &) {
-        // This also skips the CSV header.
-      }
-    }
-    for (auto &[vtd_id, group_ids] : traffic_light_group_ids_) {
-      (void)vtd_id;
-      std::sort(group_ids.begin(), group_ids.end());
-      group_ids.erase(std::unique(group_ids.begin(), group_ids.end()),
-                      group_ids.end());
+    for (const auto & [api_id, group_ids] : traffic_light_group_ids_) {
+      (void)api_id;
+      pair_count += group_ids.size();
     }
     RCLCPP_INFO(
-        get_logger(),
-        "Loaded %zu VTD-to-Autoware traffic-light ID pairs for %zu VTD signals",
-        pair_count, traffic_light_group_ids_.size());
-  }
-
-  static std::uint8_t shape_from_signal_subtype(const std::int32_t subtype) {
-    switch (subtype) {
-    case 10:
-      return TrafficLightElement::LEFT_ARROW;
-    case 20:
-      return TrafficLightElement::RIGHT_ARROW;
-    case 30:
-      return TrafficLightElement::UP_ARROW;
-    case 40:
-      return TrafficLightElement::UP_LEFT_ARROW;
-    case 50:
-      return TrafficLightElement::UP_RIGHT_ARROW;
-    case 60:
-      return TrafficLightElement::DOWN_LEFT_ARROW;
-    case 70:
-      return TrafficLightElement::DOWN_RIGHT_ARROW;
-    case 80:
-    case 90:
-      return TrafficLightElement::DOWN_ARROW;
-    default:
-      return TrafficLightElement::CIRCLE;
-    }
-  }
-
-  static std::vector<TrafficLightElement>
-  autoware_traffic_light_elements(const std::uint8_t state,
-                                  const std::uint8_t signal_shape) {
-    const auto element = [](const std::uint8_t color, const std::uint8_t shape,
-                            const std::uint8_t status) {
-      TrafficLightElement result;
-      result.color = color;
-      result.shape = shape;
-      result.status = status;
-      result.confidence = 1.0F;
-      return result;
-    };
-    switch (state) {
-    case 1U:
-      return {element(TrafficLightElement::RED, signal_shape,
-                      TrafficLightElement::SOLID_ON)};
-    case 2U:
-      return {element(TrafficLightElement::AMBER, signal_shape,
-                      TrafficLightElement::SOLID_ON)};
-    case 3U:
-    case 4U:
-    case 5U: {
-      auto elements =
-          std::vector{element(TrafficLightElement::GREEN, signal_shape,
-                              TrafficLightElement::SOLID_ON)};
-      if (signal_shape == TrafficLightElement::LEFT_ARROW ||
-          signal_shape == TrafficLightElement::UP_LEFT_ARROW) {
-        elements.push_back(element(TrafficLightElement::GREEN,
-                                   TrafficLightElement::CIRCLE,
-                                   TrafficLightElement::SOLID_ON));
-      }
-      return elements;
-    }
-    case 6U:
-      return {element(TrafficLightElement::AMBER, TrafficLightElement::CIRCLE,
-                      TrafficLightElement::FLASHING)};
-    default:
-      return {element(TrafficLightElement::UNKNOWN,
-                      TrafficLightElement::UNKNOWN,
-                      TrafficLightElement::SOLID_OFF)};
-    }
+      get_logger(), "Loaded %zu Autoware traffic-light groups for %zu HLVTD 9910 approach IDs",
+      pair_count, traffic_light_group_ids_.size());
   }
 
   void publish_autoware_traffic_lights(
-      const builtin_interfaces::msg::Time &stamp,
-      const std::vector<VtdTrafficLight> &traffic_lights) {
+    const builtin_interfaces::msg::Time & stamp,
+    const std::vector<VtdTrafficLight> & traffic_lights)
+  {
     std::map<std::int64_t, TrafficLightGroup> groups;
     std::uint64_t unmapped_count = 0U;
-    for (const auto &light : traffic_lights) {
+    for (const auto & light : traffic_lights) {
       std::vector<std::int64_t> group_ids;
       const auto found = traffic_light_group_ids_.find(light.id);
       if (found != traffic_light_group_ids_.end()) {
         group_ids = found->second;
       } else {
         ++unmapped_count;
-        if (publish_unmapped_traffic_light_ids_) {
-          group_ids.push_back(light.id);
-        }
+        RCLCPP_WARN_THROTTLE(
+          get_logger(), *get_clock(), 5000,
+          "HLVTD 9910 traffic-light ID %d has no mapped stop-line group; not publishing a raw ID",
+          light.id);
       }
-      const auto shape = traffic_light_shapes_.count(light.id) != 0U
-                             ? traffic_light_shapes_.at(light.id)
-                             : TrafficLightElement::CIRCLE;
       for (const auto group_id : group_ids) {
-        auto &group = groups[group_id];
+        auto & group = groups[group_id];
         group.traffic_light_group_id = group_id;
         if (light.state == 0U) {
           continue;
         }
-        const auto elements =
-            autoware_traffic_light_elements(light.state, shape);
-        for (const auto &candidate : elements) {
-          const auto duplicate =
-              std::find_if(group.elements.begin(), group.elements.end(),
-                           [&candidate](const auto &existing) {
-                             return existing.color == candidate.color &&
-                                    existing.shape == candidate.shape &&
-                                    existing.status == candidate.status;
-                           });
+        const auto elements = hlvtd_traffic_light_elements(light.state);
+        for (const auto & candidate : elements) {
+          const auto duplicate = std::find_if(
+            group.elements.begin(), group.elements.end(), [&candidate](const auto & existing) {
+              return existing.color == candidate.color && existing.shape == candidate.shape &&
+                     existing.status == candidate.status;
+            });
           if (duplicate == group.elements.end()) {
             group.elements.push_back(candidate);
           }
@@ -1197,11 +987,10 @@ private:
     TrafficLightGroupArray output;
     output.stamp = stamp;
     output.traffic_light_groups.reserve(groups.size());
-    for (auto &[group_id, group] : groups) {
+    for (auto & [group_id, group] : groups) {
       (void)group_id;
       if (group.elements.empty()) {
-        group.elements =
-            autoware_traffic_light_elements(0U, TrafficLightElement::UNKNOWN);
+        group.elements = hlvtd_traffic_light_elements(0U);
       }
       output.traffic_light_groups.push_back(std::move(group));
     }
@@ -1212,8 +1001,9 @@ private:
     ++autoware_traffic_light_updates_;
   }
 
-  void publish_vtd_obstacle_pointcloud(const std_msgs::msg::Header &header,
-                                       const std::vector<VtdObject> &objects) {
+  void publish_vtd_obstacle_pointcloud(
+    const std_msgs::msg::Header & header, const std::vector<VtdObject> & objects)
+  {
     constexpr float sample_spacing = 0.025F;
     double ego_x = 0.0;
     double ego_y = 0.0;
@@ -1230,35 +1020,32 @@ private:
     }
 
     std::vector<std::array<float, 4>> points;
-    for (const auto &object : objects) {
+    for (const auto & object : objects) {
       if (!ego_pose_received) {
         break;
       }
-      if (!std::isfinite(object.x) || !std::isfinite(object.y) ||
-          !std::isfinite(object.z) || !std::isfinite(object.heading) ||
-          !std::isfinite(object.length) || !std::isfinite(object.width) ||
-          !std::isfinite(object.height) || object.length <= 0.0F ||
-          object.width <= 0.0F || object.height <= 0.0F) {
+      if (
+        !std::isfinite(object.x) || !std::isfinite(object.y) || !std::isfinite(object.z) ||
+        !std::isfinite(object.heading) || !std::isfinite(object.length) ||
+        !std::isfinite(object.width) || !std::isfinite(object.height) || object.length <= 0.0F ||
+        object.width <= 0.0F || object.height <= 0.0F) {
         continue;
       }
       const float cosine = std::cos(object.heading);
       const float sine = std::sin(object.heading);
       const auto center = autoware_box_center(object);
 
-      const auto append_edge = [&](const float x0, const float y0,
-                                   const float z0, const float x1,
-                                   const float y1, const float z1) {
+      const auto append_edge = [&](
+                                 const float x0, const float y0, const float z0, const float x1,
+                                 const float y1, const float z1) {
         const float edge_length =
-            std::sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) +
-                      (z1 - z0) * (z1 - z0));
+          std::sqrt((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0) + (z1 - z0) * (z1 - z0));
         const auto samples = std::max<std::size_t>(
-            1U,
-            static_cast<std::size_t>(std::ceil(edge_length / sample_spacing)));
+          1U, static_cast<std::size_t>(std::ceil(edge_length / sample_spacing)));
         const float ego_cosine = std::cos(static_cast<float>(ego_yaw));
         const float ego_sine = std::sin(static_cast<float>(ego_yaw));
         for (std::size_t index = 0U; index < samples; ++index) {
-          const float ratio =
-              (static_cast<float>(index) + 0.5F) / static_cast<float>(samples);
+          const float ratio = (static_cast<float>(index) + 0.5F) / static_cast<float>(samples);
           const float local_x = x0 + ratio * (x1 - x0);
           const float local_y = y0 + ratio * (y1 - y0);
           const float local_z = z0 + ratio * (z1 - z0);
@@ -1266,10 +1053,9 @@ private:
           const float map_y = center[1] + sine * local_x + cosine * local_y;
           const float delta_x = map_x - static_cast<float>(ego_x);
           const float delta_y = map_y - static_cast<float>(ego_y);
-          points.push_back({ego_cosine * delta_x + ego_sine * delta_y,
-                            -ego_sine * delta_x + ego_cosine * delta_y,
-                            center[2] + local_z - static_cast<float>(ego_z),
-                            1.0F});
+          points.push_back(
+            {ego_cosine * delta_x + ego_sine * delta_y, -ego_sine * delta_x + ego_cosine * delta_y,
+             center[2] + local_z - static_cast<float>(ego_z), 1.0F});
         }
       };
 
@@ -1302,8 +1088,7 @@ private:
     const std::array<std::string, 4> names{"x", "y", "z", "intensity"};
     for (std::size_t index = 0U; index < cloud.fields.size(); ++index) {
       cloud.fields[index].name = names[index];
-      cloud.fields[index].offset =
-          static_cast<std::uint32_t>(index * sizeof(float));
+      cloud.fields[index].offset = static_cast<std::uint32_t>(index * sizeof(float));
       cloud.fields[index].datatype = PointField::FLOAT32;
       cloud.fields[index].count = 1U;
     }
@@ -1315,27 +1100,28 @@ private:
     ++obstacle_pointcloud_updates_;
   }
 
-  void publish_api_arrays(const RDB_MSG_HDR_t &message) {
+  void publish_api_arrays(const RDB_MSG_HDR_t & message)
+  {
     std::vector<VtdObject> objects;
     std::vector<VtdTrafficLight> traffic_lights;
     {
       std::lock_guard<std::mutex> lock(api_mutex_);
       objects = pending_objects_;
       traffic_lights.reserve(traffic_lights_by_id_.size());
-      for (const auto &[id, traffic_light] : traffic_lights_by_id_) {
+      for (const auto & [id, traffic_light] : traffic_lights_by_id_) {
         (void)id;
         traffic_lights.push_back(traffic_light);
       }
     }
 
-    publish_api_arrays(message_stamp(message.simTime), std::move(objects),
-                       std::move(traffic_lights));
+    publish_api_arrays(
+      message_stamp(message.simTime), std::move(objects), std::move(traffic_lights));
   }
 
-  void publish_api_arrays(const builtin_interfaces::msg::Time &stamp,
-                          std::vector<VtdObject> objects,
-                          std::vector<VtdTrafficLight> traffic_lights) {
-
+  void publish_api_arrays(
+    const builtin_interfaces::msg::Time & stamp, std::vector<VtdObject> objects,
+    std::vector<VtdTrafficLight> traffic_lights)
+  {
     VtdObjectArray object_array;
     object_array.header.stamp = stamp;
     object_array.header.frame_id = map_frame_;
@@ -1357,8 +1143,8 @@ private:
     }
     const bool filter_by_range = perception_object_max_range_m_ > 0.0;
     const double max_squared_range =
-        perception_object_max_range_m_ * perception_object_max_range_m_;
-    for (const auto &object : objects) {
+      perception_object_max_range_m_ * perception_object_max_range_m_;
+    for (const auto & object : objects) {
       if (!filter_by_range) {
         perception_objects.push_back(object);
         continue;
@@ -1377,25 +1163,23 @@ private:
     DetectedObjects detected_objects;
     detected_objects.header = object_array.header;
     detected_objects.objects.reserve(perception_objects.size());
-    for (const auto &object : perception_objects) {
+    for (const auto & object : perception_objects) {
       const auto center = autoware_box_center(object);
       DetectedObject detected;
       detected.existence_probability = 1.0F;
       detected.classification.resize(1U);
       detected.classification.front().label =
-          autoware_perception_msgs::msg::ObjectClassification::UNKNOWN;
+        autoware_perception_msgs::msg::ObjectClassification::UNKNOWN;
       detected.classification.front().probability = 1.0F;
       detected.kinematics.pose_with_covariance.pose.position.x = center[0];
       detected.kinematics.pose_with_covariance.pose.position.y = center[1];
-      detected.kinematics.pose_with_covariance.pose.position.z =
-          flatten_z_ ? 0.0F : center[2];
+      detected.kinematics.pose_with_covariance.pose.position.z = flatten_z_ ? 0.0F : center[2];
       tf2::Quaternion orientation;
       orientation.setRPY(0.0, 0.0, object.heading);
-      detected.kinematics.pose_with_covariance.pose.orientation =
-          tf2::toMsg(orientation);
+      detected.kinematics.pose_with_covariance.pose.orientation = tf2::toMsg(orientation);
       detected.kinematics.has_position_covariance = false;
       detected.kinematics.orientation_availability =
-          autoware_perception_msgs::msg::DetectedObjectKinematics::AVAILABLE;
+        autoware_perception_msgs::msg::DetectedObjectKinematics::AVAILABLE;
       detected.kinematics.twist_with_covariance.twist.linear.x = object.speed;
       detected.kinematics.has_twist = true;
       detected.kinematics.has_twist_covariance = false;
@@ -1424,28 +1208,27 @@ private:
     publish_autoware_traffic_lights(stamp, traffic_lights);
   }
 
-  std::array<double, 3> map_position(const double x, const double y,
-                                     const double z) const {
+  std::array<double, 3> map_position(const double x, const double y, const double z) const
+  {
     const double c = std::cos(map_yaw_offset_);
     const double s = std::sin(map_yaw_offset_);
-    return {map_offset_x_ + c * x - s * y, map_offset_y_ + s * x + c * y,
-            map_offset_z_ + z};
+    return {map_offset_x_ + c * x - s * y, map_offset_y_ + s * x + c * y, map_offset_z_ + z};
   }
 
-  static std::array<double, 3> body_vector(const RDB_COORD_t &vector,
-                                           const float vehicle_heading) {
+  static std::array<double, 3> body_vector(const RDB_COORD_t & vector, const float vehicle_heading)
+  {
     if (vector.type != RDB_COORD_TYPE_INERTIAL) {
       return {vector.x, vector.y, vector.z};
     }
     const double c = std::cos(vehicle_heading);
     const double s = std::sin(vehicle_heading);
-    return {c * vector.x + s * vector.y, -s * vector.x + c * vector.y,
-            vector.z};
+    return {c * vector.x + s * vector.y, -s * vector.x + c * vector.y, vector.z};
   }
 
-  void publish_ego_state(const RDB_MSG_HDR_t &message,
-                         const RDB_OBJECT_STATE_BASE_t &base,
-                         const RDB_OBJECT_STATE_EXT_t *extension) {
+  void publish_ego_state(
+    const RDB_MSG_HDR_t & message, const RDB_OBJECT_STATE_BASE_t & base,
+    const RDB_OBJECT_STATE_EXT_t * extension)
+  {
     const auto stamp = message_stamp(message.simTime);
     auto api_position = map_position(base.pos.x, base.pos.y, base.pos.z);
     if (flatten_z_) {
@@ -1540,11 +1323,13 @@ private:
     localization_state.state = LocalizationInitializationState::INITIALIZED;
     localization_initialization_state_pub_->publish(localization_state);
 
-    if (publish_empty_occupancy_grid_ && occupancy_grid_resolution_ > 0.0 &&
-        occupancy_grid_width_ > 0 && occupancy_grid_height_ > 0) {
+    if (
+      publish_empty_occupancy_grid_ && occupancy_grid_resolution_ > 0.0 &&
+      occupancy_grid_width_ > 0 && occupancy_grid_height_ > 0) {
       const double previous = last_occupancy_grid_sim_time_.load();
-      if (previous < 0.0 || message.simTime < previous ||
-          message.simTime - previous >= occupancy_grid_period_sec_) {
+      if (
+        previous < 0.0 || message.simTime < previous ||
+        message.simTime - previous >= occupancy_grid_period_sec_) {
         last_occupancy_grid_sim_time_.store(message.simTime);
         OccupancyGrid grid;
         grid.header.stamp = stamp;
@@ -1553,16 +1338,15 @@ private:
         grid.info.resolution = static_cast<float>(occupancy_grid_resolution_);
         grid.info.width = static_cast<std::uint32_t>(occupancy_grid_width_);
         grid.info.height = static_cast<std::uint32_t>(occupancy_grid_height_);
-        grid.info.origin.position.x =
-            position[0] - 0.5 * occupancy_grid_resolution_ *
-                              static_cast<double>(occupancy_grid_width_);
-        grid.info.origin.position.y =
-            position[1] - 0.5 * occupancy_grid_resolution_ *
-                              static_cast<double>(occupancy_grid_height_);
+        grid.info.origin.position.x = position[0] - 0.5 * occupancy_grid_resolution_ *
+                                                      static_cast<double>(occupancy_grid_width_);
+        grid.info.origin.position.y = position[1] - 0.5 * occupancy_grid_resolution_ *
+                                                      static_cast<double>(occupancy_grid_height_);
         grid.info.origin.orientation.w = 1.0;
-        grid.data.assign(static_cast<std::size_t>(occupancy_grid_width_) *
-                             static_cast<std::size_t>(occupancy_grid_height_),
-                         0);
+        grid.data.assign(
+          static_cast<std::size_t>(occupancy_grid_width_) *
+            static_cast<std::size_t>(occupancy_grid_height_),
+          0);
         occupancy_grid_pub_->publish(grid);
         ++occupancy_grid_updates_;
       }
@@ -1597,35 +1381,30 @@ private:
     HazardLightsReport hazard_lights;
     hazard_lights.stamp = stamp;
     if (report_commanded_lights_) {
-      const bool hazard_enabled =
-          command.hazard_lights == HazardLightsCommand::ENABLE;
-      hazard_lights.report = hazard_enabled ? HazardLightsReport::ENABLE
-                                            : HazardLightsReport::DISABLE;
-      turn_indicators.report = hazard_enabled ? TurnIndicatorsReport::DISABLE
-                                              : command.turn_indicators;
-    } else {
-      const bool left =
-          (vehicle.light_mask & RDB_VEHICLE_LIGHT_INDICATOR_L) != 0U;
-      const bool right =
-          (vehicle.light_mask & RDB_VEHICLE_LIGHT_INDICATOR_R) != 0U;
-      const bool hazard_enabled =
-          (vehicle.light_mask & RDB_VEHICLE_LIGHT_EMERGENCY) != 0U ||
-          (left && right);
-      hazard_lights.report = hazard_enabled ? HazardLightsReport::ENABLE
-                                            : HazardLightsReport::DISABLE;
+      const bool hazard_enabled = command.hazard_lights == HazardLightsCommand::ENABLE;
+      hazard_lights.report =
+        hazard_enabled ? HazardLightsReport::ENABLE : HazardLightsReport::DISABLE;
       turn_indicators.report =
-          hazard_enabled ? TurnIndicatorsReport::DISABLE
-                         : (left ? TurnIndicatorsReport::ENABLE_LEFT
-                                 : (right ? TurnIndicatorsReport::ENABLE_RIGHT
-                                          : TurnIndicatorsReport::DISABLE));
+        hazard_enabled ? TurnIndicatorsReport::DISABLE : command.turn_indicators;
+    } else {
+      const bool left = (vehicle.light_mask & RDB_VEHICLE_LIGHT_INDICATOR_L) != 0U;
+      const bool right = (vehicle.light_mask & RDB_VEHICLE_LIGHT_INDICATOR_R) != 0U;
+      const bool hazard_enabled =
+        (vehicle.light_mask & RDB_VEHICLE_LIGHT_EMERGENCY) != 0U || (left && right);
+      hazard_lights.report =
+        hazard_enabled ? HazardLightsReport::ENABLE : HazardLightsReport::DISABLE;
+      turn_indicators.report =
+        hazard_enabled
+          ? TurnIndicatorsReport::DISABLE
+          : (left ? TurnIndicatorsReport::ENABLE_LEFT
+                  : (right ? TurnIndicatorsReport::ENABLE_RIGHT : TurnIndicatorsReport::DISABLE));
     }
     turn_indicators_pub_->publish(turn_indicators);
     hazard_lights_pub_->publish(hazard_lights);
 
     ControlModeReport mode;
     mode.stamp = stamp;
-    mode.mode = report_autonomous_mode_ ? ControlModeReport::AUTONOMOUS
-                                        : ControlModeReport::MANUAL;
+    mode.mode = report_autonomous_mode_ ? ControlModeReport::AUTONOMOUS : ControlModeReport::MANUAL;
     control_mode_pub_->publish(mode);
 
     if (tf_broadcaster_) {
@@ -1640,9 +1419,10 @@ private:
     }
   }
 
-  void publish_hlvtd_ego_state(const HlvtdParticipantData &data,
-                               const builtin_interfaces::msg::Time &stamp,
-                               const ParticipantTimeUpdate &timing) {
+  void publish_hlvtd_ego_state(
+    const HlvtdParticipantData & data, const builtin_interfaces::msg::Time & stamp,
+    const ParticipantTimeUpdate & timing)
+  {
     auto api_position = map_position(data.ego_x, data.ego_y, data.ego_z);
     if (flatten_z_) {
       api_position[2] = 0.0;
@@ -1672,13 +1452,11 @@ private:
       const double s = std::sin(map_heading);
       current.longitudinal_velocity = c * map_vx + s * map_vy;
       current.lateral_velocity = -s * map_vx + c * map_vy;
-      current.heading_rate =
-          normalize_angle(map_heading - previous.heading) / timing.dt;
+      current.heading_rate = normalize_angle(map_heading - previous.heading) / timing.dt;
       current.velocity_valid = true;
       if (previous.velocity_valid) {
         longitudinal_acceleration =
-            (current.longitudinal_velocity - previous.longitudinal_velocity) /
-            timing.dt;
+          (current.longitudinal_velocity - previous.longitudinal_velocity) / timing.dt;
       }
       (void)map_vz;
     }
@@ -1736,8 +1514,7 @@ private:
     VelocityReport velocity;
     velocity.header.stamp = stamp;
     velocity.header.frame_id = base_frame_;
-    velocity.longitudinal_velocity =
-        static_cast<float>(current.longitudinal_velocity);
+    velocity.longitudinal_velocity = static_cast<float>(current.longitudinal_velocity);
     velocity.lateral_velocity = static_cast<float>(current.lateral_velocity);
     velocity.heading_rate = static_cast<float>(current.heading_rate);
 
@@ -1760,11 +1537,13 @@ private:
     localization_state.state = LocalizationInitializationState::INITIALIZED;
     localization_initialization_state_pub_->publish(localization_state);
 
-    if (publish_empty_occupancy_grid_ && occupancy_grid_resolution_ > 0.0 &&
-        occupancy_grid_width_ > 0 && occupancy_grid_height_ > 0) {
+    if (
+      publish_empty_occupancy_grid_ && occupancy_grid_resolution_ > 0.0 &&
+      occupancy_grid_width_ > 0 && occupancy_grid_height_ > 0) {
       const double previous_grid_time = last_occupancy_grid_sim_time_.load();
-      if (previous_grid_time < 0.0 ||
-          timing.ros_time - previous_grid_time >= occupancy_grid_period_sec_) {
+      if (
+        previous_grid_time < 0.0 ||
+        timing.ros_time - previous_grid_time >= occupancy_grid_period_sec_) {
         last_occupancy_grid_sim_time_.store(timing.ros_time);
         OccupancyGrid grid;
         grid.header.stamp = stamp;
@@ -1773,16 +1552,15 @@ private:
         grid.info.resolution = static_cast<float>(occupancy_grid_resolution_);
         grid.info.width = static_cast<std::uint32_t>(occupancy_grid_width_);
         grid.info.height = static_cast<std::uint32_t>(occupancy_grid_height_);
-        grid.info.origin.position.x =
-            position[0] - 0.5 * occupancy_grid_resolution_ *
-                              static_cast<double>(occupancy_grid_width_);
-        grid.info.origin.position.y =
-            position[1] - 0.5 * occupancy_grid_resolution_ *
-                              static_cast<double>(occupancy_grid_height_);
+        grid.info.origin.position.x = position[0] - 0.5 * occupancy_grid_resolution_ *
+                                                      static_cast<double>(occupancy_grid_width_);
+        grid.info.origin.position.y = position[1] - 0.5 * occupancy_grid_resolution_ *
+                                                      static_cast<double>(occupancy_grid_height_);
         grid.info.origin.orientation.w = 1.0;
-        grid.data.assign(static_cast<std::size_t>(occupancy_grid_width_) *
-                             static_cast<std::size_t>(occupancy_grid_height_),
-                         0);
+        grid.data.assign(
+          static_cast<std::size_t>(occupancy_grid_width_) *
+            static_cast<std::size_t>(occupancy_grid_height_),
+          0);
         occupancy_grid_pub_->publish(grid);
         ++occupancy_grid_updates_;
       }
@@ -1798,8 +1576,7 @@ private:
     // The supplied VTD -> participant interface has no measured steering
     // field. Report the latest accepted command instead of using an
     // undocumented RDB vehicle-system value.
-    steering.steering_tire_angle =
-        command.received ? command.steering_angle : 0.0F;
+    steering.steering_tire_angle = command.received ? command.steering_angle : 0.0F;
     steering_pub_->publish(steering);
 
     GearReport gear;
@@ -1807,23 +1584,21 @@ private:
     gear.report = static_cast<std::uint8_t>(command.gear);
     gear_pub_->publish(gear);
 
-    const bool hazard_enabled =
-        command.hazard_lights == HazardLightsCommand::ENABLE;
+    const bool hazard_enabled = command.hazard_lights == HazardLightsCommand::ENABLE;
     TurnIndicatorsReport turn_indicators;
     turn_indicators.stamp = stamp;
-    turn_indicators.report = hazard_enabled ? TurnIndicatorsReport::DISABLE
-                                            : command.turn_indicators;
+    turn_indicators.report =
+      hazard_enabled ? TurnIndicatorsReport::DISABLE : command.turn_indicators;
     turn_indicators_pub_->publish(turn_indicators);
     HazardLightsReport hazard_lights;
     hazard_lights.stamp = stamp;
-    hazard_lights.report = hazard_enabled ? HazardLightsReport::ENABLE
-                                          : HazardLightsReport::DISABLE;
+    hazard_lights.report =
+      hazard_enabled ? HazardLightsReport::ENABLE : HazardLightsReport::DISABLE;
     hazard_lights_pub_->publish(hazard_lights);
 
     ControlModeReport mode;
     mode.stamp = stamp;
-    mode.mode = report_autonomous_mode_ ? ControlModeReport::AUTONOMOUS
-                                        : ControlModeReport::MANUAL;
+    mode.mode = report_autonomous_mode_ ? ControlModeReport::AUTONOMOUS : ControlModeReport::MANUAL;
     control_mode_pub_->publish(mode);
 
     if (tf_broadcaster_) {
@@ -1838,12 +1613,11 @@ private:
     }
   }
 
-  void handle_vehicle_systems(const RdbEntryView &entry) {
-    for_each_element<RDB_VEHICLE_SYSTEMS_t>(entry, [this](const auto &systems) {
-      const int player_id =
-          ego_player_id_ >= 0 ? ego_player_id_ : selected_ego_id_.load();
-      if (player_id >= 0 &&
-          systems.playerId != static_cast<std::uint32_t>(player_id)) {
+  void handle_vehicle_systems(const RdbEntryView & entry)
+  {
+    for_each_element<RDB_VEHICLE_SYSTEMS_t>(entry, [this](const auto & systems) {
+      const int player_id = ego_player_id_ >= 0 ? ego_player_id_ : selected_ego_id_.load();
+      if (player_id >= 0 && systems.playerId != static_cast<std::uint32_t>(player_id)) {
         return;
       }
       std::lock_guard<std::mutex> lock(vehicle_mutex_);
@@ -1852,18 +1626,17 @@ private:
     });
   }
 
-  void handle_drivetrain(const RdbEntryView &entry) {
+  void handle_drivetrain(const RdbEntryView & entry)
+  {
     if (entry.header->elementSize < sizeof(RDB_DRIVETRAIN_BASE_t)) {
       return;
     }
     const auto count = entry.data_size / entry.header->elementSize;
     for (std::size_t index = 0; index < count; ++index) {
-      const auto *drivetrain = reinterpret_cast<const RDB_DRIVETRAIN_BASE_t *>(
-          entry.data + index * entry.header->elementSize);
-      const int player_id =
-          ego_player_id_ >= 0 ? ego_player_id_ : selected_ego_id_.load();
-      if (player_id >= 0 &&
-          drivetrain->playerId != static_cast<std::uint32_t>(player_id)) {
+      const auto * drivetrain = reinterpret_cast<const RDB_DRIVETRAIN_BASE_t *>(
+        entry.data + index * entry.header->elementSize);
+      const int player_id = ego_player_id_ >= 0 ? ego_player_id_ : selected_ego_id_.load();
+      if (player_id >= 0 && drivetrain->playerId != static_cast<std::uint32_t>(player_id)) {
         continue;
       }
       std::lock_guard<std::mutex> lock(vehicle_mutex_);
@@ -1872,42 +1645,39 @@ private:
   }
 
   template <typename T, typename Callback>
-  static void for_each_element(const RdbEntryView &entry, Callback callback) {
-    if (entry.header->elementSize < sizeof(T) ||
-        entry.header->elementSize == 0U) {
+  static void for_each_element(const RdbEntryView & entry, Callback callback)
+  {
+    if (entry.header->elementSize < sizeof(T) || entry.header->elementSize == 0U) {
       return;
     }
     const auto count = entry.data_size / entry.header->elementSize;
     for (std::size_t index = 0; index < count; ++index) {
-      callback(*reinterpret_cast<const T *>(entry.data +
-                                            index * entry.header->elementSize));
+      callback(*reinterpret_cast<const T *>(entry.data + index * entry.header->elementSize));
     }
   }
 
-  void handle_camera_config(const RdbEntryView &entry) {
-    for_each_element<RDB_CAMERA_t>(entry, [this](const RDB_CAMERA_t &camera) {
+  void handle_camera_config(const RdbEntryView & entry)
+  {
+    for_each_element<RDB_CAMERA_t>(entry, [this](const RDB_CAMERA_t & camera) {
       std::lock_guard<std::mutex> lock(camera_mutex_);
       cameras_[camera.id] = camera;
     });
   }
 
-  void handle_images(const RDB_MSG_HDR_t &message, const RdbEntryView &entry) {
-    if (entry.header->elementSize < sizeof(RDB_IMAGE_t) ||
-        entry.header->elementSize == 0U) {
+  void handle_images(const RDB_MSG_HDR_t & message, const RdbEntryView & entry)
+  {
+    if (entry.header->elementSize < sizeof(RDB_IMAGE_t) || entry.header->elementSize == 0U) {
       return;
     }
     const auto count = entry.data_size / entry.header->elementSize;
     for (std::size_t index = 0; index < count; ++index) {
-      const auto *element = entry.data + index * entry.header->elementSize;
-      const auto *image = reinterpret_cast<const RDB_IMAGE_t *>(element);
-      if (camera_id_ >= 0 &&
-          image->cameraId != static_cast<std::uint16_t>(camera_id_)) {
+      const auto * element = entry.data + index * entry.header->elementSize;
+      const auto * image = reinterpret_cast<const RDB_IMAGE_t *>(element);
+      if (camera_id_ >= 0 && image->cameraId != static_cast<std::uint16_t>(camera_id_)) {
         continue;
       }
-      const auto payload_capacity =
-          entry.header->elementSize - sizeof(RDB_IMAGE_t);
-      if (image->imgSize > payload_capacity || image->height == 0U ||
-          image->width == 0U) {
+      const auto payload_capacity = entry.header->elementSize - sizeof(RDB_IMAGE_t);
+      if (image->imgSize > payload_capacity || image->height == 0U || image->width == 0U) {
         ++parse_errors_;
         continue;
       }
@@ -1915,37 +1685,38 @@ private:
     }
   }
 
-  std::optional<std::string> image_encoding(const RDB_IMAGE_t &image) const {
+  std::optional<std::string> image_encoding(const RDB_IMAGE_t & image) const
+  {
     switch (image.pixelFormat) {
-    case RDB_PIX_FORMAT_RGB_24:
-    case RDB_PIX_FORMAT_RGB8:
-      return "rgb8";
-    case RDB_PIX_FORMAT_RGBA8:
-      return "rgba8";
-    case RDB_PIX_FORMAT_BW_8:
-    case RDB_PIX_FORMAT_RED8:
-      return "mono8";
-    case RDB_PIX_FORMAT_DEPTH_16:
-    case RDB_PIX_FORMAT_DEPTH16:
-    case RDB_PIX_FORMAT_RED16:
-      return "16UC1";
-    case RDB_PIX_FORMAT_DEPTH_32:
-    case RDB_PIX_FORMAT_DEPTH32:
-    case RDB_PIX_FORMAT_RED32F:
-      return "32FC1";
-    default:
-      return std::nullopt;
+      case RDB_PIX_FORMAT_RGB_24:
+      case RDB_PIX_FORMAT_RGB8:
+        return "rgb8";
+      case RDB_PIX_FORMAT_RGBA8:
+        return "rgba8";
+      case RDB_PIX_FORMAT_BW_8:
+      case RDB_PIX_FORMAT_RED8:
+        return "mono8";
+      case RDB_PIX_FORMAT_DEPTH_16:
+      case RDB_PIX_FORMAT_DEPTH16:
+      case RDB_PIX_FORMAT_RED16:
+        return "16UC1";
+      case RDB_PIX_FORMAT_DEPTH_32:
+      case RDB_PIX_FORMAT_DEPTH32:
+      case RDB_PIX_FORMAT_RED32F:
+        return "32FC1";
+      default:
+        return std::nullopt;
     }
   }
 
-  void publish_image(const RDB_MSG_HDR_t &message, const RDB_IMAGE_t &rdb_image,
-                     const std::uint8_t *payload) {
+  void publish_image(
+    const RDB_MSG_HDR_t & message, const RDB_IMAGE_t & rdb_image, const std::uint8_t * payload)
+  {
     const auto encoding = image_encoding(rdb_image);
     if (!encoding) {
       RCLCPP_WARN_THROTTLE(
-          get_logger(), *get_clock(), 5000,
-          "Unsupported VTD image pixel format %u (pixel size %u)",
-          rdb_image.pixelFormat, rdb_image.pixelSize);
+        get_logger(), *get_clock(), 5000, "Unsupported VTD image pixel format %u (pixel size %u)",
+        rdb_image.pixelFormat, rdb_image.pixelSize);
       return;
     }
     if (rdb_image.imgSize % rdb_image.height != 0U) {
@@ -1966,9 +1737,9 @@ private:
       std::memcpy(image.data.data(), payload, rdb_image.imgSize);
     } else {
       for (std::uint32_t row = 0; row < image.height; ++row) {
-        std::memcpy(image.data.data() + row * image.step,
-                    payload + (image.height - row - 1U) * image.step,
-                    image.step);
+        std::memcpy(
+          image.data.data() + row * image.step, payload + (image.height - row - 1U) * image.step,
+          image.step);
       }
     }
     image_pub_->publish(image);
@@ -1991,16 +1762,12 @@ private:
     }
     const double fx = have_config ? config.focalX : camera_fx_;
     const double fy = have_config ? config.focalY : camera_fy_;
-    const double cx =
-        have_config
-            ? config.principalX
-            : (camera_cx_ > 0.0 ? camera_cx_
-                                : 0.5 * static_cast<double>(image.width));
-    const double cy =
-        have_config
-            ? config.principalY
-            : (camera_cy_ > 0.0 ? camera_cy_
-                                : 0.5 * static_cast<double>(image.height));
+    const double cx = have_config
+                        ? config.principalX
+                        : (camera_cx_ > 0.0 ? camera_cx_ : 0.5 * static_cast<double>(image.width));
+    const double cy = have_config
+                        ? config.principalY
+                        : (camera_cy_ > 0.0 ? camera_cy_ : 0.5 * static_cast<double>(image.height));
     info.k = {fx, 0.0, cx, 0.0, fy, cy, 0.0, 0.0, 1.0};
     info.r = {1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0};
     info.p = {fx, 0.0, cx, 0.0, 0.0, fy, cy, 0.0, 0.0, 0.0, 1.0, 0.0};
@@ -2008,12 +1775,13 @@ private:
     ++image_frames_;
   }
 
-  void handle_rays(const RDB_MSG_HDR_t &message, const RdbEntryView &entry) {
-    if (entry.header->elementSize < sizeof(RDB_RAY_t) ||
-        entry.header->elementSize == 0U) {
+  void handle_rays(const RDB_MSG_HDR_t & message, const RdbEntryView & entry)
+  {
+    if (entry.header->elementSize < sizeof(RDB_RAY_t) || entry.header->elementSize == 0U) {
       return;
     }
-    struct PointXYZI {
+    struct PointXYZI
+    {
       float x;
       float y;
       float z;
@@ -2024,14 +1792,13 @@ private:
     points.reserve(count);
     int coordinate_type = -1;
     for (std::size_t index = 0; index < count; ++index) {
-      const auto *ray = reinterpret_cast<const RDB_RAY_t *>(
-          entry.data + index * entry.header->elementSize);
-      if (ray->type != RDB_RAY_TYPE_HIT || !std::isfinite(ray->length) ||
-          ray->length <= 0.0F) {
+      const auto * ray =
+        reinterpret_cast<const RDB_RAY_t *>(entry.data + index * entry.header->elementSize);
+      if (ray->type != RDB_RAY_TYPE_HIT || !std::isfinite(ray->length) || ray->length <= 0.0F) {
         continue;
       }
-      if (lidar_emitter_id_ >= 0 &&
-          ray->emitterId != static_cast<std::uint32_t>(lidar_emitter_id_)) {
+      if (
+        lidar_emitter_id_ >= 0 && ray->emitterId != static_cast<std::uint32_t>(lidar_emitter_id_)) {
         continue;
       }
       if (coordinate_type < 0) {
@@ -2042,10 +1809,8 @@ private:
       }
       const double horizontal = ray->ray.h;
       const double elevation = ray->ray.p;
-      double x =
-          ray->ray.x + ray->length * std::cos(elevation) * std::cos(horizontal);
-      double y =
-          ray->ray.y + ray->length * std::cos(elevation) * std::sin(horizontal);
+      double x = ray->ray.x + ray->length * std::cos(elevation) * std::cos(horizontal);
+      double y = ray->ray.y + ray->length * std::cos(elevation) * std::sin(horizontal);
       double z = ray->ray.z + ray->length * std::sin(elevation);
       if (coordinate_type == RDB_COORD_TYPE_INERTIAL) {
         const auto mapped = map_position(x, y, z);
@@ -2053,8 +1818,8 @@ private:
         y = mapped[1];
         z = mapped[2];
       }
-      points.push_back(PointXYZI{static_cast<float>(x), static_cast<float>(y),
-                                 static_cast<float>(z), 0.0F});
+      points.push_back(
+        PointXYZI{static_cast<float>(x), static_cast<float>(y), static_cast<float>(z), 0.0F});
     }
     if (points.empty()) {
       return;
@@ -2079,8 +1844,7 @@ private:
     const std::array<std::string, 4> names{"x", "y", "z", "intensity"};
     for (std::size_t index = 0; index < cloud.fields.size(); ++index) {
       cloud.fields[index].name = names[index];
-      cloud.fields[index].offset =
-          static_cast<std::uint32_t>(index * sizeof(float));
+      cloud.fields[index].offset = static_cast<std::uint32_t>(index * sizeof(float));
       cloud.fields[index].datatype = PointField::FLOAT32;
       cloud.fields[index].count = 1U;
     }
@@ -2090,39 +1854,39 @@ private:
     ++pointcloud_frames_;
   }
 
-  void handle_optix_lidar(const RDB_MSG_HDR_t &message,
-                          const RdbEntryView &entry,
-                          std::size_t &return_index) {
-    if (entry.header->elementSize < sizeof(RDB_IMAGE_t) ||
-        entry.header->elementSize == 0U) {
+  void handle_optix_lidar(
+    const RDB_MSG_HDR_t & message, const RdbEntryView & entry, std::size_t & return_index)
+  {
+    if (entry.header->elementSize < sizeof(RDB_IMAGE_t) || entry.header->elementSize == 0U) {
       return;
     }
     const auto count = entry.data_size / entry.header->elementSize;
     for (std::size_t index = 0; index < count; ++index, ++return_index) {
-      const auto *element = entry.data + index * entry.header->elementSize;
-      const auto *image = reinterpret_cast<const RDB_IMAGE_t *>(element);
-      if (optix_return_index_ >= 0 &&
-          return_index != static_cast<std::size_t>(optix_return_index_)) {
+      const auto * element = entry.data + index * entry.header->elementSize;
+      const auto * image = reinterpret_cast<const RDB_IMAGE_t *>(element);
+      if (
+        optix_return_index_ >= 0 && return_index != static_cast<std::size_t>(optix_return_index_)) {
         continue;
       }
-      if (optix_camera_id_ >= 0 &&
-          image->cameraId != static_cast<std::uint16_t>(optix_camera_id_)) {
+      if (
+        optix_camera_id_ >= 0 && image->cameraId != static_cast<std::uint16_t>(optix_camera_id_)) {
         continue;
       }
       const auto capacity = entry.header->elementSize - sizeof(RDB_IMAGE_t);
-      if (image->pixelFormat != RDB_PIX_FORMAT_RGBA32F ||
-          image->imgSize > capacity ||
-          image->imgSize % (4U * sizeof(float)) != 0U) {
+      if (
+        image->pixelFormat != RDB_PIX_FORMAT_RGBA32F || image->imgSize > capacity ||
+        image->imgSize % (4U * sizeof(float)) != 0U) {
         continue;
       }
       publish_optix_cloud(message, *image, element + sizeof(RDB_IMAGE_t));
     }
   }
 
-  void publish_optix_cloud(const RDB_MSG_HDR_t &message,
-                           const RDB_IMAGE_t &image,
-                           const std::uint8_t *payload) {
-    struct PointXYZI {
+  void publish_optix_cloud(
+    const RDB_MSG_HDR_t & message, const RDB_IMAGE_t & image, const std::uint8_t * payload)
+  {
+    struct PointXYZI
+    {
       float x;
       float y;
       float z;
@@ -2134,22 +1898,20 @@ private:
     for (std::size_t index = 0; index < pixel_count; ++index) {
       std::array<float, 4> pixel{};
       std::memcpy(pixel.data(), payload + index * sizeof(pixel), sizeof(pixel));
-      if (!std::isfinite(pixel[0]) || !std::isfinite(pixel[1]) ||
-          !std::isfinite(pixel[2])) {
+      if (!std::isfinite(pixel[0]) || !std::isfinite(pixel[1]) || !std::isfinite(pixel[2])) {
         continue;
       }
       std::uint32_t packed{};
       std::memcpy(&packed, &pixel[3], sizeof(packed));
-      const float intensity =
-          static_cast<float>((packed >> 16U) & 0xffffU) / 65535.0F;
-      if (intensity <= 0.0F && pixel[0] == 0.0F && pixel[1] == 0.0F &&
-          pixel[2] == 0.0F) {
+      const float intensity = static_cast<float>((packed >> 16U) & 0xffffU) / 65535.0F;
+      if (intensity <= 0.0F && pixel[0] == 0.0F && pixel[1] == 0.0F && pixel[2] == 0.0F) {
         continue;
       }
       const auto mapped = map_position(pixel[0], pixel[1], pixel[2]);
-      points.push_back(PointXYZI{static_cast<float>(mapped[0]),
-                                 static_cast<float>(mapped[1]),
-                                 static_cast<float>(mapped[2]), intensity});
+      points.push_back(
+        PointXYZI{
+          static_cast<float>(mapped[0]), static_cast<float>(mapped[1]),
+          static_cast<float>(mapped[2]), intensity});
     }
     if (points.empty()) {
       return;
@@ -2168,8 +1930,7 @@ private:
     const std::array<std::string, 4> names{"x", "y", "z", "intensity"};
     for (std::size_t index = 0; index < cloud.fields.size(); ++index) {
       cloud.fields[index].name = names[index];
-      cloud.fields[index].offset =
-          static_cast<std::uint32_t>(index * sizeof(float));
+      cloud.fields[index].offset = static_cast<std::uint32_t>(index * sizeof(float));
       cloud.fields[index].datatype = PointField::FLOAT32;
       cloud.fields[index].count = 1U;
     }
@@ -2179,38 +1940,40 @@ private:
     ++pointcloud_frames_;
   }
 
-  void on_control(const Control &control) {
+  void on_control(const Control & control)
+  {
     {
       std::lock_guard<std::mutex> lock(command_mutex_);
       command_.received = true;
-      command_.acceleration = std::clamp(control.longitudinal.acceleration,
-                                         static_cast<float>(min_acceleration_),
-                                         static_cast<float>(max_acceleration_));
-      command_.steering_angle =
-          std::clamp(control.lateral.steering_tire_angle,
-                     static_cast<float>(-max_steering_angle_),
-                     static_cast<float>(max_steering_angle_));
+      command_.acceleration = std::clamp(
+        control.longitudinal.acceleration, static_cast<float>(min_acceleration_),
+        static_cast<float>(max_acceleration_));
+      command_.steering_angle = std::clamp(
+        control.lateral.steering_tire_angle, static_cast<float>(-max_steering_angle_),
+        static_cast<float>(max_steering_angle_));
       command_.last_received = std::chrono::steady_clock::now();
     }
   }
 
-  void on_gear(const GearCommand &gear) {
+  void on_gear(const GearCommand & gear)
+  {
     {
       std::lock_guard<std::mutex> lock(command_mutex_);
       command_.gear = gear.command;
     }
   }
 
-  void on_turn_indicators(const TurnIndicatorsCommand &indicators) {
+  void on_turn_indicators(const TurnIndicatorsCommand & indicators)
+  {
     const auto command = indicators.command == TurnIndicatorsCommand::NO_COMMAND
-                             ? TurnIndicatorsCommand::DISABLE
-                             : indicators.command;
-    if (command != TurnIndicatorsCommand::DISABLE &&
-        command != TurnIndicatorsCommand::ENABLE_LEFT &&
-        command != TurnIndicatorsCommand::ENABLE_RIGHT) {
-      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
-                           "Ignoring invalid turn-indicator command: %u",
-                           static_cast<unsigned int>(indicators.command));
+                           ? TurnIndicatorsCommand::DISABLE
+                           : indicators.command;
+    if (
+      command != TurnIndicatorsCommand::DISABLE && command != TurnIndicatorsCommand::ENABLE_LEFT &&
+      command != TurnIndicatorsCommand::ENABLE_RIGHT) {
+      RCLCPP_WARN_THROTTLE(
+        get_logger(), *get_clock(), 5000, "Ignoring invalid turn-indicator command: %u",
+        static_cast<unsigned int>(indicators.command));
       return;
     }
     {
@@ -2219,16 +1982,15 @@ private:
     }
   }
 
-  void on_hazard_lights(const HazardLightsCommand &hazard_lights) {
-    const auto command =
-        hazard_lights.command == HazardLightsCommand::NO_COMMAND
-            ? HazardLightsCommand::DISABLE
-            : hazard_lights.command;
-    if (command != HazardLightsCommand::DISABLE &&
-        command != HazardLightsCommand::ENABLE) {
-      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 5000,
-                           "Ignoring invalid hazard-lights command: %u",
-                           static_cast<unsigned int>(hazard_lights.command));
+  void on_hazard_lights(const HazardLightsCommand & hazard_lights)
+  {
+    const auto command = hazard_lights.command == HazardLightsCommand::NO_COMMAND
+                           ? HazardLightsCommand::DISABLE
+                           : hazard_lights.command;
+    if (command != HazardLightsCommand::DISABLE && command != HazardLightsCommand::ENABLE) {
+      RCLCPP_WARN_THROTTLE(
+        get_logger(), *get_clock(), 5000, "Ignoring invalid hazard-lights command: %u",
+        static_cast<unsigned int>(hazard_lights.command));
       return;
     }
     {
@@ -2237,7 +1999,8 @@ private:
     }
   }
 
-  void send_control() {
+  void send_control()
+  {
     if (!control_client_) {
       return;
     }
@@ -2251,20 +2014,17 @@ private:
     float steering = 0.0F;
     if (command.received) {
       const double age =
-          std::chrono::duration<double>(std::chrono::steady_clock::now() -
-                                        command.last_received)
-              .count();
+        std::chrono::duration<double>(std::chrono::steady_clock::now() - command.last_received)
+          .count();
       timed_out = age > control_timeout_sec_;
-      acceleration = static_cast<float>(timed_out ? watchdog_deceleration_
-                                                  : command.acceleration);
+      acceleration = static_cast<float>(timed_out ? watchdog_deceleration_ : command.acceleration);
       steering = timed_out ? 0.0F : command.steering_angle;
     }
     std::uint8_t turn_signal = 0U;
     if (command.hazard_lights != HazardLightsCommand::ENABLE) {
       if (command.turn_indicators == TurnIndicatorsCommand::ENABLE_LEFT) {
         turn_signal = 1U;
-      } else if (command.turn_indicators ==
-                 TurnIndicatorsCommand::ENABLE_RIGHT) {
+      } else if (command.turn_indicators == TurnIndicatorsCommand::ENABLE_RIGHT) {
         turn_signal = 2U;
       }
     }
@@ -2274,99 +2034,90 @@ private:
     }
   }
 
-  static std::uint8_t autoware_gear(const std::uint8_t vtd_report) {
+  static std::uint8_t autoware_gear(const std::uint8_t vtd_report)
+  {
     switch (vtd_report) {
-    case RDB_GEAR_BOX_POS_P:
-      return GearReport::PARK;
-    case RDB_GEAR_BOX_POS_R:
-    case RDB_GEAR_BOX_POS_R1:
-    case RDB_GEAR_BOX_POS_R2:
-    case RDB_GEAR_BOX_POS_R3:
-      return GearReport::REVERSE;
-    case RDB_GEAR_BOX_POS_N:
-      return GearReport::NEUTRAL;
-    default:
-      return GearReport::DRIVE;
+      case RDB_GEAR_BOX_POS_P:
+        return GearReport::PARK;
+      case RDB_GEAR_BOX_POS_R:
+      case RDB_GEAR_BOX_POS_R1:
+      case RDB_GEAR_BOX_POS_R2:
+      case RDB_GEAR_BOX_POS_R3:
+        return GearReport::REVERSE;
+      case RDB_GEAR_BOX_POS_N:
+        return GearReport::NEUTRAL;
+      default:
+        return GearReport::DRIVE;
     }
   }
 
-  void publish_diagnostics() {
+  void publish_diagnostics()
+  {
     DiagnosticArray array;
     array.header.stamp = now();
     DiagnosticStatus status;
     status.name = "vtd_ros2_bridge/HLVTD_interface";
     status.hardware_id = "HLVTD";
-    const bool control_connected =
-        control_client_ && control_client_->connected();
+    const bool control_connected = control_client_ && control_client_->connected();
     const bool data_received = state_frame_received_.load();
-    status.level = control_connected && data_received ? DiagnosticStatus::OK
-                                                      : DiagnosticStatus::ERROR;
-    status.message = control_connected && data_received
-                         ? "9910 DATA/CONTROL active"
-                         : "9910 disconnected or no DATA received";
+    status.level =
+      control_connected && data_received ? DiagnosticStatus::OK : DiagnosticStatus::ERROR;
+    status.message = control_connected && data_received ? "9910 DATA/CONTROL active"
+                                                        : "9910 disconnected or no DATA received";
+    if (control_connected && data_received && unmapped_traffic_light_ids_.load() > 0U) {
+      status.level = DiagnosticStatus::WARN;
+      status.message = "9910 active, but traffic-light ID has no mapped stop-line group";
+    }
     append_value(status, "control_host", control_host_);
     append_value(status, "control_port", control_port_);
     append_value(status, "control_connected", control_connected ? 1 : 0);
     append_value(status, "participant_data_received", data_received ? 1 : 0);
-    append_value(status, "control_rx_bytes",
-                 control_client_ ? control_client_->received_bytes() : 0U);
-    append_value(status, "participant_data_packets_decoded",
-                 control_client_ ? control_client_->decoded_data_packets()
-                                 : 0U);
-    append_value(status, "participant_data_packets_skipped",
-                 control_client_ ? control_client_->skipped_data_packets()
-                                 : 0U);
-    append_value(status, "control_packets_queued",
-                 control_client_ ? control_client_->queued_commands() : 0U);
-    append_value(status, "control_packets_sent",
-                 control_client_ ? control_client_->sent_commands() : 0U);
-    append_value(status, "control_packets_overwritten",
-                 control_client_ ? control_client_->overwritten_commands()
-                                 : 0U);
-    const bool traffic_light_rdb_connected =
-        traffic_light_rdb_client_ && traffic_light_rdb_client_->connected();
-    append_value(status, "raw_rdb_tcp_enabled", 0);
-    append_value(status, "traffic_light_rdb_enabled",
-                 traffic_light_rdb_port_ > 0 ? 1 : 0);
-    append_value(status, "traffic_light_rdb_connected",
-                 traffic_light_rdb_connected ? 1 : 0);
-    append_value(status, "traffic_light_rdb_messages",
-                 traffic_light_rdb_client_
-                     ? traffic_light_rdb_client_->received_messages()
-                     : 0U);
-    append_value(status, "traffic_light_rdb_frames",
-                 rdb_traffic_light_frames_.load());
     append_value(
-        status, "traffic_light_source",
-        std::string{traffic_light_source_.load() == 1 ? "RDB" : "HLVTD"});
-    {
-      std::lock_guard<std::mutex> lock(api_mutex_);
-      append_value(status, "traffic_light_rdb_cached_items",
-                   traffic_lights_by_id_.size());
-    }
+      status, "control_rx_bytes", control_client_ ? control_client_->received_bytes() : 0U);
+    append_value(
+      status, "participant_data_packets_decoded",
+      control_client_ ? control_client_->decoded_data_packets() : 0U);
+    append_value(
+      status, "participant_data_packets_skipped",
+      control_client_ ? control_client_->skipped_data_packets() : 0U);
+    append_value(
+      status, "control_packets_queued", control_client_ ? control_client_->queued_commands() : 0U);
+    append_value(
+      status, "control_packets_sent", control_client_ ? control_client_->sent_commands() : 0U);
+    append_value(
+      status, "control_packets_overwritten",
+      control_client_ ? control_client_->overwritten_commands() : 0U);
+    append_value(status, "raw_rdb_tcp_enabled", 0);
+    append_value(status, "traffic_light_rdb_enabled", 0);
+    append_value(status, "traffic_light_source", std::string{"HLVTD_9910"});
+    append_value(status, "traffic_light_id_namespace", std::string{"HLVTD_approach"});
+    append_value(status, "traffic_light_id_map_file", traffic_light_id_map_file_);
+    append_value(status, "traffic_light_mapped_approaches", traffic_light_group_ids_.size());
+    append_value(status, "traffic_light_last_id", last_traffic_light_id_.load());
+    append_value(status, "traffic_light_last_state", last_traffic_light_state_.load());
+    append_value(status, "steering_feedback_measured", 0);
+    append_value(status, "steering_source", std::string{"accepted_command"});
+    append_value(status, "object_geometry_uses_rdb", 0);
+    append_value(
+      status, "object_center_source",
+      std::string{"participant_pose_plus_half_length_compatibility"});
     append_value(status, "ego_updates", ego_updates_.load());
     append_value(status, "object_updates", object_updates_.load());
-    append_value(status, "traffic_light_updates",
-                 traffic_light_updates_.load());
-    append_value(status, "autoware_traffic_light_updates",
-                 autoware_traffic_light_updates_.load());
+    append_value(status, "traffic_light_updates", traffic_light_updates_.load());
+    append_value(status, "autoware_traffic_light_updates", autoware_traffic_light_updates_.load());
     append_value(status, "traffic_light_items", traffic_light_items_.load());
-    append_value(status, "autoware_traffic_light_groups",
-                 autoware_traffic_light_groups_.load());
-    append_value(status, "unmapped_traffic_light_ids",
-                 unmapped_traffic_light_ids_.load());
+    append_value(status, "autoware_traffic_light_groups", autoware_traffic_light_groups_.load());
+    append_value(status, "unmapped_traffic_light_ids", unmapped_traffic_light_ids_.load());
     append_value(status, "objects_dropped", objects_dropped_.load());
     append_value(status, "pointcloud_frames", pointcloud_frames_.load());
     append_value(status, "image_frames", image_frames_.load());
-    append_value(status, "occupancy_grid_updates",
-                 occupancy_grid_updates_.load());
-    append_value(status, "obstacle_pointcloud_updates",
-                 obstacle_pointcloud_updates_.load());
+    append_value(status, "occupancy_grid_updates", occupancy_grid_updates_.load());
+    append_value(status, "obstacle_pointcloud_updates", obstacle_pointcloud_updates_.load());
     append_value(status, "clock_updates", clock_updates_.load());
     append_value(status, "session_resets", session_resets_.load());
     append_value(status, "sim_time_offset_sec", sim_time_offset_.load());
-    append_value(status, "control_packets",
-                 control_client_ ? control_client_->sent_commands() : 0U);
+    append_value(
+      status, "control_packets", control_client_ ? control_client_->sent_commands() : 0U);
     append_value(status, "parse_errors", parse_errors_.load());
     append_value(status, "watchdog_active", watchdog_active_.load() ? 1 : 0);
     {
@@ -2386,9 +2137,6 @@ private:
   int control_port_{};
   int control_reconnect_delay_ms_{};
   int control_send_period_ms_{};
-  std::string traffic_light_rdb_host_;
-  int traffic_light_rdb_port_{};
-  double traffic_light_rdb_max_age_sec_{};
   int ego_player_id_{};
   std::string ego_name_;
   int camera_id_{};
@@ -2439,13 +2187,12 @@ private:
   double camera_cy_{};
 
   std::unique_ptr<HlvtdControlClient> control_client_;
-  std::unique_ptr<RdbTcpClient> traffic_light_rdb_client_;
   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 
   rclcpp::Publisher<Odometry>::SharedPtr odometry_pub_;
   rclcpp::Publisher<AccelWithCovarianceStamped>::SharedPtr acceleration_pub_;
   rclcpp::Publisher<LocalizationInitializationState>::SharedPtr
-      localization_initialization_state_pub_;
+    localization_initialization_state_pub_;
   rclcpp::Publisher<OccupancyGrid>::SharedPtr occupancy_grid_pub_;
   rclcpp::Publisher<PointCloud2>::SharedPtr obstacle_pointcloud_pub_;
   rclcpp::Publisher<VelocityReport>::SharedPtr velocity_pub_;
@@ -2461,8 +2208,7 @@ private:
   rclcpp::Publisher<VtdObjectArray>::SharedPtr objects_pub_;
   rclcpp::Publisher<DetectedObjects>::SharedPtr detected_objects_pub_;
   rclcpp::Publisher<VtdTrafficLightArray>::SharedPtr traffic_lights_pub_;
-  rclcpp::Publisher<TrafficLightGroupArray>::SharedPtr
-      autoware_traffic_lights_pub_;
+  rclcpp::Publisher<TrafficLightGroupArray>::SharedPtr autoware_traffic_lights_pub_;
   rclcpp::Publisher<VelocityLimit>::SharedPtr rviz_velocity_limit_pub_;
   rclcpp::Publisher<DiagnosticArray>::SharedPtr diagnostics_pub_;
   rclcpp::Publisher<rosgraph_msgs::msg::Clock>::SharedPtr clock_pub_;
@@ -2489,12 +2235,8 @@ private:
   std::mutex api_mutex_;
   std::vector<VtdObject> pending_objects_;
   std::map<std::int32_t, VtdTrafficLight> traffic_lights_by_id_;
-  bool rdb_traffic_light_received_{};
-  std::chrono::steady_clock::time_point last_rdb_traffic_light_update_{};
-  std::unordered_map<std::int32_t, std::vector<std::int64_t>>
-      traffic_light_group_ids_;
+  HlvtdTrafficLightIdMap traffic_light_group_ids_;
   std::unordered_map<std::int32_t, std::int32_t> traffic_light_signal_types_;
-  std::unordered_map<std::int32_t, std::uint8_t> traffic_light_shapes_;
 
   std::mutex time_mutex_;
   bool time_mapping_initialized_{};
@@ -2508,20 +2250,18 @@ private:
   std::atomic<double> last_sim_time_{0.0};
   std::atomic<double> last_occupancy_grid_sim_time_{-1.0};
   std::atomic<std::uint32_t> last_frame_no_{0U};
-  std::atomic<std::uint32_t> last_api_publish_frame_{
-      std::numeric_limits<std::uint32_t>::max()};
-  std::atomic<std::uint32_t> last_control_queue_frame_{
-      std::numeric_limits<std::uint32_t>::max()};
+  std::atomic<std::uint32_t> last_api_publish_frame_{std::numeric_limits<std::uint32_t>::max()};
+  std::atomic<std::uint32_t> last_control_queue_frame_{std::numeric_limits<std::uint32_t>::max()};
   std::atomic<bool> state_frame_received_{false};
   std::atomic<std::uint64_t> ego_updates_{0U};
   std::atomic<std::uint64_t> object_updates_{0U};
   std::atomic<std::uint64_t> traffic_light_updates_{0U};
   std::atomic<std::uint64_t> autoware_traffic_light_updates_{0U};
   std::atomic<std::uint64_t> traffic_light_items_{0U};
-  std::atomic<std::uint64_t> rdb_traffic_light_frames_{0U};
-  std::atomic<int> traffic_light_source_{0};
   std::atomic<std::uint64_t> autoware_traffic_light_groups_{0U};
   std::atomic<std::uint64_t> unmapped_traffic_light_ids_{0U};
+  std::atomic<std::int32_t> last_traffic_light_id_{0};
+  std::atomic<std::uint8_t> last_traffic_light_state_{0U};
   std::atomic<std::uint64_t> objects_dropped_{0U};
   std::atomic<std::uint64_t> pointcloud_frames_{0U};
   std::atomic<std::uint64_t> image_frames_{0U};
@@ -2533,9 +2273,10 @@ private:
   std::atomic<bool> watchdog_active_{false};
 };
 
-} // namespace vtd_ros2_bridge
+}  // namespace vtd_ros2_bridge
 
-int main(int argc, char **argv) {
+int main(int argc, char ** argv)
+{
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<vtd_ros2_bridge::VtdBridgeNode>());
   rclcpp::shutdown();

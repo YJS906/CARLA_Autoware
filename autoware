@@ -61,10 +61,11 @@ if [[ ! -d "${VTD_MAP_DIR}/${map_relative_path}" ]]; then
 fi
 
 vtd_image="${VTD_IMAGE:-selfcar-2026-vtd:local}"
-if ! docker image inspect "${vtd_image}" >/dev/null 2>&1; then
+if ! vtd_image_id="$(docker image inspect --format '{{.Id}}' "${vtd_image}" 2>/dev/null)"; then
   echo "Image ${vtd_image} is not available. Run ./scripts/build-vtd-image.sh first." >&2
   exit 1
 fi
+printf 'Autoware image: %s (%s)\n' "${vtd_image}" "${vtd_image_id}"
 
 export HOST_UID="$(id -u)"
 export HOST_GID="$(id -g)"

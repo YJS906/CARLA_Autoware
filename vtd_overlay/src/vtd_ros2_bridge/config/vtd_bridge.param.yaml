@@ -42,13 +42,10 @@
     flip_image_vertical: false
 
     traffic_light:
-      # Publish only IDs associated with an Autoware traffic-light regulatory element.
+      # id_map_file defaults to config/hlvtd_traffic_light_id_map.csv in this package.
+      # 9910 uses Host approach IDs, not individual RDB/OpenDRIVE lamp IDs.
+      # Must remain false: raw IDs cannot be substituted for map regulatory-element IDs.
       publish_unmapped_ids: false
-      # The participant record contains only one light. Receive the complete
-      # traffic-light set from VTD's state RDB without using it for ego/object data.
-      rdb_host: 127.0.0.1
-      rdb_port: 48190
-      rdb_max_age_sec: 1.0
 
     control_timeout_sec: 0.5
     watchdog_deceleration: -2.0

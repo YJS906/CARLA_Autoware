@@ -2,6 +2,32 @@
 
 The Lane Change module is activated when lane change is needed (Ego is not on preferred lane), and activation requirements are satisfied.
 
+## Obstacle-aware candidates and stopped recovery
+
+Stationary objects on the current path trigger joint sampling of preparation duration,
+longitudinal acceleration and lateral shift length before the stuck timeout. Preparation is
+bounded by the remaining swept-footprint clearance. Speeds below the normal lane-changing
+minimum are allowed only in this search, with attainable acceleration and the configured speed
+limit. Candidate ordering favors shorter total maneuvers. Current-lane objects always participate
+in predicted-path checks, including when `check_current_lane` is false in a legacy YAML file.
+
+Normal lane changes and avoidance-by-lane-change use the motion velocity planner's swept
+trajectory polygons, class-specific lateral margins and current-pose convergence settings.
+The VTD launch supplies both nodes with the same motion-velocity and obstacle-stop YAML files.
+The upstream `trajectory_safety.optimization_margin` (default 0.15 m) is an additional clearance
+budget for subsequent path optimization. Static checks include the maneuver and space to stop
+after merging, using the downstream stop margin. An unrelated parked car farther along the target
+lane does not veto a merge that leaves this space. Moving-object RSS checks remain active.
+
+When an approved path becomes blocked, its output contains a stop before the obstacle. After
+`stuck_detection.stop_time` below both the configured stop velocity and 0.1 m/s, the module searches
+at most once per second for a low-speed path from the measured position and heading to the same
+approved target lane. The search checks vehicle curvature, lateral acceleration/jerk, full-body
+lane containment, prohibited lane crossings, regulatory distance, static clearance and predicted
+traffic. Success replaces the path without changing the target or RTC approval; failure retains
+the original path and stop. The downstream optimizer, velocity planner and controller still
+validate and execute the resulting path. Pointcloud-only hazards continue to be handled downstream.
+
 ## Lane Change Requirements
 
 ### Prerequisites

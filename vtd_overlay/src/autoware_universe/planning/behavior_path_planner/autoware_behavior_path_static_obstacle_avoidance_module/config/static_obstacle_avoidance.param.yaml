@@ -68,10 +68,10 @@
           longitudinal_margin: 0.0
           lateral_margin:
             soft_margin: 0.7
-            hard_margin: -0.2
-            hard_margin_for_parked_vehicle: -0.2
+            hard_margin: 0.3  # Lower-bounded by obstacle_stop margin + optimization budget.
+            hard_margin_for_parked_vehicle: 0.3
           max_expand_ratio: 0.0
-          envelope_buffer_margin: 0.1
+          envelope_buffer_margin: 0.3
           th_error_eclipse_long_radius : 0.6
         bicycle:
           th_moving_speed: 0.28
@@ -214,7 +214,7 @@
         check_current_lane: false                       # [-]
         check_shift_side_lane: true                     # [-]
         check_other_side_lane: false                    # [-]
-        check_unavoidable_object: false                 # [-]
+        check_unavoidable_object: true                  # Include non-avoidance targets in safety.
         check_other_object: true                        # [-]
         # collision check parameters
         check_all_predicted_path: false                 # [-]

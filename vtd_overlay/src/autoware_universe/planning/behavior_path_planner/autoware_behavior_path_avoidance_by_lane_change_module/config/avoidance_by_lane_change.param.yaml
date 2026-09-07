@@ -1,7 +1,7 @@
 /**:
   ros__parameters:
     avoidance_by_lane_change:
-      execute_object_longitudinal_margin: 80.0
+      execute_object_longitudinal_margin: 10.0  # Minimum obstacle distance, not a look-ahead limit.
       execute_only_when_lane_change_finish_before_object: false
       max_lane_changing_length_scale: 0.8
       obstacle_velocity_limit_ratio: 0.6
@@ -55,8 +55,8 @@
           envelope_buffer_margin: 0.3
           lateral_margin:
             soft_margin: 0.0                           # [m]
-            hard_margin: 0.0                           # [m]
-            hard_margin_for_parked_vehicle: 0.0        # [m]
+            hard_margin: 0.3                           # [m] Shared downstream floor also applies.
+            hard_margin_for_parked_vehicle: 0.3        # [m]
         bicycle:
           th_moving_speed: 0.28                        # 1.0km/h
           th_moving_time: 1.0

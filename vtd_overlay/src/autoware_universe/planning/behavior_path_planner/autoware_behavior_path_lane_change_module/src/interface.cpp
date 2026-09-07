@@ -46,7 +46,13 @@ LaneChangeInterface::LaneChangeInterface(
     objects_of_interest_marker_interface_ptr_map,
   const std::shared_ptr<PlanningFactorInterface> & planning_factor_interface,
   std::unique_ptr<LaneChangeBase> && module_type)
-: SceneModuleInterface{name, node, rtc_interface_ptr_map, objects_of_interest_marker_interface_ptr_map, planning_factor_interface, ModuleStatus::WAITING_APPROVAL},  // NOLINT
+: SceneModuleInterface{
+    name,
+    node,
+    rtc_interface_ptr_map,
+    objects_of_interest_marker_interface_ptr_map,
+    planning_factor_interface,
+    ModuleStatus::WAITING_APPROVAL},  // NOLINT
   parameters_{std::move(parameters)},
   module_type_{std::move(module_type)}
 {
@@ -106,6 +112,12 @@ void LaneChangeInterface::updateData()
   module_type_->update_filtered_objects();
   module_type_->update_transient_data(getCurrentStatus() == ModuleStatus::RUNNING);
   module_type_->updateSpecialData();
+
+  if (
+    getCurrentStatus() == ModuleStatus::RUNNING && !is_rtc_force_deactivated() &&
+    module_type_->updateApprovedPath()) {
+    post_process_safety_status_ = {};
+  }
 
   if (isWaitingApproval() || module_type_->isAbortState()) {
     module_type_->updateLaneChangeStatus();
@@ -355,7 +367,7 @@ std::pair<LaneChangeStates, std::string_view> LaneChangeInterface::check_transit
     return {LaneChangeStates::Cancel, "EgoOutOfLanes"};
   }
 
-  if (module_type_->hasMissedLaneChangePath()) {
+  if (module_type_->hasMissedLaneChangePath() && !module_type_->isApprovedPathBlocked()) {
     return {LaneChangeStates::Cancel, "MissedLaneChangePath"};
   }
 
@@ -380,6 +392,10 @@ std::pair<LaneChangeStates, std::string_view> LaneChangeInterface::check_transit
   // regardless of safe and unsafe, we want to cancel lane change.
   if (is_preparing && is_rtc_force_deactivated() && can_return_to_current) {
     return {LaneChangeStates::Cancel, "ForceDeactivation"};
+  }
+
+  if (module_type_->isApprovedPathBlocked()) {
+    return {LaneChangeStates::Warning, "StaticObstacleReplan"};
   }
 
   if (post_process_safety_status_.is_safe) {

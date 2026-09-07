@@ -16,6 +16,7 @@
 
 #include "autoware/behavior_path_planner_common/utils/drivable_area_expansion/static_drivable_area.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/objects_filtering.hpp"
+#include "autoware/behavior_path_planner_common/utils/path_safety_checker/safety_check.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_utils.hpp"
 #include "autoware/behavior_path_planner_common/utils/utils.hpp"
 #include "autoware/behavior_path_static_obstacle_avoidance_module/utils.hpp"
@@ -23,6 +24,7 @@
 #include <autoware/behavior_path_lane_change_module/utils/calculation.hpp>
 #include <autoware/behavior_path_lane_change_module/utils/utils.hpp>
 #include <autoware/behavior_path_static_obstacle_avoidance_module/data_structs.hpp>
+#include <autoware/behavior_path_static_obstacle_avoidance_module/static_collision.hpp>
 #include <autoware/lanelet2_utils/geometry.hpp>
 #include <rclcpp/logging.hpp>
 
@@ -34,6 +36,7 @@
 #include <limits>
 #include <memory>
 #include <optional>
+#include <tuple>
 #include <unordered_set>
 #include <utility>
 #include <vector>
@@ -127,6 +130,8 @@ void AvoidanceByLaneChange::applyObstacleVelocityLimit()
   cap_velocity(prev_module_output_.reference_path);
   cap_velocity(avoidance_data_.reference_path_rough);
   cap_velocity(avoidance_data_.reference_path);
+  common_data_ptr_->transient_data.current_path_velocity =
+    std::min(common_data_ptr_->transient_data.current_path_velocity, velocity_limit);
 
   RCLCPP_INFO_THROTTLE(
     logger_, clock_, 3000, "avoidance obstacle velocity cap applied: %.2f m/s (%.0f%% of max)",
@@ -163,6 +168,12 @@ bool AvoidanceByLaneChange::specialRequiredCheck() const
 
 bool AvoidanceByLaneChange::specialExpiredCheck() const
 {
+  // No selected side means there is no RTC request to approve. Expire the candidate instead of
+  // letting the common "no registered requests" transition treat it as executable.
+  if (direction_ == Direction::NONE) {
+    return true;
+  }
+
   // Do not drop a safe candidate during the one-cycle auto-approval hand-off merely because the
   // ego crossed the early-request distance threshold in that cycle.
   if (status_.is_valid_path && status_.is_safe) {
@@ -201,110 +212,47 @@ void AvoidanceByLaneChange::updateSpecialData()
   const bool preserve_approved_target =
     is_activated_ && common_data_ptr_->requested_target_lane_id.has_value();
   if (preserve_approved_target) {
-    target_lane_candidate_ids_ = {common_data_ptr_->requested_target_lane_id.value()};
+    return;
+  }
+
+  const auto previous_target = common_data_ptr_->requested_target_lane_id;
+  target_lane_candidates_.clear();
+  common_data_ptr_->requested_target_lane_id.reset();
+  if (nearest_avoidance_target) {
+    const auto preferred = utils::static_obstacle_avoidance::isOnRight(*nearest_avoidance_target)
+                             ? Direction::LEFT
+                             : Direction::RIGHT;
+    const auto opposite = preferred == Direction::LEFT ? Direction::RIGHT : Direction::LEFT;
+    for (const auto direction : {preferred, opposite}) {
+      const auto lanes = getTargetLaneCandidates(direction, *nearest_avoidance_target);
+      for (std::size_t i = 0; i < lanes.size(); ++i) {
+        target_lane_candidates_.push_back(
+          {direction, lanes.at(i).id(),
+           std::abs(common_data_ptr_->route_handler_ptr->getNumLaneToPreferredLane(lanes.at(i))),
+           i + 1});
+      }
+    }
+    std::stable_sort(
+      target_lane_candidates_.begin(), target_lane_candidates_.end(),
+      [&](const auto & a, const auto & b) {
+        return std::make_tuple(
+                 a.lanes_to_preferred, a.lateral_steps, previous_target != a.lane_id) <
+               std::make_tuple(b.lanes_to_preferred, b.lateral_steps, previous_target != b.lane_id);
+      });
+  }
+
+  // Initialize in this cycle, before the exclusive-slot arbitration can launch static avoidance.
+  // Path validity, distance and safety are checked separately for EVERY direction below.
+  if (!target_lane_candidates_.empty()) {
+    selectTargetLane(target_lane_candidates_.front());
   } else {
-    target_lane_candidate_ids_.clear();
-    common_data_ptr_->requested_target_lane_id.reset();
-  }
-
-  if (!preserve_approved_target && !nearest_avoidance_target) {
     direction_ = Direction::NONE;
-  } else if (!preserve_approved_target) {
-    const auto & nearest = *nearest_avoidance_target;
-    const auto preferred =
-      utils::static_obstacle_avoidance::isOnRight(nearest) ? Direction::LEFT : Direction::RIGHT;
-    const auto fallback = preferred == Direction::LEFT ? Direction::RIGHT : Direction::LEFT;
-    auto target_candidates = getTargetLaneCandidates(preferred, nearest);
-    if (!target_candidates.empty()) {
-      direction_ = preferred;
-    } else {
-      target_candidates = getTargetLaneCandidates(fallback, nearest);
-      direction_ = target_candidates.empty() ? Direction::NONE : fallback;
-    }
-
-    if (direction_ != Direction::NONE) {
-      target_lane_candidate_ids_.reserve(target_candidates.size());
-      std::transform(
-        target_candidates.rbegin(), target_candidates.rend(),
-        std::back_inserter(target_lane_candidate_ids_),
-        [](const auto & lane) { return lane.id(); });
-
-      // A farther terminal lane requires a larger lateral shift. Do not let that candidate make
-      // specialRequiredCheck() reject the whole module when an inward candidate still fits before
-      // the obstacle. Keep the farthest candidate whose physical minimum distance fits, followed
-      // by every nearer fallback.
-      const double minimum_avoid_length = calcMinAvoidanceLength(nearest);
-      std::optional<std::size_t> first_fitting_index;
-      for (std::size_t i = 0; i < target_lane_candidate_ids_.size(); ++i) {
-        common_data_ptr_->requested_target_lane_id = target_lane_candidate_ids_.at(i);
-        common_data_ptr_->direction = direction_;
-        update_lanes(false);
-        if (
-          get_target_lanes().empty() ||
-          get_target_lanes().front().id() != target_lane_candidate_ids_.at(i)) {
-          continue;
-        }
-
-        const double minimum_lane_change_length = calc_minimum_dist_buffer();
-        const double required_length = std::max(minimum_lane_change_length, minimum_avoid_length);
-        RCLCPP_DEBUG(
-          logger_,
-          "avoidance direct candidate target=%lld object_distance=%.2f minimum_distance=%.2f "
-          "fits=%s",
-          static_cast<long long>(target_lane_candidate_ids_.at(i)), nearest.longitudinal,
-          required_length, nearest.longitudinal > required_length ? "true" : "false");
-        if (nearest.longitudinal > required_length) {
-          first_fitting_index = i;
-          break;
-        }
-      }
-
-      if (first_fitting_index) {
-        target_lane_candidate_ids_.erase(
-          target_lane_candidate_ids_.begin(),
-          target_lane_candidate_ids_.begin() + *first_fitting_index);
-      } else {
-        // Leave the immediate target selected so specialRequiredCheck() reports the true minimum
-        // required distance. It will correctly keep the module idle until a feasible path exists.
-        const auto immediate_target_lane_id = target_lane_candidate_ids_.back();
-        target_lane_candidate_ids_ = {immediate_target_lane_id};
-      }
-
-      common_data_ptr_->requested_target_lane_id = target_lane_candidate_ids_.front();
-      update_lanes(false);
-      update_filtered_objects();
-      update_transient_data(false);
-    }
-
-    RCLCPP_DEBUG(
-      logger_,
-      "avoidance target longitudinal=%.2f lateral=%.2f selected_direction=%s target=%lld "
-      "candidate_lanes=%zu",
-      nearest.longitudinal, nearest.to_centerline,
-      direction_ == Direction::LEFT    ? "LEFT"
-      : direction_ == Direction::RIGHT ? "RIGHT"
-                                       : "NONE",
-      common_data_ptr_->requested_target_lane_id
-        ? static_cast<long long>(common_data_ptr_->requested_target_lane_id.value())
-        : 0LL,
-      target_lane_candidate_ids_.size());
-  }
-  common_data_ptr_->direction = direction_;
-
-  // The generic lane-change update runs before this avoidance-specific object update.  On the
-  // first cycle the module therefore has current lanes but no direction/target lane yet.  Do not
-  // defer target-lane initialization to the next cycle: static avoidance can be approved during
-  // that gap and, as an already-running module in the same slot, prevent this higher-priority
-  // module from ever being launched.  Complete the lane-change data in this cycle so arbitration
-  // compares the adjacent-lane candidate against static avoidance at the same time.
-  const bool target_changed =
-    common_data_ptr_->requested_target_lane_id &&
-    (get_target_lanes().empty() ||
-     get_target_lanes().front().id() != common_data_ptr_->requested_target_lane_id.value());
-  if (direction_ != Direction::NONE && target_changed) {
+    common_data_ptr_->direction = Direction::NONE;
+    common_data_ptr_->requested_target_lane_id.reset();
     update_lanes(false);
-    update_filtered_objects();
-    update_transient_data(false);
+    status_.is_valid_path = false;
+    status_.is_safe = false;
+    lane_change_debug_.valid_paths.clear();
   }
 }
 
@@ -412,56 +360,106 @@ bool AvoidanceByLaneChange::isLaneClear(const lanelet::ConstLanelet & lane) cons
 
 void AvoidanceByLaneChange::updateLaneChangeStatus()
 {
-  if (target_lane_candidate_ids_.empty()) {
-    NormalLaneChange::updateLaneChangeStatus();
+  if (is_activated_) {
     return;
   }
 
-  std::optional<std::pair<lanelet::Id, LaneChangePath>> first_valid;
-  for (const auto target_lane_id : target_lane_candidate_ids_) {
-    common_data_ptr_->requested_target_lane_id = target_lane_id;
-    common_data_ptr_->direction = direction_;
-    update_lanes(false);
-    if (get_target_lanes().empty() || get_target_lanes().front().id() != target_lane_id) {
-      continue;
-    }
-
-    update_filtered_objects();
-    update_transient_data(false);
-    terminal_lane_change_path_ = std::nullopt;
-
-    LaneChangePath candidate_path;
-    const auto [found_valid_path, found_safe_path] = getSafePath(candidate_path);
-    candidate_path.path.header = getRouteHeader();
-    RCLCPP_DEBUG(
-      logger_, "avoidance direct candidate target=%lld valid=%s safe=%s",
-      static_cast<long long>(target_lane_id), found_valid_path ? "true" : "false",
-      found_safe_path ? "true" : "false");
-
-    if (found_valid_path && !first_valid) {
-      first_valid = std::make_pair(target_lane_id, candidate_path);
-    }
-    if (found_valid_path && found_safe_path) {
-      status_.lane_change_path = std::move(candidate_path);
-      status_.is_valid_path = true;
-      status_.is_safe = true;
-      return;
-    }
-  }
-
+  struct Evaluation
+  {
+    TargetLaneCandidate target;
+    LaneChangePath path;
+    lane_change::Debug debug;
+    std::optional<LaneChangePath> terminal_path;
+    bool safe;
+  };
+  std::optional<Evaluation> selected;
+  std::size_t eligible = 0;
+  bool left_safe = false;
+  bool right_safe = false;
   status_.is_valid_path = false;
   status_.is_safe = false;
-  if (!first_valid) {
+  for (const auto & target : target_lane_candidates_) {
+    if (!selectTargetLane(target) || !specialRequiredCheck()) {
+      continue;
+    }
+    ++eligible;
+    LaneChangePath candidate_path;
+    const auto [found_valid_path, found_safe_path] = getSafePath(candidate_path);
+    const bool static_safe = found_valid_path && isStaticObstaclePathSafe(candidate_path);
+    const bool safe = found_valid_path && found_safe_path && static_safe;
+    left_safe |= safe && target.direction == Direction::LEFT;
+    right_safe |= safe && target.direction == Direction::RIGHT;
+    candidate_path.path.header = getRouteHeader();
+    RCLCPP_DEBUG(
+      logger_,
+      "avoidance bilateral candidate direction=%s target=%lld valid=%s predicted_safe=%s "
+      "static_safe=%s lanes_to_mission=%d",
+      target.direction == Direction::LEFT ? "LEFT" : "RIGHT",
+      static_cast<long long>(target.lane_id), found_valid_path ? "true" : "false",
+      found_safe_path ? "true" : "false", static_safe ? "true" : "false",
+      target.lanes_to_preferred);
+    if (found_valid_path && (!selected || (safe && !selected->safe))) {
+      selected = Evaluation{
+        target, std::move(candidate_path), lane_change_debug_, terminal_lane_change_path_, safe};
+    }
+  }
+
+  if (!target_lane_candidates_.empty()) {
+    RCLCPP_INFO_THROTTLE(
+      logger_, clock_, 3000,
+      "avoidance bilateral: candidates=%zu eligible=%zu left_safe=%s right_safe=%s selected=%s "
+      "ready=%s",
+      target_lane_candidates_.size(), eligible, left_safe ? "true" : "false",
+      right_safe ? "true" : "false",
+      !selected                                       ? "NONE"
+      : selected->target.direction == Direction::LEFT ? "LEFT"
+                                                      : "RIGHT",
+      selected && selected->safe ? "true" : "false");
+  }
+  if (!selected) {
+    lane_change_debug_.valid_paths.clear();
     return;
   }
 
-  common_data_ptr_->requested_target_lane_id = first_valid->first;
+  // Restore ALL direction-dependent state, not just the path: the last evaluated side may differ
+  // from the winner. Approval, turn signals and the next safety check must use the same target.
+  if (!selectTargetLane(selected->target)) {
+    return;
+  }
+  lane_change_debug_ = std::move(selected->debug);
+  terminal_lane_change_path_ = std::move(selected->terminal_path);
+  status_.lane_change_path = std::move(selected->path);
+  status_.is_valid_path = true;
+  status_.is_safe = selected->safe;
+}
+
+bool AvoidanceByLaneChange::selectTargetLane(const TargetLaneCandidate & candidate)
+{
+  direction_ = candidate.direction;
+  common_data_ptr_->direction = direction_;
+  common_data_ptr_->requested_target_lane_id = candidate.lane_id;
   update_lanes(false);
+  if (get_target_lanes().empty() || get_target_lanes().front().id() != candidate.lane_id) {
+    return false;
+  }
   update_filtered_objects();
   update_transient_data(false);
-  status_.lane_change_path = std::move(first_valid->second);
-  status_.is_valid_path = true;
-  status_.is_safe = false;
+  terminal_lane_change_path_.reset();
+  return !isLaneChangeRequired();
+}
+
+bool AvoidanceByLaneChange::isStaticObstaclePathSafe(const LaneChangePath & path) const
+{
+  return NormalLaneChange::isStaticObstaclePathSafe(path);
+}
+
+PathSafetyStatus AvoidanceByLaneChange::isApprovedPathSafe() const
+{
+  const auto predicted_safety = NormalLaneChange::isApprovedPathSafe();
+  if (!predicted_safety.is_safe || isStaticObstaclePathSafe(status_.lane_change_path)) {
+    return predicted_safety;
+  }
+  return {false, false};
 }
 
 AvoidancePlanningData AvoidanceByLaneChange::calcAvoidancePlanningData(

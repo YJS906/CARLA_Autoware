@@ -61,6 +61,10 @@ public:
 
   void updateLaneChangeStatus() override;
 
+  bool updateApprovedPath() override;
+
+  bool isApprovedPathBlocked() const override { return approved_path_blocked_; }
+
   std::pair<bool, bool> getSafePath(LaneChangePath & safe_path) const override;
 
   LaneChangePath getLaneChangePath() const override;
@@ -120,6 +124,13 @@ public:
   bool hasMissedLaneChangePath() const override;
 
 protected:
+  utils::path_safety_checker::TrajectoryCollisionResult check_static_path(
+    const LaneChangePath & path) const;
+
+  bool isStaticObstaclePathSafe(const LaneChangePath & path) const;
+
+  void stop_for_static_obstacle(PathWithLaneId & path);
+
   lanelet::ConstLanelets get_lane_change_lanes(const lanelet::ConstLanelets & current_lanes) const;
 
   TurnSignalInfo get_terminal_turn_signal_info() const final;
@@ -206,6 +217,8 @@ protected:
 
   std::vector<PathPointWithLaneId> path_after_intersection_;
   double stop_time_{0.0};
+  bool approved_path_blocked_{false};
+  std::optional<rclcpp::Time> last_replan_time_;
 };
 }  // namespace autoware::behavior_path_planner
 #endif  // AUTOWARE__BEHAVIOR_PATH_LANE_CHANGE_MODULE__SCENE_HPP_

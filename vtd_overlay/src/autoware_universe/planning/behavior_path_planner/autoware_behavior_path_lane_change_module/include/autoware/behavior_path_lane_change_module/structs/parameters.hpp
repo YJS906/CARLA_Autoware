@@ -16,6 +16,7 @@
 #define AUTOWARE__BEHAVIOR_PATH_LANE_CHANGE_MODULE__STRUCTS__PARAMETERS_HPP_
 
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/path_safety_checker_parameters.hpp"
+#include "autoware/behavior_path_planner_common/utils/path_safety_checker/trajectory_collision.hpp"
 
 #include <autoware/interpolation/linear_interpolation.hpp>
 #include <autoware_utils/math/unit_conversion.hpp>
@@ -156,6 +157,10 @@ struct TerminalPathParameters
 
 struct Parameters
 {
+  utils::path_safety_checker::TrajectoryCollisionParameters trajectory_safety{};
+  // Used only when a stationary obstacle limits preparation or an approved path is blocked.
+  double obstacle_min_lane_changing_velocity{1.0};
+  double stopped_replan_velocity{1.5};
   TrajectoryParameters trajectory{};
   SafetyParameters safety{};
   CancelParameters cancel{};

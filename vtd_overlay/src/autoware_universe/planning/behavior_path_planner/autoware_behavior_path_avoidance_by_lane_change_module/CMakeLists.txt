@@ -14,6 +14,8 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 if(BUILD_TESTING)
   ament_add_ros_isolated_gmock(test_${PROJECT_NAME}
     test/test_behavior_path_planner_node_interface.cpp
+    test/test_bilateral_selection.cpp
+    test/test_approval_handoff.cpp
   )
 
   target_link_libraries(test_${PROJECT_NAME}

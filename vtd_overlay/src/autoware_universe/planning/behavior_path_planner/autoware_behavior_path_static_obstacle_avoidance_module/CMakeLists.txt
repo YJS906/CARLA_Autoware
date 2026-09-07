@@ -9,6 +9,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/scene.cpp
   src/debug.cpp
   src/utils.cpp
+  src/static_collision.cpp
   src/manager.cpp
   src/shift_line_generator.cpp
 )
@@ -16,6 +17,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 if(BUILD_TESTING)
   ament_add_ros_isolated_gmock(test_${PROJECT_NAME}
     test/test_utils.cpp
+    test/test_static_collision.cpp
     test/test_behavior_path_planner_node_interface.cpp
     test/test_planning_factor.cpp
   )

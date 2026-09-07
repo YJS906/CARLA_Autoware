@@ -17,6 +17,7 @@
 
 #include "autoware/behavior_path_planner_common/data_manager.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/path_safety_checker_parameters.hpp"
+#include "autoware/behavior_path_planner_common/utils/path_safety_checker/trajectory_collision.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_shifter/path_shifter.hpp"
 #include "autoware/behavior_path_static_obstacle_avoidance_module/type_alias.hpp"
 
@@ -98,6 +99,9 @@ struct ObjectParameter
 
 struct AvoidanceParameters
 {
+  // Same obstacle-stop margins and footprint construction as the downstream velocity planner.
+  utils::path_safety_checker::TrajectoryCollisionParameters trajectory_collision{};
+
   // path resample interval for avoidance planning path.
   double resample_interval_for_planning = 0.3;
 

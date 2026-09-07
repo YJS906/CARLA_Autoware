@@ -112,13 +112,9 @@ protected:
     const double start_distance, const double finish_distance, const bool safe,
     const uint8_t & state)
   {
-    autoware_utils::ScopedTimeTrack st(__func__, *time_keeper_);
-    for (const auto & [module_name, ptr] : rtc_interface_ptr_map_) {
-      if (ptr) {
-        ptr->updateCooperateStatus(
-          uuid_map_.at(module_name), safe, state, start_distance, finish_distance, clock_->now());
-      }
-    }
+    // Dispatch through the existing virtual hook so derived modules can choose their RTC side.
+    // Preserve explicit safety/abort state without adding a new virtual slot to this class.
+    update_rtc_status(start_distance, finish_distance, safe, state);
   }
 
   std::pair<LaneChangeStates, std::string_view> check_transit_failure();

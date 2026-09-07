@@ -42,6 +42,22 @@ LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::s
 
   LaneChangeParameters p{};
 
+  p.trajectory_safety = utils::path_safety_checker::loadTrajectoryCollisionParameters(*node);
+  const auto get_with_default = [&](const std::string & name, double value) {
+    return node->has_parameter(name) ? node->get_parameter(name).as_double()
+                                     : node->declare_parameter<double>(name, value);
+  };
+  p.obstacle_min_lane_changing_velocity =
+    get_with_default("lane_change.obstacle_aware.min_lane_changing_velocity", 1.0);
+  p.stopped_replan_velocity =
+    get_with_default("lane_change.obstacle_aware.stopped_replan_velocity", 1.5);
+  if (
+    !std::isfinite(p.obstacle_min_lane_changing_velocity) ||
+    p.obstacle_min_lane_changing_velocity <= 0.0 || !std::isfinite(p.stopped_replan_velocity) ||
+    p.stopped_replan_velocity <= 0.0) {
+    throw std::invalid_argument("Obstacle-aware lane-change velocities must be positive");
+  }
+
   const auto parameter = [](std::string && name) { return "lane_change." + name; };
 
   // trajectory generation

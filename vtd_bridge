@@ -51,7 +51,7 @@ if [[ -z "${vtd_install_dir}" || ! -d "${vtd_install_dir}" ]]; then
 fi
 
 vtd_image="${VTD_IMAGE:-selfcar-2026-vtd:local}"
-if ! docker image inspect "${vtd_image}" >/dev/null 2>&1; then
+if ! vtd_image_id="$(docker image inspect --format '{{.Id}}' "${vtd_image}" 2>/dev/null)"; then
   echo "Image ${vtd_image} is not available. Run ./scripts/build-vtd-image.sh first." >&2
   exit 1
 fi
@@ -68,7 +68,7 @@ done
 
 export HLVTD_HOST="${hlvtd_host}"
 
-echo "Starting VTD bridge: image=${vtd_image}, HLVTD=${HLVTD_HOST}:9910, LiDAR=UDP/9912"
+echo "Starting VTD bridge: image=${vtd_image} (${vtd_image_id}), HLVTD=${HLVTD_HOST}:9910, LiDAR=UDP/9912, raw RDB TCP disabled"
 exec docker compose \
   --env-file "${env_file}" \
   -f "${repo_root}/docker/vtd/compose.yaml" \

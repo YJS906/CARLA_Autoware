@@ -49,7 +49,11 @@ public:
 
   void updateLaneChangeStatus() override;
 
+  PathSafetyStatus isApprovedPathSafe() const override;
+
 private:
+  friend class TestAvoidanceByLaneChange;
+
   std::shared_ptr<AvoidanceByLCParameters> avoidance_parameters_;
 
   AvoidancePlanningData calcAvoidancePlanningData(AvoidanceDebugData & debug) const;
@@ -75,9 +79,20 @@ private:
     Direction direction, const ObjectData & nearest_object) const;
   bool isLaneClear(const lanelet::ConstLanelet & lane) const;
 
-  // Ordered from the farthest clear route lane to the immediate adjacent lane. Candidate path
-  // safety is evaluated in this order and falls back inward if a farther direct shift is unsafe.
-  std::vector<lanelet::Id> target_lane_candidate_ids_;
+  struct TargetLaneCandidate
+  {
+    Direction direction;
+    lanelet::Id lane_id;
+    int lanes_to_preferred;
+    std::size_t lateral_steps;
+  };
+
+  virtual bool selectTargetLane(const TargetLaneCandidate & candidate);
+  bool isStaticObstaclePathSafe(const LaneChangePath & path) const;
+
+  // Both legal directions are evaluated before arbitration. Safe candidates nearer the mission
+  // lane take priority; a tiny obstacle-center offset is only a deterministic tie breaker.
+  std::vector<TargetLaneCandidate> target_lane_candidates_;
 };
 }  // namespace autoware::behavior_path_planner
 

@@ -28,7 +28,7 @@
 
 namespace autoware::behavior_path_planner::lane_change
 {
-enum class PathType { ConstantJerk = 0, FrenetPlanner };
+enum class PathType { ConstantJerk = 0, FrenetPlanner, LowSpeed };
 
 using autoware::behavior_path_planner::TurnSignalInfo;
 using autoware_internal_planning_msgs::msg::PathWithLaneId;

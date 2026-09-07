@@ -77,8 +77,10 @@ void AvoidanceByLaneChangeModuleManager::init(rclcpp::Node * node)
 
   // target object
   {
-    const auto get_object_param = [&](std::string && ns) {
-      ObjectParameter param{};
+    const auto set_object_param = [&](const uint8_t object_type, const std::string & ns) {
+      // The inherited map already contains every class. Update its fields instead of emplace,
+      // preserving longitudinal/error/safety fields not overridden by the LC configuration.
+      auto & param = p.object_parameters.at(object_type);
       param.moving_speed_threshold =
         get_or_declare_parameter<double>(*node, ns + "th_moving_speed");
       param.moving_time_threshold = get_or_declare_parameter<double>(*node, ns + "th_moving_time");
@@ -91,20 +93,17 @@ void AvoidanceByLaneChangeModuleManager::init(rclcpp::Node * node)
         get_or_declare_parameter<double>(*node, ns + "lateral_margin.hard_margin");
       param.lateral_hard_margin_for_parked_vehicle = get_or_declare_parameter<double>(
         *node, ns + "lateral_margin.hard_margin_for_parked_vehicle");
-      return param;
     };
 
     const std::string ns = "avoidance_by_lane_change.target_object.";
-    p.object_parameters.emplace(
-      ObjectClassification::MOTORCYCLE, get_object_param(ns + "motorcycle."));
-    p.object_parameters.emplace(ObjectClassification::CAR, get_object_param(ns + "car."));
-    p.object_parameters.emplace(ObjectClassification::TRUCK, get_object_param(ns + "truck."));
-    p.object_parameters.emplace(ObjectClassification::TRAILER, get_object_param(ns + "trailer."));
-    p.object_parameters.emplace(ObjectClassification::BUS, get_object_param(ns + "bus."));
-    p.object_parameters.emplace(
-      ObjectClassification::PEDESTRIAN, get_object_param(ns + "pedestrian."));
-    p.object_parameters.emplace(ObjectClassification::BICYCLE, get_object_param(ns + "bicycle."));
-    p.object_parameters.emplace(ObjectClassification::UNKNOWN, get_object_param(ns + "unknown."));
+    set_object_param(ObjectClassification::MOTORCYCLE, ns + "motorcycle.");
+    set_object_param(ObjectClassification::CAR, ns + "car.");
+    set_object_param(ObjectClassification::TRUCK, ns + "truck.");
+    set_object_param(ObjectClassification::TRAILER, ns + "trailer.");
+    set_object_param(ObjectClassification::BUS, ns + "bus.");
+    set_object_param(ObjectClassification::PEDESTRIAN, ns + "pedestrian.");
+    set_object_param(ObjectClassification::BICYCLE, ns + "bicycle.");
+    set_object_param(ObjectClassification::UNKNOWN, ns + "unknown.");
 
     p.lower_distance_for_polygon_expansion =
       get_or_declare_parameter<double>(*node, ns + "lower_distance_for_polygon_expansion");
@@ -197,6 +196,7 @@ void AvoidanceByLaneChangeModuleManager::init(rclcpp::Node * node)
       get_or_declare_parameter<double>(*node, ns + "hysteresis_factor_expand_rate");
   }
 
+  utils::static_obstacle_avoidance::enforceTrajectorySafetyMargins(p);
   avoidance_parameters_ = std::make_shared<AvoidanceByLCParameters>(p);
 }
 

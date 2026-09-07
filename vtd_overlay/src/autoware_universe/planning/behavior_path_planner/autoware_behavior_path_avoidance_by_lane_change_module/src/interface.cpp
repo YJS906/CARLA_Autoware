@@ -51,26 +51,41 @@ bool AvoidanceByLaneChangeInterface::isExecutionRequested() const
   // An avoidance request therefore requires the absence of that error, just like the normal
   // lane-change interface.
   return !module_type_->isLaneChangeRequired() && module_type_->specialRequiredCheck() &&
-         module_type_->isValidPath();
-}
-
-void AvoidanceByLaneChangeInterface::processOnEntry()
-{
-  waitApproval();
+         module_type_->isValidPath() && module_type_->isSafe();
 }
 
 void AvoidanceByLaneChangeInterface::updateRTCStatus(
   const double start_distance, const double finish_distance)
 {
-  const auto direction = std::invoke([&]() -> std::string {
-    const auto dir = module_type_->getDirection();
-    return (dir == Direction::LEFT) ? "left" : "right";
-  });
+  update_rtc_status(start_distance, finish_distance);
+}
 
-  const auto state = isWaitingApproval() ? State::WAITING_FOR_EXECUTION : State::RUNNING;
+void AvoidanceByLaneChangeInterface::update_rtc_status(
+  const double start_distance, const double finish_distance, const std::optional<bool> safe,
+  const std::optional<uint8_t> state)
+{
+  const auto dir = module_type_->getDirection();
+  const std::string direction = dir == Direction::LEFT    ? "left"
+                                : dir == Direction::RIGHT ? "right"
+                                                          : "";
 
-  rtc_interface_ptr_map_.at(direction)->updateCooperateStatus(
-    uuid_map_.at(direction), isExecutionReady(), state, start_distance, finish_distance,
-    clock_->now());
+  // A waiting candidate may change or lose its direction. Remove only its own old requests;
+  // never register the opposite side with the selected path's safety result.
+  if (isWaitingApproval()) {
+    for (const auto & [side, rtc] : rtc_interface_ptr_map_) {
+      if (side != direction && rtc && rtc->isRegistered(uuid_map_.at(side))) {
+        rtc->removeCooperateStatus(uuid_map_.at(side));
+      }
+    }
+  }
+  if (direction.empty()) return;
+
+  const auto & rtc = rtc_interface_ptr_map_.at(direction);
+  const auto & uuid = uuid_map_.at(direction);
+  const auto default_state =
+    !rtc->isRegistered(uuid) || isWaitingApproval() ? State::WAITING_FOR_EXECUTION : State::RUNNING;
+  rtc->updateCooperateStatus(
+    uuid, safe.value_or(isExecutionReady()), state.value_or(default_state), start_distance,
+    finish_distance, clock_->now());
 }
 }  // namespace autoware::behavior_path_planner
