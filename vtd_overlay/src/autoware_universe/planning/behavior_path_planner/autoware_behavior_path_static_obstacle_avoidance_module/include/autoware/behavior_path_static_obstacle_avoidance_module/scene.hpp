@@ -173,7 +173,8 @@ private:
           left_shift.uuid, false, State::RUNNING, start_distance, finish_distance, clock_->now());
       } else {
         rtc_interface_ptr_map_.at("left")->updateCooperateStatus(
-          left_shift.uuid, true, State::RUNNING, start_distance, finish_distance, clock_->now());
+          left_shift.uuid, !approved_path_ || avoid_data_.safe, State::RUNNING, start_distance,
+          finish_distance, clock_->now());
       }
 
       if (finish_distance > -1.0) {
@@ -202,7 +203,8 @@ private:
           right_shift.uuid, false, State::RUNNING, start_distance, finish_distance, clock_->now());
       } else {
         rtc_interface_ptr_map_.at("right")->updateCooperateStatus(
-          right_shift.uuid, true, State::RUNNING, start_distance, finish_distance, clock_->now());
+          right_shift.uuid, !approved_path_ || avoid_data_.safe, State::RUNNING, start_distance,
+          finish_distance, clock_->now());
       }
 
       if (finish_distance > -1.0) {
@@ -280,6 +282,29 @@ private:
    * @brief update RTC status.
    */
   void updateRTCData();
+
+  // A finite approved maneuver owns its geometry until completion. New proposals must not
+  // replace it, and an unsafe execution must stop on it instead of resetting to the lane center.
+  struct ApprovedPath
+  {
+    ShiftedPath spline;
+    ShiftedPath linear;
+    ShiftedPath execution;
+    PathWithLaneId reference;
+    lanelet::ConstLanelets lanes;
+    Pose finish_pose;
+    double safety_end_arc{0.0};
+    bool blocked{false};
+    std::optional<rclcpp::Time> clear_since;
+  };
+
+  ShiftedPath makeExecutionPath(const ShiftedPath & path) const;
+  bool isExecutionPathAligned(const ShiftedPath & path) const;
+  double getSafetyCheckEndArc(const ShiftedPath & path) const;
+  void updateApprovedPath(AvoidancePlanningData & data, DebugData & debug);
+  void finishApprovedPath();
+  void applyUpstreamVelocityLimits(ShiftedPath & path) const;
+  void stopOnApprovedPath(ShiftedPath & path);
 
   // ego behavior update
 
@@ -451,6 +476,9 @@ private:
    */
   bool isSafePath(ShiftedPath & shifted_path, DebugData & debug) const;
 
+  // Applied before candidate safety AND after output resampling/velocity insertion.
+  bool prepareManeuverPath(PathWithLaneId & path, const ShiftLineArray & lines) const;
+
   /**
    * @brief Check whether operator approval is required for the given shifted path.
    *
@@ -493,6 +521,9 @@ private:
    */
   void removeRegisteredShiftLines(const uint8_t state)
   {
+    if (approved_path_) {
+      return;  // Release only after completing the approved maneuver or resetting the module.
+    }
     constexpr double threshold = 0.1;
     if (std::abs(path_shifter_.getBaseOffset()) > threshold) {
       RCLCPP_INFO_THROTTLE(
@@ -554,6 +585,12 @@ private:
   AvoidancePlanningData avoid_data_;
 
   PathShifter path_shifter_;
+
+  std::optional<ApprovedPath> approved_path_;
+
+  // fillEgoStatus may override data.safe for legacy yield/force-activation policy. Only the
+  // actual execution-path check may authorize capturing a new approved maneuver.
+  mutable bool candidate_execution_safe_{false};
 
   RegisteredShiftLineArray left_shift_array_;
 

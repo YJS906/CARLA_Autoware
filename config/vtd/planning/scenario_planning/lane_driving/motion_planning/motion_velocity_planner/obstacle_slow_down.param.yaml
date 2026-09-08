@@ -2,8 +2,8 @@
   ros__parameters:
     obstacle_slow_down:
       slow_down_planning:
-        slow_down_min_acc: -1.0         # slow down min deceleration [m/ss]
-        slow_down_min_jerk: -1.0        # slow down min jerk [m/sss]
+        slow_down_min_acc: -0.70 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
+        slow_down_min_jerk: -0.70 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
 
         lpf_gain_slow_down_vel: 0.0 # low-pass filter gain for slow down velocity
         lpf_gain_lateral_distance: 0.8 # low-pass filter gain for lateral distance from obstacle to ego's path

@@ -17,14 +17,14 @@
 
     # constraints param for normal driving
     normal:
-      min_acc: -1.0         # min deceleration [m/ss]
-      max_acc: 1.0          # max acceleration [m/ss]
-      min_jerk: -1.0        # min jerk [m/sss]
-      max_jerk: 1.0         # max jerk [m/sss]
+      min_acc: -5.0         # {OVERRIDE: controller-bounded lane-change braking [m/ss]}
+      max_acc: 0.70 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
+      min_jerk: -3.50 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
+      max_jerk: 1.40 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
 
     # constraints to be observed
     limit:
-      min_acc: -2.5         # min deceleration limit [m/ss]
-      max_acc: 1.0          # max acceleration limit [m/ss]
-      min_jerk: -1.5        # min jerk limit [m/sss]
-      max_jerk: 1.5         # max jerk limit [m/sss]
+      min_acc: -5.0         # {OVERRIDE: do not exceed controller deceleration [m/ss]}
+      max_acc: 0.70 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
+      min_jerk: -3.50 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
+      max_jerk: 1.40 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}

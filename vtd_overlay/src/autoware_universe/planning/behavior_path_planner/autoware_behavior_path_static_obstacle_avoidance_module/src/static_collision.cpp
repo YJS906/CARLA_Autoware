@@ -40,19 +40,31 @@ void enforceTrajectorySafetyMargins(AvoidanceParameters & parameters)
   }
 }
 
-bool hasStaticObstacleCollision(
+utils::path_safety_checker::TrajectoryCollisionResult checkStaticObstacleCollision(
   const PathWithLaneId & path, const PredictedObjects & objects,
   const autoware::vehicle_info_utils::VehicleInfo & vehicle_info,
   const AvoidanceParameters & parameters, const double start_arc, const double end_arc,
-  UUID * collided_object, const Pose * ego_pose)
+  const Pose * ego_pose)
+{
+  return checkStaticObstacleCollision(
+    path, objects, vehicle_info, parameters, start_arc, end_arc, ego_pose, std::nullopt);
+}
+
+utils::path_safety_checker::TrajectoryCollisionResult checkStaticObstacleCollision(
+  const PathWithLaneId & path, const PredictedObjects & objects,
+  const autoware::vehicle_info_utils::VehicleInfo & vehicle_info,
+  const AvoidanceParameters & parameters, const double start_arc, const double end_arc,
+  const Pose * ego_pose, const std::optional<selfcar::trajectory_safety::EgoMotion> & motion)
 {
   if (
     path.points.size() < 2 || !std::isfinite(start_arc) || !std::isfinite(end_arc) ||
     !std::isfinite(vehicle_info.vehicle_width_m) || vehicle_info.vehicle_width_m <= 0.0) {
-    return true;
+    return {};
   }
   if (end_arc < start_arc) {
-    return false;  // The finite maneuver is already behind ego.
+    utils::path_safety_checker::TrajectoryCollisionResult result;
+    result.valid = true;
+    return result;  // The finite maneuver is already behind ego.
   }
   try {
     auto safety = parameters.trajectory_collision;
@@ -62,7 +74,7 @@ bool hasStaticObstacleCollision(
     stationary.objects.clear();
     for (const auto & object : objects.objects) {
       const auto & velocity = object.kinematics.initial_twist_with_covariance.twist.linear;
-      if (!std::isfinite(velocity.x) || !std::isfinite(velocity.y)) return true;
+      if (!std::isfinite(velocity.x) || !std::isfinite(velocity.y)) return {};
       const auto label = std::max_element(
         object.classification.begin(), object.classification.end(),
         [](const auto & a, const auto & b) { return a.probability < b.probability; });
@@ -73,7 +85,7 @@ bool hasStaticObstacleCollision(
                                  : std::max(
                                      parameters.trajectory_collision.stationary_velocity,
                                      parameter->second.moving_speed_threshold);
-      if (!std::isfinite(threshold) || threshold < 0.0) return true;
+      if (!std::isfinite(threshold) || threshold < 0.0) return {};
       if (std::hypot(velocity.x, velocity.y) > threshold) continue;
       safety.stationary_velocity = std::max(safety.stationary_velocity, threshold);
       stationary.objects.push_back(object);
@@ -84,12 +96,22 @@ bool hasStaticObstacleCollision(
                : autoware::motion_utils::calcInterpolatedPose(
                    path.points,
                    std::clamp(start_arc, 0.0, autoware::motion_utils::calcArcLength(path.points)));
-    const auto result = utils::path_safety_checker::checkStaticTrajectory(
-      path, stationary, vehicle_info, corridor_pose, start_arc, end_arc, safety);
-    if (collided_object && result.object_id) *collided_object = *result.object_id;
-    return !result.is_safe();
+    return utils::path_safety_checker::checkStaticTrajectory(
+      path, stationary, vehicle_info, corridor_pose, start_arc, end_arc, safety, motion);
   } catch (const std::exception &) {
-    return true;
+    return {};
   }
+}
+
+bool hasStaticObstacleCollision(
+  const PathWithLaneId & path, const PredictedObjects & objects,
+  const autoware::vehicle_info_utils::VehicleInfo & vehicle_info,
+  const AvoidanceParameters & parameters, const double start_arc, const double end_arc,
+  UUID * collided_object, const Pose * ego_pose)
+{
+  const auto result = checkStaticObstacleCollision(
+    path, objects, vehicle_info, parameters, start_arc, end_arc, ego_pose);
+  if (collided_object && result.object_id) *collided_object = *result.object_id;
+  return !result.is_safe();
 }
 }  // namespace autoware::behavior_path_planner::utils::static_obstacle_avoidance

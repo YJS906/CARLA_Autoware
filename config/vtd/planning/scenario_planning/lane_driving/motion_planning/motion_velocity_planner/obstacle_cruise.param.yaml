@@ -41,7 +41,7 @@
 
               enable_jerk_limit_to_output_acc: true
 
-          min_accel_during_cruise: -2.0 # minimum acceleration during cruise to slow down [m/ss]
+          min_accel_during_cruise: -1.40 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
           min_cruise_target_vel: 0.0 # minimum target velocity during slow down [m/s]
           time_to_evaluate_rss: 0.0
 

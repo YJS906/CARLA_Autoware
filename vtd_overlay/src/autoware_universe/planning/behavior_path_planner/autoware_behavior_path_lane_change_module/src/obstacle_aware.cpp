@@ -48,7 +48,10 @@ utils::path_safety_checker::TrajectoryCollisionResult NormalLaneChange::check_st
   if (checked_end > motion_utils::calcArcLength(path.points) + 1e-3) return {};
   return utils::path_safety_checker::checkStaticTrajectory(
     path, *planner_data_->dynamic_object, planner_data_->parameters.vehicle_info, getEgoPose(),
-    start, checked_end, parameters);
+    start, checked_end, parameters,
+      selfcar::trajectory_safety::measuredEgoMotion(
+        std::abs(getEgoVelocity()), planner_data_->parameters.max_acc,
+        planner_data_->self_acceleration->accel.accel.linear.x));
 }
 
 bool NormalLaneChange::isStaticObstaclePathSafe(const LaneChangePath & path) const
@@ -66,7 +69,10 @@ void NormalLaneChange::stop_for_static_obstacle(PathWithLaneId & path)
     collision = utils::path_safety_checker::checkStaticTrajectory(
       path, *planner_data_->dynamic_object, planner_data_->parameters.vehicle_info, getEgoPose(),
       ego_arc, motion_utils::calcArcLength(path.points),
-      lane_change_parameters_->trajectory_safety);
+      lane_change_parameters_->trajectory_safety,
+      selfcar::trajectory_safety::measuredEgoMotion(
+        std::abs(getEgoVelocity()), planner_data_->parameters.max_acc,
+        planner_data_->self_acceleration->accel.accel.linear.x));
   }
   if (collision.is_safe()) return;
   const auto stop_arc = collision.valid ? collision.collision_arc -
@@ -111,6 +117,11 @@ bool NormalLaneChange::updateApprovedPath()
   const auto regulatory_distance =
     utils::lane_change::get_distance_to_next_regulatory_element(common_data_ptr_, false, false);
   const auto & polygons = *common_data_ptr_->lanes_polygon_ptr;
+  std::vector<lanelet::BasicPolygon2d> corridor_polygons;
+  for (const auto & lane : get_lane_change_corridor()) {
+    corridor_polygons.push_back(
+      utils::lane_change::create_polygon({lane}, 0.0, std::numeric_limits<double>::max()));
+  }
   autoware_utils::StopWatch<std::chrono::milliseconds> search_time;
   const auto footprint_in_lanes = [&](const PathWithLaneId & path) {
     for (const auto & point : path.points) {
@@ -121,6 +132,11 @@ bool NormalLaneChange::updateApprovedPath()
            {&polygons.current, &polygons.target_neighbor, &polygons.target}) {
         std::vector<autoware_utils::Polygon2d> next;
         for (const auto & part : remaining) boost::geometry::difference(part, *polygon, next);
+        remaining = std::move(next);
+      }
+      for (const auto & polygon : corridor_polygons) {
+        std::vector<autoware_utils::Polygon2d> next;
+        for (const auto & part : remaining) boost::geometry::difference(part, polygon, next);
         remaining = std::move(next);
       }
       if (std::any_of(remaining.begin(), remaining.end(), [](const auto & polygon) {

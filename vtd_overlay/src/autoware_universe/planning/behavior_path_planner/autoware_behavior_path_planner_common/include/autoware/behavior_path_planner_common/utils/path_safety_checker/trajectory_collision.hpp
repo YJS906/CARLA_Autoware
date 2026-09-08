@@ -10,6 +10,7 @@
 
 #include <autoware/vehicle_info_utils/vehicle_info.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <selfcar/trajectory_safety/reachable_pose_envelope.hpp>
 
 #include <autoware_internal_planning_msgs/msg/path_with_lane_id.hpp>
 #include <autoware_perception_msgs/msg/predicted_objects.hpp>
@@ -58,6 +59,14 @@ TrajectoryCollisionResult checkStaticTrajectory(
   const autoware::vehicle_info_utils::VehicleInfo & vehicle,
   const geometry_msgs::msg::Pose & ego_pose, double start_arc, double end_arc,
   const TrajectoryCollisionParameters & parameters);
+
+TrajectoryCollisionResult checkStaticTrajectory(
+  const autoware_internal_planning_msgs::msg::PathWithLaneId & path,
+  const autoware_perception_msgs::msg::PredictedObjects & objects,
+  const autoware::vehicle_info_utils::VehicleInfo & vehicle,
+  const geometry_msgs::msg::Pose & ego_pose, double start_arc, double end_arc,
+  const TrajectoryCollisionParameters & parameters,
+  const std::optional<selfcar::trajectory_safety::EgoMotion> & motion);
 }  // namespace autoware::behavior_path_planner::utils::path_safety_checker
 
 #endif

@@ -18,7 +18,7 @@
       ego:
         extra_wheelbase: 0.0 # [m] extra length to add to the wheelbase
         extra_front_overhang: 0.0 # [m] extra length to add to the front overhang
-        extra_width: 0.7 # [m] curve-local swept-width margin; applied to the outer turn bound
+        extra_width: 1.2 # [m] curve-local swept-width margin; applied to the outer turn bound
       object_exclusion:
         exclude_static: false # if true, the drivable area is not expanded over static objects
         exclude_dynamic: false # if true, the drivable area is not expanded in the predicted path of dynamic objects

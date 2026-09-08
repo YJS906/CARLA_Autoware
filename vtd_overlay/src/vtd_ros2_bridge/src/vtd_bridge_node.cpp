@@ -121,14 +121,11 @@ builtin_interfaces::msg::Time sim_stamp(const double seconds)
   return stamp;
 }
 
-// Historical API-only compatibility convention. The 1109-byte record has no
-// RDB geo.offX/offY/offZ; this is a geometric assumption, not measured metadata.
+// Use the participant X/Y directly as the object center for alignment evaluation.
+// The 1109-byte record has no RDB geo.offX/offY/offZ. Keep the existing vertical convention.
 std::array<float, 3> autoware_box_center(const VtdObject & object)
 {
-  const float half_length = 0.5F * object.length;
-  return {
-    object.x + half_length * std::cos(object.heading),
-    object.y + half_length * std::sin(object.heading), object.z + 0.5F * object.height};
+  return {object.x, object.y, object.z + 0.5F * object.height};
 }
 
 std::string rdb_name(const char * data, const std::size_t capacity)
@@ -400,7 +397,7 @@ public:
     RCLCPP_WARN(
       get_logger(),
       "API-only compatibility: steering status is command-based, not "
-      "measured feedback; object centers use the historical half-length convention");
+      "measured feedback; object center X/Y use participant coordinates directly");
   }
 
   ~VtdBridgeNode() override
@@ -2100,7 +2097,7 @@ private:
     append_value(status, "object_geometry_uses_rdb", 0);
     append_value(
       status, "object_center_source",
-      std::string{"participant_pose_plus_half_length_compatibility"});
+      std::string{"participant_xy_direct"});
     append_value(status, "ego_updates", ego_updates_.load());
     append_value(status, "object_updates", object_updates_.load());
     append_value(status, "traffic_light_updates", traffic_light_updates_.load());

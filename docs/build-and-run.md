@@ -78,10 +78,39 @@ The default RViz configuration displays four transient-local previews:
 - `/debug/csv/corrected_checkpoints`: blue waypoint dots/arrows and a blue
   star for the final goal.
 
-The four arrays are republished every second and the publisher remains alive
-after both successful and failed route API calls. Direction and goal validation
-are informational by default; use `--strict-validation` to make them block route
-submission.
+The four arrays are republished every second by a `csv_route_preview` process
+inside the bridge container started by `./vtd_bridge`. The host retains the input CSV and the
+exact marker arrays (including interactive lanelet overrides), so closing the
+setter terminal or restarting Autoware/RViz does not lose the preview. Marker
+lifetime is unlimited, and replay does not depend on simulation time advancing.
+The setter exits after the route API call; success or failure does not stop the
+preview. If map matching fails, the raw CSV points remain visible without a
+fabricated matched route. Direction and goal validation are informational by
+default; use `--strict-validation` to make them block route submission.
+
+When no saved preview exists, bridge startup creates it from
+`AUTOWARE_CSV_PREVIEW_CSV` (default: `$HOME/route_example.csv`). This bootstrap is
+**visualization only**: it does not call the route API or wait for Autoware, localization,
+engagement or a running simulation clock. Raw points are saved/published before map matching;
+matching failure leaves those points visible. A valid saved preview, including user overrides,
+takes precedence over the bootstrap CSV. An explicit CSV load during bootstrap cannot be
+overwritten by the background match result.
+
+`./autoware` (or the `autoware_run` wrapper) without a CSV argument restores or
+initializes **only the visualization**. It never resubmits the saved driving route.
+An explicit CSV argument still requests route submission as before. State is
+stored under `${XDG_STATE_HOME:-$HOME/.local/state}/selfcar/csv-preview` by default;
+set `AUTOWARE_CSV_PREVIEW_DIR` in `.env` to override it. The state is separate from
+the image and keyed by map path; a map-content hash prevents replay on a different
+map. After changing map contents, load the CSV again. `--dry-run` and `--no-preview`
+do not update saved state. Missing/unreadable bootstrap CSV is reported; it does not prevent
+restoring an existing valid saved preview or stop the bridge's other functions.
+
+Autoware and `set_route` reuse the bridge publisher instead of starting a duplicate.
+Without a managed bridge they can start the standalone `selfcar-csv-route-preview`
+fallback. Bridge startup stops that owned fallback before starting its own publisher,
+without deleting the saved data. Autoware/RViz can be stopped and restarted while the bridge
+keeps publishing. Stopping the bridge stops its publisher; the saved data survives the next start.
 
 Preview without changing Autoware:
 
@@ -103,8 +132,18 @@ If `--output-csv` is omitted during an override, the wrapper writes
 `corrected_route.csv` in the current directory. Existing output files are
 protected unless `--force-output` is supplied. Run `./set_route --help` for
 search radius, direction threshold, preview, start-tolerance, and validation
-options. CSV files are runtime inputs and do not require an image rebuild;
-rebuild the image to update the copy used by `./autoware ROUTE.csv`.
+options. CSV files are runtime inputs and do not require an image rebuild.
+The launchers read-only mount the tracked CSV Python helpers; the bridge launcher also mounts
+its tracked launch file. These changes do not require a C++/image rebuild. Restart the owning
+bridge (or standalone preview worker) after changing a running Python process. Starting Autoware
+does not restart the bridge. `VTD_BRIDGE_DETACHED=1 ./vtd_bridge [HLVTD_HOST]` starts it without
+attaching the terminal; the normal foreground launcher attaches to the same container.
+
+For a native `ros2 launch vtd_ros2_bridge vtd_bridge.launch.py`, CSV preview is opt-in: pass
+`csv_preview_enabled:=true`, `csv_preview_script`, `csv_preview_state`, `csv_preview_map` and
+`csv_preview_csv` paths. Keep `csv_route_preview.py` and `set_route_from_csv.py` together.
+Direct Compose/native launches do not automatically discover host CSV/state paths; the
+repository `./vtd_bridge` wrapper provides and mounts them.
 
 ## Overlay build
 

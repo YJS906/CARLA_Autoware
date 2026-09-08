@@ -214,8 +214,11 @@ p_autoware = R(map_offset.yaw) · p_vtd + [map_offset.x, map_offset.y, map_offse
 9910 DATA에는 RDB `geo.offX/offY/offZ`와 실측 조향이 없습니다. 따라서 다음은
 실측 피드백과 구분해야 하는 **기존 호환 동작**입니다.
 
-- 객체 bbox 중심은 participant 위치에 heading 방향 `length/2`와 높이 `height/2`를
-  더하는 당시 계산을 복원했습니다. 이것은 RDB 형상 오프셋과 일치한다고 보장하지 않습니다.
+- 객체 bbox 중심의 X/Y는 participant 위치를 그대로 사용합니다. 표시 정렬 확인을 위해
+  heading 방향 `length/2` 보정을 제거했으며, 높이 `height/2` 보정은 유지합니다.
+  `flatten_z=true`인 객체 메시지는 기존처럼 Z=0입니다. 진단에는
+  `object_center_source=participant_xy_direct`로 표시합니다. 이 위치 해석은 RDB 형상
+  오프셋을 이용한 변환이 아니므로, VTD 원본과 비교해 확인해야 합니다.
 - 조향 status는 수락한 명령값(명령 수신 전 0)입니다. 진단에
   `steering_feedback_measured=0`, `steering_source=accepted_command`로 표시합니다.
 - `raw_rdb_tcp_enabled=0`, `traffic_light_rdb_enabled=0`은 이제 실제 연결 구조와 일치합니다.
@@ -234,6 +237,15 @@ RDB 피드백을 전제로 한 별도 수동 통합시험은 복원 전 백업�
 ```
 
 첫 명령은 Autoware 시작 후 CSV 경로를 설정하고, 두 번째는 실행 중인 RViz에 표시만 합니다.
+CSV와 마커는 호스트에 저장되고 `./vtd_bridge`가 브릿지 컨테이너 안에서
+`csv_route_preview` 노드를 함께 실행하여 1초마다 발행합니다. 저장본이 없으면
+`AUTOWARE_CSV_PREVIEW_CSV`(기본 `$HOME/route_example.csv`)에서 최초 생성합니다.
+주행 경로 요청 없이 시각화만 생성하며, 지도 매칭에 실패해도 원본 좌표는 남깁니다.
+저장된 미리보기/사용자 보정값이 있으면 CSV를 다시 매칭하지 않고 그대로 복원합니다.
+브릿지가 발행 중이면 Autoware와 `set_route`는 별도 발행기를 만들지 않습니다.
+브릿지 없이 사용할 때만 `selfcar-csv-route-preview`를 대체 발행기로 사용합니다.
+`set_route` 종료 후에도 유지되며, CSV 인자 없이 Autoware를 다시 시작하면 시각화만
+복원합니다. 저장된 주행 경로를 자동으로 재요청하지는 않습니다.
 `/debug/csv/raw_checkpoints`, `candidate_lanelets`, `selected_lanelets`,
 `corrected_checkpoints`가 기본 RViz 설정의 `CSV Route Preview` 그룹에 표시됩니다.
 자세한 사용법은 저장소의 `docs/build-and-run.md`를 참고하세요.

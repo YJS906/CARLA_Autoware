@@ -50,6 +50,11 @@ bool get_prepare_segment(
   const CommonDataPtr & common_data_ptr, const PathWithLaneId & prev_module_path,
   const double prep_length, PathWithLaneId & prepare_segment);
 
+// The braking variant defers the comfort-curvature threshold to its reachable-speed checks.
+bool get_prepare_segment(
+  const CommonDataPtr & common_data_ptr, const PathWithLaneId & prev_module_path,
+  double prep_length, PathWithLaneId & prepare_segment, bool has_braking_profile);
+
 /**
  * @brief Generates the candidate path for a lane change maneuver.
  *

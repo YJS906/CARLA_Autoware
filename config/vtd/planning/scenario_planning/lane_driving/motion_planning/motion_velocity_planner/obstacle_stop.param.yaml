@@ -1,5 +1,10 @@
 /**:
   ros__parameters:
+    # This file is also loaded by behavior_path_planner. Keep the downstream
+    # nominal margin unchanged; add only 1 cm for upstream path optimization.
+    trajectory_safety:
+      optimization_margin: 0.01
+
     obstacle_stop:
       option:
         ignore_crossing_obstacle: true

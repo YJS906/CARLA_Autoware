@@ -12,6 +12,9 @@ Usage: ./vtd_bridge [HLVTD_HOST]
 Start the VTD ROS 2 bridge from the repository-built Docker image.
 The HLVTD host defaults to HLVTD_HOST from .env, or 127.0.0.1.
 Inter-PC traffic is limited to TCP 9910, RTSP 8554 and UDP 9912.
+The bridge also restores CSV RViz markers, or creates them from
+AUTOWARE_CSV_PREVIEW_CSV (default: $HOME/route_example.csv) when no saved preview exists.
+It never submits a driving route. Set VTD_BRIDGE_DETACHED=1 for a detached start.
 
 Examples:
   ./vtd_bridge
@@ -68,9 +71,51 @@ done
 
 export HLVTD_HOST="${hlvtd_host}"
 
+map_relative_path="${VTD_MAP_RELATIVE_PATH:-HL_FMA_VTD_LivingLab_topology_fixed}"
+if [[ "${map_relative_path}" == /* || "${map_relative_path}" == *..* ]]; then
+  echo "VTD_MAP_RELATIVE_PATH must be a relative path without '..': ${map_relative_path}" >&2
+  exit 1
+fi
+# shellcheck source=scripts/csv_preview_runtime.sh
+source "${repo_root}/scripts/csv_preview_runtime.sh"
+prepare_csv_preview
+bridge_csv_mounts=()
+if [[ -f "${csv_preview_csv}" && -r "${csv_preview_csv}" ]]; then
+  bridge_csv_mounts+=(--volume "${csv_preview_csv}:/opt/selfcar-preview/input/route.csv:ro")
+else
+  echo "CSV bootstrap file unavailable; existing saved preview can still be restored: ${csv_preview_csv}" >&2
+fi
+
+# Select one publisher atomically with Autoware/set_route startup. Start detached
+# while holding the lock, then attach for the usual foreground launcher behavior.
+exec {bridge_preview_lock_fd}>"${csv_preview_root}/runtime.lock"
+flock -w 15 "${bridge_preview_lock_fd}"
+stop_standalone_csv_preview
+
 echo "Starting VTD bridge: image=${vtd_image} (${vtd_image_id}), HLVTD=${HLVTD_HOST}:9910, LiDAR=UDP/9912, raw RDB TCP disabled"
-exec docker compose \
+docker compose \
   --env-file "${env_file}" \
   -f "${repo_root}/docker/vtd/compose.yaml" \
   --profile vtd \
-  run --rm --name selfcar-vtd-bridge vtd_bridge
+  run --detach --rm --name selfcar-vtd-bridge \
+  --label "selfcar.csv-preview.owner=${repo_root}" \
+  --label "selfcar.csv-preview.state-root=${csv_preview_root}" \
+  --label "selfcar.csv-preview.state=${csv_preview_state}" \
+  --env "ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}" \
+  --env "AUTOWARE_CSV_SOURCE_PATH=${csv_preview_csv}" \
+  --volume "${csv_preview_root}:/opt/selfcar-preview/state" \
+  --volume "${VTD_MAP_DIR}:/home/aw/vtd_autoware_maps:ro" \
+  --volume "${repo_root}/scripts/csv_route_preview.py:/opt/selfcar-tools/csv_route_preview.py:ro" \
+  --volume "${repo_root}/scripts/set_route_from_csv.py:/opt/selfcar-tools/set_route_from_csv.py:ro" \
+  --volume "${repo_root}/vtd_overlay/src/vtd_ros2_bridge/launch/vtd_bridge.launch.py:/opt/selfcar_overlay/share/vtd_ros2_bridge/launch/vtd_bridge.launch.py:ro" \
+  "${bridge_csv_mounts[@]}" \
+  vtd_bridge bash -lc \
+  'source /opt/ros/jazzy/setup.bash; source /opt/autoware/setup.bash; source /opt/selfcar_overlay/setup.bash; export VTD_ROOT=/opt/vtd; exec ros2 launch vtd_ros2_bridge vtd_bridge.launch.py "hlvtd_host:=$1" csv_preview_enabled:=true "csv_preview_state:=$2" "csv_preview_map:=$3" csv_preview_csv:=/opt/selfcar-preview/input/route.csv' \
+  bridge "${HLVTD_HOST}" "${csv_preview_state}" \
+  "/home/aw/vtd_autoware_maps/${map_relative_path}/lanelet2_map.osm"
+flock -u "${bridge_preview_lock_fd}"
+exec {bridge_preview_lock_fd}>&-
+printf 'CSV markers: bridge-owned; source=%s; saved state=%s\n' "${csv_preview_csv}" "${csv_preview_state}"
+if [[ "${VTD_BRIDGE_DETACHED:-0}" != 1 ]]; then
+  exec docker attach --sig-proxy=true selfcar-vtd-bridge
+fi

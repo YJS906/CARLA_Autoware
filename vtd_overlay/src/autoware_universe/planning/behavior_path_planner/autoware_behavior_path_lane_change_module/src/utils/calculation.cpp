@@ -14,6 +14,7 @@
 // limitations under the License.
 
 #include <autoware/behavior_path_lane_change_module/utils/calculation.hpp>
+#include <autoware/behavior_path_planner_common/utils/path_shifter/shift_constraints.hpp>
 #include <autoware/behavior_path_planner_common/utils/utils.hpp>
 #include <autoware/lanelet2_utils/conversion.hpp>
 #include <autoware/lanelet2_utils/geometry.hpp>
@@ -23,6 +24,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <tuple>
 #include <unordered_set>
 
 namespace autoware::behavior_path_planner::utils::lane_change::calculation
@@ -492,10 +494,6 @@ std::vector<double> calc_lon_acceleration_samples(
   const CommonDataPtr & common_data_ptr, const double max_path_velocity,
   const double prepare_duration)
 {
-  const auto & transient_data = common_data_ptr->transient_data;
-  const auto & current_pose = common_data_ptr->get_ego_pose();
-  const auto & target_lanes = common_data_ptr->lanes_ptr->target;
-  const auto goal_pose = common_data_ptr->route_handler_ptr->getGoalPose();
   const auto sampling_num = common_data_ptr->lc_param_ptr->trajectory.lon_acc_sampling_num;
 
   const auto min_max_accel =
@@ -503,28 +501,13 @@ std::vector<double> calc_lon_acceleration_samples(
   const auto & min_accel = min_max_accel.first;
   const auto & max_accel = min_max_accel.second;
 
-  const auto is_sampling_required = std::invoke([&]() -> bool {
-    if (
-      max_accel < 0.0 || transient_data.is_ego_stuck ||
-      std::isfinite(transient_data.distance_to_static_obstacle))
-      return true;
-
-    const auto max_dist_buffer = transient_data.current_dist_buffer.max;
-    if (max_dist_buffer > transient_data.dist_to_terminal_end) return true;
-
-    const auto dist_to_target_lane_end =
-      common_data_ptr->lanes_ptr->target_lane_in_goal_section
-        ? utils::getSignedDistance(current_pose, goal_pose, target_lanes)
-        : utils::getDistanceToEndOfLane(current_pose, target_lanes);
-
-    return max_dist_buffer >= dist_to_target_lane_end;
+  // A clear/long lane is not a reason to accelerate during a lateral maneuver.
+  // Keep the bounded sample set for normal lane changes too; acceleration is a fallback.
+  auto samples = calc_acceleration_values(min_accel, max_accel, sampling_num);
+  std::stable_sort(samples.begin(), samples.end(), [](const double a, const double b) {
+    return std::make_tuple(a > eps, std::abs(a)) < std::make_tuple(b > eps, std::abs(b));
   });
-
-  if (is_sampling_required) {
-    return calc_acceleration_values(min_accel, max_accel, sampling_num);
-  }
-
-  return {max_accel};
+  return samples;
 }
 
 double calc_lane_changing_acceleration(
@@ -594,9 +577,17 @@ std::vector<double> calc_prepare_durations(const CommonDataPtr & common_data_ptr
   const auto threshold = common_data_ptr->bpp_param_ptr->base_link2front +
                          lc_param_ptr->min_length_for_turn_signal_activation;
 
-  // TODO(Azu) this check seems to cause scenario failures.
+  // Search shorter preparation even away from the lane terminal. Retain the configured
+  // minimum for normal driving; only the existing obstacle/terminal branches may reach zero.
   if (common_data_ptr->transient_data.dist_to_terminal_start >= threshold) {
-    return {common_data_ptr->transient_data.lane_change_prepare_duration};
+    const auto minimum = lc_param_ptr->trajectory.min_prepare_duration;
+    const auto maximum = std::max(minimum, data.lane_change_prepare_duration);
+    std::vector<double> durations{minimum};
+    for (double duration = minimum + 0.5; duration < maximum - eps; duration += 0.5) {
+      durations.push_back(duration);
+    }
+    if (maximum > minimum + eps) durations.push_back(maximum);
+    return durations;
   }
 
   const auto max_prepare_duration = lc_param_ptr->trajectory.max_prepare_duration;
@@ -621,9 +612,7 @@ std::vector<PhaseMetrics> calc_prepare_phase_metrics(
           common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity,
           common_data_ptr->lc_param_ptr->obstacle_min_lane_changing_velocity)
       : common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity;
-  const auto max_vel = std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)
-                         ? std::min(common_data_ptr->bpp_param_ptr->max_vel, max_path_velocity)
-                         : common_data_ptr->bpp_param_ptr->max_vel;
+  const auto max_vel = std::min(common_data_ptr->bpp_param_ptr->max_vel, max_path_velocity);
 
   std::vector<PhaseMetrics> metrics;
   if (!std::isfinite(max_vel) || max_vel < min_lc_vel) return metrics;
@@ -643,8 +632,13 @@ std::vector<PhaseMetrics> calc_prepare_phase_metrics(
   const auto prepare_durations = calc_prepare_durations(common_data_ptr);
 
   for (const auto & prepare_duration : prepare_durations) {
-    const auto lon_accel_samples =
+    auto lon_accel_samples =
       calc_lon_acceleration_samples(common_data_ptr, max_path_velocity, prepare_duration);
+    if (current_velocity < min_lc_vel && prepare_duration > eps) {
+      // Include exactly the acceleration needed to start moving, without demanding
+      // continued acceleration during the shift. Reachability is checked below.
+      lon_accel_samples.push_back((min_lc_vel - current_velocity) / prepare_duration);
+    }
     for (const auto & lon_accel : lon_accel_samples) {
       const auto prepare_velocity =
         std::clamp(current_velocity + lon_accel * prepare_duration, min_lc_vel, max_vel);
@@ -655,7 +649,7 @@ std::vector<PhaseMetrics> calc_prepare_phase_metrics(
                                      : ((prepare_velocity - current_velocity) / prepare_duration);
 
       // Clamping the speed must not manufacture an instantaneous or unreachable acceleration.
-      if (std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)) {
+      {
         const auto & trajectory = common_data_ptr->lc_param_ptr->trajectory;
         if (
           (prepare_duration < 1e-3 && std::abs(prepare_velocity - current_velocity) > eps) ||
@@ -692,9 +686,14 @@ std::vector<PhaseMetrics> calc_shift_phase_metrics(
           common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity,
           common_data_ptr->lc_param_ptr->obstacle_min_lane_changing_velocity)
       : common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity;
-  const auto & max_vel = common_data_ptr->bpp_param_ptr->max_vel;
+  const auto max_vel = std::min(common_data_ptr->bpp_param_ptr->max_vel, max_path_velocity);
 
   // get lateral acceleration range
+  if (
+    !std::isfinite(initial_velocity) || !std::isfinite(max_vel) || max_vel < min_lc_vel ||
+    initial_velocity < min_lc_vel - eps || initial_velocity > max_vel + eps) {
+    return {};
+  }
   const auto [min_lateral_acc, max_lateral_acc] =
     common_data_ptr->lc_param_ptr->trajectory.lat_acc_map.find(initial_velocity);
   const auto lateral_acc_resolution = std::max(
@@ -716,39 +715,70 @@ std::vector<PhaseMetrics> calc_shift_phase_metrics(
 
   for (double lat_acc = min_lateral_acc; lat_acc < max_lateral_acc + eps;
        lat_acc += lateral_acc_resolution) {
-    const auto lane_changing_duration = autoware::motion_utils::calc_shift_time_from_jerk(
+    const auto minimum_duration = autoware::motion_utils::calc_shift_time_from_jerk(
       shift_length, common_data_ptr->lc_param_ptr->trajectory.lateral_jerk, lat_acc);
+    const auto geometric_length = utils::minimumGeometricShiftLength(
+      shift_length, common_data_ptr->bpp_param_ptr->vehicle_info);
+    // Length and duration must agree at the sampled speed. Do not accelerate merely to make
+    // a short-duration spline steerable. A small bounded set also covers curved references.
+    for (const double length_scale : {1.0, 1.15, 1.3}) {
+      const auto lane_changing_duration =
+        std::max(minimum_duration, length_scale * geometric_length / initial_velocity);
+      if (!std::isfinite(lane_changing_duration)) continue;
 
-    const double sampled_lane_changing_accel = calc_lane_changing_acceleration(
-      common_data_ptr, initial_velocity, max_path_velocity, lane_changing_duration, lon_accel);
+      // Decelerate, when necessary, in preparation and hold speed during the shift.
+      // Also retain accelerating shift candidates for a merge that needs them, but the
+      // scene searches them only after the non-accelerating candidates fail safety checks.
+      std::vector<double> shift_accelerations{0.0};
+      const auto accelerating_fallback = calc_lane_changing_acceleration(
+        common_data_ptr, initial_velocity, max_vel, lane_changing_duration,
+        std::max(0.0, lon_accel));
+      if (accelerating_fallback > eps) shift_accelerations.push_back(accelerating_fallback);
+      for (const auto sampled_lane_changing_accel : shift_accelerations) {
+        // Keep the longitudinal motion used to construct the path consistent with
+        // min_lane_changing_velocity.  Previously only the reported final velocity was clamped
+        // below, while the path length was calculated with the unclamped deceleration.  Near a lane
+        // terminal this could produce an almost zero longitudinal shift length for a full-width
+        // lane change, resulting in a discontinuous, excessively curved path.
+        const double min_accel_to_keep_lane_changing_velocity =
+          lane_changing_duration > eps ? (min_lc_vel - initial_velocity) / lane_changing_duration
+                                       : 0.0;
+        const double minimum_allowed_acceleration = std::max(
+          {min_accel_to_keep_lane_changing_velocity,
+           common_data_ptr->lc_param_ptr->trajectory.min_longitudinal_acc,
+           common_data_ptr->bpp_param_ptr->min_acc});
+        const double lane_changing_accel =
+          std::max(sampled_lane_changing_accel, minimum_allowed_acceleration);
 
-    // Keep the longitudinal motion used to construct the path consistent with
-    // min_lane_changing_velocity.  Previously only the reported final velocity was clamped below,
-    // while the path length was calculated with the unclamped deceleration.  Near a lane terminal
-    // this could produce an almost zero longitudinal shift length for a full-width lane change,
-    // resulting in a discontinuous, excessively curved path.
-    const double min_accel_to_keep_lane_changing_velocity =
-      lane_changing_duration > eps ? (min_lc_vel - initial_velocity) / lane_changing_duration : 0.0;
-    const double minimum_allowed_acceleration = std::max(
-      {min_accel_to_keep_lane_changing_velocity,
-       common_data_ptr->lc_param_ptr->trajectory.min_longitudinal_acc,
-       common_data_ptr->bpp_param_ptr->min_acc});
-    const double lane_changing_accel =
-      std::max(sampled_lane_changing_accel, minimum_allowed_acceleration);
+        const auto lane_changing_length = calculation::calc_phase_length(
+          initial_velocity, max_vel, lane_changing_accel, lane_changing_duration);
 
-    const auto lane_changing_length = calculation::calc_phase_length(
-      initial_velocity, max_vel, lane_changing_accel, lane_changing_duration);
+        if (is_skip(lane_changing_length)) continue;
 
-    if (is_skip(lane_changing_length)) continue;
+        const auto lane_changing_velocity = std::clamp(
+          initial_velocity + lane_changing_accel * lane_changing_duration, min_lc_vel, max_vel);
 
-    const auto lane_changing_velocity = std::clamp(
-      initial_velocity + lane_changing_accel * lane_changing_duration, min_lc_vel, max_vel);
-
-    metrics.emplace_back(
-      lane_changing_duration, lane_changing_length, lane_changing_velocity, lon_accel,
-      lane_changing_accel, lat_acc);
+        metrics.emplace_back(
+          lane_changing_duration, lane_changing_length, lane_changing_velocity, lon_accel,
+          lane_changing_accel, lat_acc);
+      }
+    }
   }
 
+  // Use the fastest lateral motion within the existing jerk/acceleration limits first.
+  std::stable_sort(metrics.begin(), metrics.end(), [](const auto & a, const auto & b) {
+    return std::make_tuple(a.actual_lon_accel > eps, a.duration, a.length) <
+           std::make_tuple(b.actual_lon_accel > eps, b.duration, b.length);
+  });
+  metrics.erase(
+    std::unique(
+      metrics.begin(), metrics.end(),
+      [](const auto & a, const auto & b) {
+        return std::abs(a.duration - b.duration) < eps && std::abs(a.length - b.length) < eps &&
+               std::abs(a.actual_lon_accel - b.actual_lon_accel) < eps &&
+               std::abs(a.velocity - b.velocity) < eps;
+      }),
+    metrics.end());
   return metrics;
 }
 }  // namespace autoware::behavior_path_planner::utils::lane_change::calculation

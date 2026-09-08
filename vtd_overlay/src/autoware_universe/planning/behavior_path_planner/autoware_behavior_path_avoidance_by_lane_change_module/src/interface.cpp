@@ -47,11 +47,23 @@ AvoidanceByLaneChangeInterface::AvoidanceByLaneChangeInterface(
 
 bool AvoidanceByLaneChangeInterface::isExecutionRequested() const
 {
+  if (getCurrentStatus() == ModuleStatus::RUNNING) return true;
+  const auto & avoidance = static_cast<const AvoidanceByLaneChange &>(*module_type_);
+  if (!avoidance.isExecutionDistanceSatisfied()) return false;
+
   // isLaneChangeRequired() returns an error string when a lane-change path cannot be used.
   // An avoidance request therefore requires the absence of that error, just like the normal
   // lane-change interface.
   return !module_type_->isLaneChangeRequired() && module_type_->specialRequiredCheck() &&
          module_type_->isValidPath() && module_type_->isSafe();
+}
+
+bool AvoidanceByLaneChangeInterface::isExecutionReady() const
+{
+  const auto & avoidance = static_cast<const AvoidanceByLaneChange &>(*module_type_);
+  const bool within_execution_window =
+    getCurrentStatus() == ModuleStatus::RUNNING || avoidance.isExecutionDistanceSatisfied();
+  return within_execution_window && LaneChangeInterface::isExecutionReady();
 }
 
 void AvoidanceByLaneChangeInterface::updateRTCStatus(
@@ -84,8 +96,12 @@ void AvoidanceByLaneChangeInterface::update_rtc_status(
   const auto & uuid = uuid_map_.at(direction);
   const auto default_state =
     !rtc->isRegistered(uuid) || isWaitingApproval() ? State::WAITING_FOR_EXECUTION : State::RUNNING;
+  const auto & avoidance = static_cast<const AvoidanceByLaneChange &>(*module_type_);
+  const bool within_execution_window =
+    getCurrentStatus() == ModuleStatus::RUNNING || avoidance.isExecutionDistanceSatisfied();
   rtc->updateCooperateStatus(
-    uuid, safe.value_or(isExecutionReady()), state.value_or(default_state), start_distance,
+    uuid, safe.value_or(isExecutionReady()) && within_execution_window,
+    state.value_or(default_state), start_distance,
     finish_distance, clock_->now());
 }
 }  // namespace autoware::behavior_path_planner

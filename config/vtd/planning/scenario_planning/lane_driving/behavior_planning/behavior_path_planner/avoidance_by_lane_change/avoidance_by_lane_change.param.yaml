@@ -1,7 +1,8 @@
 /**:
   ros__parameters:
     avoidance_by_lane_change:
-      execute_object_longitudinal_margin: 10.0  # Minimum obstacle distance, not a look-ahead limit.
+      execute_object_longitudinal_margin: 7.0  # Minimum obstacle distance, not a look-ahead limit.
+      max_execution_distance: 20.0  # [m] New approvals only; keep long-range lookup/candidates.
       execute_only_when_lane_change_finish_before_object: false
       max_lane_changing_length_scale: 0.8
       obstacle_velocity_limit_ratio: 0.6
@@ -9,6 +10,14 @@
       enable_direct_multi_lane_change: true
       empty_lane_check_forward_distance: 80.0
       empty_lane_check_backward_distance: 20.0
+
+      route_priority:
+        blockage_min_duration: 3.0       # [s] Continuously observed static blocker; not a wait timeout.
+        blockage_max_position_drift: 0.5 # [m] Motion resets blocker evidence.
+        return_search_interval: 1.0      # [s] Rate limit exception-only geometry searches.
+        return_time_budget_ms: 20.0      # [ms] Shared budget for the entire return sequence.
+        return_time_margin: 1.0          # [s] Additional speed-dependent return-start reserve.
+        return_max_steps: 3              # Bounded number of ordinary return lane changes.
 
       # avoidance is performed for the object type with true
       target_object:

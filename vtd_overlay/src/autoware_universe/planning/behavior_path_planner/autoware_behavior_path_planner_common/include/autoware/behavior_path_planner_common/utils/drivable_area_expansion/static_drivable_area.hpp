@@ -50,6 +50,19 @@ std::vector<DrivableLanes> cutOverlappedLanes(
  */
 std::vector<DrivableLanes> generateDrivableLanes(const lanelet::ConstLanelets & lanelets);
 
+/**
+ * @brief Extend a left-to-right corridor through legal, same-direction shared boundaries.
+ *
+ * The input is an already validated corridor (a single route lane or a split corridor). Only
+ * routable lateral edges are followed; geometric proximity and a common predecessor are not
+ * substitutes for permission to cross a boundary. Original lanelet bounds/IDs are retained, so
+ * tapered portions keep their actual width and can be combined with approved module output.
+ * This describes road space, not approval of a vehicle maneuver: footprint, obstacle, route and
+ * stopping-distance checks still apply. The normal bound generator clips it to the finite path.
+ */
+lanelet::ConstLanelets expandLaneletCorridor(
+  const lanelet::ConstLanelets & corridor, const RouteHandler & route_handler);
+
 std::vector<DrivableLanes> generateDrivableLanesWithShoulderLanes(
   const lanelet::ConstLanelets & current_lanes, const lanelet::ConstLanelets & shoulder_lanes);
 

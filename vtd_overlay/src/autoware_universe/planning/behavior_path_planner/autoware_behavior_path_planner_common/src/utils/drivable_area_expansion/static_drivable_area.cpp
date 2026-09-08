@@ -26,9 +26,11 @@
 
 #include <lanelet2_core/geometry/Point.h>
 #include <lanelet2_core/geometry/Polygon.h>
+#include <lanelet2_routing/RoutingGraph.h>
 #include <lanelet2_routing/RoutingGraphContainer.h>
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include <memory>
 #include <set>
@@ -769,6 +771,79 @@ std::vector<DrivableLanes> generateDrivableLanes(const lanelet::ConstLanelets & 
     drivable_lanes.at(i).right_lane = lanelets.at(i);
   }
   return drivable_lanes;
+}
+
+lanelet::ConstLanelets expandLaneletCorridor(
+  const lanelet::ConstLanelets & corridor, const RouteHandler & route_handler)
+{
+  const auto graph = route_handler.getRoutingGraphPtr();
+  const auto rules = route_handler.getTrafficRulesPtr();
+  if (corridor.empty() || !graph || !rules) {
+    return corridor;
+  }
+
+  auto expanded = corridor;
+  std::set<lanelet::Id> visited;
+  for (const auto & lane : corridor) {
+    visited.insert(lane.id());
+  }
+
+  const auto can_add = [&](
+                         const lanelet::ConstLanelet & edge,
+                         const lanelet::ConstLanelet & candidate, const bool is_left) {
+    if (
+      visited.count(candidate.id()) != 0 || RouteHandler::isNoDrivableLane(candidate) ||
+      candidate.attributeOr(lanelet::AttributeName::Subtype, std::string{}) == "road_shoulder" ||
+      !rules->canPass(candidate)) {
+      return false;
+    }
+
+    // Keep the existing exclusion of unrelated intersection maneuvers. Approach lanes without
+    // a turning tag can still fan out; their entry/exit headings need not be parallel.
+    const auto edge_turn = edge.attributeOr("turn_direction", std::string{});
+    const auto candidate_turn = candidate.attributeOr("turn_direction", std::string{});
+    const auto is_turning = [](const auto & turn) { return turn == "left" || turn == "right"; };
+    if ((is_turning(edge_turn) || is_turning(candidate_turn)) && edge_turn != candidate_turn) {
+      return false;
+    }
+
+    // Equality includes linestring orientation. Inverted/opposing and merely nearby lanes are
+    // not a contiguous same-direction corridor, even if a malformed graph reports an edge.
+    const auto shared = is_left ? edge.leftBound3d() : edge.rightBound3d();
+    const auto neighbor_shared = is_left ? candidate.rightBound3d() : candidate.leftBound3d();
+    if (shared != neighbor_shared) {
+      return false;
+    }
+    for (const auto & bound : {candidate.leftBound3d(), candidate.rightBound3d()}) {
+      if (bound.size() < 2 || std::any_of(bound.begin(), bound.end(), [](const auto & point) {
+            return !std::isfinite(point.x()) || !std::isfinite(point.y()) ||
+                   !std::isfinite(point.z());
+          })) {
+        return false;
+      }
+    }
+    const auto polygon = toPolygon2d(candidate);
+    return boost::geometry::is_valid(polygon) && boost::geometry::area(polygon) > 1.0e-6;
+  };
+
+  for (const bool is_left : {true, false}) {
+    while (true) {
+      const auto edge = is_left ? expanded.front() : expanded.back();
+      // Unlike getLeft/RightLanelet(enable_same_root=true), these edges respect traffic rules
+      // including directional lane-change permissions (solid/dashed and lane_change tags).
+      const auto candidate = is_left ? graph->left(edge) : graph->right(edge);
+      if (!candidate || !can_add(edge, *candidate, is_left)) {
+        break;
+      }
+      visited.insert(candidate->id());
+      if (is_left) {
+        expanded.insert(expanded.begin(), *candidate);
+      } else {
+        expanded.push_back(*candidate);
+      }
+    }
+  }
+  return expanded;
 }
 
 std::vector<DrivableLanes> generateDrivableLanesWithShoulderLanes(

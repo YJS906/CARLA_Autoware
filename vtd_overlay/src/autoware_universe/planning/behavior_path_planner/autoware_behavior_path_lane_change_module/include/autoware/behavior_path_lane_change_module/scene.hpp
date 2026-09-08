@@ -124,6 +124,9 @@ public:
   bool hasMissedLaneChangePath() const override;
 
 protected:
+  // Only the legal lateral chain from the frozen source lanes to the approved target lanes.
+  lanelet::ConstLanelets get_lane_change_corridor() const;
+
   utils::path_safety_checker::TrajectoryCollisionResult check_static_path(
     const LaneChangePath & path) const;
 
@@ -144,6 +147,10 @@ protected:
   void filterOncomingObjects(PredictedObjects & objects) const;
 
   std::vector<LaneChangePhaseMetrics> get_prepare_metrics() const;
+  std::optional<LaneChangePhaseMetrics> make_braking_prepare_metric(
+    double target, double deceleration_scale = 1.0) const;
+  std::optional<double> curvature_speed_limit(const LaneChangePath & path) const;
+  BehaviorModuleOutput braking_wait_output() const;
   std::vector<LaneChangePhaseMetrics> get_lane_changing_metrics(
     const PathWithLaneId & prep_segment, const LaneChangePhaseMetrics & prep_metrics,
     const double shift_length, const double dist_to_reg_element,
@@ -208,8 +215,8 @@ protected:
   void update_dist_from_intersection();
 
   /**
-   * @brief Check whether the ego vehicle is currently located in either the
-   *        current lanes or the target lanes used for lane change planning.
+   * @brief Check the source/target lanes and, while approved, the intermediate lanes on the
+   *        legal lane-change chain. Intermediate membership also requires path proximity.
    *
    * @return true   ego vehicle is on one of the current or target lanelets.
    */

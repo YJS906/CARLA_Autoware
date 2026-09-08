@@ -78,6 +78,17 @@ TrajectoryCollisionResult checkStaticTrajectory(
   const geometry_msgs::msg::Pose & ego_pose, const double start_arc, const double end_arc,
   const TrajectoryCollisionParameters & p)
 {
+  return checkStaticTrajectory(path, objects, vehicle, ego_pose, start_arc, end_arc, p, std::nullopt);
+}
+
+TrajectoryCollisionResult checkStaticTrajectory(
+  const autoware_internal_planning_msgs::msg::PathWithLaneId & path,
+  const autoware_perception_msgs::msg::PredictedObjects & objects,
+  const autoware::vehicle_info_utils::VehicleInfo & vehicle,
+  const geometry_msgs::msg::Pose & ego_pose, const double start_arc, const double end_arc,
+  const TrajectoryCollisionParameters & p,
+  const std::optional<selfcar::trajectory_safety::EgoMotion> & motion)
+{
   TrajectoryCollisionResult result;
   const auto valid_pose = [](const geometry_msgs::msg::Pose & pose) {
     const auto & q = pose.orientation;
@@ -165,9 +176,9 @@ TrajectoryCollisionResult checkStaticTrajectory(
         object.kinematics.initial_pose_with_covariance.pose, object.shape);
       if (!boost::geometry::is_valid(object_polygon)) return result;
       if (!polygon_cache.count(margin)) {
-        polygon_cache[margin] = downstream::polygon_utils::create_one_step_polygons(
+        polygon_cache[margin] = selfcar::trajectory_safety::createReachablePosePolygons(
           decimated, vehicle, ego_pose, margin, p.consider_current_pose, p.time_to_convergence,
-          p.decimation_step);
+          p.decimation_step, motion);
       }
       const auto & polygons = polygon_cache.at(margin);
       if (polygons.size() != decimated.size()) return result;

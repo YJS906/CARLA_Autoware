@@ -12,6 +12,8 @@ Usage: ./autoware [ROUTE.csv]
 Start Autoware, optionally loading a CSV route after map and localization are
 ready. Seq 1 is the start, intermediate rows are checkpoints, and the last row
 is the goal.
+Without a CSV argument, only the last saved RViz preview is restored; the
+previous driving route is NOT submitted again.
 
 Example:
   ./autoware routes/route_example.csv
@@ -81,8 +83,23 @@ if (( $# == 1 )); then
   compose_run_args+=(
     --volume "${route_csv}:/tmp/autoware-route.csv:ro"
     --env AUTOWARE_ROUTE_CSV=/tmp/autoware-route.csv
+    --env "AUTOWARE_CSV_SOURCE_PATH=${route_csv}"
   )
 fi
+
+# Visualization has its own lifetime and host-persistent state. Loading it must
+# not depend on route API success or on this Autoware container staying alive.
+# shellcheck source=scripts/csv_preview_runtime.sh
+source "${repo_root}/scripts/csv_preview_runtime.sh"
+ensure_csv_preview
+compose_run_args+=(
+  --volume "${csv_preview_root}:/opt/selfcar-preview/state"
+  --volume "${repo_root}/scripts/set_route_from_csv.py:/opt/selfcar-tools/set_route_from_csv.py:ro"
+  --volume "${repo_root}/scripts/csv_route_preview.py:/opt/selfcar-tools/csv_route_preview.py:ro"
+  --env "AUTOWARE_CSV_PREVIEW_STATE=${csv_preview_state}"
+  --env "ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}"
+  --env "RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}"
+)
 
 xhost_enabled=0
 if [[ -n "${DISPLAY:-}" ]] && command -v xhost >/dev/null 2>&1; then
@@ -100,4 +117,4 @@ docker compose \
   --env-file "${env_file}" \
   -f "${repo_root}/docker/vtd/compose.yaml" \
   "${compose_run_args[@]}" autoware \
-  bash -lc 'source /opt/ros/jazzy/setup.bash; source /opt/autoware/setup.bash; source /opt/selfcar_overlay/setup.bash; if [[ -n "${AUTOWARE_ROUTE_CSV:-}" ]]; then python3 /opt/selfcar-tools/set_route_from_csv.py "${AUTOWARE_ROUTE_CSV}" & fi; (until ros2 param set /planning/scenario_planning/external_velocity_limit_selector max_vel 16.67 >/dev/null 2>&1; do sleep 1; done; ros2 param set /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner max_vel 16.67 >/dev/null; ros2 param set /planning/scenario_planning/velocity_smoother max_vel 16.67 >/dev/null; ros2 topic pub --once --qos-durability transient_local /planning/scenario_planning/clear_velocity_limit autoware_internal_planning_msgs/msg/VelocityLimitClearCommand "{command: true, sender: rviz2(autoware_state_panel)}" >/dev/null; exec ros2 topic pub -r 1 /planning/scenario_planning/max_velocity autoware_internal_planning_msgs/msg/VelocityLimit "{max_velocity: 16.67, use_constraints: false, sender: autoware_run}" >/dev/null) & exec ros2 launch autoware_launch planning_simulator.launch.xml map_path:=/home/aw/vtd_autoware_maps/${VTD_MAP_RELATIVE_PATH} vehicle_model:=sample_vehicle sensor_model:=sample_sensor_kit planning_module_preset:=vtd_low_memory scenario_simulation:=true localization_sim_mode:=none use_sim_time:=true enable_all_modules_auto_mode:=true launch_dynamic_obstacle_stop_module:=false'
+  bash -lc 'source /opt/ros/jazzy/setup.bash; source /opt/autoware/setup.bash; source /opt/selfcar_overlay/setup.bash; if [[ -n "${AUTOWARE_ROUTE_CSV:-}" ]]; then python3 /opt/selfcar-tools/set_route_from_csv.py "${AUTOWARE_ROUTE_CSV}" --preview-state "${AUTOWARE_CSV_PREVIEW_STATE}" & fi; (until ros2 param set /planning/scenario_planning/external_velocity_limit_selector max_vel 16.67 >/dev/null 2>&1; do sleep 1; done; ros2 param set /planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner max_vel 16.67 >/dev/null; ros2 param set /planning/scenario_planning/velocity_smoother max_vel 16.67 >/dev/null; ros2 topic pub --once --qos-durability transient_local /planning/scenario_planning/clear_velocity_limit autoware_internal_planning_msgs/msg/VelocityLimitClearCommand "{command: true, sender: rviz2(autoware_state_panel)}" >/dev/null; exec ros2 topic pub -r 1 /planning/scenario_planning/max_velocity autoware_internal_planning_msgs/msg/VelocityLimit "{max_velocity: 16.67, use_constraints: false, sender: autoware_run}" >/dev/null) & exec ros2 launch autoware_launch planning_simulator.launch.xml map_path:=/home/aw/vtd_autoware_maps/${VTD_MAP_RELATIVE_PATH} vehicle_model:=sample_vehicle sensor_model:=sample_sensor_kit planning_module_preset:=vtd_low_memory scenario_simulation:=true localization_sim_mode:=none use_sim_time:=true enable_all_modules_auto_mode:=true launch_dynamic_obstacle_stop_module:=true'

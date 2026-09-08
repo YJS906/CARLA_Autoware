@@ -16,6 +16,8 @@ active_files=(
   docker/vtd
   scripts/build-vtd-image.sh
   scripts/set_route_from_csv.py
+  scripts/csv_route_preview.py
+  scripts/csv_preview_runtime.sh
 )
 
 if rg -n 'autoware_vtd_overlay|/home/[[:alnum:]_.-]+/autoware(/|/src|/build|/install)' "${active_files[@]}" >/tmp/selfcar-repro-paths 2>/dev/null; then

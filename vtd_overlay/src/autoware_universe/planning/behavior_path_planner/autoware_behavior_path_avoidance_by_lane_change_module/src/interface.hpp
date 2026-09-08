@@ -47,6 +47,8 @@ public:
 
   bool isExecutionRequested() const override;
 
+  bool isExecutionReady() const override;
+
 protected:
   // LaneChangeInterface starts in WAITING_APPROVAL. Use that state machine rather than
   // latching the legacy waitApproval() flag, which does not clear on RTC auto approval.

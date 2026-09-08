@@ -793,10 +793,16 @@ std::vector<DrivableLanes> generateSplitDrivableLanes(
 {
   auto drivable_lanes = generateDrivableLanes(route_lanes);
   for (size_t i = 0; i < route_lanes.size(); ++i) {
-    auto lateral_lanes = getCompletedParallelCorridor(route_lanes.at(i), route_handler);
+    // Drivable road space is not limited to fully developed parallel lanes. A legal adjacent
+    // lane may start/end at zero width or curve differently at its taper. Keep its real map
+    // boundary; the finite path bound and maneuver footprint checks handle the local width.
+    // The stricter completed-parallel test is still used by split path-shifting heuristics.
+    auto lateral_lanes = expandLaneletCorridor({route_lanes.at(i)}, route_handler);
     const auto transition_lanes = getTransitionCorridor(route_lanes.at(i), route_handler);
     if (transition_lanes.size() > lateral_lanes.size()) {
-      lateral_lanes = transition_lanes;
+      // A split corridor can also have a taper reachable only by a lateral edge. Replacing it
+      // with direct successors alone would lose such a lane again.
+      lateral_lanes = expandLaneletCorridor(transition_lanes, route_handler);
     }
     auto & lanes = drivable_lanes.at(i);
     lanes.left_lane = lateral_lanes.front();

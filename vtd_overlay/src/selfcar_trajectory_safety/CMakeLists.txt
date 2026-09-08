@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.14)
+project(selfcar_trajectory_safety)
+find_package(ament_cmake REQUIRED)
+find_package(autoware_motion_velocity_planner_common REQUIRED)
+install(DIRECTORY include/ DESTINATION include)
+ament_export_include_directories(include)
+ament_export_dependencies(autoware_motion_velocity_planner_common)
+ament_package()

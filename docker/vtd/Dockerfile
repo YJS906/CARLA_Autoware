@@ -54,6 +54,14 @@ RUN install -Dm644 /opt/selfcar-config/control/autonomous_emergency_braking/auto
       /opt/autoware/autoware_launch/share/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml && \
     install -Dm644 /opt/selfcar-config/control/trajectory_follower/longitudinal/pid.param.yaml \
       /opt/autoware/autoware_launch/share/autoware_launch/config/control/trajectory_follower/longitudinal/pid.param.yaml && \
+    install -Dm644 /opt/selfcar-config/control/vehicle_cmd_gate/vehicle_cmd_gate.param.yaml \
+      /opt/autoware/autoware_launch/share/autoware_launch/config/control/vehicle_cmd_gate/vehicle_cmd_gate.param.yaml && \
+    install -Dm644 /opt/selfcar-config/planning/scenario_planning/common/autoware_velocity_smoother/JerkFiltered.param.yaml \
+      /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/common/autoware_velocity_smoother/JerkFiltered.param.yaml && \
+    install -Dm644 /opt/selfcar-config/planning/scenario_planning/lane_driving/motion_planning/autoware_path_optimizer/path_optimizer.param.yaml \
+      /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/lane_driving/motion_planning/autoware_path_optimizer/path_optimizer.param.yaml && \
+    install -Dm644 /opt/selfcar-config/planning/scenario_planning/lane_driving/motion_planning/path_smoother/elastic_band_smoother.param.yaml \
+      /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/lane_driving/motion_planning/path_smoother/elastic_band_smoother.param.yaml && \
     install -Dm644 /opt/selfcar-config/planning/scenario_planning/common/autoware_velocity_smoother/velocity_smoother.param.yaml \
       /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/common/autoware_velocity_smoother/velocity_smoother.param.yaml && \
     install -Dm644 /opt/selfcar-config/planning/scenario_planning/common/common.param.yaml \
@@ -101,6 +109,7 @@ RUN install -Dm644 /opt/selfcar-config/control/autonomous_emergency_braking/auto
     install -Dm644 /opt/selfcar-config/middleware/cyclonedds.xml /home/aw/cyclonedds.xml
 
 COPY --chmod=755 scripts/set_route_from_csv.py /opt/selfcar-tools/set_route_from_csv.py
+COPY --chmod=755 scripts/csv_route_preview.py /opt/selfcar-tools/csv_route_preview.py
 
 LABEL org.opencontainers.image.title="selfcar_2026 VTD Autoware" \
       org.opencontainers.image.description="Autoware VTD overlay built from tracked source" \

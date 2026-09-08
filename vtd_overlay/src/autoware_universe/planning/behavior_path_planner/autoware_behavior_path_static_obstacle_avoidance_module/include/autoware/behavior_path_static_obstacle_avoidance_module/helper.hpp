@@ -15,6 +15,7 @@
 #ifndef AUTOWARE__BEHAVIOR_PATH_STATIC_OBSTACLE_AVOIDANCE_MODULE__HELPER_HPP_
 #define AUTOWARE__BEHAVIOR_PATH_STATIC_OBSTACLE_AVOIDANCE_MODULE__HELPER_HPP_
 
+#include "autoware/behavior_path_planner_common/utils/path_shifter/shift_constraints.hpp"
 #include "autoware/behavior_path_planner_common/utils/utils.hpp"
 #include "autoware/behavior_path_static_obstacle_avoidance_module/data_structs.hpp"
 #include "autoware/behavior_path_static_obstacle_avoidance_module/type_alias.hpp"
@@ -128,8 +129,10 @@ public:
     const auto nominal_speed = std::max(getEgoSpeed(), p->nominal_avoidance_speed);
     const auto nominal_jerk =
       p->avoid_lateral_min_jerk_map.at(getConstraintsMapIndex(nominal_speed, p->velocity_map));
-    return autoware::motion_utils::calc_longitudinal_dist_from_jerk(
-      shift_length, nominal_jerk, nominal_speed);
+    return std::max(
+      utils::minimumGeometricShiftLength(shift_length, data_->parameters.vehicle_info),
+      autoware::motion_utils::calc_longitudinal_dist_from_jerk(
+        shift_length, nominal_jerk, nominal_speed));
   }
 
   double getNominalReturnDistance(const double shift_length) const
@@ -138,15 +141,19 @@ public:
     const auto nominal_speed = std::max(getEgoSpeed(), p->nominal_avoidance_speed);
     const auto nominal_jerk =
       p->return_lateral_min_jerk_map.at(getConstraintsMapIndex(nominal_speed, p->velocity_map));
-    return autoware::motion_utils::calc_longitudinal_dist_from_jerk(
-      shift_length, nominal_jerk, nominal_speed);
+    return std::max(
+      utils::minimumGeometricShiftLength(shift_length, data_->parameters.vehicle_info),
+      autoware::motion_utils::calc_longitudinal_dist_from_jerk(
+        shift_length, nominal_jerk, nominal_speed));
   }
 
   double getMinAvoidanceDistance(const double shift_length) const
   {
     const auto & p = parameters_;
-    return autoware::motion_utils::calc_longitudinal_dist_from_jerk(
-      shift_length, p->lateral_max_jerk_map.front(), p->velocity_map.front());
+    return std::max(
+      utils::minimumGeometricShiftLength(shift_length, data_->parameters.vehicle_info),
+      autoware::motion_utils::calc_longitudinal_dist_from_jerk(
+        shift_length, p->lateral_max_jerk_map.front(), p->velocity_map.front()));
   }
 
   double getMaxAvoidanceDistance(const double shift_length) const
@@ -165,8 +172,10 @@ public:
 
   double getSharpAvoidanceDistance(const double shift_length) const
   {
-    return autoware::motion_utils::calc_longitudinal_dist_from_jerk(
-      shift_length, getLateralMaxJerkLimit(), getAvoidanceEgoSpeed());
+    return std::max(
+      utils::minimumGeometricShiftLength(shift_length, data_->parameters.vehicle_info),
+      autoware::motion_utils::calc_longitudinal_dist_from_jerk(
+        shift_length, getLateralMaxJerkLimit(), getAvoidanceEgoSpeed()));
   }
 
   double getFrontConstantDistance(const ObjectData & object) const
@@ -342,24 +351,22 @@ public:
 
   bool isComfortable(const AvoidLineArray & shift_lines) const
   {
-    const auto JERK_BUFFER = 0.1;  // [m/sss]
     return std::all_of(shift_lines.begin(), shift_lines.end(), [&](const auto & line) {
       return autoware::motion_utils::calc_jerk_from_lat_lon_distance(
                line.getRelativeLength(), line.getRelativeLongitudinal(), getAvoidanceEgoSpeed()) <
-             getLateralMaxJerkLimit() + JERK_BUFFER;
+             getLateralMaxJerkLimit() + 1e-3;
     });
   }
 
   bool isFeasible(const AvoidLineArray & shift_lines) const
   {
-    constexpr double JERK_BUFFER = 0.1;  // [m/sss]
     const auto & values = parameters_->velocity_map;
     const auto idx = getConstraintsMapIndex(0.0, values);  // use minimum avoidance speed
     const auto jerk_limit = parameters_->lateral_max_jerk_map.at(idx);
     return std::all_of(shift_lines.begin(), shift_lines.end(), [&](const auto & line) {
       return autoware::motion_utils::calc_jerk_from_lat_lon_distance(
                line.getRelativeLength(), line.getRelativeLongitudinal(), values.at(idx)) <
-             jerk_limit + JERK_BUFFER;
+             jerk_limit + 1e-3;
     });
   }
 

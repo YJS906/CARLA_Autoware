@@ -2,7 +2,8 @@ from pathlib import Path
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, ExecuteProcess
+from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
@@ -36,6 +37,28 @@ def generate_launch_description():
             DeclareLaunchArgument("control_port", default_value="9910"),
             DeclareLaunchArgument("lidar_udp_bind", default_value="0.0.0.0"),
             DeclareLaunchArgument("lidar_udp_port", default_value="9912"),
+            # The repository bridge launcher supplies host-persistent state, map
+            # and CSV mounts. Plain native launches can opt in with these paths.
+            DeclareLaunchArgument("csv_preview_enabled", default_value="false"),
+            DeclareLaunchArgument(
+                "csv_preview_script", default_value="/opt/selfcar-tools/csv_route_preview.py"
+            ),
+            DeclareLaunchArgument("csv_preview_state", default_value=""),
+            DeclareLaunchArgument("csv_preview_map", default_value=""),
+            DeclareLaunchArgument("csv_preview_csv", default_value=""),
+            ExecuteProcess(
+                cmd=[
+                    "python3", LaunchConfiguration("csv_preview_script"),
+                    "--state", LaunchConfiguration("csv_preview_state"),
+                    "--map", LaunchConfiguration("csv_preview_map"),
+                    "--csv", LaunchConfiguration("csv_preview_csv"),
+                ],
+                name="csv_route_preview",
+                output="screen",
+                condition=IfCondition(LaunchConfiguration("csv_preview_enabled")),
+                respawn=True,
+                respawn_delay=2.0,
+            ),
             Node(
                 package="vtd_ros2_bridge",
                 executable="vtd_bridge_node",

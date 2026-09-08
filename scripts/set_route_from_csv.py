@@ -840,14 +840,29 @@ class RoutePreviewPublisher:
     SELECTED_TOPIC = "/debug/csv/selected_lanelets"
     CORRECTED_TOPIC = "/debug/csv/corrected_checkpoints"
 
-    def __init__(self, node: Any, frame_id: str) -> None:
+    def __init__(
+        self,
+        node: Any,
+        frame_id: str,
+        *,
+        state_path: str | None = None,
+        state_metadata: dict[str, Any] | None = None,
+    ) -> None:
         from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
         from visualization_msgs.msg import MarkerArray
 
         self.node = node
         self.frame_id = frame_id
+        self.state_path = state_path
+        self.state_metadata = state_metadata or {}
         self._result: MatchedRoute | None = None
+        self._raw_points: Sequence[RoutePoint] = ()
         self._keepalive_timer = None
+        # In managed mode only the bridge/standalone preview worker publishes these topics.
+        # Two independent DELETEALL/ADD writers would otherwise fight each other.
+        self.publishers = {}
+        if state_path is not None:
+            return
         qos = QoSProfile(
             depth=1,
             reliability=ReliabilityPolicy.RELIABLE,
@@ -918,13 +933,13 @@ class RoutePreviewPublisher:
         marker.color.r, marker.color.g, marker.color.b = color
         return marker
 
-    def _raw_markers(self, result: MatchedRoute) -> Any:
+    def _raw_markers(self, points: Sequence[RoutePoint]) -> Any:
         from visualization_msgs.msg import Marker, MarkerArray
 
         array = MarkerArray()
         array.markers.append(self._delete_all())
         marker_id = 1
-        for point in result.raw_points:
+        for point in points:
             marker = self._marker("raw_x", marker_id, Marker.LINE_LIST)
             marker.scale.x = 0.20
             marker.color.r = 1.0
@@ -1124,22 +1139,54 @@ class RoutePreviewPublisher:
         )
         return array
 
+    def render_messages(
+        self, points: Sequence[RoutePoint], result: MatchedRoute | None = None,
+    ) -> dict[str, Any]:
+        """Render visualization only; no state writes, publishers or route API calls."""
+        from visualization_msgs.msg import MarkerArray
+
+        if result is None:
+            messages = {
+                topic: MarkerArray(markers=[self._delete_all()])
+                for topic in (
+                    self.RAW_TOPIC, self.CANDIDATE_TOPIC,
+                    self.SELECTED_TOPIC, self.CORRECTED_TOPIC,
+                )
+            }
+            messages[self.RAW_TOPIC] = self._raw_markers(points)
+        else:
+            messages = {
+                self.RAW_TOPIC: self._raw_markers(result.raw_points),
+                self.CANDIDATE_TOPIC: self._candidate_markers(result),
+                self.SELECTED_TOPIC: self._selected_markers(result),
+                self.CORRECTED_TOPIC: self._corrected_markers(result),
+            }
+        return messages
+
     def _publish_current(self) -> None:
-        if self._result is None:
+        if self._result is None and not self._raw_points:
             return
-        result = self._result
-        messages = {
-            self.RAW_TOPIC: self._raw_markers(result),
-            self.CANDIDATE_TOPIC: self._candidate_markers(result),
-            self.SELECTED_TOPIC: self._selected_markers(result),
-            self.CORRECTED_TOPIC: self._corrected_markers(result),
-        }
+        messages = self.render_messages(self._raw_points, self._result)
+        if self.state_path is not None:
+            from csv_route_preview import save_preview_state
+
+            save_preview_state(self.state_path, self.state_metadata, messages)
+            return
         for topic, message in messages.items():
             self.publishers[topic].publish(message)
+
+    def publish_raw(self, points: Sequence[RoutePoint]) -> None:
+        """Retain raw input even if lanelet matching cannot produce a route."""
+        self._result = None
+        self._raw_points = tuple(points)
+        self._publish_current()
 
     def publish(self, result: MatchedRoute) -> None:
         self._result = result
         self._publish_current()
+        if self.state_path is not None:
+            print("\nRoute preview saved; the independent RViz publisher stays alive.", flush=True)
+            return
         if self._keepalive_timer is None:
             # Republish so RViz displays added after this process starts also receive
             # the preview, even when the display uses volatile durability.
@@ -1581,7 +1628,11 @@ def build_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--preview-only",
         action="store_true",
-        help="publish preview and wait until Ctrl-C without setting a route",
+        help="publish preview without setting a route (managed launcher saves and exits)",
+    )
+    parser.add_argument(
+        "--preview-state",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--override-seq",
@@ -1656,12 +1707,37 @@ def main(argv: Sequence[str] | None = None) -> int:
         parser.error("--dry-run cannot be combined with --override-seq")
     if args.preview_only and args.no_preview:
         parser.error("--preview-only cannot be combined with --no-preview")
+    if args.preview_state and args.no_preview:
+        parser.error("--preview-state cannot be combined with --no-preview")
 
     node = None
     try:
         points = load_route_csv(args.csv_path)
         map_path = resolve_map_path(args.map_path)
         print(f"Loading lanelet map: {map_path}", flush=True)
+        if not args.dry_run:
+            import rclpy
+            from rclpy.node import Node
+
+            rclpy.init()
+            node = Node("csv_route_setter")
+            metadata = {}
+            if args.preview_state:
+                from csv_route_preview import map_digest
+
+                metadata = {
+                    "source_csv": os.environ.get("AUTOWARE_CSV_SOURCE_PATH", args.csv_path),
+                    "csv_text": Path(args.csv_path).read_text(encoding="utf-8-sig"),
+                    "map_sha256": map_digest(map_path),
+                    "frame_id": args.frame_id,
+                }
+            preview = RoutePreviewPublisher(
+                node, args.frame_id,
+                state_path=args.preview_state,
+                state_metadata=metadata,
+            )
+            if args.preview_state:
+                preview.publish_raw(points)
         matcher = LaneletMapMatcher(
             map_path,
             candidate_radius=args.candidate_radius,
@@ -1688,12 +1764,6 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             return 0
 
-        import rclpy
-        from rclpy.node import Node
-
-        rclpy.init()
-        node = Node("csv_route_setter")
-        preview = RoutePreviewPublisher(node, args.frame_id)
         if args.override_seq:
             result = apply_rviz_overrides(
                 node,
@@ -1708,6 +1778,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
 
         print_match_report(result)
+        # Visualize a matched result even when strict validation or route API
+        # submission rejects it. Saving a preview never authorizes a route.
+        if not args.no_preview:
+            preview.publish(result)
+            _spin_for(node, args.preview_wait)
         validation_errors = []
         if not result.direction_ok and not args.allow_direction_mismatch:
             validation_errors.append(
@@ -1726,11 +1801,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 result, args.output_csv, overwrite=args.force_output
             )
 
-        if not args.no_preview:
-            preview.publish(result)
-            _spin_for(node, args.preview_wait)
         if args.preview_only:
-            _keep_preview_alive(node, "Preview-only mode.")
+            if not args.preview_state:
+                _keep_preview_alive(node, "Preview-only mode.")
             return 0
 
         try:
@@ -1745,17 +1818,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         except RouteSetError as error:
             print(f"ERROR: {error}", file=sys.stderr, flush=True)
-            if not args.no_preview:
+            if not args.no_preview and not args.preview_state:
                 _keep_preview_alive(
                     node, "Route submission failed, but the preview will stay alive."
                 )
             return 1
 
-        if not args.no_preview:
+        if not args.no_preview and not args.preview_state:
             _keep_preview_alive(
                 node, "Route submission finished; keeping the preview alive."
             )
-    except (RouteCsvError, MapMatchError, RouteSetError) as error:
+    except (RouteCsvError, MapMatchError, RouteSetError, OSError) as error:
         print(f"ERROR: {error}", file=sys.stderr, flush=True)
         return 1
     except KeyboardInterrupt:

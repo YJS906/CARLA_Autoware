@@ -52,6 +52,8 @@ public:
     choose(Direction::LEFT);
   }
   void choose(const Direction direction) { direction_ = direction; }
+  // This fixture stubs maneuver geometry, including an in-range triggering obstacle.
+  bool isExecutionDistanceSatisfied() const override { return true; }
 };
 
 // Stub geometry and maneuver completion, NOT the production entry hook, RTC dispatch,

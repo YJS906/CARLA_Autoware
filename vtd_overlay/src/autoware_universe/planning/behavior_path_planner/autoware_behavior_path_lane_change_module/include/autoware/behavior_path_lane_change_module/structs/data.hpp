@@ -15,6 +15,7 @@
 #define AUTOWARE__BEHAVIOR_PATH_LANE_CHANGE_MODULE__STRUCTS__DATA_HPP_
 
 #include "autoware/behavior_path_lane_change_module/structs/parameters.hpp"
+#include "autoware/behavior_path_lane_change_module/utils/braking_profile.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/path_safety_checker_parameters.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_shifter/path_shifter.hpp"
 
@@ -74,6 +75,7 @@ struct PhaseMetrics
   double sampled_lon_accel{0.0};
   double actual_lon_accel{0.0};
   double lat_accel{0.0};
+  std::optional<BrakingProfile> braking_profile;
 
   PhaseMetrics() = default;
   PhaseMetrics(
@@ -102,6 +104,8 @@ struct Lanes
 
 struct Info
 {
+  std::optional<BrakingProfile> braking_profile;
+  Pose braking_start_pose;
   PhaseInfo longitudinal_acceleration{0.0, 0.0};
   PhaseInfo velocity{0.0, 0.0};
   PhaseInfo duration{0.0, 0.0};
@@ -130,6 +134,7 @@ struct Info
     lateral_acceleration = _lc_metrics.lat_accel;
     terminal_lane_changing_velocity = _lc_metrics.velocity;
     shift_line = _shift_line;
+    braking_profile = _prep_metrics.braking_profile;
   }
 
   void set_prepare(const PhaseMetrics & _prep_metrics)
@@ -138,6 +143,7 @@ struct Info
     velocity.prepare = _prep_metrics.velocity;
     duration.prepare = _prep_metrics.duration;
     length.prepare = _prep_metrics.length;
+    braking_profile = _prep_metrics.braking_profile;
   }
 
   void set_lane_changing(const PhaseMetrics & _lc_metrics)

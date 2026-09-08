@@ -22,7 +22,9 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include <algorithm>
+#include <cmath>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -50,6 +52,14 @@ void AvoidanceByLaneChangeModuleManager::init(rclcpp::Node * node)
     const std::string ns = "avoidance_by_lane_change.";
     p.execute_object_longitudinal_margin =
       get_or_declare_parameter<double>(*node, ns + "execute_object_longitudinal_margin");
+    const auto execution_distance_key = ns + "max_execution_distance";
+    p.max_execution_distance = node->has_parameter(execution_distance_key)
+                                 ? node->get_parameter(execution_distance_key).as_double()
+                                 : node->declare_parameter<double>(execution_distance_key, 20.0);
+    if (!std::isfinite(p.max_execution_distance) || p.max_execution_distance <= 0.0) {
+      throw std::invalid_argument(
+        "avoidance_by_lane_change.max_execution_distance must be positive and finite");
+    }
     p.execute_only_when_lane_change_finish_before_object = get_or_declare_parameter<bool>(
       *node, ns + "execute_only_when_lane_change_finish_before_object");
     p.max_lane_changing_length_scale = std::clamp(
@@ -64,6 +74,28 @@ void AvoidanceByLaneChangeModuleManager::init(rclcpp::Node * node)
       0.0, get_or_declare_parameter<double>(*node, ns + "empty_lane_check_forward_distance"));
     p.empty_lane_check_backward_distance = std::max(
       0.0, get_or_declare_parameter<double>(*node, ns + "empty_lane_check_backward_distance"));
+
+    const auto positive = [&](const std::string & name, const double fallback) {
+      const auto key = ns + "route_priority." + name;
+      const auto value = node->has_parameter(key) ? node->get_parameter(key).as_double()
+                                                  : node->declare_parameter<double>(key, fallback);
+      if (!std::isfinite(value) || value <= 0.0) {
+        throw std::invalid_argument("Invalid route-priority parameter: " + name);
+      }
+      return value;
+    };
+    p.route_blockage_min_duration = positive("blockage_min_duration", 3.0);
+    p.route_blockage_max_position_drift = positive("blockage_max_position_drift", 0.5);
+    p.route_return_search_interval = positive("return_search_interval", 1.0);
+    p.route_return_time_budget_ms = positive("return_time_budget_ms", 20.0);
+    p.route_return_time_margin = positive("return_time_margin", 1.0);
+    const auto steps_key = ns + "route_priority.return_max_steps";
+    const auto steps = node->has_parameter(steps_key) ? node->get_parameter(steps_key).as_int()
+                                                      : node->declare_parameter<int>(steps_key, 3);
+    if (steps < 1 || steps > 4) {
+      throw std::invalid_argument("route_priority.return_max_steps must be in [1, 4]");
+    }
+    p.route_return_max_steps = static_cast<int>(steps);
   }
 
   // general params

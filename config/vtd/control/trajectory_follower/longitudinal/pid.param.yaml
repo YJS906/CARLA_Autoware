@@ -15,7 +15,7 @@
   ros__parameters:
     delay_compensation_time: 0.1 # {OVERRIDE}
 
-    enable_smooth_stop: true
+    enable_smooth_stop: false # {OVERRIDE: simulator smooth stop remains disabled}
     enable_overshoot_emergency: false # {OVERRIDE}
     enable_large_tracking_error_emergency: true
     enable_slope_compensation: true
@@ -82,8 +82,8 @@
     min_acc: -5.0
 
     # jerk limit
-    max_jerk: 2.0
-    min_jerk: -5.0
+    max_jerk: 1.40 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
+    min_jerk: -3.50 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
     max_acc_cmd_diff: 50.0 # [m/s^2 * s^-1]
 
     # slope compensation

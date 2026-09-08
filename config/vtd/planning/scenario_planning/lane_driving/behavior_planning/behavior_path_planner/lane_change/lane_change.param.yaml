@@ -26,10 +26,10 @@
       # trajectory generation
       trajectory:
         max_prepare_duration: 3.0
-        min_prepare_duration: 1.0
-        lateral_jerk: 1.0
-        min_longitudinal_acc: -1.0
-        max_longitudinal_acc: 1.0
+        min_prepare_duration: 0.25  # {OVERRIDE: allow sub-second preparation; braking remains reachable}
+        lateral_jerk: 0.77 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
+        min_longitudinal_acc: -5.0  # {OVERRIDE: bounded by the deployed longitudinal controller}
+        max_longitudinal_acc: 0.77 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
         th_prepare_length_diff: 1.0
         th_lane_changing_length_diff: 1.0
         min_lane_changing_velocity: 1.5 # {OVERRIDE: allow a short low-speed prepare phase near a lane terminal}
@@ -115,7 +115,7 @@
       lateral_acceleration:
         velocity: [0.0, 4.0, 10.0]
         min_values: [0.6, 0.6, 0.6]
-        max_values: [0.9, 0.9, 0.9]
+        max_values: [0.693, 0.693, 0.693] # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}
 
       # target object
       target_object:

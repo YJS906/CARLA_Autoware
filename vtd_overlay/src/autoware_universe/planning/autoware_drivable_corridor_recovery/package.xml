@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>autoware_drivable_corridor_recovery</name>
+  <version>0.1.0</version>
+  <description>Shared swept-footprint passability and bounded low-speed corridor recovery.</description>
+  <maintainer email="dev@selfcar.local">Selfcar developers</maintainer>
+  <license>Apache License 2.0</license>
+  <buildtool_depend>autoware_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <depend>autoware_behavior_path_planner_common</depend>
+  <depend>autoware_motion_utils</depend>
+  <depend>autoware_planning_msgs</depend>
+  <depend>autoware_internal_planning_msgs</depend>
+  <depend>autoware_perception_msgs</depend>
+  <depend>autoware_vehicle_msgs</depend>
+  <depend>autoware_adapi_v1_msgs</depend>
+  <depend>autoware_vehicle_info_utils</depend>
+  <depend>autoware_utils</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>std_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

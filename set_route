@@ -11,6 +11,8 @@ Usage: ./set_route ROUTE.csv [route setter options]
 
 Map-match a CSV route to the lanelet map, preview it in RViz, and set it on an
 already running Autoware instance. The CSV must contain seq,x,y columns.
+The RViz preview is saved on the host and published independently after this
+command exits. Autoware restart restores the preview, not the driving route.
 
 Example:
   ./set_route routes/route_example.csv
@@ -93,10 +95,15 @@ container_options=()
 extra_mounts=()
 has_override=0
 has_output=0
+managed_preview=1
 index=0
 while (( index < ${#route_options[@]} )); do
   option="${route_options[index]}"
   case "${option}" in
+    --dry-run|--no-preview|--help|-h)
+      managed_preview=0
+      container_options+=("${option}")
+      ;;
     --override-seq)
       has_override=1
       container_options+=("${option}")
@@ -152,14 +159,28 @@ if (( has_override == 1 && has_output == 0 )); then
   container_options+=(--output-csv /tmp/csv-route-output/corrected_route.csv)
 fi
 
+if (( managed_preview == 1 )); then
+  # shellcheck source=scripts/csv_preview_runtime.sh
+  source "${repo_root}/scripts/csv_preview_runtime.sh"
+  ensure_csv_preview
+  extra_mounts+=(--volume "${csv_preview_root}:/opt/selfcar-preview/state")
+  container_options+=(--preview-state "${csv_preview_state}")
+fi
+
 exec docker run --rm \
   --network host \
   --ipc host \
+  --user "$(id -u):$(id -g)" \
   --entrypoint /bin/bash \
   --volume "${route_csv}:/tmp/autoware-route.csv:ro" \
   --volume "${VTD_MAP_DIR}:/home/aw/vtd_autoware_maps:ro" \
   --volume "${repo_root}/scripts/set_route_from_csv.py:/opt/selfcar-tools/set_route_from_csv.py:ro" \
+  --volume "${repo_root}/scripts/csv_route_preview.py:/opt/selfcar-tools/csv_route_preview.py:ro" \
   --env "VTD_MAP_RELATIVE_PATH=${map_relative_path}" \
+  --env "AUTOWARE_CSV_SOURCE_PATH=${route_csv}" \
+  --env "ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}" \
+  --env "RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION:-rmw_cyclonedds_cpp}" \
+  --env ROS_LOG_DIR=/tmp/selfcar-csv-setter-logs \
   "${extra_mounts[@]}" \
   "${vtd_image}" \
   -lc \

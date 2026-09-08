@@ -32,6 +32,7 @@
 #include <boost/geometry/strategies/cartesian/centroid_bashein_detmer.hpp>
 
 #include <algorithm>
+#include <cmath>
 #include <cstddef>
 #include <limits>
 #include <memory>
@@ -138,6 +139,16 @@ void AvoidanceByLaneChange::applyObstacleVelocityLimit()
     velocity_limit, avoidance_parameters_->obstacle_velocity_limit_ratio * 100.0);
 }
 
+bool AvoidanceByLaneChange::isExecutionDistanceSatisfied() const
+{
+  const auto * target = getNearestAvoidanceTarget();
+  if (!target) return false;
+  const auto distance = target->longitudinal;
+  const auto limit = avoidance_parameters_->max_execution_distance;
+  return std::isfinite(distance) && std::isfinite(limit) && limit > 0.0 && distance > 0.0 &&
+         distance <= limit;
+}
+
 bool AvoidanceByLaneChange::specialRequiredCheck() const
 {
   const auto * nearest_object = getNearestAvoidanceTarget();
@@ -168,6 +179,13 @@ bool AvoidanceByLaneChange::specialRequiredCheck() const
 
 bool AvoidanceByLaneChange::specialExpiredCheck() const
 {
+  // The base interface applies this expiration only while WAITING_APPROVAL, before its RTC
+  // transition to RUNNING. Withdraw a stale request even if a prior cycle was safe/approved;
+  // an already RUNNING maneuver is never cancelled merely because its target distance changes.
+  if (!isExecutionDistanceSatisfied()) {
+    return true;
+  }
+
   // No selected side means there is no RTC request to approve. Expire the candidate instead of
   // letting the common "no registered requests" transition treat it as executable.
   if (direction_ == Direction::NONE) {
@@ -184,6 +202,7 @@ bool AvoidanceByLaneChange::specialExpiredCheck() const
 
 void AvoidanceByLaneChange::updateSpecialData()
 {
+  updateStationaryObservations();
   const auto p = std::dynamic_pointer_cast<AvoidanceParameters>(avoidance_parameters_);
 
   avoidance_debug_data_ = DebugData();
@@ -217,6 +236,11 @@ void AvoidanceByLaneChange::updateSpecialData()
 
   const auto previous_target = common_data_ptr_->requested_target_lane_id;
   target_lane_candidates_.clear();
+  current_lanes_to_preferred_ =
+    avoidance_data_.current_lanelets.empty()
+      ? 0
+      : std::abs(common_data_ptr_->route_handler_ptr->getNumLaneToPreferredLane(
+          avoidance_data_.current_lanelets.back()));
   common_data_ptr_->requested_target_lane_id.reset();
   if (nearest_avoidance_target) {
     const auto preferred = utils::static_obstacle_avoidance::isOnRight(*nearest_avoidance_target)
@@ -242,7 +266,7 @@ void AvoidanceByLaneChange::updateSpecialData()
   }
 
   // Initialize in this cycle, before the exclusive-slot arbitration can launch static avoidance.
-  // Path validity, distance and safety are checked separately for EVERY direction below.
+  // Path validity, distance and safety are checked only for policy-eligible candidates below.
   if (!target_lane_candidates_.empty()) {
     selectTargetLane(target_lane_candidates_.front());
   } else {
@@ -376,17 +400,38 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
   std::size_t eligible = 0;
   bool left_safe = false;
   bool right_safe = false;
+  bool left_evaluated = false;
+  bool right_evaluated = false;
+  bool route_side_temporarily_blocked = false;
+  selected_requires_return_ = false;
   status_.is_valid_path = false;
   status_.is_safe = false;
   for (const auto & target : target_lane_candidates_) {
+    const bool departure =
+      target.lanes_to_preferred != 0 && target.lanes_to_preferred >= current_lanes_to_preferred_;
+    if (departure && (route_side_temporarily_blocked || !isRouteDepartureRequired())) {
+      continue;
+    }
     if (!selectTargetLane(target) || !specialRequiredCheck()) {
+      // Missing geometry/regulatory clearance is not evidence of a permanent obstruction.
+      route_side_temporarily_blocked |= !departure;
       continue;
     }
     ++eligible;
+    left_evaluated |= target.direction == Direction::LEFT;
+    right_evaluated |= target.direction == Direction::RIGHT;
     LaneChangePath candidate_path;
     const auto [found_valid_path, found_safe_path] = getSafePath(candidate_path);
     const bool static_safe = found_valid_path && isStaticObstaclePathSafe(candidate_path);
-    const bool safe = found_valid_path && found_safe_path && static_safe;
+    bool safe = found_valid_path && found_safe_path && static_safe;
+    if (!departure && !safe) {
+      const auto collision = found_valid_path
+                               ? check_static_path(candidate_path)
+                               : utils::path_safety_checker::TrajectoryCollisionResult{};
+      route_side_temporarily_blocked |=
+        !collision.valid || !collision.object_id || !isPersistentBlocker(*collision.object_id);
+    }
+    if (departure && safe) safe = prepareRouteReturn(target, candidate_path);
     left_safe |= safe && target.direction == Direction::LEFT;
     right_safe |= safe && target.direction == Direction::RIGHT;
     candidate_path.path.header = getRouteHeader();
@@ -402,15 +447,22 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
       selected = Evaluation{
         target, std::move(candidate_path), lane_change_debug_, terminal_lane_change_path_, safe};
     }
+    // No need to generate the remaining directions once the best-ranked usable path is found.
+    if (safe) break;
   }
 
   if (!target_lane_candidates_.empty()) {
     RCLCPP_INFO_THROTTLE(
       logger_, clock_, 3000,
-      "avoidance bilateral: candidates=%zu eligible=%zu left_safe=%s right_safe=%s selected=%s "
+      "avoidance route-first: candidates=%zu evaluated=%zu left=%s right=%s selected=%s "
       "ready=%s",
-      target_lane_candidates_.size(), eligible, left_safe ? "true" : "false",
-      right_safe ? "true" : "false",
+      target_lane_candidates_.size(), eligible,
+      !left_evaluated ? "not_evaluated"
+      : left_safe     ? "safe"
+                      : "unsafe",
+      !right_evaluated ? "not_evaluated"
+      : right_safe     ? "safe"
+                       : "unsafe",
       !selected                                       ? "NONE"
       : selected->target.direction == Direction::LEFT ? "LEFT"
                                                       : "RIGHT",
@@ -431,6 +483,9 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
   status_.lane_change_path = std::move(selected->path);
   status_.is_valid_path = true;
   status_.is_safe = selected->safe;
+  selected_requires_return_ = selected->safe && selected->target.lanes_to_preferred != 0 &&
+                              selected->target.lanes_to_preferred >= current_lanes_to_preferred_;
+  if (selected_requires_return_) reserveRouteReturn(status_.lane_change_path);
 }
 
 bool AvoidanceByLaneChange::selectTargetLane(const TargetLaneCandidate & candidate)
@@ -455,6 +510,9 @@ bool AvoidanceByLaneChange::isStaticObstaclePathSafe(const LaneChangePath & path
 
 PathSafetyStatus AvoidanceByLaneChange::isApprovedPathSafe() const
 {
+  if (
+    selected_requires_return_ && (!route_return_plan_ || !isRouteReturnClear(*route_return_plan_)))
+    return {false, false};
   const auto predicted_safety = NormalLaneChange::isApprovedPathSafe();
   if (!predicted_safety.is_safe || isStaticObstaclePathSafe(status_.lane_change_path)) {
     return predicted_safety;

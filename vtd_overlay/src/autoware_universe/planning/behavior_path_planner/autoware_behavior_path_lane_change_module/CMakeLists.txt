@@ -10,6 +10,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/manager.cpp
   src/scene.cpp
   src/obstacle_aware.cpp
+  src/curvature_braking.cpp
   src/utils/calculation.cpp
   src/utils/markers.cpp
   src/utils/utils.cpp

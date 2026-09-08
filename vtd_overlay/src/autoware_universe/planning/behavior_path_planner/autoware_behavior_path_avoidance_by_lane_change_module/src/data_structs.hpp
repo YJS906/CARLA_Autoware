@@ -25,6 +25,10 @@ struct AvoidanceByLCParameters : public AvoidanceParameters
   // execute only when the target object longitudinal distance is larger than this param.
   double execute_object_longitudinal_margin{0.0};
 
+  // Maximum path-relative distance to the nearest target envelope for a NEW approval.
+  // Object lookup and candidate generation keep their existing longer horizons.
+  double max_execution_distance{20.0};
+
   // execute only when lane change end point is before the object.
   bool execute_only_when_lane_change_finish_before_object{false};
 
@@ -43,6 +47,14 @@ struct AvoidanceByLCParameters : public AvoidanceParameters
   // Longitudinal window used to decide whether another outward lane is empty.
   double empty_lane_check_forward_distance{80.0};
   double empty_lane_check_backward_distance{20.0};
+
+  // Leaving the mission-lane corridor is an exception, never a response to one unsafe sample.
+  double route_blockage_min_duration{3.0};
+  double route_blockage_max_position_drift{0.5};
+  double route_return_search_interval{1.0};
+  double route_return_time_budget_ms{20.0};
+  double route_return_time_margin{1.0};
+  int route_return_max_steps{3};
 
   explicit AvoidanceByLCParameters(const AvoidanceParameters & param) : AvoidanceParameters(param)
   {

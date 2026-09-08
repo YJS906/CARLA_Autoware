@@ -118,12 +118,12 @@ TEST_F(BilateralSelection, RightObstacleSelectsSafeLeft)
   EXPECT_EQ(module.selectedLane(), 1);
 }
 
-TEST_F(BilateralSelection, ChecksBothSidesAndRestoresFirstSafeWinner)
+TEST_F(BilateralSelection, StopsSearchingAfterFirstSafeRouteCandidate)
 {
   TestAvoidanceByLaneChange module;
   module.prepare({Direction::LEFT, Direction::RIGHT});
   module.updateLaneChangeStatus();
-  EXPECT_EQ(module.checked.size(), 2u);
+  EXPECT_EQ(module.checked.size(), 1u);
   EXPECT_TRUE(module.isSafe());
   EXPECT_EQ(module.selectedDirection(), Direction::LEFT);
   EXPECT_EQ(module.selectedLane(), 1);

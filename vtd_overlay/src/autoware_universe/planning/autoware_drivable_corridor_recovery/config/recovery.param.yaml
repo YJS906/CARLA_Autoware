@@ -1,0 +1,12 @@
+/**:
+  ros__parameters:
+    recovery:
+      enabled: true
+      max_velocity: 1.5
+      max_entry_velocity: 2.0
+      input_timeout: 0.5
+      lookahead_distance: 80.0
+      max_reentry_distance: 5.0
+      stop_margin: 2.0
+      search_time_budget_ms: 60.0
+      # No generic boundary inflation or collision-margin reduction is supported.

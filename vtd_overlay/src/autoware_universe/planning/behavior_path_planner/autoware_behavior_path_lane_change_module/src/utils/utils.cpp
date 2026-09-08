@@ -18,6 +18,7 @@
 #include "autoware/behavior_path_lane_change_module/structs/path.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/calculation.hpp"
 #include "autoware/behavior_path_planner_common/parameters.hpp"
+#include "autoware/behavior_path_planner_common/utils/drivable_area_expansion/static_drivable_area.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/safety_check.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_shifter/path_shifter.hpp"
 #include "autoware/behavior_path_planner_common/utils/traffic_light_utils.hpp"
@@ -121,6 +122,13 @@ bool is_mandatory_lane_change(const ModuleType lc_type)
 void set_prepare_velocity(
   PathWithLaneId & prepare_segment, const double current_velocity, const double prepare_velocity)
 {
+  // Do not leave road-speed points ahead of ego while requesting a speed-holding or
+  // decelerating prepare phase. The downstream smoother still enforces braking/jerk limits.
+  const auto ceiling = static_cast<float>(std::max(current_velocity, prepare_velocity));
+  for (auto & point : prepare_segment.points) {
+    point.point.longitudinal_velocity_mps =
+      std::min(point.point.longitudinal_velocity_mps, ceiling);
+  }
   if (current_velocity >= prepare_velocity) {
     // deceleration
     prepare_segment.points.back().point.longitudinal_velocity_mps = std::min(
@@ -252,6 +260,31 @@ std::vector<DrivableLanes> generateDrivableLanes(
   }
 
   return drivable_lanes;
+}
+
+void expandDrivableLaneCorridors(
+  const RouteHandler & route_handler, std::vector<DrivableLanes> & drivable_lanes)
+{
+  for (auto & lanes : drivable_lanes) {
+    // Preserve the existing maneuver corridor, including intermediate lanes. Its outer
+    // edges seed the same legal, directional expansion used by the reference-path builder.
+    lanelet::ConstLanelets corridor;
+    std::unordered_set<lanelet::Id> visited;
+    const auto append = [&](const lanelet::ConstLanelet & lane) {
+      if (visited.insert(lane.id()).second) corridor.push_back(lane);
+    };
+    append(lanes.left_lane);
+    for (const auto & lane : lanes.middle_lanes) append(lane);
+    append(lanes.right_lane);
+
+    const auto expanded = utils::expandLaneletCorridor(corridor, route_handler);
+    lanes.left_lane = expanded.front();
+    lanes.right_lane = expanded.back();
+    lanes.middle_lanes.clear();
+    if (expanded.size() > 2) {
+      lanes.middle_lanes.assign(std::next(expanded.begin()), std::prev(expanded.end()));
+    }
+  }
 }
 
 double getLateralShift(const LaneChangePath & path)
@@ -1504,6 +1537,73 @@ std::vector<std::vector<PoseWithVelocityStamped>> convert_to_predicted_paths(
   const CommonDataPtr & common_data_ptr, const LaneChangePath & lane_change_path,
   const size_t deceleration_sampling_num, const bool is_approved)
 {
+  if (lane_change_path.info.braking_profile) {
+    const auto & points = lane_change_path.path.points;
+    const auto & info = lane_change_path.info;
+    const auto & profile = *info.braking_profile;
+    if (points.size() < 3) return {};
+    const auto & c = *common_data_ptr;
+    const auto & p = *c.lc_param_ptr;
+    const double resolution = p.safety.collision_check.prediction_time_resolution;
+    const double min_acc = std::max(c.bpp_param_ptr->min_acc, p.trajectory.min_longitudinal_acc);
+    const double max_acc = std::min(c.bpp_param_ptr->max_acc, p.trajectory.max_longitudinal_acc);
+    if (resolution <= 0.0 || min_acc >= 0.0 || max_acc <= 0.0) return {};
+    std::vector<double> arcs(points.size(), 0.0), curvature(points.size(), 0.0);
+    for (size_t i = 1; i < points.size(); ++i) {
+      arcs[i] = arcs[i - 1] + autoware_utils::calc_distance2d(points[i - 1], points[i]);
+      if (arcs[i] <= arcs[i - 1]) return {};
+      if (i + 1 < points.size()) curvature[i] = autoware_utils::calc_curvature(
+        points[i - 1].point.pose.position, points[i].point.pose.position,
+        points[i + 1].point.pose.position);
+    }
+    const auto arc_of = [&](const auto & position) {
+      return motion_utils::calcSignedArcLength(points, points.front().point.pose.position, position);
+    };
+    const double origin = arc_of(info.braking_start_pose.position);
+    const double end = arc_of(info.lane_changing_end.position);
+    double arc = arc_of(c.get_ego_pose().position);
+    double velocity = c.get_ego_speed();
+    double acceleration = c.get_current_accel();
+    if (!std::isfinite(velocity) || !std::isfinite(acceleration) || velocity < 0.0 ||
+        acceleration < min_acc - 1e-3 || acceleration > max_acc + 1e-3) return {};
+    std::vector<PoseWithVelocityStamped> prediction;
+    double next_sample = 0.0;
+    const double dt = std::min(0.02, resolution);
+    // Start from MEASURED velocity/acceleration, including after approval. Follow the same
+    // spatial braking profile with bounded acceleration and jerk; never clamp ego to cruise.
+    const double horizon = std::min(60.0, info.duration.sum() + 10.0);
+    for (double time = 0.0; time <= horizon; time += dt) {
+      const auto it = std::upper_bound(arcs.begin(), arcs.end(), arc);
+      const size_t i = std::clamp<size_t>(std::distance(arcs.begin(), it), 1, points.size() - 2);
+      const double ratio = std::clamp((arc - arcs[i - 1]) / (arcs[i] - arcs[i - 1]), 0.0, 1.0);
+      const double k = curvature[i - 1] + ratio * (curvature[i] - curvature[i - 1]);
+      const double dk = std::abs(curvature[i] - curvature[i - 1]) / (arcs[i] - arcs[i - 1]);
+      if (!std::isfinite(k) || std::abs(k) > c.bpp_param_ptr->vehicle_info.calcMaxCurvature() ||
+          velocity * velocity * std::abs(k) > p.trajectory.lat_acc_map.find(velocity).second + 1e-3 ||
+          velocity * velocity * velocity * dk + 2.0 * velocity * std::abs(acceleration * k) >
+            p.trajectory.lateral_jerk + 1e-3) return {};
+      if (time + 1e-6 >= next_sample || arc >= end) {
+        const auto pose = time == 0.0 ? c.get_ego_pose() :
+          motion_utils::calcInterpolatedPose(points, arc, false);
+        prediction.emplace_back(time, pose, velocity);
+        next_sample += resolution;
+      }
+      if (arc >= end) return {prediction};
+      if (arc < arcs.front() || arc > arcs.back()) return {};
+      const auto reference = profile.at_distance(std::max(0.0, arc - origin));
+      const double target_acc = std::clamp(
+        reference.acceleration + (reference.velocity - velocity), min_acc, max_acc);
+      const double next_acc = acceleration + std::clamp(
+        target_acc - acceleration, p.trajectory_safety.min_jerk * dt,
+        p.trajectory_safety.max_jerk * dt);
+      const double next_velocity = velocity + 0.5 * (acceleration + next_acc) * dt;
+      if (next_velocity < 0.0 || !std::isfinite(next_velocity)) return {};
+      arc = std::min(end, arc + 0.5 * (velocity + next_velocity) * dt);
+      velocity = next_velocity;
+      acceleration = next_acc;
+    }
+    return {};  // An incomplete prediction is not a clear maneuver.
+  }
   if (lane_change_path.type == PathType::LowSpeed) {
     const auto & path = lane_change_path.path;
     if (path.points.size() < 2) return {};

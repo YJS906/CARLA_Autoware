@@ -17,6 +17,22 @@ namespace autoware::behavior_path_planner::utils::static_obstacle_avoidance
 // Keep every generator/feasibility check above the shared downstream clearance budget.
 void enforceTrajectorySafetyMargins(AvoidanceParameters & parameters);
 
+std::vector<utils::path_safety_checker::PoseWithVelocityStamped> predictManeuverPath(
+  const PathWithLaneId & path, const Pose & ego_pose, double velocity, double horizon,
+  double resolution, double max_acceleration, double min_acceleration);
+
+utils::path_safety_checker::TrajectoryCollisionResult checkStaticObstacleCollision(
+  const PathWithLaneId & path, const PredictedObjects & objects,
+  const autoware::vehicle_info_utils::VehicleInfo & vehicle_info,
+  const AvoidanceParameters & parameters, double start_arc, double end_arc,
+  const Pose * ego_pose = nullptr);
+
+utils::path_safety_checker::TrajectoryCollisionResult checkStaticObstacleCollision(
+  const PathWithLaneId & path, const PredictedObjects & objects,
+  const autoware::vehicle_info_utils::VehicleInfo & vehicle_info,
+  const AvoidanceParameters & parameters, double start_arc, double end_arc,
+  const Pose * ego_pose, const std::optional<selfcar::trajectory_safety::EgoMotion> & motion);
+
 // Arc distances are measured from path.points.front(). Uses the downstream swept footprints,
 // including objects excluded by avoidance-target, parked-object or lane-centroid filters.
 // Pass the actual ego pose for final maneuver checks. A side-corridor probe omits it and uses

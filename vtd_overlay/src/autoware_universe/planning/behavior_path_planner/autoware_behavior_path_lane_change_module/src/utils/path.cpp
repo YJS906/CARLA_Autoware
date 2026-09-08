@@ -20,7 +20,9 @@
 #include "autoware/behavior_path_planner_common/utils/path_utils.hpp"
 #include "autoware/behavior_path_planner_common/utils/utils.hpp"
 
+#include <autoware/behavior_path_planner_common/utils/path_shifter/shift_constraints.hpp>
 #include <autoware/lanelet2_utils/geometry.hpp>
+#include <autoware/motion_utils/trajectory/interpolation.hpp>
 #include <autoware/motion_utils/trajectory/path_shift.hpp>
 #include <autoware_frenet_planner/frenet_planner.hpp>
 #include <autoware_utils/system/stop_watch.hpp>
@@ -33,7 +35,9 @@
 #include <fmt/format.h>
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
+#include <tuple>
 #include <vector>
 
 namespace
@@ -212,7 +216,7 @@ std::optional<SamplingParameters> init_sampling_parameters(
   const auto max_lateral_acc =
     trajectory.lat_acc_map.find(std::max(min_lc_vel, prepare_metrics.velocity)).second;
   const auto initial_velocity = prepare_metrics.velocity;
-  const auto lon_accel = prepare_metrics.sampled_lon_accel;
+  const auto lon_accel = initial_state.longitudinal_acceleration;
 
   const auto use_remaining_distance =
     common_data_ptr->lc_param_ptr->frenet.use_entire_remaining_distance;
@@ -220,6 +224,11 @@ std::optional<SamplingParameters> init_sampling_parameters(
   const auto [lc_length, duration, final_velocity] = std::invoke([&]() {
     auto duration = autoware::motion_utils::calc_shift_time_from_jerk(
       std::abs(initial_state.position.d), trajectory.lateral_jerk, max_lateral_acc);
+    if (initial_velocity <= 0.0) return std::make_tuple(0.0, 0.0, 0.0);
+    duration = std::max(
+      duration, autoware::behavior_path_planner::utils::minimumGeometricShiftLength(
+                  initial_state.position.d, common_data_ptr->bpp_param_ptr->vehicle_info) /
+                  initial_velocity);
     auto final_velocity = std::max(min_lc_vel, initial_velocity + lon_accel * duration);
     auto length = duration * (initial_velocity + final_velocity) * 0.5;
     if (!use_remaining_distance) return std::make_tuple(length, duration, final_velocity);
@@ -233,6 +242,7 @@ std::optional<SamplingParameters> init_sampling_parameters(
     return std::make_tuple(length, duration, final_velocity);
   });
 
+  if (!std::isfinite(duration) || duration <= 0.0) return std::nullopt;
   const auto target_s = std::min(ref_spline.lastS(), initial_state.position.s + lc_length);
   // for smooth lateral motion we want a constant lateral acceleration profile
   // this means starting from a 0 lateral velocity and setting a positive target lateral velocity
@@ -249,8 +259,7 @@ std::optional<SamplingParameters> init_sampling_parameters(
     std::copysign(target_lat_vel, sign<double>(common_data_ptr->direction));
   sampling_parameters.parameters.back().target_state.lateral_acceleration = 0.0;
   sampling_parameters.parameters.back().target_state.longitudinal_velocity = final_velocity;
-  sampling_parameters.parameters.back().target_state.longitudinal_acceleration =
-    prepare_metrics.sampled_lon_accel;
+  sampling_parameters.parameters.back().target_state.longitudinal_acceleration = lon_accel;
   return sampling_parameters;
 }
 
@@ -383,6 +392,13 @@ bool get_prepare_segment(
   const CommonDataPtr & common_data_ptr, const PathWithLaneId & prev_module_path,
   const double prep_length, PathWithLaneId & prepare_segment)
 {
+  return get_prepare_segment(common_data_ptr, prev_module_path, prep_length, prepare_segment, false);
+}
+
+bool get_prepare_segment(
+  const CommonDataPtr & common_data_ptr, const PathWithLaneId & prev_module_path,
+  const double prep_length, PathWithLaneId & prepare_segment, const bool has_braking_profile)
+{
   const auto & current_lanes = common_data_ptr->lanes_ptr->current;
   const auto & target_lanes = common_data_ptr->lanes_ptr->target;
   const auto backward_path_length = common_data_ptr->bpp_param_ptr->backward_path_length;
@@ -395,7 +411,32 @@ bool get_prepare_segment(
   const size_t current_seg_idx =
     autoware::motion_utils::findFirstNearestSegmentIndexWithSoftConstraints(
       prepare_segment.points, common_data_ptr->get_ego_pose(), 3.0, 1.0);
-  utils::clipPathLength(prepare_segment, current_seg_idx, prep_length, backward_path_length);
+  if (has_braking_profile) {
+    const auto & original = prev_module_path.points;
+    if (original.size() < 2) return false;
+    std::vector<double> arcs(original.size(), 0.0);
+    for (size_t i = 1; i < original.size(); ++i) {
+      arcs[i] = arcs[i - 1] + autoware_utils::calc_distance2d(original[i - 1], original[i]);
+    }
+    const double ego_arc = motion_utils::calcSignedArcLength(
+      original, original.front().point.pose.position, common_data_ptr->get_ego_pose().position);
+    const double end_arc = ego_arc + prep_length;
+    if (!std::isfinite(end_arc) || end_arc < 0.0 || end_arc > arcs.back()) return false;
+    const auto it = std::lower_bound(arcs.begin(), arcs.end(), end_arc);
+    const size_t end_idx = std::min<size_t>(std::distance(arcs.begin(), it), original.size() - 1);
+    auto endpoint = original[end_idx];
+    endpoint.point.pose = motion_utils::calcInterpolatedPose(original, end_arc);
+    if (end_idx > 0) endpoint.point.longitudinal_velocity_mps = std::min(
+      endpoint.point.longitudinal_velocity_mps, original[end_idx - 1].point.longitudinal_velocity_mps);
+    prepare_segment.points.clear();
+    for (size_t i = 0; i < original.size(); ++i) {
+      if (arcs[i] < ego_arc - backward_path_length || arcs[i] >= end_arc - 1e-6) continue;
+      prepare_segment.points.push_back(original[i]);
+    }
+    prepare_segment.points.push_back(endpoint);
+  } else {
+    utils::clipPathLength(prepare_segment, current_seg_idx, prep_length, backward_path_length);
+  }
 
   if (prepare_segment.points.empty()) return false;
 
@@ -424,6 +465,12 @@ bool get_prepare_segment(
   const auto average_curvature = calc_average_curvature(curvatures);
 
   RCLCPP_DEBUG(get_logger(), "average curvature: %.3f", average_curvature);
+  if (has_braking_profile) {
+    const double maximum = common_data_ptr->bpp_param_ptr->vehicle_info.calcMaxCurvature();
+    return std::all_of(curvatures.begin(), curvatures.end(), [&](const double k) {
+      return std::isfinite(k) && std::abs(k) <= maximum;
+    });
+  }
   return average_curvature <= common_data_ptr->lc_param_ptr->trajectory.th_prepare_curvature;
 }
 
@@ -500,14 +547,33 @@ LaneChangePath construct_candidate_path(
 
   std::vector<int64_t> prev_ids;
   std::vector<int64_t> prev_sorted_ids;
+  if (shifted_path.path.points.size() != target_lane_reference_path.points.size()) {
+    throw std::logic_error("Shifted/reference path size mismatch.");
+  }
+  double reference_arc = 0.0;
   for (size_t i = 0; i < shifted_path.path.points.size(); ++i) {
     auto & point = shifted_path.path.points.at(i);
+    if (i > 0) {
+      reference_arc += autoware_utils::calc_distance2d(
+        target_lane_reference_path.points[i - 1], target_lane_reference_path.points[i]);
+    }
+    // Include the shift endpoint: road speed is available only after lateral completion.
+    // Use the same longitudinal motion as PathShifter, not the terminal speed at every point.
+    if (i <= *lc_end_idx_opt) {
+      const auto initial_velocity = lane_change_info.velocity.lane_changing;
+      const auto acceleration = lane_change_info.longitudinal_acceleration.lane_changing;
+      const auto velocity = std::sqrt(std::max(
+        0.0,
+        initial_velocity * initial_velocity +
+          2.0 * acceleration * std::min(reference_arc, lane_change_info.length.lane_changing)));
+      point.point.longitudinal_velocity_mps = std::min(
+        point.point.longitudinal_velocity_mps,
+        static_cast<float>(std::min(velocity, terminal_lane_changing_velocity)));
+    }
     if (i < *lc_end_idx_opt) {
       const auto & current_ids = point.lane_ids;
       point.lane_ids =
         replace_with_sorted_ids(current_ids, sorted_lane_ids, prev_ids, prev_sorted_ids);
-      point.point.longitudinal_velocity_mps = std::min(
-        point.point.longitudinal_velocity_mps, static_cast<float>(terminal_lane_changing_velocity));
       continue;
     }
     const auto nearest_idx =
@@ -515,9 +581,8 @@ LaneChangePath construct_candidate_path(
     point.lane_ids = target_lane_reference_path.points.at(*nearest_idx).lane_ids;
   }
 
-  if (
-    utils::lane_change::is_intersecting_no_lane_change_lines(
-      common_data_ptr, lane_change_info.length, shifted_path.path.points)) {
+  if (utils::lane_change::is_intersecting_no_lane_change_lines(
+        common_data_ptr, lane_change_info.length, shifted_path.path.points)) {
     throw std::logic_error("Intersect no lane change lines.");
   }
 
@@ -536,6 +601,42 @@ LaneChangePath construct_candidate_path(
   candidate_path.shifted_path = shifted_path;
   candidate_path.info = lane_change_info;
   candidate_path.type = PathType::ConstantJerk;
+
+  if (candidate_path.info.braking_profile) {
+    auto & info = candidate_path.info;
+    auto & profile = *info.braking_profile;
+    info.braking_start_pose = common_data_ptr->get_ego_pose();
+    auto & points = candidate_path.path.points;
+    const auto & origin = points.front().point.pose.position;
+    const double ego_arc = motion_utils::calcSignedArcLength(
+      points, origin, info.braking_start_pose.position);
+    const double start_arc = motion_utils::calcSignedArcLength(
+      points, origin, info.lane_changing_start.position);
+    const double actual_length = start_arc - ego_arc;
+    if (actual_length + 1e-3 < profile.distance()) {
+      throw std::logic_error("Preparation clips the required braking distance");
+    }
+    profile.hold_time += std::max(0.0, actual_length - profile.distance()) / profile.target_velocity;
+    info.duration.prepare = profile.duration();
+    info.length.prepare = actual_length;
+    if (info.length.sum() + common_data_ptr->transient_data.next_dist_buffer.min >
+        common_data_ptr->transient_data.dist_to_terminal_end + 1e-3) {
+      throw std::logic_error("Reachable braking exceeds the lane-change terminal");
+    }
+    info.longitudinal_acceleration.prepare =
+      (profile.target_velocity - profile.initial_velocity) / profile.duration();
+    double arc = 0.0;
+    for (size_t i = 0; i < points.size(); ++i) {
+      if (i > 0) arc += autoware_utils::calc_distance2d(points[i - 1], points[i]);
+      if (arc < ego_arc) continue;
+      const double speed = profile.at_distance(arc - ego_arc).velocity;
+      if (arc <= start_arc && points[i].point.longitudinal_velocity_mps + 1e-3 < speed) {
+        throw std::logic_error("Braking profile cannot reach an existing earlier speed limit");
+      }
+      points[i].point.longitudinal_velocity_mps =
+        std::min<double>(points[i].point.longitudinal_velocity_mps, speed);
+    }
+  }
 
   return candidate_path;
 }
@@ -596,8 +697,16 @@ std::vector<lane_change::TrajectoryGroup> generate_frenet_candidates(
 
     const auto reference_spline = init_reference_spline(target_lane_reference_path.points);
 
-    const auto initial_state = init_frenet_state(
+    auto initial_state = init_frenet_state(
       reference_spline.frenet({lc_start_pose.position.x, lc_start_pose.position.y}), metric);
+    const auto lateral_acc =
+      common_data_ptr->lc_param_ptr->trajectory.lat_acc_map.find(metric.velocity).second;
+    const auto shift_time = autoware::motion_utils::calc_shift_time_from_jerk(
+      std::abs(initial_state.position.d), common_data_ptr->lc_param_ptr->trajectory.lateral_jerk,
+      lateral_acc);
+    initial_state.longitudinal_acceleration = calculation::calc_lane_changing_acceleration(
+      common_data_ptr, metric.velocity, transient_data.current_path_velocity, shift_time,
+      std::max(0.0, metric.sampled_lon_accel));
 
     RCLCPP_DEBUG(
       get_logger(), "Initial state [s=%2.2f, d=%2.2f, s'=%2.2f, d'=%2.2f, s''=%2.2f, d''=%2.2f]",
@@ -612,6 +721,7 @@ std::vector<lane_change::TrajectoryGroup> generate_frenet_candidates(
       continue;
     }
 
+    set_prepare_velocity(prepare_segment, common_data_ptr->get_ego_speed(), metric.velocity);
     auto frenet_trajectories = frenet_planner::generateTrajectories(
       reference_spline, initial_state, *sampling_parameters_opt);
 
@@ -663,6 +773,15 @@ std::vector<lane_change::TrajectoryGroup> generate_frenet_candidates(
     trajectory_groups.erase(remove_start, trajectory_groups.end());
   }
 
+  // Curvature filtering above remains unchanged. Among surviving candidates prefer
+  // completion time, rather than rewarding a longer, gentler lateral maneuver.
+  std::stable_sort(
+    trajectory_groups.begin(), trajectory_groups.end(), [](const auto & a, const auto & b) {
+      return std::make_tuple(
+               a.lane_changing.sampling_parameter.target_duration, a.lc_average_curvature) <
+             std::make_tuple(
+               b.lane_changing.sampling_parameter.target_duration, b.lc_average_curvature);
+    });
   return trajectory_groups;
 }
 
@@ -745,9 +864,8 @@ std::optional<LaneChangePath> get_candidate_path(
   info.lane_changing_start = prepare_segment.points.back().point.pose;
   info.lane_changing_end = lane_changing_candidate.poses.back();
 
-  if (
-    utils::lane_change::is_intersecting_no_lane_change_lines(
-      common_data_ptr, info.length, shifted_path.path.points)) {
+  if (utils::lane_change::is_intersecting_no_lane_change_lines(
+        common_data_ptr, info.length, shifted_path.path.points)) {
     throw std::logic_error("Intersect no lane change lines.");
   }
 

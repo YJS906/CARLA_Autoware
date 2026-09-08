@@ -111,6 +111,11 @@ std::vector<DrivableLanes> generateDrivableLanes(
   const RouteHandler & route_handler, const lanelet::ConstLanelets & current_lanes,
   const lanelet::ConstLanelets & lane_change_lanes);
 
+// Extend output road space with the reference-path corridor policy, including successor
+// sections. Keep maneuver generation/validation and target-lane approval separate.
+void expandDrivableLaneCorridors(
+  const RouteHandler & route_handler, std::vector<DrivableLanes> & drivable_lanes);
+
 double getLateralShift(const LaneChangePath & path);
 
 CandidateOutput assignToCandidate(

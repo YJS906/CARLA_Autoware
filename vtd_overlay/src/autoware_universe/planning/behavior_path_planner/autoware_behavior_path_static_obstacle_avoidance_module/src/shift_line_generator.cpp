@@ -380,7 +380,13 @@ AvoidOutlines ShiftLineGenerator::generateAvoidOutline(
         al_avoid.end_shift_length =
           std::min(feasible_shift_profile.value().first, helper_->getLinearShift(end.position));
       }
-      al_avoid.end_longitudinal = to_shift_end;
+      // A full shift need not finish before the object's centroid if the swept vehicle has
+      // already cleared it laterally. Keep a steerable spatial length and let the final
+      // footprint/prefix-stop checker decide; never manufacture curvature by compressing it.
+      al_avoid.end_longitudinal = std::max(
+        to_shift_end,
+        al_avoid.start_longitudinal + helper_->getSharpAvoidanceDistance(
+                                        al_avoid.end_shift_length - al_avoid.start_shift_length));
 
       // misc
       al_avoid.id = generate_uuid();
@@ -391,7 +397,8 @@ AvoidOutlines ShiftLineGenerator::generateAvoidOutline(
     AvoidLine al_return;
     {
       const auto constant_distance = helper_->getRearConstantDistance(o);
-      const auto to_shift_start = o.longitudinal + constant_distance;
+      const auto to_shift_start =
+        std::max(o.longitudinal + constant_distance, al_avoid.end_longitudinal);
 
       // start point
       al_return.start_shift_length = al_avoid.end_shift_length;

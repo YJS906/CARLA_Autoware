@@ -26,6 +26,27 @@ If you would like to know the overview rather than the detail, please skip the n
 
 ## Inner workings/Algorithms
 
+### Retaining an approved maneuver (VTD overlay)
+
+For shift-based avoidance, safety is checked on the resampled output geometry before approval.
+Once accepted, that finite maneuver retains its spline, reference lane and RTC request until the
+vehicle's rear has cleared the last approved shift. A newly generated proposal cannot replace it or
+create another approval request while it is executing. The completed lateral offset is preserved
+when planning the next maneuver, including a return to the original lane.
+
+Approval is not a safety override. Stationary-object footprint checks with the shared downstream
+margins and predicted-object/RSS checks continue on the retained path. A collision risk, excessive
+tracking deviation, missing upstream path or operator deactivation causes a zero-speed output on
+that same geometry, without an unvalidated return to the lane center. After a safety hold, the
+vehicle must be stopped and the path continuously safe for at least one second (in addition to the
+existing safety hysteresis) before resuming. Operator deactivation must also be released.
+
+Only geometry is retained: timestamps and upstream speed restrictions/stops are refreshed on every
+output. Downstream obstacle stop/slow-down and motion planning remain active. A persistent blockage
+is not automatically bypassed; it remains a stop until the path becomes safe or the module is reset.
+
+### Planning flow
+
 This module mainly has two parts, target filtering and path generation. At first, all objects are filtered by several conditions. In this step, the module checks avoidance feasibility and necessity. After that, this module generates avoidance path outline, which we call **shift line**, based on filtered objects. The shift lines are set into [path shifter](../autoware_behavior_path_planner_common/docs/behavior_path_planner_path_generation_design.md), which is a library for path generation, to create a smooth shift path. Additionally, this module has a feature to check non-target objects so that the ego can avoid target objects safely. This feature receives a generated avoidance path and surrounding objects, and judges the current situation. Lastly, this module updates current ego behavior.
 
 ```plantuml
@@ -1389,6 +1410,27 @@ maximum allowed shift or road-boundary constraints. It does not disable downstre
 
 Avoidance necessity intersects the object's signed lateral interval with the ego corridor, so an
 object straddling the centerline cannot be discarded solely because its center changes sides.
+
+## Local execution speed limits
+
+Static avoidance execution keeps the incoming path velocity outside necessary
+slowdown/recovery regions. The nominal avoidance speed applies to actual remaining
+shift intervals only. Curvature and lateral jerk yield independent local limits;
+the minimum from one curve is not reused on the complete path.
+
+Two distance-based sweeps extend those local limits into the necessary braking and
+speed-recovery regions using the existing longitudinal acceleration/jerk bounds.
+They use geometry/stop constraints as anchors, not already-reduced point speeds,
+so repeated candidate/output checks do not progressively extend the slowdown.
+Intermediate straights can return to their incoming speed when sufficient transition
+distance exists; a short gap may still require remaining slow. Incoming lower limits
+and zero-speed points are never raised.
+
+The first local maneuver must still finish before the stopping endpoint with the
+unchanged downstream clearance. Measured-ego braking feasibility, physical steering,
+static swept-footprint and moving-object prediction checks remain enabled. The
+downstream velocity smoother still generates the final longitudinal control profile.
+No new parameters, scene-constructor declarations or shared class layouts are used.
 
 ## Appendix: All parameters
 
