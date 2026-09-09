@@ -2,14 +2,14 @@
   ros__parameters:
     # Preserve route-mandated lane-change geometry, but prevent that upstream
     # module from converting UNKNOWN occupancy into a stop. The fixed-route
-    # planner owns collision checking for those same objects.
+    # planner owns collision checking for those same objects. Keep CAR and PEDESTRIAN checks enabled.
     lane_change:
       target_object:
-        car: false
+        car: true
         truck: false
         bus: false
         trailer: false
         unknown: false
         bicycle: false
         motorcycle: false
-        pedestrian: false
+        pedestrian: true

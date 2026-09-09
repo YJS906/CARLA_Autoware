@@ -1,0 +1,6 @@
+/**:
+  ros__parameters:
+    update_rate: 30
+    target_acceleration: -6.0 # VTD bridge command floor; do not exceed without vehicle validation.
+    target_jerk: -1.5 # Legacy fallback only; ignored while immediate_stop is true.
+    immediate_stop: true # Apply target_acceleration in the first emergency command, without ramping.

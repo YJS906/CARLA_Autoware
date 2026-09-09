@@ -32,7 +32,7 @@
 
       obstacle_filtering:
         object_type:
-          pedestrian: false
+          pedestrian: true
           bicycle: false
           motorcycle: false
           unknown: true

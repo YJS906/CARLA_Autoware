@@ -97,7 +97,7 @@ def main() -> int:
     from rclpy.node import Node
     from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
     from rosidl_runtime_py.set_message import set_message_fields
-    from visualization_msgs.msg import Marker, MarkerArray
+    from visualization_msgs.msg import MarkerArray
 
     class PersistentPreview(Node):
         def __init__(self) -> None:
@@ -113,23 +113,12 @@ def main() -> int:
             }
             self.messages: dict[str, Any] = {}
             self.state_version = None
-            self.map_version = None
-            self.expected_map_digest = None
             self.last_error = None
             # Continue republishing when simulation time stops or jumps backwards.
             self.wall_clock = Clock(clock_type=ClockType.STEADY_TIME)
             self.timer = self.create_timer(1.0, self.tick, clock=self.wall_clock)
             self.get_logger().info(f"CSV preview only; persistent state: {args.state}")
             self.tick()
-
-        def clear(self) -> None:
-            marker = Marker()
-            marker.header.frame_id = "map"
-            marker.action = Marker.DELETEALL
-            array = MarkerArray(markers=[marker])
-            for publisher in self.publishers_by_topic.values():
-                publisher.publish(array)
-            self.messages = {}
 
         def bootstrap(self) -> None:
             # Import only parsing, map matching and marker rendering. Never invoke
@@ -148,7 +137,8 @@ def main() -> int:
             metadata = {
                 "source_csv": os.environ.get("AUTOWARE_CSV_SOURCE_PATH", str(args.csv)),
                 "csv_text": args.csv.read_text(encoding="utf-8-sig"),
-                "map_sha256": self.expected_map_digest,
+                # Provenance only; saved visualization remains valid across map-file updates.
+                "map_sha256": map_digest(args.map_path),
                 "frame_id": "map",
             }
             renderer = RoutePreviewPublisher(self, "map", state_path=str(args.state))
@@ -179,8 +169,6 @@ def main() -> int:
             except MapMatchError as error:
                 self.get_logger().warning(f"CSV map matching failed; retaining raw markers: {error}")
                 return
-            if map_digest(args.map_path) != metadata["map_sha256"]:
-                raise ValueError("map changed while creating the CSV preview; reload the CSV")
             saved = save_preview_state(
                 args.state, metadata, renderer.render_messages(points, result),
                 expected_saved_at_ns=version,
@@ -190,15 +178,9 @@ def main() -> int:
 
         def tick(self) -> None:
             try:
-                map_stat = args.map_path.stat()
-                map_version = (map_stat.st_ino, map_stat.st_mtime_ns, map_stat.st_size)
-                if map_version != self.map_version:
-                    digest = map_digest(args.map_path)
-                    if digest != self.expected_map_digest and self.messages:
-                        self.clear()
-                    self.expected_map_digest = digest
-                    self.map_version = map_version
-                    self.state_version = None
+                # The simulator keeps the same map coordinate frame across file edits.
+                # Restore the saved coordinates independently of map hash/mtime. The
+                # map is needed only to generate a missing preview, not to display it.
                 if not args.state.exists():
                     self.state_version = None
                     self.bootstrap()
@@ -208,9 +190,6 @@ def main() -> int:
                     payload = json.loads(args.state.read_text(encoding="utf-8"))
                     if payload.get("version") != 1:
                         raise ValueError("unsupported CSV preview state version")
-                    if payload["metadata"]["map_sha256"] != self.expected_map_digest:
-                        self.clear()
-                        raise ValueError("saved CSV preview belongs to a different map; load the CSV again")
                     if set(payload["topics"]) != set(PREVIEW_TOPICS):
                         raise ValueError("CSV preview must contain all four marker arrays")
                     messages = {}
@@ -240,8 +219,7 @@ def main() -> int:
                 if message != self.last_error:
                     self.get_logger().error(f"Cannot reload CSV preview: {message}")
                     self.last_error = message
-                # A partial/invalid replacement must not erase the last good
-                # preview. Map mismatches are explicitly cleared above.
+                # A partial/invalid replacement must not erase the last good preview.
             for topic, array in self.messages.items():
                 self.publishers_by_topic[topic].publish(array)
 

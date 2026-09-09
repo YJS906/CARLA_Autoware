@@ -77,34 +77,34 @@
         object_type:
           inside:
             unknown: true
-            car: false
+            car: true
             truck: false
             bus: false
             trailer: false
             motorcycle: false
             bicycle: false
-            pedestrian: false
+            pedestrian: true
 
           outside:
             unknown: true
-            car: false
+            car: true
             truck: false
             bus: false
             trailer: false
             motorcycle: false
             bicycle: false
-            pedestrian: false
+            pedestrian: true
 
           # If an object does not have this label, the ego vehicle does not assume that the yielded obstacle will cut in due to the object.
           side_stopped:
             unknown: true
-            car: false
+            car: true
             truck: false
             bus: false
             trailer: false
             motorcycle: false
             bicycle: false
-            pedestrian: false
+            pedestrian: true
 
         max_lat_margin: 1.0 # lateral margin between obstacle and trajectory band with ego's width
 

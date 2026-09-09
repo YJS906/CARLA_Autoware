@@ -1017,6 +1017,16 @@ SlotOutput SubPlannerManager::propagateFull(
     output_path = candidate_module_output;
     addApprovedModule(highest_priority_module);
     clearCandidateModules();
+
+    // An approved module returned to WAITING_APPROVAL and has now been replanned.
+    // Finish this cycle with the freshly checked output instead of immediately
+    // running the approved queue again with the same planner data. Otherwise an
+    // RTC UUID renewal can alternate approval/waiting until max_iteration_num.
+    // The next planning cycle still runs all normal safety and cancellation checks.
+    if (approved_module_result.is_upstream_waiting_approved) {
+      return SlotOutput{
+        output_path, isAnyCandidateExclusive(), is_failed_approved_slot, is_waiting_approved_slot};
+    }
   }
 
   return SlotOutput{

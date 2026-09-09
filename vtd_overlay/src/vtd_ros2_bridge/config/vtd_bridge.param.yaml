@@ -60,6 +60,22 @@
     perception:
       # Publish only sensor-local objects to Autoware perception. /vtd/objects remains unfiltered.
       object_max_range_m: 200.0
+      # Simulator heuristic: all three minima must pass; larger vehicles also use CAR.
+      # Non-matching objects use the pedestrian templates below or remain UNKNOWN.
+      vehicle_geometry:
+        enabled: true
+        min_length_m: 2.514
+        min_width_m: 1.480
+        min_height_m: 1.302
+        # Approximate rear-axle -> bbox center along the OBJECT heading, not ego yaw.
+        forward_offset_length_ratio: 0.3333333333333333
+      # Match each complete [length, width, height] triple independently (metres).
+      # These four sizes were observed live and confirmed to be people by the scenario owner.
+      # PEDESTRIAN takes priority over CAR and never receives the vehicle position offset.
+      pedestrian_classification:
+        enabled: true
+        dimension_tolerance_m: 0.01
+        dimensions_lwh_m: [0.55, 0.63, 1.625, 0.50, 0.60, 1.425, 0.60, 0.70, 1.80, 0.50, 0.60, 1.35]
     occupancy_grid:
       resolution: 0.5
       width: 400

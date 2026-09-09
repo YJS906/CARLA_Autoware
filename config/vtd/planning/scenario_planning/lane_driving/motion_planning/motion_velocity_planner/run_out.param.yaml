@@ -45,7 +45,7 @@
 
       objects:
         # VTD intentionally emits exactly one classification for every actor.
-        target_labels: ["UNKNOWN"]
+        target_labels: ["UNKNOWN", "PEDESTRIAN"]
         # for each target labels we can specify the following parameters
         DEFAULT:
           ignore:  # options to ignore some objects

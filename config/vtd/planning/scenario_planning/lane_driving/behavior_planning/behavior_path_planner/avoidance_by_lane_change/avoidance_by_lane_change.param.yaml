@@ -100,11 +100,11 @@
       target_filtering:
         # avoidance target type
         target_type:
-          car: false                                    # [-]
+          car: true                                    # [-]
           truck: false                                  # [-]
           bus: false                                    # [-]
           trailer: false                                # [-]
           unknown: true                                # [-]
           bicycle: false                               # [-]
           motorcycle: false                            # [-]
-          pedestrian: false                            # [-]
+          pedestrian: true                            # [-]

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import ctypes
 from dataclasses import dataclass
 import math
 import os
@@ -20,6 +21,23 @@ class RouteCsvError(ValueError):
 
 class MapMatchError(RuntimeError):
     """Raised when CSV points cannot be matched to one connected road route."""
+
+
+def load_autoware_regulatory_elements() -> Any:
+    """Register Autoware's crosswalk/traffic rules before the Python OSM loader runs."""
+    try:
+        from ament_index_python.packages import PackageNotFoundError, get_package_prefix
+    except ImportError:
+        return None  # Standalone Lanelet2 remains usable for standard OSM maps.
+    try:
+        prefix = get_package_prefix("autoware_lanelet2_extension")
+    except PackageNotFoundError:
+        return None
+    library = Path(prefix) / "lib" / "libautoware_lanelet2_extension_lib.so"
+    try:
+        return ctypes.CDLL(str(library))
+    except OSError as error:
+        raise MapMatchError(f"cannot load Autoware map rules from {library}: {error}") from error
 
 
 class RouteSetError(RuntimeError):
@@ -369,6 +387,8 @@ class LaneletMapMatcher:
         self.goal_margin = goal_margin
         self._lanelet_length_cache: dict[int, float] = {}
         self._path_cache: dict[tuple[int, int], tuple[Any, ...] | None] = {}
+        # Keep the library alive for the lifetime of the map and its regulatory elements.
+        self._regulatory_elements_library = load_autoware_regulatory_elements()
 
         try:
             projector = lanelet2.projection.UtmProjector(lanelet2.io.Origin(0, 0))

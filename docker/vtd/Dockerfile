@@ -42,7 +42,9 @@ RUN source /opt/ros/jazzy/setup.bash && \
 # Install tracked VTD configuration into the same package-share locations the
 # existing Autoware launch files use. This preserves launch arguments while
 # making the configuration part of the immutable image layer.
-RUN install -Dm644 /opt/selfcar-config/control/autonomous_emergency_braking/autonomous_emergency_braking.param.yaml \
+RUN install -Dm644 /opt/selfcar-config/system/mrm_emergency_stop_operator/mrm_emergency_stop_operator.param.yaml \
+      /opt/autoware/autoware_launch/share/autoware_launch/config/system/mrm_emergency_stop_operator/mrm_emergency_stop_operator.param.yaml && \
+    install -Dm644 /opt/selfcar-config/control/autonomous_emergency_braking/autonomous_emergency_braking.param.yaml \
       /opt/autoware/autoware_launch/share/autoware_launch/config/control/autoware_autonomous_emergency_braking/autonomous_emergency_braking.param.yaml && \
     install -Dm644 /opt/selfcar-config/planning/preset/vtd_low_memory_preset.yaml \
       /opt/autoware/autoware_launch/share/autoware_launch/config/planning/preset/vtd_low_memory_preset.yaml && \
@@ -82,6 +84,10 @@ RUN install -Dm644 /opt/selfcar-config/control/autonomous_emergency_braking/auto
       /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/crosswalk.param.yaml && \
     install -Dm644 /opt/selfcar-config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/intersection.param.yaml \
       /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/intersection.param.yaml && \
+    install -Dm644 /opt/selfcar-config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/blind_spot.param.yaml \
+      /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/blind_spot.param.yaml && \
+    install -Dm644 /opt/selfcar-config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/detection_area.param.yaml \
+      /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/detection_area.param.yaml && \
     install -Dm644 /opt/selfcar-config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/traffic_light.param.yaml \
       /opt/autoware/autoware_launch/share/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/traffic_light.param.yaml && \
     install -Dm644 /opt/selfcar-config/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/obstacle_stop.param.yaml \

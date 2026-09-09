@@ -77,7 +77,7 @@
           unknown: true # [-] whether to look and stop by UNKNOWN objects
           bicycle: false # [-] whether to look and stop by BICYCLE objects
           motorcycle: false # [-] whether to look and stop by MOTORCYCLE objects (tmp: currently it is difficult for perception modules to detect bicycles and motorcycles separately.)
-          pedestrian: false # [-] whether to look and stop by PEDESTRIAN objects
+          pedestrian: true # [-] whether to look and stop by PEDESTRIAN objects
 
       # param for occlusions
       occlusion:

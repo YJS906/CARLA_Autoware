@@ -17,6 +17,8 @@
       use_hatched_road_markings: true
       use_freespace_areas: true
 
+      # Minimum static clearance matches obstacle_stop: 0.10 m from the ego footprint.
+      # Soft margins remain preferences when more space is available.
       # avoidance is performed for the object type with true
       target_object:
         car:
@@ -25,8 +27,8 @@
           longitudinal_margin: 0.0                      # [m]
           lateral_margin:
             soft_margin: 0.5                            # [m]
-            hard_margin: 0.2                            # [m]
-            hard_margin_for_parked_vehicle: 0.2         # [m]
+            hard_margin: 0.1                            # [m]
+            hard_margin_for_parked_vehicle: 0.1         # [m]
           max_expand_ratio: 0.0                         # [-] FOR DEVELOPER
           envelope_buffer_margin: 0.1                   # [m] FOR DEVELOPER
           th_error_eclipse_long_radius : 0.6            # [m]
@@ -36,8 +38,8 @@
           longitudinal_margin: 0.0
           lateral_margin:
             soft_margin: 0.5
-            hard_margin: 0.2
-            hard_margin_for_parked_vehicle: 0.2
+            hard_margin: 0.1
+            hard_margin_for_parked_vehicle: 0.1
           max_expand_ratio: 0.0
           envelope_buffer_margin: 0.1
           th_error_eclipse_long_radius : 0.6
@@ -47,8 +49,8 @@
           longitudinal_margin: 0.0
           lateral_margin:
             soft_margin: 0.5
-            hard_margin: 0.2
-            hard_margin_for_parked_vehicle: 0.2
+            hard_margin: 0.1
+            hard_margin_for_parked_vehicle: 0.1
           max_expand_ratio: 0.0
           envelope_buffer_margin: 0.1
           th_error_eclipse_long_radius : 0.6
@@ -58,8 +60,8 @@
           longitudinal_margin: 0.0
           lateral_margin:
             soft_margin: 0.5
-            hard_margin: 0.2
-            hard_margin_for_parked_vehicle: 0.2
+            hard_margin: 0.1
+            hard_margin_for_parked_vehicle: 0.1
           max_expand_ratio: 0.0
           envelope_buffer_margin: 0.1
           th_error_eclipse_long_radius : 0.6
@@ -69,10 +71,10 @@
           longitudinal_margin: 0.0
           lateral_margin:
             soft_margin: 0.5
-            hard_margin: 0.3  # Lower-bounded by obstacle_stop margin + optimization budget.
-            hard_margin_for_parked_vehicle: 0.3
+            hard_margin: 0.1  # Shared 10 cm minimum; no extra optimization margin.
+            hard_margin_for_parked_vehicle: 0.1
           max_expand_ratio: 0.0
-          envelope_buffer_margin: 0.3
+          envelope_buffer_margin: 0.1
           th_error_eclipse_long_radius : 0.6
         bicycle:
           th_moving_speed: 0.28
@@ -80,10 +82,10 @@
           longitudinal_margin: 0.6
           lateral_margin:
             soft_margin: 0.7
-            hard_margin: 0.5
-            hard_margin_for_parked_vehicle: 0.2
+            hard_margin: 0.1
+            hard_margin_for_parked_vehicle: 0.1
           max_expand_ratio: 0.0
-          envelope_buffer_margin: 0.5
+          envelope_buffer_margin: 0.1
           th_error_eclipse_long_radius : 0.6
         motorcycle:
           th_moving_speed: 1.0
@@ -91,10 +93,10 @@
           longitudinal_margin: 0.6
           lateral_margin:
             soft_margin: 0.5
-            hard_margin: 0.3
-            hard_margin_for_parked_vehicle: 0.2
+            hard_margin: 0.1
+            hard_margin_for_parked_vehicle: 0.1
           max_expand_ratio: 0.0
-          envelope_buffer_margin: 0.5
+          envelope_buffer_margin: 0.1
           th_error_eclipse_long_radius : 0.6
         pedestrian:
           th_moving_speed: 0.28
@@ -102,10 +104,10 @@
           longitudinal_margin: 0.6
           lateral_margin:
             soft_margin: 0.7
-            hard_margin: 0.5
-            hard_margin_for_parked_vehicle: 0.2
+            hard_margin: 0.1
+            hard_margin_for_parked_vehicle: 0.1
           max_expand_ratio: 0.0
-          envelope_buffer_margin: 0.5
+          envelope_buffer_margin: 0.1
           th_error_eclipse_long_radius : 0.6
         lower_distance_for_polygon_expansion: 30.0      # [m] FOR DEVELOPER
         upper_distance_for_polygon_expansion: 100.0     # [m] FOR DEVELOPER
@@ -114,14 +116,14 @@
       target_filtering:
         # avoidance target type
         target_type:
-          car: false                                    # [-] VTD uses UNKNOWN only
-          truck: false                                  # [-] VTD uses UNKNOWN only
-          bus: false                                    # [-] VTD uses UNKNOWN only
-          trailer: false                                # [-] VTD uses UNKNOWN only
+          car: true                                    # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          truck: false                                  # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          bus: false                                    # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          trailer: false                                # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
           unknown: true                                 # [-]
-          bicycle: false                                # [-] VTD uses UNKNOWN only
-          motorcycle: false                             # [-] VTD uses UNKNOWN only
-          pedestrian: false                             # [-] VTD uses UNKNOWN only
+          bicycle: false                                # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          motorcycle: false                             # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          pedestrian: true                             # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
         # detection range
         object_check_goal_distance: 20.0                # [m]
         object_check_return_pose_distance: 20.0         # [m]
@@ -145,7 +147,7 @@
         merging_vehicle:
           th_overhang_distance: 0.0                     # [m]
 
-        unstable_classification_time: 0.0                # [s] VTD publishes every object as UNKNOWN; avoid immediately
+        unstable_classification_time: 0.0                # [s] VTD API size classification is available immediately
 
         # params for avoidance of vehicle type objects that are ambiguous as to whether they are parked.
         avoidance_for_ambiguous_vehicle:
@@ -153,7 +155,7 @@
           # "auto"   : generate candidate path. if RTC is running as AUTO mode, the ego avoids it automatically.
           # "manual" : generate candidate path and wait operator approval even if RTC is running as AUTO mode.
           # "ignore" : never avoid it.
-          policy: "manual"                              # [-]
+          policy: "auto"                              # [-]
           condition:
             th_stopped_time: 3.0                        # [s]
             th_moving_distance: 1.0                     # [m]
@@ -202,14 +204,14 @@
       safety_check:
         # safety check target type
         target_type:
-          car: false                                    # [-] VTD uses UNKNOWN only
-          truck: false                                  # [-] VTD uses UNKNOWN only
-          bus: false                                    # [-] VTD uses UNKNOWN only
-          trailer: false                                # [-] VTD uses UNKNOWN only
+          car: true                                    # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          truck: false                                  # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          bus: false                                    # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          trailer: false                                # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
           unknown: true                                 # [-]
-          bicycle: false                                # [-] VTD uses UNKNOWN only
-          motorcycle: false                             # [-] VTD uses UNKNOWN only
-          pedestrian: false                             # [-] VTD uses UNKNOWN only
+          bicycle: false                                # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          motorcycle: false                             # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
+          pedestrian: true                             # [-] VTD CAR/PEDESTRIAN/UNKNOWN configuration
         # safety check configuration
         enable: true                                    # [-]
         check_current_lane: false                       # [-]

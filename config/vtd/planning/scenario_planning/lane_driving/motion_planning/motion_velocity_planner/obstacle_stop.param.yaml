@@ -1,9 +1,9 @@
 /**:
   ros__parameters:
     # This file is also loaded by behavior_path_planner. Keep the downstream
-    # nominal margin unchanged; add only 1 cm for upstream path optimization.
+    # nominal margin shared at 10 cm from the ego footprint on each side.
     trajectory_safety:
-      optimization_margin: 0.01
+      optimization_margin: 0.0 # No upstream-only addition: both collision checks use 10 cm.
 
     obstacle_stop:
       option:
@@ -11,7 +11,7 @@
         suppress_sudden_stop: false
 
       stop_planning:
-        stop_margin: 5.0
+        stop_margin: 4.0 # 20% reduction of the normal longitudinal stop clearance (5.0 m).
         terminal_stop_margin: 3.0
         min_behavior_stop_margin: 3.0
         behavior_stop_margin_hold_time: 2.0
@@ -47,16 +47,20 @@
 
       obstacle_filtering:
         check_inside:
-          # VTD normalizes every actor to UNKNOWN. Use the tracked object for normal stop planning
-          # so velocity and prediction are retained; non-UNKNOWN labels are intentionally ignored.
+          # Use tracked UNKNOWN and size-classified CAR/PEDESTRIAN for normal stop planning.
+          # Retain velocity/prediction; other labels keep the existing default exclusion.
           default: false
           unknown: true
+          car: true
+          pedestrian: true
           # The same VTD actor is also rendered as a synthetic cloud. Keep that cloud for AEB, but
           # do not create a duplicate, prediction-free hard stop in the normal planner.
           pointcloud: false
         check_outside:
           default: false
           unknown: true
+          car: true
+          pedestrian: true
         trim_trajectory:
           enable_trimming:
             default: false
@@ -65,9 +69,9 @@
           braking_distance_scale_factor: 1.5
         lateral_margin:
           nominal:
-            default: 0.3
-            unknown: 0.3
-            pointcloud: 0.3
+            default: 0.1
+            unknown: 0.1
+            pointcloud: 0.1
           additional:
             wheel_off_track_scale:
               default: 0.0

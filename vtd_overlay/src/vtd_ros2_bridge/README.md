@@ -214,11 +214,31 @@ p_autoware = R(map_offset.yaw) · p_vtd + [map_offset.x, map_offset.y, map_offse
 9910 DATA에는 RDB `geo.offX/offY/offZ`와 실측 조향이 없습니다. 따라서 다음은
 실측 피드백과 구분해야 하는 **기존 호환 동작**입니다.
 
-- 객체 bbox 중심의 X/Y는 participant 위치를 그대로 사용합니다. 표시 정렬 확인을 위해
-  heading 방향 `length/2` 보정을 제거했으며, 높이 `height/2` 보정은 유지합니다.
-  `flatten_z=true`인 객체 메시지는 기존처럼 Z=0입니다. 진단에는
-  `object_center_source=participant_xy_direct`로 표시합니다. 이 위치 해석은 RDB 형상
-  오프셋을 이용한 변환이 아니므로, VTD 원본과 비교해 확인해야 합니다.
+- 다음 네 가지 `[길이, 폭, 높이]` m 규격에 각 축 ±0.01 m 이내로 일치하는 객체는
+  `PEDESTRIAN`으로 분류합니다: `[0.55, 0.63, 1.625]`, `[0.50, 0.60, 1.425]`,
+  `[0.60, 0.70, 1.80]`, `[0.50, 0.60, 1.35]`. 실시간 수신에서 확인하고 사용자가
+  사람임을 지정한 규격이며, ID에 의존하지 않습니다. 작은 객체 전체를 사람으로
+  분류하지 않습니다. `perception.pedestrian_classification`에서 규격과 허용오차를
+  설정하며 사람 판정이 차량 판정보다 우선합니다. 사람의 X/Y는 이동하지 않습니다.
+  VTD 후단 설정도 사람을 회피·안전·감속·정지·횡단보도 검사의 대상으로 허용합니다.
+  기존 CAR/UNKNOWN 설정과 모듈 활성화 상태는 유지합니다. 원래 비활성화된
+  run_out/road_user_stop을 새로 실행하지는 않으며, 클래스 설정만 준비합니다.
+- 사람 규격에 해당하지 않고 길이 ≥ 2.514 m, 폭 ≥ 1.480 m, 높이 ≥ 1.302 m인 객체를 `CAR`로
+  분류합니다. 세 조건을 모두 만족해야 하며 float32 경계 오차에만 0.000001 m를
+  허용합니다. 큰 객체도 같은 `CAR`로 묶고 버스·트럭 라벨은 추정하지 않습니다.
+  두 분류 모두에 해당하지 않는 객체는 삭제하지 않고 `UNKNOWN`으로 유지합니다.
+- `CAR`로 분류한 객체만 후륜축 기준 위치라고 가정해 **객체 heading 방향**으로
+  `length/3`을 더합니다: `x_center=x+length/3*cos(heading)`,
+  `y_center=y+length/3*sin(heading)`. Autoware detection, 거리 필터, 합성 obstacle
+  pointcloud에 동일한 중심을 사용하며 `/vtd/objects`의 입력 위치는 보정하지 않습니다.
+  높이 `height/2` 보정과 `flatten_z=true`일 때 객체 메시지 Z=0은 유지합니다.
+- 이 동작은 `perception.vehicle_geometry`에서 조정할 수 있습니다. `enabled=false`로
+  시작하면 차량 분류와 차량 위치 보정만 끕니다. 사람 분류까지 끄려면
+  `perception.pedestrian_classification.enabled=false`도 설정해야 합니다. 실행 중 파라미터 변경은
+  반영하지 않으며 브릿지를 재시작해야 합니다. 진단의 `object_center_source`는
+  활성화 시 `size_classified_vehicle_length_ratio`, 비활성화 시 `participant_xy_direct`입니다.
+- 크기 분류와 `length/3`은 요청된 시뮬레이터용 근사이며 실측 RDB 형상 오프셋이
+  아닙니다. 큰 비차량도 통과할 수 있고 모델별 실제 축 위치와도 다를 수 있습니다.
 - 조향 status는 수락한 명령값(명령 수신 전 0)입니다. 진단에
   `steering_feedback_measured=0`, `steering_source=accepted_command`로 표시합니다.
 - `raw_rdb_tcp_enabled=0`, `traffic_light_rdb_enabled=0`은 이제 실제 연결 구조와 일치합니다.
@@ -242,6 +262,9 @@ CSV와 마커는 호스트에 저장되고 `./vtd_bridge`가 브릿지 컨테이
 `AUTOWARE_CSV_PREVIEW_CSV`(기본 `$HOME/route_example.csv`)에서 최초 생성합니다.
 주행 경로 요청 없이 시각화만 생성하며, 지도 매칭에 실패해도 원본 좌표는 남깁니다.
 저장된 미리보기/사용자 보정값이 있으면 CSV를 다시 매칭하지 않고 그대로 복원합니다.
+같은 `map` 좌표계를 사용하는 지도 파일 수정은 미리보기를 무효화하지 않습니다.
+지도 해시가 달라도 저장된 마커를 계속 표시하며, 현재 지도에 다시 맞추려면
+`./set_route /path/to/route.csv --preview-only`로 저장본을 갱신합니다.
 브릿지가 발행 중이면 Autoware와 `set_route`는 별도 발행기를 만들지 않습니다.
 브릿지 없이 사용할 때만 `selfcar-csv-route-preview`를 대체 발행기로 사용합니다.
 `set_route` 종료 후에도 유지되며, CSV 인자 없이 Autoware를 다시 시작하면 시각화만

@@ -1,18 +1,18 @@
 /**:
   ros__parameters:
     # These modules remain loaded for route/regulatory handling, but UNKNOWN
-    # occupancy conflicts are owned exclusively by the fixed-route planner.
+    # occupancy conflicts are owned exclusively by the fixed-route planner. CAR and PEDESTRIAN checks stay enabled.
     crosswalk:
       object_filtering:
         target_object:
           unknown: false
           bicycle: false
           motorcycle: false
-          pedestrian: false
+          pedestrian: true
     intersection:
       stuck_vehicle:
         target_type:
-          car: false
+          car: true
           bus: false
           truck: false
           trailer: false
@@ -21,7 +21,7 @@
           unknown: false
       yield_stuck:
         target_type:
-          car: false
+          car: true
           bus: false
           truck: false
           trailer: false
@@ -30,7 +30,7 @@
           unknown: false
       collision_detection:
         target_type:
-          car: false
+          car: true
           bus: false
           truck: false
           trailer: false
@@ -40,7 +40,7 @@
     roundabout:
       collision_detection:
         target_type:
-          car: false
+          car: true
           bus: false
           truck: false
           trailer: false

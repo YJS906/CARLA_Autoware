@@ -4,6 +4,7 @@
 #include "vtd_ros2_bridge/msg/vtd_object_array.hpp"
 #include "vtd_ros2_bridge/msg/vtd_traffic_light_array.hpp"
 #include "vtd_ros2_bridge/rdb_codec.hpp"
+#include "vtd_ros2_bridge/vehicle_geometry.hpp"
 
 #include <ament_index_cpp/get_package_share_directory.hpp>
 #include <rclcpp/rclcpp.hpp>
@@ -121,11 +122,35 @@ builtin_interfaces::msg::Time sim_stamp(const double seconds)
   return stamp;
 }
 
-// Use the participant X/Y directly as the object center for alignment evaluation.
-// The 1109-byte record has no RDB geo.offX/offY/offZ. Keep the existing vertical convention.
-std::array<float, 3> autoware_box_center(const VtdObject & object)
+std::uint8_t autoware_object_class(
+  const VtdObject & object, const VehicleGeometryParameters & vehicle_parameters,
+  const PedestrianSizeParameters & pedestrian_parameters)
 {
-  return {object.x, object.y, object.z + 0.5F * object.height};
+  using Classification = autoware_perception_msgs::msg::ObjectClassification;
+  if (is_pedestrian_size(object.length, object.width, object.height, pedestrian_parameters)) {
+    return Classification::PEDESTRIAN;
+  }
+  return is_vehicle_size(object.length, object.width, object.height, vehicle_parameters)
+           ? Classification::CAR
+           : Classification::UNKNOWN;
+}
+
+// Treat size-classified vehicles as rear-axle referenced and approximate the bbox center
+// along the object's own heading. Preserve raw API coordinates and the vertical convention.
+// Detection, range filtering and synthetic pointcloud must all use this same conversion.
+std::array<float, 3> autoware_box_center(
+  const VtdObject & object, const VehicleGeometryParameters & parameters,
+  const PedestrianSizeParameters & pedestrian_parameters)
+{
+  // Use the same classification as detection so a pedestrian can never receive a car offset,
+  // even if the user later configures overlapping pedestrian and vehicle size thresholds.
+  const bool is_car = autoware_object_class(object, parameters, pedestrian_parameters) ==
+                      autoware_perception_msgs::msg::ObjectClassification::CAR;
+  const double offset = is_car ? object.length * parameters.forward_offset_length_ratio : 0.0;
+  return {
+    static_cast<float>(object.x + offset * std::cos(object.heading)),
+    static_cast<float>(object.y + offset * std::sin(object.heading)),
+    object.z + 0.5F * object.height};
 }
 
 std::string rdb_name(const char * data, const std::size_t capacity)
@@ -202,6 +227,29 @@ public:
       declare_parameter<bool>("publish_empty_obstacle_pointcloud", true);
     perception_object_max_range_m_ =
       declare_parameter<double>("perception.object_max_range_m", 200.0);
+    const std::string geometry_ns = "perception.vehicle_geometry.";
+    vehicle_geometry_.enabled = declare_parameter<bool>(geometry_ns + "enabled", true);
+    vehicle_geometry_.min_length_m =
+      declare_parameter<double>(geometry_ns + "min_length_m", vehicle_geometry_.min_length_m);
+    vehicle_geometry_.min_width_m =
+      declare_parameter<double>(geometry_ns + "min_width_m", vehicle_geometry_.min_width_m);
+    vehicle_geometry_.min_height_m =
+      declare_parameter<double>(geometry_ns + "min_height_m", vehicle_geometry_.min_height_m);
+    vehicle_geometry_.forward_offset_length_ratio = declare_parameter<double>(
+      geometry_ns + "forward_offset_length_ratio", vehicle_geometry_.forward_offset_length_ratio);
+    if (!vehicle_geometry_.valid()) {
+      throw std::invalid_argument("Invalid perception.vehicle_geometry parameters");
+    }
+    const std::string pedestrian_ns = "perception.pedestrian_classification.";
+    pedestrian_classification_.enabled =
+      declare_parameter<bool>(pedestrian_ns + "enabled", true);
+    pedestrian_classification_.dimension_tolerance_m = declare_parameter<double>(
+      pedestrian_ns + "dimension_tolerance_m", pedestrian_classification_.dimension_tolerance_m);
+    pedestrian_classification_.dimensions_lwh_m = declare_parameter<std::vector<double>>(
+      pedestrian_ns + "dimensions_lwh_m", pedestrian_classification_.dimensions_lwh_m);
+    if (!pedestrian_classification_.valid()) {
+      throw std::invalid_argument("Invalid perception.pedestrian_classification parameters");
+    }
     occupancy_grid_resolution_ = declare_parameter<double>("occupancy_grid.resolution", 0.5);
     occupancy_grid_width_ = declare_parameter<int>("occupancy_grid.width", 400);
     occupancy_grid_height_ = declare_parameter<int>("occupancy_grid.height", 400);
@@ -1030,7 +1078,8 @@ private:
       }
       const float cosine = std::cos(object.heading);
       const float sine = std::sin(object.heading);
-      const auto center = autoware_box_center(object);
+      const auto center =
+        autoware_box_center(object, vehicle_geometry_, pedestrian_classification_);
 
       const auto append_edge = [&](
                                  const float x0, const float y0, const float z0, const float x1,
@@ -1126,7 +1175,7 @@ private:
     // /vtd/objects is the unfiltered API feed, while Autoware perception is a
     // sensor-local interface. Do not make every object in the VTD world a
     // predicted object: velocity-planning modules otherwise evaluate distant
-    // UNKNOWN objects whenever their scene module becomes active.
+    // objects whenever their scene module becomes active.
     std::vector<VtdObject> perception_objects;
     perception_objects.reserve(objects.size());
     double ego_x = 0.0;
@@ -1149,7 +1198,8 @@ private:
       if (!ego_pose_received) {
         continue;
       }
-      const auto center = autoware_box_center(object);
+      const auto center =
+        autoware_box_center(object, vehicle_geometry_, pedestrian_classification_);
       const double dx = static_cast<double>(center[0]) - ego_x;
       const double dy = static_cast<double>(center[1]) - ego_y;
       if (dx * dx + dy * dy <= max_squared_range) {
@@ -1161,12 +1211,13 @@ private:
     detected_objects.header = object_array.header;
     detected_objects.objects.reserve(perception_objects.size());
     for (const auto & object : perception_objects) {
-      const auto center = autoware_box_center(object);
+      const auto center =
+        autoware_box_center(object, vehicle_geometry_, pedestrian_classification_);
       DetectedObject detected;
       detected.existence_probability = 1.0F;
       detected.classification.resize(1U);
       detected.classification.front().label =
-        autoware_perception_msgs::msg::ObjectClassification::UNKNOWN;
+        autoware_object_class(object, vehicle_geometry_, pedestrian_classification_);
       detected.classification.front().probability = 1.0F;
       detected.kinematics.pose_with_covariance.pose.position.x = center[0];
       detected.kinematics.pose_with_covariance.pose.position.y = center[1];
@@ -2097,7 +2148,26 @@ private:
     append_value(status, "object_geometry_uses_rdb", 0);
     append_value(
       status, "object_center_source",
-      std::string{"participant_xy_direct"});
+      vehicle_geometry_.enabled ? std::string{"size_classified_vehicle_length_ratio"}
+                                : std::string{"participant_xy_direct"});
+    append_value(
+      status, "object_classification_source",
+      pedestrian_classification_.enabled
+        ? std::string{"size_templates_pedestrian_then_car_else_unknown"}
+        : (vehicle_geometry_.enabled ? std::string{"size_threshold_car_else_unknown"}
+                                     : std::string{"all_unknown"}));
+    append_value(
+      status, "pedestrian_classification_enabled", pedestrian_classification_.enabled ? 1 : 0);
+    append_value(
+      status, "pedestrian_dimension_tolerance_m",
+      pedestrian_classification_.dimension_tolerance_m);
+    append_value(
+      status, "pedestrian_size_template_count", pedestrian_classification_.dimensions_lwh_m.size() / 3U);
+    append_value(status, "vehicle_min_length_m", vehicle_geometry_.min_length_m);
+    append_value(status, "vehicle_min_width_m", vehicle_geometry_.min_width_m);
+    append_value(status, "vehicle_min_height_m", vehicle_geometry_.min_height_m);
+    append_value(
+      status, "vehicle_forward_offset_length_ratio", vehicle_geometry_.forward_offset_length_ratio);
     append_value(status, "ego_updates", ego_updates_.load());
     append_value(status, "object_updates", object_updates_.load());
     append_value(status, "traffic_light_updates", traffic_light_updates_.load());
@@ -2174,6 +2244,8 @@ private:
   bool publish_empty_occupancy_grid_{};
   bool publish_empty_obstacle_pointcloud_{};
   double perception_object_max_range_m_{};
+  VehicleGeometryParameters vehicle_geometry_;
+  PedestrianSizeParameters pedestrian_classification_;
   double occupancy_grid_resolution_{};
   int occupancy_grid_width_{};
   int occupancy_grid_height_{};
