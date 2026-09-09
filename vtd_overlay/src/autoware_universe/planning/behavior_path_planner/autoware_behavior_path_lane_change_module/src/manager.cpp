@@ -14,6 +14,8 @@
 
 #include "autoware/behavior_path_lane_change_module/manager.hpp"
 
+#include "obstacle_stop_recovery.hpp"
+
 #include "autoware/behavior_path_lane_change_module/interface.hpp"
 #include "autoware/interpolation/interpolation_utils.hpp"
 #include "autoware_utils/ros/parameter.hpp"
@@ -31,6 +33,9 @@ namespace autoware::behavior_path_planner
 
 void LaneChangeModuleManager::init(rclcpp::Node * node)
 {
+  // Declare before the planner installs its parameter callback. Declaring while a
+  // candidate is constructed under the planner mutex would re-enter that mutex.
+  ObstacleStopRecovery::declareParameters(*node);
   // init manager interface
   initInterface(node, {""});
   initParams(node);

@@ -14,12 +14,15 @@
 
 #include "autoware/behavior_path_lane_change_module/interface.hpp"
 
+#include "obstacle_stop_recovery.hpp"
+
 #include "autoware/behavior_path_lane_change_module/utils/markers.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/utils.hpp"
 #include "autoware/behavior_path_planner_common/interface/scene_module_interface.hpp"
 #include "autoware/behavior_path_planner_common/interface/scene_module_visitor.hpp"
 #include "autoware/behavior_path_planner_common/marker_utils/utils.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/safety_check.hpp"
+#include "autoware/behavior_path_planner_common/utils/traffic_light_utils.hpp"
 
 #include <autoware_utils/ros/marker_helper.hpp>
 #include <autoware_utils/system/time_keeper.hpp>
@@ -58,10 +61,14 @@ LaneChangeInterface::LaneChangeInterface(
 {
   module_type_->setTimeKeeper(getTimeKeeper());
   logger_ = utils::lane_change::getLogger(module_type_->getModuleTypeStr());
+  if (module_type_->getModuleType() == LaneChangeModuleType::NORMAL) {
+    obstacle_stop_recovery_ = std::make_shared<ObstacleStopRecovery>(node, name);
+  }
 }
 
 void LaneChangeInterface::processOnExit()
 {
+  if (obstacle_stop_recovery_) obstacle_stop_recovery_->reset();
   module_type_->resetParameters();
   debug_marker_.markers.clear();
   post_process_safety_status_ = {};
@@ -121,6 +128,35 @@ void LaneChangeInterface::updateData()
 
   if (isWaitingApproval() || module_type_->isAbortState()) {
     module_type_->updateLaneChangeStatus();
+  }
+
+  if (obstacle_stop_recovery_ && obstacle_stop_recovery_->enabled()) {
+    // A queue can be much longer than the candidate's lane-change distance.
+    // Treat a stopping signal ahead on the current lane sequence as signal waiting.
+    const auto & reference = getPreviousModuleOutput().reference_path;
+    bool signal_wait = false;
+    if (isWaitingApproval() && reference.points.size() >= 2) {
+      for (const auto & lane : module_type_->get_current_lanes()) {
+        const double signal_distance =
+          utils::traffic_light::calcDistanceToRedTrafficLight({lane}, reference, planner_data_)
+            .value_or(std::numeric_limits<double>::infinity());
+        if (
+          signal_distance >= 0.0 &&
+          signal_distance <= obstacle_stop_recovery_->signalQueueDistance()) {
+          signal_wait = true;
+          break;
+        }
+      }
+    }
+    const bool registered = std::any_of(
+      rtc_interface_ptr_map_.begin(), rtc_interface_ptr_map_.end(),
+      [&](const auto & rtc) { return rtc.second->isRegistered(uuid_map_.at(rtc.first)); });
+    obstacle_stop_recovery_->update(
+      isWaitingApproval() && !module_type_->isAbortState(),
+      module_type_->isValidPath() && registered, signal_wait, module_type_->getEgoVelocity(),
+      uuid_map_.at(""), registered && isActivated(), registered && is_rtc_force_deactivated());
+  } else if (obstacle_stop_recovery_) {
+    obstacle_stop_recovery_->reset();
   }
 
   module_type_->resetStopPose();

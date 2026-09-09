@@ -44,6 +44,8 @@ using autoware_internal_planning_msgs::msg::PathWithLaneId;
 using geometry_msgs::msg::Pose;
 using geometry_msgs::msg::Twist;
 
+class ObstacleStopRecovery;
+
 class LaneChangeInterface : public SceneModuleInterface
 {
 public:
@@ -99,6 +101,8 @@ protected:
   std::shared_ptr<LaneChangeParameters> parameters_;
 
   std::unique_ptr<LaneChangeBase> module_type_;
+
+  std::shared_ptr<ObstacleStopRecovery> obstacle_stop_recovery_;
 
   PathSafetyStatus post_process_safety_status_;
 

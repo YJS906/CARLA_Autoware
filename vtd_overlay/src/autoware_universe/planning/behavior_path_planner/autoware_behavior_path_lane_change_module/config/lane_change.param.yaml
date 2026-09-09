@@ -1,6 +1,17 @@
 /**:
   ros__parameters:
     lane_change:
+      # Explicit RTC force approval for a valid candidate after obstacle_stop persists.
+      # false restores normal approval behavior; see docs/obstacle-stop-recovery.md.
+      obstacle_stop_recovery:
+        enabled: false
+        module: lane_change_left
+        duration: 5.0 # [s] ROS/simulation time
+        stopped_velocity: 0.1 # [m/s] allows the observed residual crawl
+        message_timeout: 0.5 # [s] missing obstacle_stop messages reset the timer
+        stop_distance: 2.0 # [m] stop point at/behind ego or within this distance
+        signal_queue_distance: 100.0 # [m] exclude queues before a stopping signal
+
       time_limit: 50.0 # [ms]
       backward_lane_length: 200.0
       backward_length_buffer_for_end_of_lane: 3.0 # [m]

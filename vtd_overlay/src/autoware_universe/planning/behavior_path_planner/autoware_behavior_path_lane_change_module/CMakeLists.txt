@@ -7,6 +7,7 @@ pluginlib_export_plugin_description_file(autoware_behavior_path_planner plugins.
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
   src/interface.cpp
+  src/obstacle_stop_recovery.cpp
   src/manager.cpp
   src/scene.cpp
   src/obstacle_aware.cpp
@@ -19,6 +20,10 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 )
 
 if(BUILD_TESTING)
+  ament_add_gtest(test_obstacle_stop_recovery test/test_obstacle_stop_recovery.cpp)
+  target_include_directories(test_obstacle_stop_recovery PRIVATE src)
+  target_link_libraries(test_obstacle_stop_recovery ${PROJECT_NAME})
+
   ament_add_ros_isolated_gmock(test_${PROJECT_NAME}
     test/test_behavior_path_planner_node_interface.cpp
     test/test_lane_change_utils.cpp
