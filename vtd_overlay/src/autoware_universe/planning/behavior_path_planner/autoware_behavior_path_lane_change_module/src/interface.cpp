@@ -108,7 +108,10 @@ bool LaneChangeInterface::isExecutionRequested() const
 
 bool LaneChangeInterface::isExecutionReady() const
 {
-  return module_type_->isSafe() && !module_type_->isAbortState();
+  return module_type_->isSafe() && !module_type_->isAbortState() &&
+    (!parameters_->tactical_selection || getCurrentStatus() == ModuleStatus::RUNNING ||
+     module_type_->getModuleType() != LaneChangeModuleType::NORMAL ||
+     !module_type_->isLaneChangeRequired());
 }
 
 void LaneChangeInterface::updateData()
@@ -154,6 +157,7 @@ void LaneChangeInterface::updateData()
     obstacle_stop_recovery_->update(
       isWaitingApproval() && !module_type_->isAbortState(),
       module_type_->isValidPath() && registered &&
+        (!parameters_->tactical_selection || !module_type_->isLaneChangeRequired()) &&
         (module_type_->isSafe() ||
          !module_type_->getLaneChangePath().info.speed_preparation_target.has_value()),
       signal_wait, module_type_->getEgoVelocity(),
@@ -293,6 +297,15 @@ bool LaneChangeInterface::canTransitSuccessState()
     RCLCPP_DEBUG(getLogger(), "%s", message.data());
   };
   updateDebugMarker();
+
+  if (isWaitingApproval() && parameters_->tactical_selection &&
+      module_type_->getModuleType() == LaneChangeModuleType::NORMAL &&
+      module_type_->isLaneChangeRequired()) {
+    // Retire a stale, unexecuted RTC request before even a queued activation can start it.
+    // Never use tactical preference to cancel a RUNNING maneuver.
+    log_debug_throttled("Retire unexecuted normal lane change after tactical re-evaluation.");
+    return true;
+  }
 
   if (module_type_->specialExpiredCheck() && isWaitingApproval()) {
     log_debug_throttled("Run specialExpiredCheck.");

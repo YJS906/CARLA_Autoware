@@ -13,6 +13,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/obstacle_aware.cpp
   src/curvature_braking.cpp
   src/direct_multi_lane.cpp
+  src/tactical_lane_selection.cpp
   src/utils/calculation.cpp
   src/utils/markers.cpp
   src/utils/utils.cpp
@@ -21,6 +22,10 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 )
 
 if(BUILD_TESTING)
+  add_executable(test_corridor_choice test/test_corridor_choice.cpp)
+  target_include_directories(test_corridor_choice PRIVATE include)
+  add_test(NAME test_corridor_choice COMMAND test_corridor_choice)
+
   ament_add_gtest(test_speed_preparation test/test_speed_preparation.cpp)
   target_link_libraries(test_speed_preparation ${PROJECT_NAME})
 

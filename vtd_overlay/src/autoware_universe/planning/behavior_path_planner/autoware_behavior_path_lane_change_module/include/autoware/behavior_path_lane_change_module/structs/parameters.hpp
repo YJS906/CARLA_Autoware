@@ -22,10 +22,12 @@
 #include <autoware_utils/math/unit_conversion.hpp>
 
 #include <utility>
+#include <memory>
 #include <vector>
 
 namespace autoware::behavior_path_planner::lane_change
 {
+class TacticalLaneSelection;
 using utils::path_safety_checker::ObjectTypesToCheck;
 using utils::path_safety_checker::RSSparams;
 
@@ -160,6 +162,8 @@ struct TerminalPathParameters
 
 struct Parameters
 {
+  // Shared by normal LEFT/RIGHT and avoidance managers in this planner node only.
+  std::shared_ptr<TacticalLaneSelection> tactical_selection;
   utils::path_safety_checker::TrajectoryCollisionParameters trajectory_safety{};
   // Used only when a stationary obstacle limits preparation or an approved path is blocked.
   double obstacle_min_lane_changing_velocity{1.0};

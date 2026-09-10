@@ -1,6 +1,8 @@
 /**:
   ros__parameters:
     lane_change:
+      tactical_selection:
+        enable: true # shared local corridor ranking; no final-return path reservation
       # Explicit RTC force approval for a valid candidate after obstacle_stop persists.
       # false restores normal approval behavior; see docs/obstacle-stop-recovery.md.
       obstacle_stop_recovery:

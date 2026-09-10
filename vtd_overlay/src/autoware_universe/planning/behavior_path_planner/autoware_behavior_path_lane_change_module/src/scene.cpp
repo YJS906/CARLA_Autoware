@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "autoware/behavior_path_lane_change_module/scene.hpp"
+#include "autoware/behavior_path_lane_change_module/utils/tactical_lane_selection.hpp"
 
 #include "autoware/behavior_path_lane_change_module/utils/calculation.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/path.hpp"
@@ -335,6 +336,16 @@ void NormalLaneChange::update_filtered_objects()
 void NormalLaneChange::updateLaneChangeStatus()
 {
   autoware_utils::ScopedTimeTrack st(__func__, *time_keeper_);
+  if (!is_activated_ && getModuleType() == LaneChangeModuleType::NORMAL && planner_data_ &&
+      lane_change_parameters_->tactical_selection &&
+      lane_change_parameters_->tactical_selection->deferReturn(
+        *planner_data_, get_current_lanes(), get_target_lanes(), *lane_change_parameters_)) {
+    // Do not spend another full trajectory search on a dominated, unexecuted return.
+    status_.is_valid_path = false;
+    status_.is_safe = false;
+    lane_change_debug_.valid_paths.clear();
+    return;
+  }
   const auto [found_valid_path, found_safe_path] =
     getSafePathWithDirectFallback(status_.lane_change_path);
 
@@ -412,6 +423,16 @@ std::optional<std::string> NormalLaneChange::isLaneChangeRequired()
     is_near_terminal_end() && planner_data_ && planner_data_->operation_mode &&
     planner_data_->operation_mode->mode != OperationModeState::AUTONOMOUS) {
     return {"Ego is in MANUAL Mode and near terminal end, don't run LC module."};
+  }
+
+  if (!is_activated_ && getModuleType() == LaneChangeModuleType::NORMAL &&
+      lane_change_parameters_->tactical_selection) {
+    const auto reason = lane_change_parameters_->tactical_selection->deferReturn(
+      *planner_data_, current_lanes, target_lanes, *lane_change_parameters_);
+    if (reason) {
+      RCLCPP_INFO_THROTTLE(logger_, clock_, 3000, "%s", reason->c_str());
+      return reason;
+    }
   }
 
   return std::nullopt;

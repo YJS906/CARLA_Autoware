@@ -22,6 +22,7 @@
 #include "autoware/behavior_path_static_obstacle_avoidance_module/utils.hpp"
 
 #include <autoware/behavior_path_lane_change_module/utils/calculation.hpp>
+#include <autoware/behavior_path_lane_change_module/utils/tactical_lane_selection.hpp>
 #include <autoware/behavior_path_lane_change_module/utils/utils.hpp>
 #include <autoware/behavior_path_static_obstacle_avoidance_module/data_structs.hpp>
 #include <autoware/behavior_path_static_obstacle_avoidance_module/static_collision.hpp>
@@ -228,6 +229,12 @@ void AvoidanceByLaneChange::updateSpecialData()
   const auto * nearest_avoidance_target = getNearestAvoidanceTarget();
   if (nearest_avoidance_target) {
     applyObstacleVelocityLimit();
+    if (lane_change_parameters_->tactical_selection && isExecutionDistanceSatisfied()) {
+      // Preserve the reason across module completion, not a future return trajectory or a
+      // fixed direction lock. Original target flags and stationary eligibility stay unchanged.
+      lane_change_parameters_->tactical_selection->remember(
+        *planner_data_, {nearest_avoidance_target->object.object_id});
+    }
   }
 
   // Once approved, keep the chosen side and terminal lane until the maneuver completes. Re-running
@@ -261,12 +268,28 @@ void AvoidanceByLaneChange::updateSpecialData()
            i + 1});
       }
     }
+    std::map<lanelet::Id, double> progress;
+    for (const auto & candidate : target_lane_candidates_) {
+      if (!lane_change_parameters_->tactical_selection) break;
+      const auto score = lane_change_parameters_->tactical_selection->evaluate(
+        *planner_data_, avoidance_data_.current_lanelets, candidate.lane_id,
+        *lane_change_parameters_);
+      // A vehicle-length bin keeps small geometric differences from defeating mission
+      // preference. Unknown lookahead remains a searchable candidate, never safe=false.
+      progress[candidate.lane_id] = score.known ?
+        std::floor(score.progress / getCommonParam().vehicle_info.vehicle_length_m) : 0.0;
+      RCLCPP_DEBUG(logger_, "avoidance tactical lane=%lld known=%s progress=%.2f immediate=%.2f",
+        static_cast<long long>(candidate.lane_id), score.known ? "true" : "false",
+        score.progress, score.immediate);
+    }
     std::stable_sort(
       target_lane_candidates_.begin(), target_lane_candidates_.end(),
       [&](const auto & a, const auto & b) {
         return std::make_tuple(
-                 a.lanes_to_preferred, a.lateral_steps, previous_target != a.lane_id) <
-               std::make_tuple(b.lanes_to_preferred, b.lateral_steps, previous_target != b.lane_id);
+                 -progress[a.lane_id], a.lanes_to_preferred, a.lateral_steps,
+                 previous_target != a.lane_id) <
+               std::make_tuple(-progress[b.lane_id], b.lanes_to_preferred, b.lateral_steps,
+                 previous_target != b.lane_id);
       });
   }
 
@@ -402,17 +425,17 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
   bool right_safe = false;
   bool left_evaluated = false;
   bool right_evaluated = false;
+  const bool stepwise = static_cast<bool>(lane_change_parameters_->tactical_selection);
   bool route_side_temporarily_blocked = false;
   status_.is_valid_path = false;
   status_.is_safe = false;
   for (const auto & target : target_lane_candidates_) {
     const bool departure =
       target.lanes_to_preferred != 0 && target.lanes_to_preferred >= current_lanes_to_preferred_;
-    if (departure && (route_side_temporarily_blocked || !isRouteDepartureRequired())) {
+    if (departure && ((!stepwise && route_side_temporarily_blocked) || !isRouteDepartureRequired())) {
       continue;
     }
     if (!selectTargetLane(target) || !specialRequiredCheck()) {
-      // Missing geometry/regulatory clearance is not evidence of a permanent obstruction.
       route_side_temporarily_blocked |= !departure;
       continue;
     }
@@ -423,13 +446,15 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
     const auto [found_valid_path, found_safe_path] = getSafePath(candidate_path);
     const bool static_safe = found_valid_path && isStaticObstaclePathSafe(candidate_path);
     const bool safe = found_valid_path && found_safe_path && static_safe;
-    if (!departure && !safe) {
+    if (!stepwise && !departure && !safe) {
       const auto collision = found_valid_path
                                ? check_static_path(candidate_path)
                                : utils::path_safety_checker::TrajectoryCollisionResult{};
       route_side_temporarily_blocked |=
         !collision.valid || !collision.object_id || !isPersistentBlocker(*collision.object_id);
     }
+    // A failed route-side candidate does not suppress independently safe outer/staging
+    // candidates. Persistent current-lane blockage is still required by the departure gate.
     left_safe |= safe && target.direction == Direction::LEFT;
     right_safe |= safe && target.direction == Direction::RIGHT;
     candidate_path.path.header = getRouteHeader();
@@ -452,7 +477,7 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
   if (!target_lane_candidates_.empty()) {
     RCLCPP_INFO_THROTTLE(
       logger_, clock_, 3000,
-      "avoidance route-first: candidates=%zu evaluated=%zu left=%s right=%s selected=%s "
+      "avoidance stepwise: candidates=%zu evaluated=%zu left=%s right=%s selected=%s "
       "ready=%s",
       target_lane_candidates_.size(), eligible,
       !left_evaluated ? "not_evaluated"

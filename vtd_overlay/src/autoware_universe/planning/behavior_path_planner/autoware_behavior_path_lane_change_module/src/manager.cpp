@@ -17,6 +17,7 @@
 #include "obstacle_stop_recovery.hpp"
 
 #include "autoware/behavior_path_lane_change_module/interface.hpp"
+#include "autoware/behavior_path_lane_change_module/utils/tactical_lane_selection.hpp"
 #include "autoware/interpolation/interpolation_utils.hpp"
 #include "autoware_utils/ros/parameter.hpp"
 #include "autoware_utils/ros/update_param.hpp"
@@ -68,6 +69,9 @@ LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::s
     return node->has_parameter(name) ? node->get_parameter(name).as_bool()
                                      : node->declare_parameter<bool>(name, value);
   };
+  if (get_bool_with_default("lane_change.tactical_selection.enable", false)) {
+    p.tactical_selection = lane_change::TacticalLaneSelection::shared(*node);
+  }
 
   // trajectory generation
   {
