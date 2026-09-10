@@ -13,6 +13,10 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 )
 
 if(BUILD_TESTING)
+  ament_add_ros_isolated_gmock(test_speed_preparation_gate test/test_speed_preparation_gate.cpp)
+  target_link_libraries(test_speed_preparation_gate ${PROJECT_NAME})
+  target_include_directories(test_speed_preparation_gate PRIVATE src)
+
   ament_add_ros_isolated_gmock(test_${PROJECT_NAME}
     test/test_behavior_path_planner_node_interface.cpp
     test/test_bilateral_selection.cpp

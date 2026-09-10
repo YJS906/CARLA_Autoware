@@ -16,8 +16,9 @@
 namespace autoware::behavior_path_planner::utils
 {
 // Spatial seed for PathShifter's four-knot spline (peak lateral second derivative 8L/S^2).
-// Reducing speed must not shrink a full-width shift into an unsteerable curve. This is only
-// a seed on a straight reference; the generated path still needs its actual curvature checked.
+// Search from half of the nominal geometric length in the VTD simulation. This is only a
+// candidate-generation lower bound, not a relaxation of the vehicle's curvature limit:
+// the generated path still needs its actual curvature and collision checks.
 inline double minimumGeometricShiftLength(
   const double shift, const autoware::vehicle_info_utils::VehicleInfo & vehicle)
 {
@@ -25,7 +26,8 @@ inline double minimumGeometricShiftLength(
   if (!std::isfinite(shift) || !std::isfinite(curvature) || curvature <= 0.0) {
     return std::numeric_limits<double>::infinity();
   }
-  return std::sqrt(8.0 * std::abs(shift) / curvature);
+  constexpr double geometric_length_scale = 0.5;
+  return geometric_length_scale * std::sqrt(8.0 * std::abs(shift) / curvature);
 }
 }  // namespace autoware::behavior_path_planner::utils
 

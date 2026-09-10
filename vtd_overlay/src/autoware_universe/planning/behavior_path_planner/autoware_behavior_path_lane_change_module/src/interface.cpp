@@ -153,7 +153,10 @@ void LaneChangeInterface::updateData()
       [&](const auto & rtc) { return rtc.second->isRegistered(uuid_map_.at(rtc.first)); });
     obstacle_stop_recovery_->update(
       isWaitingApproval() && !module_type_->isAbortState(),
-      module_type_->isValidPath() && registered, signal_wait, module_type_->getEgoVelocity(),
+      module_type_->isValidPath() && registered &&
+        (module_type_->isSafe() ||
+         !module_type_->getLaneChangePath().info.speed_preparation_target.has_value()),
+      signal_wait, module_type_->getEgoVelocity(),
       uuid_map_.at(""), registered && isActivated(), registered && is_rtc_force_deactivated());
   } else if (obstacle_stop_recovery_) {
     obstacle_stop_recovery_->reset();

@@ -64,6 +64,10 @@ LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::s
   }
 
   const auto parameter = [](std::string && name) { return "lane_change." + name; };
+  const auto get_bool_with_default = [&](const std::string & name, const bool value) {
+    return node->has_parameter(name) ? node->get_parameter(name).as_bool()
+                                     : node->declare_parameter<bool>(name, value);
+  };
 
   // trajectory generation
   {
@@ -71,6 +75,10 @@ LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::s
       get_or_declare_parameter<double>(*node, parameter("trajectory.max_prepare_duration"));
     p.trajectory.min_prepare_duration =
       get_or_declare_parameter<double>(*node, parameter("trajectory.min_prepare_duration"));
+    p.trajectory.enable_lateral_acceleration_limit = get_bool_with_default(
+      parameter("trajectory.enable_lateral_acceleration_limit"), true);
+    p.trajectory.enable_lateral_jerk_limit = get_bool_with_default(
+      parameter("trajectory.enable_lateral_jerk_limit"), true);
     p.trajectory.lateral_jerk =
       get_or_declare_parameter<double>(*node, parameter("trajectory.lateral_jerk"));
     p.trajectory.min_longitudinal_acc =
@@ -422,6 +430,11 @@ void LaneChangeModuleManager::updateModuleParams(const std::vector<rclcpp::Param
 
   {
     const std::string ns = "lane_change.trajectory.";
+    update_param<bool>(
+      parameters, ns + "enable_lateral_acceleration_limit",
+      p->trajectory.enable_lateral_acceleration_limit);
+    update_param<bool>(
+      parameters, ns + "enable_lateral_jerk_limit", p->trajectory.enable_lateral_jerk_limit);
     update_param<double>(
       parameters, ns + "max_prepare_duration", p->trajectory.max_prepare_duration);
     update_param<double>(

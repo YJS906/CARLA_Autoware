@@ -12,6 +12,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/scene.cpp
   src/obstacle_aware.cpp
   src/curvature_braking.cpp
+  src/direct_multi_lane.cpp
   src/utils/calculation.cpp
   src/utils/markers.cpp
   src/utils/utils.cpp
@@ -20,6 +21,9 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 )
 
 if(BUILD_TESTING)
+  ament_add_gtest(test_speed_preparation test/test_speed_preparation.cpp)
+  target_link_libraries(test_speed_preparation ${PROJECT_NAME})
+
   ament_add_gtest(test_obstacle_stop_recovery test/test_obstacle_stop_recovery.cpp)
   target_include_directories(test_obstacle_stop_recovery PRIVATE src)
   target_link_libraries(test_obstacle_stop_recovery ${PROJECT_NAME})

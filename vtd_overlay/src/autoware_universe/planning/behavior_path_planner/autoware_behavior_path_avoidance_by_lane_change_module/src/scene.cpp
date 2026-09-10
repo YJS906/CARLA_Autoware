@@ -90,10 +90,13 @@ using autoware::behavior_path_planner::Point2d;
 
 AvoidanceByLaneChange::AvoidanceByLaneChange(
   const std::shared_ptr<LaneChangeParameters> & parameters,
-  std::shared_ptr<AvoidanceByLCParameters> avoidance_parameters)
+  std::shared_ptr<AvoidanceByLCParameters> avoidance_parameters,
+  std::shared_ptr<AvoidanceMotionHistory> motion_history)
 : NormalLaneChange(parameters, LaneChangeModuleType::AVOIDANCE_BY_LANE_CHANGE, Direction::NONE),
   avoidance_parameters_(std::move(avoidance_parameters)),
-  avoidance_helper_{std::make_shared<AvoidanceHelper>(avoidance_parameters_)}
+  avoidance_helper_{std::make_shared<AvoidanceHelper>(avoidance_parameters_)},
+  motion_history_(motion_history ? std::move(motion_history)
+                                 : std::make_shared<AvoidanceMotionHistory>())
 {
   common_data_ptr_->max_lane_changing_length_scale =
     avoidance_parameters_->max_lane_changing_length_scale;
@@ -159,10 +162,11 @@ bool AvoidanceByLaneChange::specialRequiredCheck() const
 
   const auto minimum_avoid_length = calcMinAvoidanceLength(*nearest_object);
   const auto minimum_lane_change_length = calc_minimum_dist_buffer();
-  double request_distance = std::max(
-    minimum_avoid_length, std::max(0.0, avoidance_parameters_->execute_object_longitudinal_margin));
+  // A nominal-speed shift-length estimate must not prevent the low-speed search itself.
+  // Keep the explicit distance gate; full geometry, braking and collision checks follow.
+  double request_distance = std::max(0.0, avoidance_parameters_->execute_object_longitudinal_margin);
   if (avoidance_parameters_->execute_only_when_lane_change_finish_before_object) {
-    request_distance = std::max(request_distance, minimum_lane_change_length);
+    request_distance = std::max({request_distance, minimum_lane_change_length, minimum_avoid_length});
   }
 
   lane_change_debug_.execution_area = create_execution_area(
@@ -183,7 +187,8 @@ bool AvoidanceByLaneChange::specialExpiredCheck() const
   // transition to RUNNING. Withdraw a stale request even if a prior cycle was safe/approved;
   // an already RUNNING maneuver is never cancelled merely because its target distance changes.
   if (!isExecutionDistanceSatisfied()) {
-    return true;
+    // The configured distance window gates lateral APPROVAL, not early longitudinal preparation.
+    return !hasSpeedPreparationRequest();
   }
 
   // No selected side means there is no RTC request to approve. Expire the candidate instead of
@@ -226,7 +231,7 @@ void AvoidanceByLaneChange::updateSpecialData()
   }
 
   // Once approved, keep the chosen side and terminal lane until the maneuver completes. Re-running
-  // the farthest-clear-lane selection while RUNNING can otherwise replace the approved target as
+  // target-lane candidate selection while RUNNING can otherwise replace the approved target as
   // object occupancy changes, even though update_lanes() intentionally freezes approved lanes.
   const bool preserve_approved_target =
     is_activated_ && common_data_ptr_->requested_target_lane_id.has_value();
@@ -311,28 +316,23 @@ std::vector<lanelet::ConstLanelet> AvoidanceByLaneChange::getTargetLaneCandidate
     const double target_start = autoware::motion_utils::calcSignedArcLength(
       avoidance_data_.reference_path.points, getEgoPosition(), target_front);
     const bool available_before_object = target_start <= nearest_object.longitudinal;
-    const bool lane_clear = isLaneClear(target_lane);
     RCLCPP_DEBUG(
       logger_,
       "avoidance route-lane candidate direction=%s lane=%lld start=%.2f object=%.2f "
       "clear=%s usable=%s",
       direction == Direction::LEFT ? "LEFT" : "RIGHT", static_cast<long long>(target_lane.id()),
-      target_start, nearest_object.longitudinal, lane_clear ? "true" : "false",
+      target_start, nearest_object.longitudinal, isLaneClear(target_lane) ? "true" : "false",
       available_before_object ? "true" : "false");
 
     if (!available_before_object) {
       break;
     }
 
-    // Preserve the existing immediate-lane attempt even when it currently contains another
-    // object; the full predicted-path safety checker may still find a valid time gap. Moving past
-    // that lane in one continuous shift is allowed only when it is actually empty.
-    if (candidates.empty() || lane_clear) {
-      candidates.push_back(target_lane);
-    }
-    if (
-      !avoidance_parameters_->enable_direct_multi_lane_change || !lane_clear ||
-      candidates.back().id() != target_lane.id()) {
+    // Lane occupancy is diagnostic only: an object anywhere in an intermediate/target lane
+    // must not hide a farther legal candidate. Each generated maneuver still has to pass the
+    // predicted-path and swept-footprint checks over the actual maneuver.
+    candidates.push_back(target_lane);
+    if (!avoidance_parameters_->enable_direct_multi_lane_change) {
       break;
     }
 
@@ -403,7 +403,6 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
   bool left_evaluated = false;
   bool right_evaluated = false;
   bool route_side_temporarily_blocked = false;
-  selected_requires_return_ = false;
   status_.is_valid_path = false;
   status_.is_safe = false;
   for (const auto & target : target_lane_candidates_) {
@@ -423,7 +422,7 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
     LaneChangePath candidate_path;
     const auto [found_valid_path, found_safe_path] = getSafePath(candidate_path);
     const bool static_safe = found_valid_path && isStaticObstaclePathSafe(candidate_path);
-    bool safe = found_valid_path && found_safe_path && static_safe;
+    const bool safe = found_valid_path && found_safe_path && static_safe;
     if (!departure && !safe) {
       const auto collision = found_valid_path
                                ? check_static_path(candidate_path)
@@ -431,7 +430,6 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
       route_side_temporarily_blocked |=
         !collision.valid || !collision.object_id || !isPersistentBlocker(*collision.object_id);
     }
-    if (departure && safe) safe = prepareRouteReturn(target, candidate_path);
     left_safe |= safe && target.direction == Direction::LEFT;
     right_safe |= safe && target.direction == Direction::RIGHT;
     candidate_path.path.header = getRouteHeader();
@@ -483,9 +481,6 @@ void AvoidanceByLaneChange::updateLaneChangeStatus()
   status_.lane_change_path = std::move(selected->path);
   status_.is_valid_path = true;
   status_.is_safe = selected->safe;
-  selected_requires_return_ = selected->safe && selected->target.lanes_to_preferred != 0 &&
-                              selected->target.lanes_to_preferred >= current_lanes_to_preferred_;
-  if (selected_requires_return_) reserveRouteReturn(status_.lane_change_path);
 }
 
 bool AvoidanceByLaneChange::selectTargetLane(const TargetLaneCandidate & candidate)
@@ -510,9 +505,6 @@ bool AvoidanceByLaneChange::isStaticObstaclePathSafe(const LaneChangePath & path
 
 PathSafetyStatus AvoidanceByLaneChange::isApprovedPathSafe() const
 {
-  if (
-    selected_requires_return_ && (!route_return_plan_ || !isRouteReturnClear(*route_return_plan_)))
-    return {false, false};
   const auto predicted_safety = NormalLaneChange::isApprovedPathSafe();
   if (!predicted_safety.is_safe || isStaticObstaclePathSafe(status_.lane_change_path)) {
     return predicted_safety;

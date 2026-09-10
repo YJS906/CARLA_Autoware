@@ -124,6 +124,9 @@ CandidateOutput assignToCandidate(
 std::optional<lanelet::ConstLanelet> get_lane_change_target_lane(
   const CommonDataPtr & common_data_ptr, const lanelet::ConstLanelets & current_lanes);
 
+std::optional<lanelet::ConstLanelet> get_direct_mission_target(
+  const CommonDataPtr & common_data_ptr);
+
 std::optional<lanelet::ConstLanelet> get_target_lane(
   const CommonDataPtr & common_data_ptr, const lanelet::ConstLanelets & current_lanes,
   const bool is_mandatory_lc = false);

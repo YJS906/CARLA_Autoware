@@ -16,9 +16,29 @@
 
 #include "autoware/behavior_path_static_obstacle_avoidance_module/data_structs.hpp"
 
+#include <array>
+#include <map>
+#include <optional>
+
 namespace autoware::behavior_path_planner
 {
 using autoware::behavior_path_planner::AvoidanceParameters;
+
+// Owned by the manager so a completed maneuver does not discard motion classification.
+// This is observation history only, never an approval or a reserved maneuver.
+struct AvoidanceMotionHistory
+{
+  struct Observation
+  {
+    Point anchor;
+    double since{0.0};
+    double last_seen{0.0};
+    bool stationary{false};
+    bool observed_moving{false};
+  };
+  std::map<std::array<uint8_t, 16>, Observation> observations;
+  std::optional<double> stamp;
+};
 
 struct AvoidanceByLCParameters : public AvoidanceParameters
 {
@@ -27,7 +47,7 @@ struct AvoidanceByLCParameters : public AvoidanceParameters
 
   // Maximum path-relative distance to the nearest target envelope for a NEW approval.
   // Object lookup and candidate generation keep their existing longer horizons.
-  double max_execution_distance{20.0};
+  double max_execution_distance{35.0};
 
   // execute only when lane change end point is before the object.
   bool execute_only_when_lane_change_finish_before_object{false};
@@ -44,17 +64,15 @@ struct AvoidanceByLCParameters : public AvoidanceParameters
   // Allow one continuous shift across consecutive, route-approved same-direction lanes.
   bool enable_direct_multi_lane_change{false};
 
-  // Longitudinal window used to decide whether another outward lane is empty.
+  // Debug-only lane occupancy window; occupancy does not gate candidate enumeration.
   double empty_lane_check_forward_distance{80.0};
   double empty_lane_check_backward_distance{20.0};
 
   // Leaving the mission-lane corridor is an exception, never a response to one unsafe sample.
   double route_blockage_min_duration{3.0};
+  // Only a previously moving object needs the longer stopped-to-static reclassification.
+  double route_stopped_dynamic_min_duration{7.0};
   double route_blockage_max_position_drift{0.5};
-  double route_return_search_interval{1.0};
-  double route_return_time_budget_ms{20.0};
-  double route_return_time_margin{1.0};
-  int route_return_max_steps{3};
 
   explicit AvoidanceByLCParameters(const AvoidanceParameters & param) : AvoidanceParameters(param)
   {

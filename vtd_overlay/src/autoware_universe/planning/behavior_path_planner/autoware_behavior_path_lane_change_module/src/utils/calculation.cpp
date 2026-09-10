@@ -19,6 +19,7 @@
 #include <autoware/lanelet2_utils/conversion.hpp>
 #include <autoware/lanelet2_utils/geometry.hpp>
 #include <autoware/motion_utils/trajectory/path_shift.hpp>
+#include <autoware/motion_utils/trajectory/trajectory.hpp>
 
 #include <boost/geometry/algorithms/buffer.hpp>
 
@@ -29,6 +30,54 @@
 
 namespace autoware::behavior_path_planner::utils::lane_change::calculation
 {
+
+double calc_lateral_shift_time(
+  const double shift, const behavior_path_planner::lane_change::TrajectoryParameters & p,
+  const double lateral_acceleration)
+{
+  if (p.enable_lateral_acceleration_limit && p.enable_lateral_jerk_limit) {
+    return autoware::motion_utils::calc_shift_time_from_jerk(
+      shift, p.lateral_jerk, lateral_acceleration);
+  }
+  // Finite four-quarter jerk-profile spline, without passing infinity to the solver.
+  if (p.enable_lateral_acceleration_limit) {
+    return std::sqrt(8.0 * std::abs(shift) / lateral_acceleration);
+  }
+  if (p.enable_lateral_jerk_limit) {
+    return std::cbrt(32.0 * std::abs(shift) / p.lateral_jerk);
+  }
+  return 0.0;
+}
+
+double calc_path_longitudinal_acceleration(
+  const behavior_path_planner::LaneChangePath & path, const size_t point_index)
+{
+  const auto & points = path.path.points;
+  const auto & info = path.info;
+  const auto & position = points.at(point_index).point.pose.position;
+  if (info.braking_profile) {
+    const double distance = autoware::motion_utils::calcSignedArcLength(
+      points, info.braking_start_pose.position, position);
+    return info.braking_profile->at_distance(distance).acceleration;
+  }
+  if (autoware::motion_utils::calcSignedArcLength(
+        points, info.lane_changing_start.position, position) < -eps) {
+    return info.longitudinal_acceleration.prepare;
+  }
+  if (autoware::motion_utils::calcSignedArcLength(
+        points, info.lane_changing_end.position, position) > eps) {
+    return 0.0;
+  }
+  return info.longitudinal_acceleration.lane_changing;
+}
+
+double calc_lateral_jerk(
+  const double velocity, const double acceleration, const double curvature,
+  const double curvature_gradient)
+{
+  return velocity * velocity * velocity * curvature_gradient +
+         2.0 * velocity * acceleration * curvature;
+}
 
 rclcpp::Logger get_logger()
 {
@@ -198,24 +247,28 @@ double calc_maximum_acceleration(
 }
 
 std::vector<double> calc_min_lane_change_lengths(
-  const LCParamPtr & lc_param_ptr, const std::vector<double> & shift_intervals)
+  const CommonDataPtr & common_data_ptr, const std::vector<double> & shift_intervals)
 {
   if (shift_intervals.empty()) {
     return {};
   }
 
+  const auto & lc_param_ptr = common_data_ptr->lc_param_ptr;
   const auto min_vel = lc_param_ptr->trajectory.min_lane_changing_velocity;
   const auto min_max_lat_acc = lc_param_ptr->trajectory.lat_acc_map.find(min_vel);
   const auto max_lat_acc = std::get<1>(min_max_lat_acc);
-  const auto lat_jerk = lc_param_ptr->trajectory.lateral_jerk;
 
   std::vector<double> min_lc_lengths{};
   min_lc_lengths.reserve(shift_intervals.size());
 
   const auto min_lc_length = [&](const auto shift_interval) {
-    const auto t =
-      autoware::motion_utils::calc_shift_time_from_jerk(shift_interval, lat_jerk, max_lat_acc);
-    return min_vel * t;
+    const auto t = calc_lateral_shift_time(
+      shift_interval, lc_param_ptr->trajectory, max_lat_acc);
+    const auto length = min_vel * t;
+    if (lc_param_ptr->trajectory.enable_lateral_acceleration_limit &&
+        lc_param_ptr->trajectory.enable_lateral_jerk_limit) return length;
+    return std::max(length, utils::minimumGeometricShiftLength(
+      shift_interval, common_data_ptr->bpp_param_ptr->vehicle_info));
   };
 
   std::transform(
@@ -233,7 +286,6 @@ std::vector<double> calc_max_lane_change_lengths(
   }
 
   const auto & params = common_data_ptr->lc_param_ptr->trajectory;
-  const auto lat_jerk = params.lateral_jerk;
   const auto t_prepare = params.max_prepare_duration;
   const auto current_velocity = common_data_ptr->get_ego_speed();
   const auto path_velocity = common_data_ptr->transient_data.current_path_velocity;
@@ -259,8 +311,11 @@ std::vector<double> calc_max_lane_change_lengths(
 
     // lane changing section
     const auto [min_lat_acc, max_lat_acc] = params.lat_acc_map.find(vel);
-    const auto t_lane_changing =
-      autoware::motion_utils::calc_shift_time_from_jerk(shift_interval, lat_jerk, max_lat_acc);
+    auto t_lane_changing = calc_lateral_shift_time(shift_interval, params, max_lat_acc);
+    if (!params.enable_lateral_acceleration_limit || !params.enable_lateral_jerk_limit) {
+      t_lane_changing = std::max(t_lane_changing, 3.0 * utils::minimumGeometricShiftLength(
+        shift_interval, common_data_ptr->bpp_param_ptr->vehicle_info) / std::max(vel, eps));
+    }
     const auto lane_changing_length =
       vel * t_lane_changing + 0.5 * max_acc * t_lane_changing * t_lane_changing;
 
@@ -409,7 +464,7 @@ std::pair<MinMaxValue, MinMaxValue> calc_lc_length_and_dist_buffer(
   }
   const auto shift_intervals = calculation::calc_shift_intervals(common_data_ptr, lanes);
   const auto min_lc_lengths =
-    calculation::calc_min_lane_change_lengths(common_data_ptr->lc_param_ptr, shift_intervals);
+    calculation::calc_min_lane_change_lengths(common_data_ptr, shift_intervals);
   const auto min_lc_length =
     !min_lc_lengths.empty() ? min_lc_lengths.front() : std::numeric_limits<double>::max();
   const auto min_dist_buffer =
@@ -678,14 +733,18 @@ std::vector<PhaseMetrics> calc_prepare_phase_metrics(
 
 std::vector<PhaseMetrics> calc_shift_phase_metrics(
   const CommonDataPtr & common_data_ptr, const double shift_length, const double initial_velocity,
-  const double max_path_velocity, const double lon_accel, const double max_length_threshold)
+  const double max_path_velocity, const double lon_accel, const double max_length_threshold,
+  const bool speed_adaptation)
 {
-  const auto min_lc_vel =
+  const auto nominal_min_lc_vel =
     std::isfinite(common_data_ptr->transient_data.distance_to_static_obstacle)
       ? std::min(
           common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity,
           common_data_ptr->lc_param_ptr->obstacle_min_lane_changing_velocity)
       : common_data_ptr->lc_param_ptr->trajectory.min_lane_changing_velocity;
+  const double min_lc_vel = speed_adaptation
+                             ? std::min(nominal_min_lc_vel, std::max(0.1, initial_velocity))
+                             : nominal_min_lc_vel;
   const auto max_vel = std::min(common_data_ptr->bpp_param_ptr->max_vel, max_path_velocity);
 
   // get lateral acceleration range
@@ -713,18 +772,30 @@ std::vector<PhaseMetrics> calc_shift_phase_metrics(
     return false;
   };
 
-  for (double lat_acc = min_lateral_acc; lat_acc < max_lateral_acc + eps;
-       lat_acc += lateral_acc_resolution) {
-    const auto minimum_duration = autoware::motion_utils::calc_shift_time_from_jerk(
-      shift_length, common_data_ptr->lc_param_ptr->trajectory.lateral_jerk, lat_acc);
+  const auto & trajectory = common_data_ptr->lc_param_ptr->trajectory;
+  std::vector<double> lateral_samples;
+  if (trajectory.enable_lateral_acceleration_limit) {
+    for (double acc = min_lateral_acc; acc < max_lateral_acc + eps;
+         acc += lateral_acc_resolution) lateral_samples.push_back(acc);
+  } else {
+    lateral_samples.push_back(max_lateral_acc);  // Metadata only; not a constraint.
+  }
+  const std::vector<double> length_scales =
+    trajectory.enable_lateral_acceleration_limit && trajectory.enable_lateral_jerk_limit
+      ? std::vector<double>{1.0, 1.15, 1.3}
+      : std::vector<double>{1.0, 1.5, 2.0, 2.5, 3.0};
+  for (const double lat_acc : lateral_samples) {
+    const auto minimum_duration = calc_lateral_shift_time(shift_length, trajectory, lat_acc);
     const auto geometric_length = utils::minimumGeometricShiftLength(
       shift_length, common_data_ptr->bpp_param_ptr->vehicle_info);
     // Length and duration must agree at the sampled speed. Do not accelerate merely to make
     // a short-duration spline steerable. A small bounded set also covers curved references.
-    for (const double length_scale : {1.0, 1.15, 1.3}) {
+    // With comfort limits off, sample from geometry alone, including longer steerable paths.
+    // Every resulting path still passes the actual vehicle-curvature and collision checks.
+    for (const double length_scale : length_scales) {
       const auto lane_changing_duration =
         std::max(minimum_duration, length_scale * geometric_length / initial_velocity);
-      if (!std::isfinite(lane_changing_duration)) continue;
+      if (!std::isfinite(lane_changing_duration) || lane_changing_duration <= eps) continue;
 
       // Decelerate, when necessary, in preparation and hold speed during the shift.
       // Also retain accelerating shift candidates for a merge that needs them, but the
@@ -765,7 +836,7 @@ std::vector<PhaseMetrics> calc_shift_phase_metrics(
     }
   }
 
-  // Use the fastest lateral motion within the existing jerk/acceleration limits first.
+  // Use the fastest lateral motion within the enabled constraints first.
   std::stable_sort(metrics.begin(), metrics.end(), [](const auto & a, const auto & b) {
     return std::make_tuple(a.actual_lon_accel > eps, a.duration, a.length) <
            std::make_tuple(b.actual_lon_accel > eps, b.duration, b.length);

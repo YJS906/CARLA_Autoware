@@ -124,6 +124,9 @@ struct FrenetPlannerParameters
 
 struct TrajectoryParameters
 {
+  // Explicit simulator overrides: keep finite spline inputs when a limit is disabled.
+  bool enable_lateral_acceleration_limit{true};
+  bool enable_lateral_jerk_limit{true};
   double max_prepare_duration{4.0};
   double min_prepare_duration{1.0};
   double lateral_jerk{0.5};

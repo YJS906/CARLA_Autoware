@@ -146,9 +146,10 @@ ShiftedPath get_shifted_path(
   const auto initial_lane_changing_velocity = lane_change_info.velocity.lane_changing;
   path_shifter.setVelocity(initial_lane_changing_velocity);
   const auto lateral_acceleration_limit =
-    common_data_ptr->lc_type ==
+    !common_data_ptr->lc_param_ptr->trajectory.enable_lateral_acceleration_limit ||
+      (common_data_ptr->lc_type ==
           autoware::behavior_path_planner::LaneChangeModuleType::AVOIDANCE_BY_LANE_CHANGE &&
-        common_data_ptr->disable_lateral_acceleration_limit
+        common_data_ptr->disable_lateral_acceleration_limit)
       ? std::numeric_limits<double>::max()
       : std::abs(lane_change_info.lateral_acceleration);
   path_shifter.setLateralAccelerationLimit(lateral_acceleration_limit);
@@ -222,11 +223,13 @@ std::optional<SamplingParameters> init_sampling_parameters(
     common_data_ptr->lc_param_ptr->frenet.use_entire_remaining_distance;
 
   const auto [lc_length, duration, final_velocity] = std::invoke([&]() {
-    auto duration = autoware::motion_utils::calc_shift_time_from_jerk(
-      std::abs(initial_state.position.d), trajectory.lateral_jerk, max_lateral_acc);
+    auto duration = autoware::behavior_path_planner::utils::lane_change::calculation::calc_lateral_shift_time(
+      std::abs(initial_state.position.d), trajectory, max_lateral_acc);
     if (initial_velocity <= 0.0) return std::make_tuple(0.0, 0.0, 0.0);
     duration = std::max(
-      duration, autoware::behavior_path_planner::utils::minimumGeometricShiftLength(
+      duration, (trajectory.enable_lateral_acceleration_limit &&
+                 trajectory.enable_lateral_jerk_limit ? 1.0 : 2.0) *
+                  autoware::behavior_path_planner::utils::minimumGeometricShiftLength(
                   initial_state.position.d, common_data_ptr->bpp_param_ptr->vehicle_info) /
                   initial_velocity);
     auto final_velocity = std::max(min_lc_vel, initial_velocity + lon_accel * duration);
@@ -247,7 +250,9 @@ std::optional<SamplingParameters> init_sampling_parameters(
   // for smooth lateral motion we want a constant lateral acceleration profile
   // this means starting from a 0 lateral velocity and setting a positive target lateral velocity
   const auto max_lat_vel = duration * max_lateral_acc;
-  const auto target_lat_vel = std::min(max_lat_vel, initial_state.position.d / duration);
+  const auto target_lat_vel = trajectory.enable_lateral_acceleration_limit
+    ? std::min(max_lat_vel, initial_state.position.d / duration)
+    : initial_state.position.d / duration;
 
   SamplingParameters sampling_parameters;
   const auto & safety = common_data_ptr->lc_param_ptr->safety;
@@ -701,9 +706,12 @@ std::vector<lane_change::TrajectoryGroup> generate_frenet_candidates(
       reference_spline.frenet({lc_start_pose.position.x, lc_start_pose.position.y}), metric);
     const auto lateral_acc =
       common_data_ptr->lc_param_ptr->trajectory.lat_acc_map.find(metric.velocity).second;
-    const auto shift_time = autoware::motion_utils::calc_shift_time_from_jerk(
-      std::abs(initial_state.position.d), common_data_ptr->lc_param_ptr->trajectory.lateral_jerk,
-      lateral_acc);
+    const auto shift_time = std::max(
+      calculation::calc_lateral_shift_time(
+        std::abs(initial_state.position.d), common_data_ptr->lc_param_ptr->trajectory, lateral_acc),
+      utils::minimumGeometricShiftLength(
+        initial_state.position.d, common_data_ptr->bpp_param_ptr->vehicle_info) /
+        std::max(metric.velocity, calculation::eps));
     initial_state.longitudinal_acceleration = calculation::calc_lane_changing_acceleration(
       common_data_ptr, metric.velocity, transient_data.current_path_velocity, shift_time,
       std::max(0.0, metric.sampled_lon_accel));

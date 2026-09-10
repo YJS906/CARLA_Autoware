@@ -11,7 +11,7 @@
         suppress_sudden_stop: false
 
       stop_planning:
-        stop_margin: 4.0 # 20% reduction of the normal longitudinal stop clearance (5.0 m).
+        stop_margin: 4.5 # [m] Normal longitudinal stop clearance; shared with upstream trajectory safety.
         terminal_stop_margin: 3.0
         min_behavior_stop_margin: 3.0
         behavior_stop_margin_hold_time: 2.0

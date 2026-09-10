@@ -105,6 +105,8 @@ struct Lanes
 struct Info
 {
   std::optional<BrakingProfile> braking_profile;
+  // Longitudinal preparation only: this never changes a candidate's RTC safety result.
+  std::optional<double> speed_preparation_target;
   Pose braking_start_pose;
   PhaseInfo longitudinal_acceleration{0.0, 0.0};
   PhaseInfo velocity{0.0, 0.0};
@@ -287,9 +289,8 @@ struct CommonData
   ModuleType lc_type;
   std::vector<lanelet::ConstLineString3d> no_lane_change_lines;
 
-  // Optional route-local target selected by a specialized lane-change module. This lets obstacle
-  // avoidance request a direct shift across multiple lanes without changing normal lane-change
-  // target selection.
+  // Optional route-local target selected by obstacle avoidance or by the normal lane-change
+  // direct-to-mission fallback. All intermediate lane-change relations must be legal.
   std::optional<lanelet::Id> requested_target_lane_id;
 
   // Applied only by avoidance-by-lane-change when computing its dynamic longitudinal cap.

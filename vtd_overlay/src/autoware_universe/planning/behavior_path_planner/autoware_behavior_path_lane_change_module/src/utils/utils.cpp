@@ -213,6 +213,12 @@ std::vector<DrivableLanes> generateDrivableLanes(
   const lanelet::ConstLanelets & lane_change_lanes)
 {
   size_t current_lc_idx = 0;
+  struct LateralTarget
+  {
+    lanelet::ConstLanelet lane;
+    size_t index;
+    lanelet::ConstLanelets middle;
+  };
   std::vector<DrivableLanes> drivable_lanes(current_lanes.size());
   for (size_t i = 0; i < current_lanes.size(); ++i) {
     const auto & current_lane = current_lanes.at(i);
@@ -221,9 +227,9 @@ std::vector<DrivableLanes> generateDrivableLanes(
 
     // Search through every lateral neighbor so a direct multi-lane shift includes the complete
     // corridor, while preserving the one-lane behavior when the target is adjacent.
-    const auto find_target_on_side =
-      [&](const bool search_left) -> std::optional<std::pair<lanelet::ConstLanelet, size_t>> {
+    const auto find_target_on_side = [&](const bool search_left) -> std::optional<LateralTarget> {
       auto lateral_lane = current_lane;
+      lanelet::ConstLanelets middle;
       std::unordered_set<lanelet::Id> visited{current_lane.id()};
       while (true) {
         const auto next_lane = search_left
@@ -235,19 +241,23 @@ std::vector<DrivableLanes> generateDrivableLanes(
         lateral_lane = *next_lane;
         for (size_t lc_idx = current_lc_idx; lc_idx < lane_change_lanes.size(); ++lc_idx) {
           if (lane_change_lanes.at(lc_idx).id() == lateral_lane.id()) {
-            return std::make_optional(std::make_pair(lateral_lane, lc_idx));
+            if (search_left) std::reverse(middle.begin(), middle.end());
+            return LateralTarget{lateral_lane, lc_idx, middle};
           }
         }
+        middle.push_back(lateral_lane);
       }
       return std::nullopt;
     };
 
     if (const auto left_target = find_target_on_side(true)) {
-      drivable_lanes.at(i).left_lane = left_target->first;
-      current_lc_idx = left_target->second;
+      drivable_lanes.at(i).left_lane = left_target->lane;
+      drivable_lanes.at(i).middle_lanes = left_target->middle;
+      current_lc_idx = left_target->index;
     } else if (const auto right_target = find_target_on_side(false)) {
-      drivable_lanes.at(i).right_lane = right_target->first;
-      current_lc_idx = right_target->second;
+      drivable_lanes.at(i).right_lane = right_target->lane;
+      drivable_lanes.at(i).middle_lanes = right_target->middle;
+      current_lc_idx = right_target->index;
     }
   }
 
@@ -404,14 +414,14 @@ bool should_use_direct_multi_lane_change(
   }
 
   const auto sequential_lengths =
-    calculation::calc_min_lane_change_lengths(common_data_ptr->lc_param_ptr, shift_intervals);
+    calculation::calc_min_lane_change_lengths(common_data_ptr, shift_intervals);
   const double sequential_distance =
     calculation::calc_distance_buffer(common_data_ptr->lc_param_ptr, sequential_lengths);
 
   const std::vector<double> direct_shift{
     std::accumulate(shift_intervals.begin(), shift_intervals.end(), 0.0)};
   const auto direct_lengths =
-    calculation::calc_min_lane_change_lengths(common_data_ptr->lc_param_ptr, direct_shift);
+    calculation::calc_min_lane_change_lengths(common_data_ptr, direct_shift);
   const double direct_distance =
     calculation::calc_distance_buffer(common_data_ptr->lc_param_ptr, direct_lengths);
   const double remaining_distance = autoware::behavior_path_planner::utils::getDistanceToEndOfLane(
@@ -530,10 +540,61 @@ std::optional<lanelet::ConstLanelet> get_target_lane_for_non_mandatory_lane_chan
   return std::nullopt;
 }
 
+std::optional<lanelet::ConstLanelet> get_direct_mission_target(
+  const CommonDataPtr & common_data_ptr)
+{
+  if (
+    !common_data_ptr || !common_data_ptr->is_data_available() ||
+    common_data_ptr->lc_type != LaneChangeModuleType::NORMAL ||
+    !common_data_ptr->lc_param_ptr->enable_direct_multi_lane_change) {
+    return std::nullopt;
+  }
+  const auto & route = *common_data_ptr->route_handler_ptr;
+  const auto & graph = route.getRoutingGraphPtr();
+  lanelet::ConstLanelet lane;
+  if (!route.getClosestLaneletWithinRoute(common_data_ptr->get_ego_pose(), &lane)) {
+    return std::nullopt;
+  }
+  const int distance = route.getNumLaneToPreferredLane(lane);
+  const auto direction = common_data_ptr->direction;
+  if (
+    std::abs(distance) < 2 || (distance > 0 && direction != Direction::LEFT) ||
+    (distance < 0 && direction != Direction::RIGHT)) {
+    return std::nullopt;
+  }
+  std::unordered_set<lanelet::Id> visited{lane.id()};
+  for (int i = 0; i < std::abs(distance); ++i) {
+    // Do not use adjacentLeft/Right, shoulders, opposing lanes or intersection shortcuts.
+    if (
+      lane.attributeOr("intersection_area", std::string{"0"}) != "0" &&
+      lane.attributeOr("intersection_area", std::string{"0"}) != "else") {
+      return std::nullopt;
+    }
+    const auto next = distance > 0 ? graph->left(lane) : graph->right(lane);
+    if (!next || !visited.insert(next->id()).second || !route.isRouteLanelet(*next)) {
+      return std::nullopt;
+    }
+    lane = *next;
+  }
+  if (
+    lane.attributeOr("intersection_area", std::string{"0"}) != "0" &&
+    lane.attributeOr("intersection_area", std::string{"0"}) != "else") {
+    return std::nullopt;
+  }
+  return route.getNumLaneToPreferredLane(lane) == 0 ? std::make_optional(lane) : std::nullopt;
+}
+
 std::optional<lanelet::ConstLanelet> get_target_lane(
   const CommonDataPtr & common_data_ptr, const lanelet::ConstLanelets & current_lanes,
   const bool is_mandatory_lc)
 {
+  if (
+    is_mandatory_lc && common_data_ptr->lc_type == LaneChangeModuleType::NORMAL &&
+    common_data_ptr->requested_target_lane_id) {
+    const auto direct = get_direct_mission_target(common_data_ptr);
+    return direct && direct->id() == *common_data_ptr->requested_target_lane_id ? direct
+                                                                                : std::nullopt;
+  }
   const auto & ego_pose = common_data_ptr->get_ego_pose();
   const auto & route_handler_ptr = common_data_ptr->route_handler_ptr;
   const auto current_lanes_path =
@@ -1552,20 +1613,24 @@ std::vector<std::vector<PoseWithVelocityStamped>> convert_to_predicted_paths(
     for (size_t i = 1; i < points.size(); ++i) {
       arcs[i] = arcs[i - 1] + autoware_utils::calc_distance2d(points[i - 1], points[i]);
       if (arcs[i] <= arcs[i - 1]) return {};
-      if (i + 1 < points.size()) curvature[i] = autoware_utils::calc_curvature(
-        points[i - 1].point.pose.position, points[i].point.pose.position,
-        points[i + 1].point.pose.position);
+      if (i + 1 < points.size())
+        curvature[i] = autoware_utils::calc_curvature(
+          points[i - 1].point.pose.position, points[i].point.pose.position,
+          points[i + 1].point.pose.position);
     }
     const auto arc_of = [&](const auto & position) {
-      return motion_utils::calcSignedArcLength(points, points.front().point.pose.position, position);
+      return motion_utils::calcSignedArcLength(
+        points, points.front().point.pose.position, position);
     };
     const double origin = arc_of(info.braking_start_pose.position);
     const double end = arc_of(info.lane_changing_end.position);
     double arc = arc_of(c.get_ego_pose().position);
     double velocity = c.get_ego_speed();
     double acceleration = c.get_current_accel();
-    if (!std::isfinite(velocity) || !std::isfinite(acceleration) || velocity < 0.0 ||
-        acceleration < min_acc - 1e-3 || acceleration > max_acc + 1e-3) return {};
+    if (
+      !std::isfinite(velocity) || !std::isfinite(acceleration) || velocity < 0.0 ||
+      acceleration < min_acc - 1e-3 || acceleration > max_acc + 1e-3)
+      return {};
     std::vector<PoseWithVelocityStamped> prediction;
     double next_sample = 0.0;
     const double dt = std::min(0.02, resolution);
@@ -1577,25 +1642,31 @@ std::vector<std::vector<PoseWithVelocityStamped>> convert_to_predicted_paths(
       const size_t i = std::clamp<size_t>(std::distance(arcs.begin(), it), 1, points.size() - 2);
       const double ratio = std::clamp((arc - arcs[i - 1]) / (arcs[i] - arcs[i - 1]), 0.0, 1.0);
       const double k = curvature[i - 1] + ratio * (curvature[i] - curvature[i - 1]);
-      const double dk = std::abs(curvature[i] - curvature[i - 1]) / (arcs[i] - arcs[i - 1]);
-      if (!std::isfinite(k) || std::abs(k) > c.bpp_param_ptr->vehicle_info.calcMaxCurvature() ||
-          velocity * velocity * std::abs(k) > p.trajectory.lat_acc_map.find(velocity).second + 1e-3 ||
-          velocity * velocity * velocity * dk + 2.0 * velocity * std::abs(acceleration * k) >
-            p.trajectory.lateral_jerk + 1e-3) return {};
+      const double dk = (curvature[i] - curvature[i - 1]) / (arcs[i] - arcs[i - 1]);
+      if (
+        !std::isfinite(k) || std::abs(k) > c.bpp_param_ptr->vehicle_info.calcMaxCurvature() ||
+        (p.trajectory.enable_lateral_acceleration_limit &&
+         velocity * velocity * std::abs(k) >
+           p.trajectory.lat_acc_map.find(velocity).second + 1e-3) ||
+        (p.trajectory.enable_lateral_jerk_limit &&
+         std::abs(calculation::calc_lateral_jerk(velocity, acceleration, k, dk)) >
+           p.trajectory.lateral_jerk + 1e-3))
+        return {};
       if (time + 1e-6 >= next_sample || arc >= end) {
-        const auto pose = time == 0.0 ? c.get_ego_pose() :
-          motion_utils::calcInterpolatedPose(points, arc, false);
+        const auto pose =
+          time == 0.0 ? c.get_ego_pose() : motion_utils::calcInterpolatedPose(points, arc, false);
         prediction.emplace_back(time, pose, velocity);
         next_sample += resolution;
       }
       if (arc >= end) return {prediction};
       if (arc < arcs.front() || arc > arcs.back()) return {};
       const auto reference = profile.at_distance(std::max(0.0, arc - origin));
-      const double target_acc = std::clamp(
-        reference.acceleration + (reference.velocity - velocity), min_acc, max_acc);
-      const double next_acc = acceleration + std::clamp(
-        target_acc - acceleration, p.trajectory_safety.min_jerk * dt,
-        p.trajectory_safety.max_jerk * dt);
+      const double target_acc =
+        std::clamp(reference.acceleration + (reference.velocity - velocity), min_acc, max_acc);
+      const double next_acc =
+        acceleration + std::clamp(
+                         target_acc - acceleration, p.trajectory_safety.min_jerk * dt,
+                         p.trajectory_safety.max_jerk * dt);
       const double next_velocity = velocity + 0.5 * (acceleration + next_acc) * dt;
       if (next_velocity < 0.0 || !std::isfinite(next_velocity)) return {};
       arc = std::min(end, arc + 0.5 * (velocity + next_velocity) * dt);

@@ -20,6 +20,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <utility>
 
 namespace autoware::behavior_path_planner
 {
@@ -33,7 +34,8 @@ AvoidanceByLaneChangeInterface::AvoidanceByLaneChangeInterface(
   const std::unordered_map<std::string, std::shared_ptr<RTCInterface>> & rtc_interface_ptr_map,
   std::unordered_map<std::string, std::shared_ptr<ObjectsOfInterestMarkerInterface>> &
     objects_of_interest_marker_interface_ptr_map,
-  const std::shared_ptr<PlanningFactorInterface> & planning_factor_interface)
+  const std::shared_ptr<PlanningFactorInterface> & planning_factor_interface,
+  std::shared_ptr<AvoidanceMotionHistory> motion_history)
 : LaneChangeInterface{
     name,
     node,
@@ -41,7 +43,8 @@ AvoidanceByLaneChangeInterface::AvoidanceByLaneChangeInterface(
     rtc_interface_ptr_map,
     objects_of_interest_marker_interface_ptr_map,
     planning_factor_interface,
-    std::make_unique<AvoidanceByLaneChange>(parameters, avoidance_by_lane_change_parameters)}
+    std::make_unique<AvoidanceByLaneChange>(
+      parameters, avoidance_by_lane_change_parameters, std::move(motion_history))}
 {
 }
 
@@ -49,13 +52,14 @@ bool AvoidanceByLaneChangeInterface::isExecutionRequested() const
 {
   if (getCurrentStatus() == ModuleStatus::RUNNING) return true;
   const auto & avoidance = static_cast<const AvoidanceByLaneChange &>(*module_type_);
-  if (!avoidance.isExecutionDistanceSatisfied()) return false;
+  const bool prepare_speed = avoidance.hasSpeedPreparationRequest();
+  if (!avoidance.isExecutionDistanceSatisfied() && !prepare_speed) return false;
 
   // isLaneChangeRequired() returns an error string when a lane-change path cannot be used.
   // An avoidance request therefore requires the absence of that error, just like the normal
   // lane-change interface.
   return !module_type_->isLaneChangeRequired() && module_type_->specialRequiredCheck() &&
-         module_type_->isValidPath() && module_type_->isSafe();
+         module_type_->isValidPath() && (module_type_->isSafe() || prepare_speed);
 }
 
 bool AvoidanceByLaneChangeInterface::isExecutionReady() const

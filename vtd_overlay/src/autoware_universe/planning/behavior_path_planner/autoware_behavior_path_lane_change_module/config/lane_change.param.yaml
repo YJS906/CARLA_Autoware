@@ -36,6 +36,8 @@
 
       # trajectory generation
       trajectory:
+        enable_lateral_acceleration_limit: true
+        enable_lateral_jerk_limit: true
         max_prepare_duration: 4.0
         min_prepare_duration: 2.0
         lateral_jerk: 0.5

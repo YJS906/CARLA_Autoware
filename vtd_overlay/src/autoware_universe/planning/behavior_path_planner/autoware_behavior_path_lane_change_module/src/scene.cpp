@@ -335,7 +335,8 @@ void NormalLaneChange::update_filtered_objects()
 void NormalLaneChange::updateLaneChangeStatus()
 {
   autoware_utils::ScopedTimeTrack st(__func__, *time_keeper_);
-  const auto [found_valid_path, found_safe_path] = getSafePath(status_.lane_change_path);
+  const auto [found_valid_path, found_safe_path] =
+    getSafePathWithDirectFallback(status_.lane_change_path);
 
   // Update status
   status_.is_valid_path = found_valid_path;
@@ -371,6 +372,12 @@ std::pair<bool, bool> NormalLaneChange::getSafePath(LaneChangePath & safe_path) 
   } else {
     // force candidate
     safe_path = valid_paths.front();
+    // Keep a speed-limited geometric candidate visible to the longitudinal preparer even
+    // when another (traffic-blocked) candidate happened to be generated first.
+    const auto preparation = std::find_if(valid_paths.begin(), valid_paths.end(), [](const auto & p) {
+      return p.info.speed_preparation_target.has_value();
+    });
+    if (preparation != valid_paths.end()) safe_path = *preparation;
   }
 
   return {true, found_safe_path};
@@ -509,7 +516,7 @@ LaneChangePath NormalLaneChange::getLaneChangePath() const
 
 BehaviorModuleOutput NormalLaneChange::getTerminalLaneChangePath() const
 {
-  if (status_.is_safe && status_.is_valid_path && status_.lane_change_path.info.braking_profile) {
+  if (hasSpeedPreparationRequest()) {
     return braking_wait_output();
   }
   if (
@@ -817,6 +824,12 @@ std::optional<PathWithLaneId> NormalLaneChange::extendPath()
 
 void NormalLaneChange::resetParameters()
 {
+  if (getModuleType() == LaneChangeModuleType::NORMAL) {
+    common_data_ptr_->requested_target_lane_id.reset();
+  }
+  speed_preparation_target_.reset();
+  speed_preparation_profile_.reset();
+  speed_preparation_lane_id_ = lanelet::InvalId;
   approved_path_blocked_ = false;
   last_replan_time_.reset();
   is_abort_path_approved_ = false;
@@ -1078,7 +1091,9 @@ lane_change::TargetObjects NormalLaneChange::get_target_objects(
   insert_leading_objects(filtered_objects.current_lane);
 
   const auto chk_obj_in_other_lanes =
-    lane_change_parameters_->safety.collision_check.check_other_lanes;
+    lane_change_parameters_->safety.collision_check.check_other_lanes ||
+    (getModuleType() == LaneChangeModuleType::NORMAL &&
+     common_data_ptr_->requested_target_lane_id.has_value());
   if (chk_obj_in_other_lanes) {
     insert_leading_objects(filtered_objects.others);
   }
@@ -1222,6 +1237,17 @@ std::vector<LaneChangePhaseMetrics> NormalLaneChange::get_prepare_metrics() cons
     std::min(
       common_data_ptr_->transient_data.dist_to_terminal_start,
       common_data_ptr_->transient_data.distance_to_static_obstacle));
+  if (speed_preparation_target_ && !get_target_lanes().empty() &&
+      speed_preparation_lane_id_ == get_target_lanes().front().id()) {
+    if (const auto metric = make_braking_prepare_metric(*speed_preparation_target_)) {
+      metrics.insert(metrics.begin(), *metric);
+    } else if (current_velocity >= 0.1 && current_velocity <= *speed_preparation_target_ + 0.05) {
+      const double length = std::max({1.0, dist_to_target_start,
+        current_velocity * lane_change_parameters_->trajectory.min_prepare_duration});
+      metrics.insert(metrics.begin(), LaneChangePhaseMetrics(
+        length / current_velocity, length, current_velocity, 0.0, 0.0, 0.0));
+    }
+  }
   // Speed targets are independent of the signal preparation timer. A necessary physical
   // braking phase may take longer than max_prepare_duration; distance still bounds it.
   const double minimum_velocity = std::isfinite(
@@ -1250,8 +1276,8 @@ std::vector<LaneChangePhaseMetrics> NormalLaneChange::get_prepare_metrics() cons
     const auto max_lat_acc =
       lane_change_parameters_->trajectory.lat_acc_map.find(metric.velocity).second;
     const auto time = std::max(
-      motion_utils::calc_shift_time_from_jerk(
-        shift, lane_change_parameters_->trajectory.lateral_jerk, max_lat_acc),
+      calculation::calc_lateral_shift_time(
+        shift, lane_change_parameters_->trajectory, max_lat_acc),
       utils::minimumGeometricShiftLength(shift, planner_data_->parameters.vehicle_info) /
         std::max(metric.velocity, 1e-3));
     const auto length = metric.length + metric.velocity * time;
@@ -1319,7 +1345,8 @@ std::vector<LaneChangePhaseMetrics> NormalLaneChange::get_lane_changing_metrics(
   const auto max_path_velocity = prep_segment.points.back().point.longitudinal_velocity_mps;
   return calculation::calc_shift_phase_metrics(
     common_data_ptr_, shift_length, prep_metric.velocity, max_path_velocity,
-    prep_metric.actual_lon_accel, max_lane_changing_length);
+    prep_metric.actual_lon_accel, max_lane_changing_length,
+    prep_metric.braking_profile.has_value() || speed_preparation_target_.has_value());
 }
 
 bool NormalLaneChange::get_lane_change_paths(LaneChangePaths & candidate_paths) const
@@ -1405,19 +1432,27 @@ bool NormalLaneChange::get_path_using_frenet(
           try {
             utils::lane_change::append_target_ref_to_candidate(
               *candidate_path_opt, common_data_ptr_->lc_param_ptr->frenet.th_curvature_smoothing);
-            if (check_candidate_path_safety(*candidate_path_opt, target_objects)) {
-              RCLCPP_DEBUG(
-                logger_, "completion-first Frenet acceleration_fallback=%s, time=%.2f[ms]",
-                acceleration_fallback ? "true" : "false", stop_watch_.toc(__func__));
-              candidate_paths.push_back(*candidate_path_opt);
-              return true;
-            }
+          } catch (const std::exception & e) {
+            RCLCPP_DEBUG(logger_, "%s", e.what());
+            continue;
+          }
+          bool accepted = false;
+          try {
+            accepted = check_candidate_path_safety(*candidate_path_opt, target_objects);
           } catch (const std::exception & e) {
             RCLCPP_DEBUG(logger_, "%s", e.what());
           }
+          if (!accepted) accepted = adapt_candidate_speed(*candidate_path_opt, target_objects);
+          if (accepted) {
+            RCLCPP_DEBUG(
+              logger_, "completion-first Frenet acceleration_fallback=%s, time=%.2f[ms]",
+              acceleration_fallback ? "true" : "false", stop_watch_.toc(__func__));
+            candidate_paths.push_back(*candidate_path_opt);
+            return true;
+          }
 
           // appending all paths affect performance
-          if (candidate_paths.empty()) {
+          if (candidate_paths.empty() || candidate_path_opt->info.speed_preparation_target) {
             candidate_paths.push_back(*candidate_path_opt);
           }
         }
@@ -1531,9 +1566,7 @@ bool NormalLaneChange::get_path_using_path_shifter(
         if (*speed_limit + 0.05 < candidate_path.info.velocity.lane_changing &&
             curvature_feedback_count < 4) {
           const double target = *speed_limit * 0.98;
-          const double minimum = std::isfinite(common_data_ptr_->transient_data.distance_to_static_obstacle)
-            ? lane_change_parameters_->obstacle_min_lane_changing_velocity
-            : lane_change_parameters_->trajectory.min_lane_changing_velocity;
+          constexpr double minimum = 0.1;  // Explicit speed-derived search, not a cruise floor.
           if (target >= minimum && std::none_of(search_metrics.begin(), search_metrics.end(),
                 [&](const auto & m) { return m.braking_profile && std::abs(m.velocity - target) < 0.05; })) {
             if (const auto braking = make_braking_prepare_metric(target)) {
@@ -1544,22 +1577,17 @@ bool NormalLaneChange::get_path_using_path_shifter(
           }
         }
 
-        candidate_paths.push_back(candidate_path);
-        debug_metrics.lc_metrics.back().second = static_cast<int>(candidate_paths.size()) - 1;
-        if (retry_with_braking) break;
-
+        bool accepted = false;
         try {
-          if (check_candidate_path_safety(candidate_path, target_objects)) {
-            debug_print_lat("ACCEPT!!!: it is valid and safe!");
-            RCLCPP_DEBUG(
-              logger_, "completion-first acceleration_fallback=%s",
-              acceleration_fallback ? "true" : "false");
-            return true;
-          }
+          accepted = check_candidate_path_safety(candidate_path, target_objects);
         } catch (const std::exception & e) {
           debug_print_lat(std::string("Reject: ") + e.what());
-          continue;
         }
+        if (!accepted) accepted = adapt_candidate_speed(candidate_path, target_objects);
+        candidate_paths.push_back(candidate_path);
+        debug_metrics.lc_metrics.back().second = static_cast<int>(candidate_paths.size()) - 1;
+        if (accepted) return true;
+        if (retry_with_braking) break;
 
         debug_print_lat("Reject: sampled path is not safe.");
       }
@@ -1591,23 +1619,20 @@ bool NormalLaneChange::check_candidate_path_safety(
       const double velocity = std::abs(points[i].point.longitudinal_velocity_mps);
       const double max_lat_acc =
         lane_change_parameters_->trajectory.lat_acc_map.find(velocity).second;
-      if (velocity * velocity * std::abs(curvature) > max_lat_acc + 1e-3) return false;
-      if (have_previous_curvature) {
+      if (!std::isfinite(velocity)) return false;
+      if (lane_change_parameters_->trajectory.enable_lateral_acceleration_limit &&
+          velocity * velocity * std::abs(curvature) > max_lat_acc + 1e-3) return false;
+      if (have_previous_curvature &&
+          lane_change_parameters_->trajectory.enable_lateral_jerk_limit) {
         const double ds = autoware_utils::calc_distance2d(points[i - 1], points[i]);
         if (ds < 1e-6) return false;
-        double lon_acc = std::max(
-          std::abs(candidate_path.info.longitudinal_acceleration.prepare),
-          std::abs(candidate_path.info.longitudinal_acceleration.lane_changing));
-        if (candidate_path.info.braking_profile) {
-          const auto & info = candidate_path.info;
-          const double distance = motion_utils::calcSignedArcLength(
-            points, info.braking_start_pose.position, points[i].point.pose.position);
-          lon_acc = std::abs(info.braking_profile->at_distance(distance).acceleration);
-        }
-        const double lateral_jerk =
-          velocity * velocity * velocity * std::abs(curvature - previous_curvature) / ds +
-          2.0 * velocity * lon_acc * std::abs(curvature);
-        if (lateral_jerk > lane_change_parameters_->trajectory.lateral_jerk + 1e-3) return false;
+        const double lon_acc =
+          calculation::calc_path_longitudinal_acceleration(candidate_path, i);
+        const double lateral_jerk = calculation::calc_lateral_jerk(
+          velocity, lon_acc, curvature, (curvature - previous_curvature) / ds);
+        if (!std::isfinite(lateral_jerk) ||
+            std::abs(lateral_jerk) > lane_change_parameters_->trajectory.lateral_jerk + 1e-3)
+          return false;
       }
     }
     previous_curvature = curvature;
@@ -1973,9 +1998,12 @@ bool NormalLaneChange::calcAbortPath()
   const auto lateral_acc_range =
     lane_change_parameters_->trajectory.lat_acc_map.find(current_velocity);
   const double & max_lateral_acc = lateral_acc_range.second;
-  path_shifter.setLateralAccelerationLimit(max_lateral_acc);
+  path_shifter.setLateralAccelerationLimit(
+    lane_change_parameters_->trajectory.enable_lateral_acceleration_limit
+      ? max_lateral_acc : std::numeric_limits<double>::max());
 
-  if (lateral_jerk > lane_change_parameters_->cancel.max_lateral_jerk) {
+  if (lane_change_parameters_->trajectory.enable_lateral_jerk_limit &&
+      lateral_jerk > lane_change_parameters_->cancel.max_lateral_jerk) {
     RCLCPP_ERROR(logger_, "Aborting jerk is too strong. lateral_jerk = %f", lateral_jerk);
     return false;
   }
@@ -1984,6 +2012,7 @@ bool NormalLaneChange::calcAbortPath()
   // offset front side
   if (!path_shifter.generate(&shifted_path)) {
     RCLCPP_ERROR(logger_, "failed to generate abort shifted path.");
+    return false;
   }
 
   auto reference_lane_segment = prev_module_output_.path;
@@ -2020,6 +2049,16 @@ bool NormalLaneChange::calcAbortPath()
     }
   }
 
+  // A disabled comfort limit never disables the steering-geometry limit on an abort.
+  const auto & abort_points = abort_path.path.points;
+  if (abort_points.size() < 3) return false;
+  for (size_t i = std::max<size_t>(1, ego_pose_idx); i + 1 < abort_points.size(); ++i) {
+    const double curvature = autoware_utils::calc_curvature(
+      abort_points[i - 1].point.pose.position, abort_points[i].point.pose.position,
+      abort_points[i + 1].point.pose.position);
+    if (!std::isfinite(curvature) ||
+        std::abs(curvature) > common_param.vehicle_info.calcMaxCurvature()) return false;
+  }
   abort_path_ = std::make_shared<LaneChangePath>(abort_path);
   return true;
 }

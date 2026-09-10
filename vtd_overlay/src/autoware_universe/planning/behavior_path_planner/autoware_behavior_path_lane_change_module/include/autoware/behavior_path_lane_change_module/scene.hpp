@@ -67,9 +67,15 @@ public:
 
   std::pair<bool, bool> getSafePath(LaneChangePath & safe_path) const override;
 
+  // Mission-directed search, shared by return preflight, live handoff and ordinary execution.
+  // Keep the normal target first; reserve time for one legal direct-to-mission alternative.
+  std::pair<bool, bool> getSafePathWithDirectFallback(LaneChangePath & safe_path);
+
   LaneChangePath getLaneChangePath() const override;
 
   BehaviorModuleOutput getTerminalLaneChangePath() const override;
+
+  bool hasSpeedPreparationRequest() const;
 
   BehaviorModuleOutput generateOutput() override;
 
@@ -150,6 +156,8 @@ protected:
   std::optional<LaneChangePhaseMetrics> make_braking_prepare_metric(
     double target, double deceleration_scale = 1.0) const;
   std::optional<double> curvature_speed_limit(const LaneChangePath & path) const;
+  bool adapt_candidate_speed(
+    LaneChangePath & path, const lane_change::TargetObjects & objects) const;
   BehaviorModuleOutput braking_wait_output() const;
   std::vector<LaneChangePhaseMetrics> get_lane_changing_metrics(
     const PathWithLaneId & prep_segment, const LaneChangePhaseMetrics & prep_metrics,
@@ -226,6 +234,11 @@ protected:
   double stop_time_{0.0};
   bool approved_path_blocked_{false};
   std::optional<rclcpp::Time> last_replan_time_;
+  // Keep the selected longitudinal target until hand-off/reset, not an unsafe lateral path.
+  mutable std::optional<double> speed_preparation_target_;
+  mutable lanelet::Id speed_preparation_lane_id_{lanelet::InvalId};
+  mutable std::optional<lane_change::BrakingProfile> speed_preparation_profile_;
+  mutable Pose speed_preparation_start_;
 };
 }  // namespace autoware::behavior_path_planner
 #endif  // AUTOWARE__BEHAVIOR_PATH_LANE_CHANGE_MODULE__SCENE_HPP_

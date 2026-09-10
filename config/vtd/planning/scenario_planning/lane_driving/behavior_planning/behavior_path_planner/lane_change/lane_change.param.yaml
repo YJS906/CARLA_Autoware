@@ -36,6 +36,9 @@
 
       # trajectory generation
       trajectory:
+        # Simulator only: no lateral comfort caps; steering geometry/collision checks remain.
+        enable_lateral_acceleration_limit: false
+        enable_lateral_jerk_limit: false
         max_prepare_duration: 3.0
         min_prepare_duration: 0.25  # {OVERRIDE: allow sub-second preparation; braking remains reachable}
         lateral_jerk: 0.77 # {OVERRIDE: 70 percent of pre-half value; simulator comfort profile}

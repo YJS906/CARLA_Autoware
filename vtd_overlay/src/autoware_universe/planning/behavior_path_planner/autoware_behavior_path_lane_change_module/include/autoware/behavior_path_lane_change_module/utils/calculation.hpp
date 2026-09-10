@@ -15,6 +15,7 @@
 #define AUTOWARE__BEHAVIOR_PATH_LANE_CHANGE_MODULE__UTILS__CALCULATION_HPP_
 
 #include "autoware/behavior_path_lane_change_module/structs/data.hpp"
+#include "autoware/behavior_path_lane_change_module/structs/path.hpp"
 
 #include <autoware/route_handler/route_handler.hpp>
 
@@ -28,6 +29,21 @@ using behavior_path_planner::lane_change::MinMaxValue;
 using behavior_path_planner::lane_change::PhaseMetrics;
 
 static constexpr double eps = 0.001;
+
+// Minimum time due to the ENABLED comfort limits only. Zero means neither limit is enabled;
+// callers must still supply a finite, nonzero geometric maneuver length/duration.
+double calc_lateral_shift_time(
+  const double shift, const behavior_path_planner::lane_change::TrajectoryParameters & parameters,
+  const double lateral_acceleration);
+
+// Acceleration of the phase at this path point, not the maximum of unrelated phases.
+double calc_path_longitudinal_acceleration(
+  const behavior_path_planner::LaneChangePath & path, const size_t point_index);
+
+// d(v^2 * curvature)/dt. Preserve signs until the caller compares its magnitude.
+double calc_lateral_jerk(
+  const double velocity, const double acceleration, const double curvature,
+  const double curvature_gradient);
 
 double calc_dist_from_pose_to_terminal_end(
   const CommonDataPtr & common_data_ptr, const lanelet::ConstLanelets & lanes,
@@ -160,10 +176,11 @@ std::vector<PhaseMetrics> calc_prepare_phase_metrics(
 std::vector<PhaseMetrics> calc_shift_phase_metrics(
   const CommonDataPtr & common_data_ptr, const double shift_length, const double initial_velocity,
   const double max_path_velocity, const double lon_accel,
-  const double max_length_threshold = std::numeric_limits<double>::max());
+  const double max_length_threshold = std::numeric_limits<double>::max(),
+  const bool speed_adaptation = false);
 
 std::vector<double> calc_min_lane_change_lengths(
-  const LCParamPtr & lc_param_ptr, const std::vector<double> & shift_intervals);
+  const CommonDataPtr & common_data_ptr, const std::vector<double> & shift_intervals);
 
 double calc_distance_buffer(
   const LCParamPtr & lc_param_ptr, const std::vector<double> & lane_change_lengths);

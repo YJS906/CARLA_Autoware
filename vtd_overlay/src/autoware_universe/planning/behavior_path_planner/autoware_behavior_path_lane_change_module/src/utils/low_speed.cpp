@@ -89,7 +89,8 @@ std::optional<LaneChangePath> generate_low_speed_path(
     const auto curvature = (x[1] * y[2] - y[1] * x[2]) / (norm * norm * norm);
     if (
       !std::isfinite(curvature) || std::abs(curvature) > max_curvature ||
-      velocity * velocity * std::abs(curvature) > max_lat_acc)
+      (data->lc_param_ptr->trajectory.enable_lateral_acceleration_limit &&
+       velocity * velocity * std::abs(curvature) > max_lat_acc))
       return std::nullopt;
     PathPointWithLaneId point;
     point.point.pose.position.x = x[0];
@@ -109,6 +110,7 @@ std::optional<LaneChangePath> generate_low_speed_path(
         return std::nullopt;  // No cusp or reverse segment.
       }
       if (
+        data->lc_param_ptr->trajectory.enable_lateral_jerk_limit &&
         velocity * velocity * velocity * std::abs(curvature - previous_curvature) / ds > max_jerk) {
         return std::nullopt;
       }

@@ -10,6 +10,11 @@ candidate even when its normal safety result is `false` or approval is pending.
 The original `is_safe` result is retained; RTC reports a force activation.
 This applies to ordinary lane change, not static-obstacle-avoidance modules.
 
+The speed-preparation change adds one exclusion: an unsafe candidate carrying
+`speed_preparation_target` must finish longitudinal preparation and pass the safety
+checks; this experiment does not force-approve that speed-blocked candidate.
+See [lane-change-speed-preparation.md](lane-change-speed-preparation.md).
+
 The trigger uses `/planning/planning_factors/obstacle_stop`, not just a generic
 stopped-vehicle timer. It requires a STOP control point with zero velocity at or
 behind the vehicle, or no more than 2 m ahead, and ego speed at most 0.1 m/s.

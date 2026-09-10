@@ -50,6 +50,8 @@ public:
 
 private:
   std::shared_ptr<AvoidanceByLCParameters> avoidance_parameters_;
+  std::shared_ptr<AvoidanceMotionHistory> motion_history_{
+    std::make_shared<AvoidanceMotionHistory>()};
 };
 }  // namespace autoware::behavior_path_planner
 

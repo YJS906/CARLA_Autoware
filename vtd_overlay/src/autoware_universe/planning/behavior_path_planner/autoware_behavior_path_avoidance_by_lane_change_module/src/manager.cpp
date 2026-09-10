@@ -55,7 +55,7 @@ void AvoidanceByLaneChangeModuleManager::init(rclcpp::Node * node)
     const auto execution_distance_key = ns + "max_execution_distance";
     p.max_execution_distance = node->has_parameter(execution_distance_key)
                                  ? node->get_parameter(execution_distance_key).as_double()
-                                 : node->declare_parameter<double>(execution_distance_key, 20.0);
+                                 : node->declare_parameter<double>(execution_distance_key, 35.0);
     if (!std::isfinite(p.max_execution_distance) || p.max_execution_distance <= 0.0) {
       throw std::invalid_argument(
         "avoidance_by_lane_change.max_execution_distance must be positive and finite");
@@ -85,17 +85,8 @@ void AvoidanceByLaneChangeModuleManager::init(rclcpp::Node * node)
       return value;
     };
     p.route_blockage_min_duration = positive("blockage_min_duration", 3.0);
+    p.route_stopped_dynamic_min_duration = positive("stopped_dynamic_min_duration", 7.0);
     p.route_blockage_max_position_drift = positive("blockage_max_position_drift", 0.5);
-    p.route_return_search_interval = positive("return_search_interval", 1.0);
-    p.route_return_time_budget_ms = positive("return_time_budget_ms", 20.0);
-    p.route_return_time_margin = positive("return_time_margin", 1.0);
-    const auto steps_key = ns + "route_priority.return_max_steps";
-    const auto steps = node->has_parameter(steps_key) ? node->get_parameter(steps_key).as_int()
-                                                      : node->declare_parameter<int>(steps_key, 3);
-    if (steps < 1 || steps > 4) {
-      throw std::invalid_argument("route_priority.return_max_steps must be in [1, 4]");
-    }
-    p.route_return_max_steps = static_cast<int>(steps);
   }
 
   // general params
@@ -236,7 +227,7 @@ SMIPtr AvoidanceByLaneChangeModuleManager::createNewSceneModuleInstance()
 {
   return std::make_unique<AvoidanceByLaneChangeInterface>(
     name_, *node_, parameters_, avoidance_parameters_, rtc_interface_ptr_map_,
-    objects_of_interest_marker_interface_ptr_map_, planning_factor_interface_);
+    objects_of_interest_marker_interface_ptr_map_, planning_factor_interface_, motion_history_);
 }
 
 }  // namespace autoware::behavior_path_planner
