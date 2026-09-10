@@ -498,6 +498,18 @@ std::vector<SceneModulePtr> SubPlannerManager::getRequestModules(
   std::vector<SceneModulePtr> request_modules{};
   StopWatch<std::chrono::milliseconds> stop_watch;
 
+  if (std::any_of(deleted_modules.begin(), deleted_modules.end(), [](const auto & module) {
+        return module->name() == "avoidance_by_lane_change" &&
+               module->getCurrentStatus() == ModuleStatus::SUCCESS &&
+               module->isLockedNewModuleLaunch();
+      })) {
+    // deleted_modules is local to ONE propagateFull() call. Publish the completed maneuver's
+    // current valid output this cycle, then compare all managers together on the next input.
+    // Otherwise normal LC or static avoidance can take ownership in the one cycle in which
+    // the just-completed avoidance manager itself is excluded from candidate enumeration.
+    return request_modules;
+  }
+
   for (const auto & manager_ptr : manager_ptrs_) {
     stop_watch.tic(manager_ptr->name());
     BOOST_SCOPE_EXIT((&manager_ptr)(&processing_time_)(&stop_watch))

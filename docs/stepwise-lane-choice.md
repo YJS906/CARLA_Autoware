@@ -34,6 +34,11 @@
 - 이미 RUNNING인 경로는 이 선호도 때문에 취소하지 않는다.
   객체가 지나갔거나 사라짐, 이동 시작, route/map 변경, 시각 역행은 관련 문맥을 갱신한다.
   입력이 오래됐거나 지형 계산이 불명확하면 새 선호도를 적용하지 않고 기존 판단으로 돌아간다.
+- 회피 SUCCESS 직후 그 모듈만 재조회에서 제외되는 한 주기에는 다른 모듈의 신규 실행도
+  함께 보류하고, 완료된 모듈의 현재 유효 출력을 발행한다. 다음 planner 주기에는
+  모든 후보를 함께 비교한다. 정지나 미래 복귀 경로를 기다리는 절차가 아니며,
+  한 번의 `propagateFull()` 호출 안에만 존재하는 삭제 목록을 사용해 자동 해제된다.
+  따라서 정적회피 모듈도 이 인계 빈틈에서 먼저 실행권을 가져가지 않는다.
 
 ## 유지한 것과 한계
 
@@ -58,15 +63,15 @@ obstacle_stop 4.5m 및 차량 마진은 변경하지 않았다.
 VTD `lane_change.param.yaml`의 `lane_change.tactical_selection.enable: true`로 활성화한다.
 다른 환경에서 해당 설정을 지정하지 않으면 기본 비활성화다.
 
-`docker/vtd/stepwise-lane-choice.Dockerfile`은 기준 이미지 위에서 lane change,
-avoidance-by-lane-change, external-request lane change 세 패키지만 재빌드한다.
+`docker/vtd/stepwise-lane-choice.Dockerfile`은 기준 이미지 위에서 behavior path planner,
+lane change, avoidance-by-lane-change, external-request lane change 네 패키지만 재빌드한다.
 새 공개 Parameters 레이아웃을 사용하는 세 모듈을 함께 교체한다.
 브릿지와 planner common ABI는 변경하지 않는다.
 
 단독 `test_corridor_choice.cpp`는 종방향 빈 구간, 동일 장애물로의 조기 복귀,
 실선 이후 가상 연결 제외, 최종 경로 미확정 중간 이동, 문맥 해제와 unknown을 확인한다.
 시나리오 자동 주행·전체 회귀시험은 수행하지 않는다.
-별도 읽기 전용 컨테이너에서 이미지 파일 차이, 설정 보존 및 세 라이브러리 로딩을 확인한다.
+별도 읽기 전용 컨테이너에서 이미지 파일 차이, 설정 보존 및 네 라이브러리 로딩을 확인한다.
 실행 중인 Autoware/브릿지 및 실시간 파라미터는 변경하지 않는다.
 
 추가로 bag의 18:55:33.5 이전 마지막 map/route/objects/odom 메시지 네 개만 추출해,

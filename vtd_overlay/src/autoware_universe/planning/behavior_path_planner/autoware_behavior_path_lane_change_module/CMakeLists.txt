@@ -24,6 +24,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 if(BUILD_TESTING)
   add_executable(test_corridor_choice test/test_corridor_choice.cpp)
   target_include_directories(test_corridor_choice PRIVATE include)
+  target_compile_options(test_corridor_choice PRIVATE -UNDEBUG)
   add_test(NAME test_corridor_choice COMMAND test_corridor_choice)
 
   ament_add_gtest(test_speed_preparation test/test_speed_preparation.cpp)

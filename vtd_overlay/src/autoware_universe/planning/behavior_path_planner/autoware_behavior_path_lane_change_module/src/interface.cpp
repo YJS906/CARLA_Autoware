@@ -74,6 +74,13 @@ void LaneChangeInterface::processOnExit()
   post_process_safety_status_ = {};
   interface_debug_ = {};
   resetPathCandidate();
+  if (parameters_->tactical_selection && getCurrentStatus() == ModuleStatus::SUCCESS &&
+      module_type_->getModuleType() == LaneChangeModuleType::AVOIDANCE_BY_LANE_CHANGE) {
+    // onExit() already cleared the normal launch lock. Opt into the planner's one-cycle
+    // completion handoff so static avoidance cannot take ownership while this manager is
+    // excluded by deleted_modules. No running path, speed, or future return is reserved.
+    lockNewModuleLaunch();
+  }
 }
 
 bool LaneChangeInterface::isExecutionRequested() const
