@@ -186,4 +186,24 @@ TEST_F(ObstacleStopRecoveryTest, MovingEgoAndStaleFactorsDoNotApprove)
   tick(100.5, true, false, 0.016, true, false, 1.0);
   EXPECT_FALSE(rtc->isActivated(uuid));
 }
+TEST_F(ObstacleStopRecoveryTest, ReadOnlyStopFeedbackSurvivesApprovalReset)
+{
+  node->set_parameter(rclcpp::Parameter("lane_change.obstacle_stop_recovery.enabled", false));
+  tick(100.0);
+  EXPECT_TRUE(recovery->hasActiveStop());
+  recovery->resetApproval();
+  EXPECT_TRUE(recovery->hasActiveStop());
+  EXPECT_FALSE(rtc->isActivated(uuid));
+  setTime(100.6);
+  EXPECT_FALSE(recovery->hasActiveStop());
+  tick(100.7, true, false, 0.0, false);
+  EXPECT_FALSE(recovery->hasActiveStop());
+  tick(100.8, true, false, 0.0, true, false, 1.0);
+  EXPECT_FALSE(recovery->hasActiveStop());
+  tick(101.0);
+  EXPECT_TRUE(recovery->hasActiveStop());
+  recovery->reset();
+  EXPECT_FALSE(recovery->hasActiveStop());
+}
+
 }  // namespace autoware::behavior_path_planner

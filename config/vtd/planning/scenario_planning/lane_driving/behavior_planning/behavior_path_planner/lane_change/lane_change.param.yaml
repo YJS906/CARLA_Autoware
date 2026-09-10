@@ -38,6 +38,7 @@
 
       # trajectory generation
       trajectory:
+        multi_lane_prepare_duration: 1.0 # [s] Fixed preparation when crossing two or more lanes.
         # Simulator only: no lateral comfort caps; steering geometry/collision checks remain.
         enable_lateral_acceleration_limit: false
         enable_lateral_jerk_limit: false
@@ -73,6 +74,7 @@
 
       # safety check
       safety_check:
+        polygon_expansion_scale: 0.5 # Scale extra lateral and longitudinal RSS clearance.
         allow_loose_check_for_cancel: true
         enable_target_lane_bound_check: true
         stopped_object_velocity_threshold: 0.3          # [m/s] Object whose velocity is less than the threshold is treated as static object.

@@ -63,6 +63,8 @@ public:
 
   bool updateApprovedPath() override;
 
+  void setObstacleStopActive(bool active) { obstacle_stop_active_ = active; }
+
   bool isApprovedPathBlocked() const override { return approved_path_blocked_; }
 
   std::pair<bool, bool> getSafePath(LaneChangePath & safe_path) const override;
@@ -234,6 +236,10 @@ protected:
   double stop_time_{0.0};
   bool approved_path_blocked_{false};
   std::optional<rclcpp::Time> last_replan_time_;
+  bool obstacle_stop_active_{false};
+  std::optional<LaneChangePath> stopped_curve_template_;
+  size_t stopped_curve_cursor_{0};
+  double stopped_curve_offset_{0.0};
   // Keep the selected longitudinal target until hand-off/reset, not an unsafe lateral path.
   mutable std::optional<double> speed_preparation_target_;
   mutable lanelet::Id speed_preparation_lane_id_{lanelet::InvalId};

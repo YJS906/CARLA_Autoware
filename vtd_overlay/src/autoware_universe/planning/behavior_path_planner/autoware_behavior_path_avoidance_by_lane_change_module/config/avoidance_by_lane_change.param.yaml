@@ -5,7 +5,7 @@
         blockage_min_duration: 3.0 # Original static-object confirmation.
         stopped_dynamic_min_duration: 7.0 # Only previously moving objects need reclassification.
         blockage_max_position_drift: 0.5
-      execute_object_longitudinal_margin: 7.0  # Minimum obstacle distance, not a look-ahead limit.
+      execute_object_longitudinal_margin: 4.0  # Minimum obstacle distance, not a look-ahead limit.
       max_execution_distance: 35.0  # [m] New approvals only; keep long-range lookup/candidates.
       execute_only_when_lane_change_finish_before_object: false
       max_lane_changing_length_scale: 0.8

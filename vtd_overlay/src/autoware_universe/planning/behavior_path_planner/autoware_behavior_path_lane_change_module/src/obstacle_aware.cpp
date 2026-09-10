@@ -16,6 +16,7 @@
 #include <boost/geometry/algorithms/difference.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <vector>
 
@@ -49,9 +50,9 @@ utils::path_safety_checker::TrajectoryCollisionResult NormalLaneChange::check_st
   return utils::path_safety_checker::checkStaticTrajectory(
     path, *planner_data_->dynamic_object, planner_data_->parameters.vehicle_info, getEgoPose(),
     start, checked_end, parameters,
-      selfcar::trajectory_safety::measuredEgoMotion(
-        std::abs(getEgoVelocity()), planner_data_->parameters.max_acc,
-        planner_data_->self_acceleration->accel.accel.linear.x));
+    selfcar::trajectory_safety::measuredEgoMotion(
+      std::abs(getEgoVelocity()), planner_data_->parameters.max_acc,
+      planner_data_->self_acceleration->accel.accel.linear.x));
 }
 
 bool NormalLaneChange::isStaticObstaclePathSafe(const LaneChangePath & path) const
@@ -68,8 +69,7 @@ void NormalLaneChange::stop_for_static_obstacle(PathWithLaneId & path)
   if (planner_data_->dynamic_object) {
     collision = utils::path_safety_checker::checkStaticTrajectory(
       path, *planner_data_->dynamic_object, planner_data_->parameters.vehicle_info, getEgoPose(),
-      ego_arc, motion_utils::calcArcLength(path.points),
-      lane_change_parameters_->trajectory_safety,
+      ego_arc, motion_utils::calcArcLength(path.points), lane_change_parameters_->trajectory_safety,
       selfcar::trajectory_safety::measuredEgoMotion(
         std::abs(getEgoVelocity()), planner_data_->parameters.max_acc,
         planner_data_->self_acceleration->accel.accel.linear.x));
@@ -88,16 +88,14 @@ bool NormalLaneChange::updateApprovedPath()
   const bool stopped =
     std::abs(getEgoVelocity()) <= std::min(0.1, lane_change_parameters_->th_stop_velocity) &&
     getStopTime() >= lane_change_parameters_->th_stop_time;
-  const auto & safety = lane_change_parameters_->trajectory_safety;
-  const auto clearance = common_data_ptr_->transient_data.distance_to_static_obstacle;
-  // Optimization downstream can still invalidate an otherwise clear nominal path. A prolonged
-  // stop close to its blocking obstacle is also a recovery trigger, once per nominal path.
-  const bool downstream_stalled =
-    stopped && status_.lane_change_path.type != lane_change::PathType::LowSpeed &&
-    std::isfinite(clearance) && clearance <= safety.stop_margin + 2.0 * safety.decimation_step;
-  approved_path_blocked_ =
-    downstream_stalled || !isStaticObstaclePathSafe(status_.lane_change_path);
-  if (!approved_path_blocked_ || !common_data_ptr_->is_lanes_available() || !stopped) return false;
+  approved_path_blocked_ = !isStaticObstaclePathSafe(status_.lane_change_path);
+  // A downstream obstacle_stop is the trigger; a local collision check alone must not
+  // replace the approved curve with a newly fitted maneuver.
+  if (!common_data_ptr_->is_lanes_available() || !stopped || !obstacle_stop_active_) {
+    stopped_curve_cursor_ = 0;
+    return false;
+  }
+  approved_path_blocked_ = true;
   const auto now = clock_.now();
   if (
     last_replan_time_ && (now - *last_replan_time_).seconds() >= 0.0 &&
@@ -107,13 +105,26 @@ bool NormalLaneChange::updateApprovedPath()
 
   // Approved lanes and RTC remain fixed. Failed searches retain the old path and its stop.
   const auto target_objects = get_target_objects(filtered_objects_, get_current_lanes());
-  const auto maximum_velocity = std::min(
+  auto maximum_velocity = std::min(
     lane_change_parameters_->stopped_replan_velocity,
     common_data_ptr_->transient_data.current_path_velocity);
-  if (maximum_velocity <= 0.0) return false;
+  if (!std::isfinite(maximum_velocity) || maximum_velocity <= 0.0) return false;
+  if (!stopped_curve_template_) stopped_curve_template_ = status_.lane_change_path;
+  const auto & original = *stopped_curve_template_;
+  if (original.path.points.size() < 4) return false;
+  const auto curve_begin = motion_utils::findNearestIndex(
+    original.path.points, original.info.lane_changing_start.position);
+  const auto curve_end =
+    motion_utils::findNearestIndex(original.path.points, original.info.lane_changing_end.position);
+  if (curve_end <= curve_begin) return false;
+  for (size_t i = curve_begin; i <= curve_end; ++i) {
+    const auto speed = original.path.points[i].point.longitudinal_velocity_mps;
+    if (!std::isfinite(speed) || speed <= 0.0) return false;
+    maximum_velocity = std::min<double>(maximum_velocity, speed);
+  }
   const auto maximum_length = std::min(
-    {40.0, common_data_ptr_->transient_data.dist_to_terminal_end,
-     common_data_ptr_->transient_data.dist_to_target_end});
+    common_data_ptr_->transient_data.dist_to_terminal_end,
+    common_data_ptr_->transient_data.dist_to_target_end);
   const auto regulatory_distance =
     utils::lane_change::get_distance_to_next_regulatory_element(common_data_ptr_, false, false);
   const auto & polygons = *common_data_ptr_->lanes_polygon_ptr;
@@ -123,8 +134,9 @@ bool NormalLaneChange::updateApprovedPath()
       utils::lane_change::create_polygon({lane}, 0.0, std::numeric_limits<double>::max()));
   }
   autoware_utils::StopWatch<std::chrono::milliseconds> search_time;
-  const auto footprint_in_lanes = [&](const PathWithLaneId & path) {
-    for (const auto & point : path.points) {
+  const auto trim_to_corridor = [&](PathWithLaneId & path, size_t curve_end) {
+    for (size_t i = 0; i < path.points.size(); ++i) {
+      const auto & point = path.points[i];
       const auto footprint = utils::lane_change::get_ego_footprint(
         point.point.pose, planner_data_->parameters.vehicle_info);
       std::vector<autoware_utils::Polygon2d> remaining{footprint};
@@ -141,47 +153,106 @@ bool NormalLaneChange::updateApprovedPath()
       }
       if (std::any_of(remaining.begin(), remaining.end(), [](const auto & polygon) {
             return std::abs(boost::geometry::area(polygon)) > 1e-4;
-          }))
-        return false;
+          })) {
+        if (i <= curve_end) return false;
+        path.points.resize(i);
+        break;
+      }
     }
     return true;
   };
-  for (double length = 6.0; length <= maximum_length && length < regulatory_distance;
-       length += 2.0) {
-    for (const double scale : {1.0, 0.75, 0.5}) {
-      if (search_time.toc() > lane_change_parameters_->time_limit) return false;
-      const auto velocity = maximum_velocity * scale;
-      auto candidate =
-        utils::lane_change::generate_low_speed_path(common_data_ptr_, length, velocity);
-      if (!candidate || !footprint_in_lanes(candidate->shifted_path.path)) continue;
-      if (
-        utils::lane_change::is_intersecting_no_lane_change_lines(
-          common_data_ptr_, candidate->info.length, candidate->shifted_path.path.points))
-        continue;
-      if (!isStaticObstaclePathSafe(*candidate)) continue;
-      if (
-        utils::lane_change::has_overtaking_turn_lane_object(
-          common_data_ptr_, filtered_objects_.target_lane_trailing))
-        continue;
-      CollisionCheckDebugMap debug;
-      const auto prediction =
-        utils::lane_change::convert_to_predicted_paths(common_data_ptr_, *candidate, 1);
-      if (prediction.empty() || prediction.front().size() < 2) continue;
-      if (!isLaneChangePathSafe(
-             *candidate, prediction, target_objects, lane_change_parameters_->safety.rss_params,
-             debug, true)
-             .is_safe)
-        continue;
-      status_.lane_change_path = std::move(*candidate);
-      status_.is_safe = true;
-      approved_path_blocked_ = false;
-      unsafe_hysteresis_count_ = 0;
-      toNormalState();
-      RCLCPP_INFO(
-        logger_, "Replanned blocked lane change from stopped pose: length=%.2f speed=%.2f", length,
-        velocity);
-      return true;
+  const auto corridor = get_lane_change_corridor();
+  std::vector<std::pair<lanelet::Id, lanelet::BasicPolygon2d>> lane_polygons;
+  for (const auto & lane : corridor) {
+    lane_polygons.emplace_back(lane.id(), lane.polygon2d().basicPolygon());
+  }
+  // Search the smallest forward displacement first. A fixed original template bounds the
+  // total translation to 12 m; repeated STOP feedback cannot progressively stretch the curve.
+  constexpr size_t sample_count = 36;
+  constexpr std::array<double, 3> scales{1.0, 0.75, 0.5};
+  for (size_t checked = 0; checked < sample_count; ++checked) {
+    if (search_time.toc() >= lane_change_parameters_->time_limit) return false;
+    const size_t sample = stopped_curve_cursor_;
+    stopped_curve_cursor_ = (stopped_curve_cursor_ + 1) % sample_count;
+    const double offset = 1.0 + sample / scales.size();
+    if (offset <= stopped_curve_offset_) continue;
+    const double velocity = maximum_velocity * scales[sample % scales.size()];
+    auto candidate =
+      utils::lane_change::translate_approved_curve(common_data_ptr_, original, offset, velocity);
+    if (!candidate) continue;
+    const auto & reference = common_data_ptr_->current_lanes_path.points;
+    if (reference.size() < 2) continue;
+    const double end_distance = motion_utils::calcSignedArcLength(
+      reference, getEgoPosition(), candidate->info.lane_changing_end.position);
+    if (
+      !std::isfinite(end_distance) || end_distance <= 0.0 || end_distance > maximum_length ||
+      end_distance >= regulatory_distance)
+      continue;
+    if (!boost::geometry::covered_by(
+          autoware_utils::Point2d(
+            candidate->info.lane_changing_end.position.x,
+            candidate->info.lane_changing_end.position.y),
+          polygons.target))
+      continue;
+    // Translation can cross longitudinal lanelet boundaries, so recompute memberships.
+    bool has_memberships = true;
+    const size_t end_index = candidate->info.shift_line.end_idx;
+    for (size_t i = 0; i < candidate->path.points.size(); ++i) {
+      auto & point = candidate->path.points[i];
+      point.lane_ids.clear();
+      const autoware_utils::Point2d position(
+        point.point.pose.position.x, point.point.pose.position.y);
+      for (const auto & [id, polygon] : lane_polygons) {
+        if (boost::geometry::covered_by(position, polygon)) point.lane_ids.push_back(id);
+      }
+      if (point.lane_ids.empty()) {
+        if (i <= end_index)
+          has_memberships = false;
+        else
+          candidate->path.points.resize(i);
+        break;
+      }
     }
+    if (!has_memberships || !trim_to_corridor(candidate->path, end_index)) continue;
+    // If the translated tail reaches the legal corridor edge, keep only the legal prefix.
+    // The stopping-envelope check below rejects tails too short to stop after the merge.
+    candidate->path.points.back().point.longitudinal_velocity_mps = 0.0;
+    for (size_t i = 0; i < candidate->shifted_path.path.points.size(); ++i)
+      candidate->shifted_path.path.points[i].lane_ids = candidate->path.points[i].lane_ids;
+    if (utils::lane_change::is_intersecting_no_lane_change_lines(
+          common_data_ptr_, candidate->info.length, candidate->shifted_path.path.points))
+      continue;
+    if (!isStaticObstaclePathSafe(*candidate)) continue;
+    if (utils::lane_change::has_overtaking_turn_lane_object(
+          common_data_ptr_, filtered_objects_.target_lane_trailing))
+      continue;
+    CollisionCheckDebugMap debug;
+    const auto prediction =
+      utils::lane_change::convert_to_predicted_paths(common_data_ptr_, *candidate, 1);
+    if (
+      prediction.empty() || prediction.front().size() < 2 ||
+      autoware_utils::calc_distance2d(
+        prediction.front().back().pose, candidate->info.lane_changing_end) > 0.25)
+      continue;
+    if (!isLaneChangePathSafe(
+           *candidate, prediction, target_objects, lane_change_parameters_->safety.rss_params,
+           debug, true)
+           .is_safe)
+      continue;
+    status_.lane_change_path = std::move(*candidate);
+    status_.is_safe = true;
+    approved_path_blocked_ = false;
+    unsafe_hysteresis_count_ = 0;
+    stopped_curve_offset_ = offset;
+    stopped_curve_cursor_ = 0;
+    toNormalState();
+    RCLCPP_INFO(
+      logger_,
+      "Translated approved curve after obstacle_stop: offset=%.2f connector=%.2f "
+      "unchanged_curve=%.2f speed=%.2f (approved target unchanged)",
+      offset, status_.lane_change_path.info.length.prepare,
+      status_.lane_change_path.info.length.lane_changing, velocity);
+    return true;
   }
   return false;
 }

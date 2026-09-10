@@ -587,10 +587,40 @@ double calc_lane_changing_acceleration(
     prepare_longitudinal_acc);
 }
 
+std::optional<double> fixed_multi_lane_prepare_duration(const CommonDataPtr & common)
+{
+  const auto duration = common->lc_param_ptr->trajectory.multi_lane_prepare_duration;
+  if (
+    !std::isfinite(duration) || duration <= 0.0 || !common->route_handler_ptr ||
+    !common->lanes_ptr) {
+    return std::nullopt;
+  }
+  const auto graph = common->route_handler_ptr->getRoutingGraphPtr();
+  if (!graph) return std::nullopt;
+  std::unordered_set<lanelet::Id> target_ids;
+  for (const auto & lane : common->lanes_ptr->target) target_ids.insert(lane.id());
+  for (const auto & source : common->lanes_ptr->current) {
+    for (const bool left : {true, false}) {
+      auto lane = source;
+      std::unordered_set<lanelet::Id> visited{lane.id()};
+      for (size_t changes = 1;; ++changes) {
+        const auto next = left ? graph->left(lane) : graph->right(lane);
+        if (!next || !visited.insert(next->id()).second) break;
+        if (target_ids.count(next->id())) {
+          if (changes > 1) return duration;
+          break;
+        }
+        lane = *next;
+      }
+    }
+  }
+  return std::nullopt;
+}
 double calc_actual_prepare_duration(
   const CommonDataPtr & common_data_ptr, const double current_velocity,
   const double active_signal_duration)
 {
+  if (const auto duration = fixed_multi_lane_prepare_duration(common_data_ptr)) return *duration;
   const auto & params = common_data_ptr->lc_param_ptr->trajectory;
   const auto min_lc_velocity = params.min_lane_changing_velocity;
 
@@ -612,6 +642,9 @@ double calc_actual_prepare_duration(
 
 std::vector<double> calc_prepare_durations(const CommonDataPtr & common_data_ptr)
 {
+  // Do not resample shorter/longer preparation at an obstacle or lane terminal for this maneuver.
+  // calc_prepare_phase_metrics still rejects unreachable acceleration and insufficient clearance.
+  if (const auto duration = fixed_multi_lane_prepare_duration(common_data_ptr)) return {*duration};
   const auto & lc_param_ptr = common_data_ptr->lc_param_ptr;
   const auto & data = common_data_ptr->transient_data;
   if (std::isfinite(data.distance_to_static_obstacle)) {

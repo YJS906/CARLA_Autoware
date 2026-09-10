@@ -36,6 +36,7 @@
 
       # trajectory generation
       trajectory:
+        multi_lane_prepare_duration: 1.0 # [s] Fixed preparation when crossing two or more lanes.
         enable_lateral_acceleration_limit: true
         enable_lateral_jerk_limit: true
         max_prepare_duration: 4.0
@@ -71,6 +72,7 @@
 
       # safety check
       safety_check:
+        polygon_expansion_scale: 0.5 # Scale extra lateral and longitudinal RSS clearance.
         allow_loose_check_for_cancel: true
         enable_target_lane_bound_check: true
         stopped_object_velocity_threshold: 1.0 # [m/s]

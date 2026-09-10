@@ -96,6 +96,18 @@ packages:
       - src/scene.cpp
     source_tree_sha256: b96435bf3e20406df8bbc134805a840267c3f2d3ee7b3aa0a2dd8ac559a98b30
     license: Apache-2.0
+  - package: autoware_behavior_velocity_intersection_module
+    origin_url: https://github.com/autowarefoundation/autoware_universe.git
+    upstream_ref: 0.52.0
+    upstream_commit: 6e477c645efec33f7909095eea684474e97f5e3d
+    repository_path: vtd_overlay/src/autoware_universe/planning/behavior_velocity_planner/autoware_behavior_velocity_intersection_module
+    reason: Re-evaluate collision STOP after pass-judge commitment; preserve object filtering and clear-time hold.
+    changed_files:
+      - include/autoware/behavior_velocity_intersection_module/post_pass_judge.hpp
+      - src/scene_intersection.cpp
+      - src/experimental/scene_intersection.cpp
+      - test/test_post_pass_judge.cpp
+    license: Apache-2.0
   - package: autoware_behavior_velocity_traffic_light_module
     origin_url: https://github.com/autowarefoundation/autoware_universe.git
     upstream_ref: 0.52.0

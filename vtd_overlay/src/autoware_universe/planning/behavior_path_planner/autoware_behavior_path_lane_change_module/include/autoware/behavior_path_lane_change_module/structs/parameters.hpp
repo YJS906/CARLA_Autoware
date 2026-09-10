@@ -101,6 +101,7 @@ struct CollisionCheckParameters
 
 struct SafetyParameters
 {
+  double polygon_expansion_scale{1.0};
   bool enable_loose_check_for_cancel{true};
   bool enable_target_lane_bound_check{true};
   double th_stopped_object_velocity{0.1};
@@ -131,6 +132,8 @@ struct TrajectoryParameters
   bool enable_lateral_jerk_limit{true};
   double max_prepare_duration{4.0};
   double min_prepare_duration{1.0};
+  // Zero keeps the ordinary preparation search for maneuvers across multiple lanes.
+  double multi_lane_prepare_duration{0.0};
   double lateral_jerk{0.5};
   double min_longitudinal_acc{-1.0};
   double max_longitudinal_acc{1.0};

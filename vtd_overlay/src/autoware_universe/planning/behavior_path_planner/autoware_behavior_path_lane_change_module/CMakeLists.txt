@@ -19,9 +19,12 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/utils/utils.cpp
   src/utils/path.cpp
   src/utils/low_speed.cpp
+  src/utils/translated_curve.cpp
 )
 
 if(BUILD_TESTING)
+  ament_add_gtest(test_translated_curve test/test_translated_curve.cpp)
+  target_link_libraries(test_translated_curve ${PROJECT_NAME})
   add_executable(test_corridor_choice test/test_corridor_choice.cpp)
   target_include_directories(test_corridor_choice PRIVATE include)
   target_compile_options(test_corridor_choice PRIVATE -UNDEBUG)

@@ -29,11 +29,16 @@ std::optional<LaneChangePhaseMetrics> NormalLaneChange::make_braking_prepare_met
   const double available =
     std::min(c.transient_data.dist_to_terminal_start, c.transient_data.distance_to_static_obstacle);
   // A finite one-metre settling segment follows braking before lateral motion starts.
-  const double length = std::max(
+  double length = std::max(
     profile->distance() + 1.0, calculation::calc_ego_dist_to_lanes_start(
                                  common_data_ptr_, get_current_lanes(), get_target_lanes()));
+  double duration = profile->time_at_distance(length);
+  if (const auto fixed = calculation::fixed_multi_lane_prepare_duration(common_data_ptr_)) {
+    if (duration > *fixed + calculation::eps) return std::nullopt;
+    duration = *fixed;
+    length = profile->at(duration).distance;
+  }
   if (length > available) return std::nullopt;
-  const double duration = profile->time_at_distance(length);
   const double acc = (target - c.get_ego_speed()) / duration;
   LaneChangePhaseMetrics metric(duration, length, target, acc, acc, 0.0);
   metric.braking_profile = profile;
@@ -142,6 +147,9 @@ try {
     info.duration = {
       profile->time_at_distance(shift_start),
       profile->time_at_distance(shift_end) - profile->time_at_distance(shift_start)};
+    if (const auto fixed = calculation::fixed_multi_lane_prepare_duration(common_data_ptr_)) {
+      if (std::abs(info.duration.prepare - *fixed) > calculation::eps) continue;
+    }
     info.velocity = {profile->at_distance(shift_start).velocity, target};
     info.terminal_lane_changing_velocity = target;
     info.longitudinal_acceleration = {

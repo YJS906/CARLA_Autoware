@@ -164,6 +164,8 @@ std::vector<double> calc_lon_acceleration_samples(
  * @param active_signal_duration elapsed time since turn signal activation.
  * @return The calculated prepare duration value in seconds (s)
  */
+std::optional<double> fixed_multi_lane_prepare_duration(const CommonDataPtr & common_data_ptr);
+
 double calc_actual_prepare_duration(
   const CommonDataPtr & common_data_ptr, const double current_velocity,
   const double active_signal_duration);

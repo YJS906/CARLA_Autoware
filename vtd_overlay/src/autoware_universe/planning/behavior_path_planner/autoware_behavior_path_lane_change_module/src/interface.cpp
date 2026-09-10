@@ -14,8 +14,6 @@
 
 #include "autoware/behavior_path_lane_change_module/interface.hpp"
 
-#include "obstacle_stop_recovery.hpp"
-
 #include "autoware/behavior_path_lane_change_module/utils/markers.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/utils.hpp"
 #include "autoware/behavior_path_planner_common/interface/scene_module_interface.hpp"
@@ -23,6 +21,7 @@
 #include "autoware/behavior_path_planner_common/marker_utils/utils.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/safety_check.hpp"
 #include "autoware/behavior_path_planner_common/utils/traffic_light_utils.hpp"
+#include "obstacle_stop_recovery.hpp"
 
 #include <autoware_utils/ros/marker_helper.hpp>
 #include <autoware_utils/system/time_keeper.hpp>
@@ -49,21 +48,14 @@ LaneChangeInterface::LaneChangeInterface(
     objects_of_interest_marker_interface_ptr_map,
   const std::shared_ptr<PlanningFactorInterface> & planning_factor_interface,
   std::unique_ptr<LaneChangeBase> && module_type)
-: SceneModuleInterface{
-    name,
-    node,
-    rtc_interface_ptr_map,
-    objects_of_interest_marker_interface_ptr_map,
-    planning_factor_interface,
-    ModuleStatus::WAITING_APPROVAL},  // NOLINT
+: SceneModuleInterface{name, node, rtc_interface_ptr_map, objects_of_interest_marker_interface_ptr_map, planning_factor_interface, ModuleStatus::WAITING_APPROVAL},  // NOLINT
   parameters_{std::move(parameters)},
   module_type_{std::move(module_type)}
 {
   module_type_->setTimeKeeper(getTimeKeeper());
   logger_ = utils::lane_change::getLogger(module_type_->getModuleTypeStr());
-  if (module_type_->getModuleType() == LaneChangeModuleType::NORMAL) {
-    obstacle_stop_recovery_ = std::make_shared<ObstacleStopRecovery>(node, name);
-  }
+  ObstacleStopRecovery::declareParameters(node);
+  obstacle_stop_recovery_ = std::make_shared<ObstacleStopRecovery>(node, name);
 }
 
 void LaneChangeInterface::processOnExit()
@@ -74,8 +66,9 @@ void LaneChangeInterface::processOnExit()
   post_process_safety_status_ = {};
   interface_debug_ = {};
   resetPathCandidate();
-  if (parameters_->tactical_selection && getCurrentStatus() == ModuleStatus::SUCCESS &&
-      module_type_->getModuleType() == LaneChangeModuleType::AVOIDANCE_BY_LANE_CHANGE) {
+  if (
+    parameters_->tactical_selection && getCurrentStatus() == ModuleStatus::SUCCESS &&
+    module_type_->getModuleType() == LaneChangeModuleType::AVOIDANCE_BY_LANE_CHANGE) {
     // onExit() already cleared the normal launch lock. Opt into the planner's one-cycle
     // completion handoff so static avoidance cannot take ownership while this manager is
     // excluded by deleted_modules. No running path, speed, or future return is reserved.
@@ -116,9 +109,9 @@ bool LaneChangeInterface::isExecutionRequested() const
 bool LaneChangeInterface::isExecutionReady() const
 {
   return module_type_->isSafe() && !module_type_->isAbortState() &&
-    (!parameters_->tactical_selection || getCurrentStatus() == ModuleStatus::RUNNING ||
-     module_type_->getModuleType() != LaneChangeModuleType::NORMAL ||
-     !module_type_->isLaneChangeRequired());
+         (!parameters_->tactical_selection || getCurrentStatus() == ModuleStatus::RUNNING ||
+          module_type_->getModuleType() != LaneChangeModuleType::NORMAL ||
+          !module_type_->isLaneChangeRequired());
 }
 
 void LaneChangeInterface::updateData()
@@ -129,6 +122,9 @@ void LaneChangeInterface::updateData()
   module_type_->update_filtered_objects();
   module_type_->update_transient_data(getCurrentStatus() == ModuleStatus::RUNNING);
   module_type_->updateSpecialData();
+  if (auto * normal = dynamic_cast<NormalLaneChange *>(module_type_.get())) {
+    normal->setObstacleStopActive(obstacle_stop_recovery_->hasActiveStop());
+  }
 
   if (
     getCurrentStatus() == ModuleStatus::RUNNING && !is_rtc_force_deactivated() &&
@@ -140,7 +136,9 @@ void LaneChangeInterface::updateData()
     module_type_->updateLaneChangeStatus();
   }
 
-  if (obstacle_stop_recovery_ && obstacle_stop_recovery_->enabled()) {
+  if (
+    module_type_->getModuleType() == LaneChangeModuleType::NORMAL && obstacle_stop_recovery_ &&
+    obstacle_stop_recovery_->enabled()) {
     // A queue can be much longer than the candidate's lane-change distance.
     // Treat a stopping signal ahead on the current lane sequence as signal waiting.
     const auto & reference = getPreviousModuleOutput().reference_path;
@@ -167,10 +165,10 @@ void LaneChangeInterface::updateData()
         (!parameters_->tactical_selection || !module_type_->isLaneChangeRequired()) &&
         (module_type_->isSafe() ||
          !module_type_->getLaneChangePath().info.speed_preparation_target.has_value()),
-      signal_wait, module_type_->getEgoVelocity(),
-      uuid_map_.at(""), registered && isActivated(), registered && is_rtc_force_deactivated());
+      signal_wait, module_type_->getEgoVelocity(), uuid_map_.at(""), registered && isActivated(),
+      registered && is_rtc_force_deactivated());
   } else if (obstacle_stop_recovery_) {
-    obstacle_stop_recovery_->reset();
+    obstacle_stop_recovery_->resetApproval();
   }
 
   module_type_->resetStopPose();
@@ -305,9 +303,10 @@ bool LaneChangeInterface::canTransitSuccessState()
   };
   updateDebugMarker();
 
-  if (isWaitingApproval() && parameters_->tactical_selection &&
-      module_type_->getModuleType() == LaneChangeModuleType::NORMAL &&
-      module_type_->isLaneChangeRequired()) {
+  if (
+    isWaitingApproval() && parameters_->tactical_selection &&
+    module_type_->getModuleType() == LaneChangeModuleType::NORMAL &&
+    module_type_->isLaneChangeRequired()) {
     // Retire a stale, unexecuted RTC request before even a queued activation can start it.
     // Never use tactical preference to cancel a RUNNING maneuver.
     log_debug_throttled("Retire unexecuted normal lane change after tactical re-evaluation.");

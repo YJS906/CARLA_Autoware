@@ -73,6 +73,7 @@ custom_packages=(
   autoware_behavior_path_planner
   autoware_behavior_path_planner_common
   autoware_behavior_path_static_obstacle_avoidance_module
+  autoware_behavior_velocity_intersection_module
   autoware_behavior_velocity_traffic_light_module
   vtd_ros2_bridge
 )

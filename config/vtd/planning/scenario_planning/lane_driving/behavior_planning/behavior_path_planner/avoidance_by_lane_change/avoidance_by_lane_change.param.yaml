@@ -1,7 +1,7 @@
 /**:
   ros__parameters:
     avoidance_by_lane_change:
-      execute_object_longitudinal_margin: 7.0  # Minimum obstacle distance, not a look-ahead limit.
+      execute_object_longitudinal_margin: 4.0  # Minimum obstacle distance, not a look-ahead limit.
       max_execution_distance: 35.0  # [m] New approvals only; keep long-range lookup/candidates.
       execute_only_when_lane_change_finish_before_object: false
       max_lane_changing_length_scale: 0.8

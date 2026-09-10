@@ -146,9 +146,8 @@ TEST_F(ObstacleAware, SamplesPreparationSpeedAndShorterShiftsBeforeStuck)
   ASSERT_GT(metrics.size(), 3u);
   EXPECT_TRUE(
     std::any_of(metrics.begin(), metrics.end(), [](const auto & m) { return m.duration < 1.0; }));
-  EXPECT_TRUE(std::any_of(metrics.begin(), metrics.end(), [](const auto & m) {
-    return m.actual_lon_accel < -0.1;
-  }));
+  EXPECT_TRUE(std::any_of(
+    metrics.begin(), metrics.end(), [](const auto & m) { return m.actual_lon_accel < -0.1; }));
   EXPECT_TRUE(std::any_of(metrics.begin(), metrics.end(), [](const auto & m) {
     return std::abs(m.actual_lon_accel) < 1e-5;
   }));
@@ -210,29 +209,18 @@ TEST_F(ObstacleAware, AllowsMergeBehindDistantCarButReservesStoppingSpace)
   EXPECT_FALSE(module.isStaticObstaclePathSafe(*candidate));
 }
 
-TEST_F(ObstacleAware, ReplansFromActualPoseAndRetainsApprovedTarget)
+TEST_F(ObstacleAware, LocalCollisionAloneKeepsApprovedCurve)
 {
   ObstacleLaneChange module;
-  module.odometry->pose.pose.position.y = 0.4;
-  module.odometry->pose.pose.orientation = autoware_utils::create_quaternion_from_yaw(0.08);
   const auto old = utils::lane_change::generate_low_speed_path(module.common(), 36.0, 1.5);
   ASSERT_TRUE(old);
   module.approve(*old);
   module.block(15.0, 0.0, 1.5);
   ASSERT_FALSE(module.isStaticObstaclePathSafe(*old));
-  ASSERT_TRUE(module.updateApprovedPath());
-  EXPECT_FALSE(module.isApprovedPathBlocked());
-  const auto replacement = module.getLaneChangePath();
-  EXPECT_EQ(replacement.path.points.front().point.pose, module.odometry->pose.pose);
-  EXPECT_LT(replacement.info.length.lane_changing, old->info.length.lane_changing);
-  EXPECT_TRUE(module.isStaticObstaclePathSafe(replacement));
-  EXPECT_EQ(module.getDirection(), Direction::LEFT);
+  EXPECT_FALSE(module.updateApprovedPath());
+  EXPECT_TRUE(module.isApprovedPathBlocked());
+  EXPECT_EQ(module.getLaneChangePath().path, old->path);
   EXPECT_EQ(module.common()->requested_target_lane_id, 101);
-  const auto prediction =
-    utils::lane_change::convert_to_predicted_paths(module.common(), replacement, 1, true);
-  ASSERT_EQ(prediction.size(), 1u);
-  EXPECT_EQ(prediction.front().front().pose, module.odometry->pose.pose);
-  EXPECT_NEAR(prediction.front().back().pose.position.y, 3.5, 0.01);
 }
 
 TEST_F(ObstacleAware, TruncatedContinuationCannotProveStoppingSpace)
@@ -276,19 +264,17 @@ TEST_F(ObstacleAware, FailedOrMovingReplanKeepsApprovedPath)
   EXPECT_EQ(module.common()->requested_target_lane_id, 101);
 }
 
-TEST_F(ObstacleAware, DownstreamStopCanReplanAClearNominalPath)
+TEST_F(ObstacleAware, ObstacleDistanceAloneDoesNotTranslateCurve)
 {
   ObstacleLaneChange module;
   auto old = utils::lane_change::generate_low_speed_path(module.common(), 16.0, 1.5);
   ASSERT_TRUE(old);
   old->type = lane_change::PathType::ConstantJerk;
   module.approve(*old);
-  module.block(28.0, 0.0);
   module.common()->transient_data.distance_to_static_obstacle = 5.0;
   ASSERT_TRUE(module.isStaticObstaclePathSafe(*old));
-  EXPECT_TRUE(module.updateApprovedPath());
-  EXPECT_EQ(module.getLaneChangePath().type, lane_change::PathType::LowSpeed);
   EXPECT_FALSE(module.updateApprovedPath());
+  EXPECT_EQ(module.getLaneChangePath().path, old->path);
   EXPECT_FALSE(module.isApprovedPathBlocked());
 }
 }  // namespace autoware::behavior_path_planner

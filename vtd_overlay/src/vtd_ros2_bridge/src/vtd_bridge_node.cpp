@@ -227,6 +227,14 @@ public:
       declare_parameter<bool>("publish_empty_obstacle_pointcloud", true);
     perception_object_max_range_m_ =
       declare_parameter<double>("perception.object_max_range_m", 200.0);
+    const auto min_object_height =
+      declare_parameter<double>("perception.object_min_height_m", 0.1);
+    if (!std::isfinite(min_object_height) || min_object_height < 0.0 ||
+        min_object_height > std::numeric_limits<float>::max()) {
+      throw std::invalid_argument("Invalid perception.object_min_height_m");
+    }
+    // VTD dimensions are float32: compare in the same precision so 0.1m is excluded too.
+    perception_object_min_height_m_ = static_cast<float>(min_object_height);
     const std::string geometry_ns = "perception.vehicle_geometry.";
     vehicle_geometry_.enabled = declare_parameter<bool>(geometry_ns + "enabled", true);
     vehicle_geometry_.min_length_m =
@@ -1191,6 +1199,10 @@ private:
     const double max_squared_range =
       perception_object_max_range_m_ * perception_object_max_range_m_;
     for (const auto & object : objects) {
+      // Both detections and the synthetic obstacle cloud use this filtered collection.
+      if (object.height <= perception_object_min_height_m_) {
+        continue;
+      }
       if (!filter_by_range) {
         perception_objects.push_back(object);
         continue;
@@ -2244,6 +2256,7 @@ private:
   bool publish_empty_occupancy_grid_{};
   bool publish_empty_obstacle_pointcloud_{};
   double perception_object_max_range_m_{};
+  float perception_object_min_height_m_{};
   VehicleGeometryParameters vehicle_geometry_;
   PedestrianSizeParameters pedestrian_classification_;
   double occupancy_grid_resolution_{};

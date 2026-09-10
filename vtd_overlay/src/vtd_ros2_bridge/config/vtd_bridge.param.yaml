@@ -60,6 +60,8 @@
     perception:
       # Publish only sensor-local objects to Autoware perception. /vtd/objects remains unfiltered.
       object_max_range_m: 200.0
+      # Exclude heights <= this value from detections and the synthetic obstacle pointcloud.
+      object_min_height_m: 0.1
       # Simulator heuristic: all three minima must pass; larger vehicles also use CAR.
       # Non-matching objects use the pedestrian templates below or remain UNKNOWN.
       vehicle_geometry:

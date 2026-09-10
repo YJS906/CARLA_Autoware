@@ -444,15 +444,26 @@ bool NormalLaneChange::is_near_regulatory_element() const
 
   if (common_data_ptr_->transient_data.is_ego_near_current_terminal_start) return false;
 
-  const bool only_tl = getStopTime() >= lane_change_parameters_->th_stop_time;
+  // Disable only the traffic-light proximity veto on candidate requests and waiting approvals.
+  // Do not change the shared regulatory-distance helper: candidate lengths, route-departure
+  // policy and stopped-path recovery still need the signal's distance. Signal stopping remains
+  // the responsibility of the downstream traffic-light module.
+  // Preserve the existing stopped-ego exception for crosswalks and intersections.
+  if (getStopTime() >= lane_change_parameters_->th_stop_time) return false;
 
-  if (only_tl) {
-    RCLCPP_DEBUG(logger_, "Stop time is over threshold. Ignore crosswalk and intersection checks.");
+  const auto & current_lanes = get_current_lanes();
+  const auto & current_pose = common_data_ptr_->get_ego_pose();
+  double distance = std::numeric_limits<double>::max();
+  if (lane_change_parameters_->regulate_on_intersection) {
+    distance = std::min(distance, utils::getDistanceToNextIntersection(current_pose, current_lanes));
   }
-
-  return common_data_ptr_->transient_data.max_prepare_length >
-         utils::lane_change::get_distance_to_next_regulatory_element(
-           common_data_ptr_, only_tl, only_tl);
+  if (lane_change_parameters_->regulate_on_crosswalk) {
+    distance = std::min(
+      distance, utils::getDistanceToCrosswalk(
+                  current_pose, current_lanes,
+                  *common_data_ptr_->route_handler_ptr->getOverallGraphPtr()));
+  }
+  return common_data_ptr_->transient_data.max_prepare_length > distance;
 }
 
 bool NormalLaneChange::isStoppedAtRedTrafficLight() const
@@ -853,6 +864,10 @@ void NormalLaneChange::resetParameters()
   speed_preparation_lane_id_ = lanelet::InvalId;
   approved_path_blocked_ = false;
   last_replan_time_.reset();
+  obstacle_stop_active_ = false;
+  stopped_curve_template_.reset();
+  stopped_curve_cursor_ = 0;
+  stopped_curve_offset_ = 0.0;
   is_abort_path_approved_ = false;
   is_abort_approval_requested_ = false;
   current_lane_change_state_ = LaneChangeStates::Normal;
@@ -1290,6 +1305,11 @@ std::vector<LaneChangePhaseMetrics> NormalLaneChange::get_prepare_metrics() cons
   metrics.erase(std::remove_if(metrics.begin(), metrics.end(), [](const auto & metric) {
     return metric.actual_lon_accel < -calculation::eps && !metric.braking_profile;
   }), metrics.end());
+  if (const auto fixed = calculation::fixed_multi_lane_prepare_duration(common_data_ptr_)) {
+    metrics.erase(std::remove_if(metrics.begin(), metrics.end(), [&](const auto & metric) {
+      return std::abs(metric.duration - *fixed) > calculation::eps;
+    }), metrics.end());
+  }
   const auto shift = std::abs(common_data_ptr_->transient_data.target_lanes_ego_arc.distance);
   const bool obstacle_limited =
     std::isfinite(common_data_ptr_->transient_data.distance_to_static_obstacle);
@@ -2199,7 +2219,9 @@ bool NormalLaneChange::is_colliding(
 
   constexpr auto is_safe{true};
   auto current_debug_data = utils::path_safety_checker::createObjectDebug(obj);
-  constexpr auto hysteresis_factor{1.0};
+  // Scale only the extra RSS clearance; the physical footprint is checked first and unchanged.
+  const auto hysteresis_factor = lane_change_parameters_->safety.polygon_expansion_scale;
+  if (!std::isfinite(hysteresis_factor) || hysteresis_factor <= 0.0) return is_colliding;
   const auto safety_check_max_vel = get_max_velocity_for_safety_check();
   const auto & bpp_param = *common_data_ptr_->bpp_param_ptr;
   const auto th_yaw_diff = common_data_ptr_->lc_param_ptr->safety.collision_check.th_yaw_diff;

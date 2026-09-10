@@ -80,12 +80,28 @@ void ObstacleStopRecovery::onFactors(const Factors::ConstSharedPtr & message)
   factors_ = message;
 }
 
-void ObstacleStopRecovery::reset()
+bool ObstacleStopRecovery::hasActiveStop()
+{
+  const double now = node_.now().seconds();
+  const double timeout = parameter("message_timeout");
+  std::lock_guard<std::mutex> lock(mutex_);
+  if (!factors_ || !received_at_ || !std::isfinite(timeout) || timeout <= 0.0) return false;
+  const double age = now - rclcpp::Time(factors_->header.stamp).seconds();
+  return now >= *received_at_ && now - *received_at_ <= timeout && age >= 0.0 && age <= timeout &&
+         hasStop(*factors_, parameter("stop_distance"));
+}
+
+void ObstacleStopRecovery::resetApproval()
 {
   timer_.reset();
   requested_uuid_.reset();
   if (pending_) client_->remove_pending_request(*pending_);
   pending_.reset();
+}
+
+void ObstacleStopRecovery::reset()
+{
+  resetApproval();
   std::lock_guard<std::mutex> lock(mutex_);
   factors_.reset();
   received_at_.reset();

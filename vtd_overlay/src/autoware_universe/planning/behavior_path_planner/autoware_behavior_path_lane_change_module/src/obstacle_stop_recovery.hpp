@@ -57,8 +57,11 @@ public:
     bool waiting, bool valid, bool blocked_by_signal, double ego_speed, const UUID & uuid,
     bool already_activated, bool force_deactivated);
   void reset();
+  void resetApproval();
   double signalQueueDistance() const;
   bool enabled() const;
+  // Read-only stop feedback, independent of automatic RTC approval.
+  bool hasActiveStop();
 
 private:
   void onFactors(const Factors::ConstSharedPtr & message);

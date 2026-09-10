@@ -69,6 +69,10 @@ LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::s
     return node->has_parameter(name) ? node->get_parameter(name).as_bool()
                                      : node->declare_parameter<bool>(name, value);
   };
+  const auto get_double_with_default = [&](const std::string & name, const double value) {
+    return node->has_parameter(name) ? node->get_parameter(name).as_double()
+                                     : node->declare_parameter<double>(name, value);
+  };
   if (get_bool_with_default("lane_change.tactical_selection.enable", false)) {
     p.tactical_selection = lane_change::TacticalLaneSelection::shared(*node);
   }
@@ -79,6 +83,8 @@ LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::s
       get_or_declare_parameter<double>(*node, parameter("trajectory.max_prepare_duration"));
     p.trajectory.min_prepare_duration =
       get_or_declare_parameter<double>(*node, parameter("trajectory.min_prepare_duration"));
+    p.trajectory.multi_lane_prepare_duration =
+      get_double_with_default(parameter("trajectory.multi_lane_prepare_duration"), 0.0);
     p.trajectory.enable_lateral_acceleration_limit = get_bool_with_default(
       parameter("trajectory.enable_lateral_acceleration_limit"), true);
     p.trajectory.enable_lateral_jerk_limit = get_bool_with_default(
@@ -161,6 +167,8 @@ LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::s
 
   // safety
   {
+    p.safety.polygon_expansion_scale =
+      get_double_with_default(parameter("safety_check.polygon_expansion_scale"), 1.0);
     p.safety.enable_loose_check_for_cancel =
       get_or_declare_parameter<bool>(*node, parameter("safety_check.allow_loose_check_for_cancel"));
     p.safety.enable_target_lane_bound_check = get_or_declare_parameter<bool>(
@@ -443,6 +451,8 @@ void LaneChangeModuleManager::updateModuleParams(const std::vector<rclcpp::Param
       parameters, ns + "max_prepare_duration", p->trajectory.max_prepare_duration);
     update_param<double>(
       parameters, ns + "min_prepare_duration", p->trajectory.min_prepare_duration);
+    update_param<double>(
+      parameters, ns + "multi_lane_prepare_duration", p->trajectory.multi_lane_prepare_duration);
     update_param<double>(parameters, ns + "lateral_jerk", p->trajectory.lateral_jerk);
     update_param<double>(
       parameters, ns + "min_lane_changing_velocity", p->trajectory.min_lane_changing_velocity);
@@ -621,6 +631,9 @@ void LaneChangeModuleManager::updateModuleParams(const std::vector<rclcpp::Param
   };
 
   update_rss_params("lane_change.safety_check.prepare.", p->safety.rss_params_for_prepare);
+  update_param<double>(
+    parameters, "lane_change.safety_check.polygon_expansion_scale",
+    p->safety.polygon_expansion_scale);
   update_rss_params("lane_change.safety_check.execution.", p->safety.rss_params);
   update_rss_params("lane_change.safety_check.parked.", p->safety.rss_params_for_parked);
   update_rss_params("lane_change.safety_check.cancel.", p->safety.rss_params_for_abort);
