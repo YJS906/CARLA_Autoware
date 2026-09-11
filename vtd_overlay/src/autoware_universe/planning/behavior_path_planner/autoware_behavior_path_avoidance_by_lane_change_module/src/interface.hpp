@@ -50,7 +50,11 @@ public:
 
   bool isExecutionReady() const override;
 
+  void updateData() override;
+
 protected:
+  void synchronizePendingRequest(const std::optional<UUID> & previous_target);
+
   // LaneChangeInterface starts in WAITING_APPROVAL. Use that state machine rather than
   // latching the legacy waitApproval() flag, which does not clear on RTC auto approval.
   void updateRTCStatus(const double start_distance, const double finish_distance) override;

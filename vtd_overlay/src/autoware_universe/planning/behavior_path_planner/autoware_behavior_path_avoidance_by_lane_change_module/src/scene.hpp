@@ -55,8 +55,15 @@ public:
 
   PathSafetyStatus isApprovedPathSafe() const override;
 
+  std::optional<UUID> getPendingTargetId() const { return pending_target_id_; }
+
 private:
   friend class TestAvoidanceByLaneChange;
+  friend class TestAvoidanceRequestLifecycle;
+
+  bool isRecedingTarget(const AvoidancePlanningData & data, const ObjectData & object) const;
+  void updatePendingTarget(const ObjectData * target);
+  std::optional<UUID> pending_target_id_;
 
   std::shared_ptr<AvoidanceByLCParameters> avoidance_parameters_;
 

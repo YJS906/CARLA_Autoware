@@ -70,6 +70,34 @@ bool AvoidanceByLaneChangeInterface::isExecutionReady() const
   return within_execution_window && LaneChangeInterface::isExecutionReady();
 }
 
+void AvoidanceByLaneChangeInterface::updateData()
+{
+  const auto previous_target =
+    static_cast<const AvoidanceByLaneChange &>(*module_type_).getPendingTargetId();
+  LaneChangeInterface::updateData();
+  synchronizePendingRequest(previous_target);
+}
+
+void AvoidanceByLaneChangeInterface::synchronizePendingRequest(
+  const std::optional<UUID> & previous_target)
+{
+  if (!isWaitingApproval()) return;
+  const auto target =
+    static_cast<const AvoidanceByLaneChange &>(*module_type_).getPendingTargetId();
+  if (target == previous_target) return;
+
+  // Retire only this candidate. Another module may share the same RTC interface.
+  // A new object must receive a new UUID, so queued approval of the old object cannot transfer.
+  for (const auto & [side, rtc] : rtc_interface_ptr_map_) {
+    auto & uuid = uuid_map_.at(side);
+    if (rtc && rtc->isRegistered(uuid)) rtc->removeCooperateStatus(uuid);
+    uuid = generate_uuid();
+  }
+  resetPathCandidate();
+  stop_pose_.reset();
+  slow_pose_.reset();
+}
+
 void AvoidanceByLaneChangeInterface::updateRTCStatus(
   const double start_distance, const double finish_distance)
 {

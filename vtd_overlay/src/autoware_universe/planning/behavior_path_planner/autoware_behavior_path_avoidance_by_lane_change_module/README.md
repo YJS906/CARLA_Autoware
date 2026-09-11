@@ -10,14 +10,29 @@ reference path from ego to the object's buffered envelope, using the existing
 avoidance distance calculation (not Euclidean distance to the object's center).
 
 Object lookup, lane occupancy checks and candidate planning retain their longer
-horizons. Only a **new execution request/approval** requires a finite positive
-target distance at or below 35 m. Existing minimum maneuver distance and safety
-checks remain mandatory; being within 35 m does not guarantee approval.
+horizons. A **new lateral approval** requires a finite positive target distance at
+or below 35 m. Early longitudinal preparation may retain a waiting candidate
+outside that window while the triggering obstacle still requires avoidance.
+Existing minimum maneuver distance and safety checks remain mandatory.
 
-Pending RTC requests are withdrawn if the target disappears or moves outside the
-window before the transition to execution. Once RUNNING, the distance limit does
-not revoke approval; existing collision/abort handling remains in effect. Normal
-route-following lane changes are not subject to this obstacle-avoidance limit.
+A moving object no longer triggers a waiting/new avoidance request when its current
+physical footprint is entirely beyond this distance and its forward speed along
+the reference path exceeds ego speed by more than 0.2 m/s. Its lateral speed must
+be at most its forward speed; crossing, oncoming, slower and close objects
+keep their existing evaluation. The configured moving speed/time thresholds and
+a fresh perception stamp (relative to odometry, -0.1 to 0.5 seconds) are required.
+The check uses current geometry because an accumulated static envelope may retain
+the old position of a moving object. Objects excluded as receding still participate
+in collision checking, and their cached avoidance envelopes are removed to prevent
+dropout compensation from restoring the retired trigger.
+
+When the pending trigger disappears or changes UUID, its candidate and saved speed
+preparation target/profile are cleared before generating another candidate. The
+interface removes only its own RTC entries and allocates new request UUIDs, so an
+old approval cannot transfer to another object. Necessary preparation for the same
+blocker remains available. Once RUNNING, this release logic does not revoke the
+approved maneuver; existing collision/abort handling remains in effect. Normal
+route-following lane changes are not subject to this obstacle-avoidance policy.
 
 ## Route-first selection
 

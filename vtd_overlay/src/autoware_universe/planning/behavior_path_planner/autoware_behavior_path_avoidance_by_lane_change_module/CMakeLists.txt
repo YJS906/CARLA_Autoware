@@ -8,11 +8,16 @@ pluginlib_export_plugin_description_file(autoware_behavior_path_planner plugins.
 ament_auto_add_library(${PROJECT_NAME} SHARED
   src/scene.cpp
   src/route_policy.cpp
+  src/request_lifecycle.cpp
   src/manager.cpp
   src/interface.cpp
 )
 
 if(BUILD_TESTING)
+  ament_add_ros_isolated_gmock(test_request_lifecycle test/test_request_lifecycle.cpp)
+  target_link_libraries(test_request_lifecycle ${PROJECT_NAME})
+  target_include_directories(test_request_lifecycle PRIVATE src)
+
   ament_add_ros_isolated_gmock(test_speed_preparation_gate test/test_speed_preparation_gate.cpp)
   target_link_libraries(test_speed_preparation_gate ${PROJECT_NAME})
   target_include_directories(test_speed_preparation_gate PRIVATE src)

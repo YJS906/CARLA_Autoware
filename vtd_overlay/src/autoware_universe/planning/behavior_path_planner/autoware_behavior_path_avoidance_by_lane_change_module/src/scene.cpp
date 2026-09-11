@@ -187,15 +187,11 @@ bool AvoidanceByLaneChange::specialExpiredCheck() const
   // The base interface applies this expiration only while WAITING_APPROVAL, before its RTC
   // transition to RUNNING. Withdraw a stale request even if a prior cycle was safe/approved;
   // an already RUNNING maneuver is never cancelled merely because its target distance changes.
+  if (direction_ == Direction::NONE) return true;
+
   if (!isExecutionDistanceSatisfied()) {
     // The configured distance window gates lateral APPROVAL, not early longitudinal preparation.
     return !hasSpeedPreparationRequest();
-  }
-
-  // No selected side means there is no RTC request to approve. Expire the candidate instead of
-  // letting the common "no registered requests" transition treat it as executable.
-  if (direction_ == Direction::NONE) {
-    return true;
   }
 
   // Do not drop a safe candidate during the one-cycle auto-approval hand-off merely because the
@@ -214,6 +210,20 @@ void AvoidanceByLaneChange::updateSpecialData()
   avoidance_debug_data_ = DebugData();
   avoidance_data_ = calcAvoidancePlanningData(avoidance_debug_data_);
 
+  // Fresh evidence that a target has departed must also remove its cached envelope; otherwise
+  // a subsequent perception dropout can resurrect the retired obstacle through compensation.
+  registered_objects_.erase(
+    std::remove_if(
+      registered_objects_.begin(), registered_objects_.end(), [&](const auto & stored) {
+        return std::any_of(
+          avoidance_data_.other_objects.begin(), avoidance_data_.other_objects.end(),
+          [&](const auto & other) {
+            return other.info == ObjectInfo::MOVING_OBJECT &&
+                   other.object.object_id == stored.object.object_id;
+          });
+      }),
+    registered_objects_.end());
+
   // Stabilize the obstacle used for the early lane-change decision before selecting a side. A
   // one-frame perception dropout must not let static avoidance claim the exclusive slot first.
   auto current_target_objects = avoidance_data_.target_objects;
@@ -227,6 +237,7 @@ void AvoidanceByLaneChange::updateSpecialData()
     [](const auto & a, const auto & b) { return a.longitudinal < b.longitudinal; });
 
   const auto * nearest_avoidance_target = getNearestAvoidanceTarget();
+  updatePendingTarget(nearest_avoidance_target);
   if (nearest_avoidance_target) {
     applyObstacleVelocityLimit();
     if (lane_change_parameters_->tactical_selection && isExecutionDistanceSatisfied()) {
@@ -601,9 +612,10 @@ void AvoidanceByLaneChange::fillAvoidanceTargetObjects(
 
     // A passed object must not sort ahead of every forward obstacle and suppress the request.
     // It remains visible to the lane-change safety checker through the other-object collection.
-    if (target_lane_object->longitudinal <= 0.0) {
+    const bool receding = isRecedingTarget(data, *target_lane_object);
+    if (target_lane_object->longitudinal <= 0.0 || receding) {
       ObjectData other_object = *target_lane_object;
-      other_object.info = ObjectInfo::OUT_OF_TARGET_AREA;
+      other_object.info = receding ? ObjectInfo::MOVING_OBJECT : ObjectInfo::OUT_OF_TARGET_AREA;
       data.other_objects.push_back(std::move(other_object));
       continue;
     }
