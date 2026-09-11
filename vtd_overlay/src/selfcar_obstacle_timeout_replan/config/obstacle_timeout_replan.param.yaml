@@ -1,0 +1,11 @@
+/**:
+  ros__parameters:
+    enabled: true
+    obstacle_timeout: 10.0
+    standstill_timeout: 20.0
+    short_green_window: 10.0
+    stopped_velocity: 0.1
+    message_timeout: 0.5
+    forget_after: 2.0
+    stop_distance: 2.0
+    signal_queue_distance: 100.0

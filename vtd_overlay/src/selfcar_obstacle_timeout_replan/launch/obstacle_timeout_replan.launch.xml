@@ -1,0 +1,11 @@
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="input_objects" default="/perception/object_recognition/objects"/>
+  <arg name="output_objects" default="/planning/obstacle_timeout_replan/objects"/>
+  <node pkg="selfcar_obstacle_timeout_replan" exec="obstacle_timeout_replan" name="obstacle_timeout_replan" output="screen">
+    <param from="$(find-pkg-share selfcar_obstacle_timeout_replan)/config/obstacle_timeout_replan.param.yaml"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <remap from="~/input/objects" to="$(var input_objects)"/>
+    <remap from="~/output/objects" to="$(var output_objects)"/>
+  </node>
+</launch>

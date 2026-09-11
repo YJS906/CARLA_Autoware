@@ -39,6 +39,9 @@ COPY docker/files/patch_tier4_planning_launch.py /opt/selfcar-tools/patch_tier4_
 RUN source /opt/ros/jazzy/setup.bash && \
     python3 /opt/selfcar-tools/patch_tier4_planning_launch.py
 
+COPY docker/files/patch_obstacle_timeout_replan_launch.py /opt/selfcar-tools/patch_obstacle_timeout_replan_launch.py
+RUN python3 /opt/selfcar-tools/patch_obstacle_timeout_replan_launch.py
+
 # Install tracked VTD configuration into the same package-share locations the
 # existing Autoware launch files use. This preserves launch arguments while
 # making the configuration part of the immutable image layer.

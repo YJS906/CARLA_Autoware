@@ -1,0 +1,15 @@
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="input_pointcloud" default="/perception/obstacle_segmentation/pointcloud"/>
+  <arg name="input_objects" default="/perception/object_recognition/objects"/>
+  <arg name="input_detected_objects" default="/perception/object_recognition/detection/objects"/>
+  <arg name="output_pointcloud" default="/control/aeb_object_filter/pointcloud"/>
+  <node pkg="selfcar_obstacle_timeout_replan" exec="aeb_object_filter" name="aeb_object_filter" output="screen">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <remap from="~/input/pointcloud" to="$(var input_pointcloud)"/>
+    <remap from="~/input/objects" to="$(var input_objects)"/>
+    <remap from="~/input/detected_objects" to="$(var input_detected_objects)"/>
+    <remap from="~/input/excluded_objects" to="/planning/obstacle_timeout_replan/excluded_objects"/>
+    <remap from="~/output/pointcloud" to="$(var output_pointcloud)"/>
+  </node>
+</launch>
