@@ -22,6 +22,7 @@
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/safety_check.hpp"
 #include "autoware/behavior_path_planner_common/utils/traffic_light_utils.hpp"
 #include "obstacle_stop_recovery.hpp"
+#include "drivable_area_recovery.hpp"
 
 #include <autoware_utils/ros/marker_helper.hpp>
 #include <autoware_utils/system/time_keeper.hpp>
@@ -57,6 +58,8 @@ LaneChangeInterface::LaneChangeInterface(
   logger_ = utils::lane_change::getLogger(module_type_->getModuleTypeStr());
   ObstacleStopRecovery::declareParameters(node);
   obstacle_stop_recovery_ = std::make_shared<ObstacleStopRecovery>(node, name);
+  DrivableAreaRecovery::declareParameters(node);
+  drivable_area_recovery_ = std::make_shared<DrivableAreaRecovery>(node);
 }
 
 void LaneChangeInterface::processOnExit()
@@ -64,6 +67,7 @@ void LaneChangeInterface::processOnExit()
   forced_stop_started_.reset();
   forced_stop_last_update_.reset();
   if (obstacle_stop_recovery_) obstacle_stop_recovery_->reset();
+  if (drivable_area_recovery_) drivable_area_recovery_->reset();
   module_type_->resetParameters();
   debug_marker_.markers.clear();
   post_process_safety_status_ = {};
@@ -127,6 +131,17 @@ void LaneChangeInterface::updateData()
   module_type_->updateSpecialData();
   if (auto * normal = dynamic_cast<NormalLaneChange *>(module_type_.get())) {
     normal->setObstacleStopActive(obstacle_stop_recovery_->hasActiveStop());
+    const bool eligible = getCurrentStatus() == ModuleStatus::RUNNING &&
+      !is_rtc_force_deactivated() && !module_type_->isAbortState() &&
+      module_type_->isValidPath() && planner_data_ && planner_data_->operation_mode &&
+      planner_data_->operation_mode->mode == OperationModeState::AUTONOMOUS &&
+      planner_data_->operation_mode->is_autoware_control_enabled;
+    if (drivable_area_recovery_->shouldReplan(
+          eligible, module_type_->getEgoVelocity(), module_type_->getEgoPose(),
+          module_type_->getLaneChangePath().path) && normal->replanAfterDrivableAreaStop()) {
+      drivable_area_recovery_->onReplanned();
+      post_process_safety_status_ = {};
+    }
   }
 
   if (
@@ -334,6 +349,8 @@ bool LaneChangeInterface::canTransitSuccessState()
   const bool forced_running_stop =
     getCurrentStatus() == ModuleStatus::RUNNING && is_rtc_force_activated() &&
     module_type_->isValidPath() && !module_type_->isAbortState() &&
+    !drivable_area_recovery_->hasActiveStop(
+      module_type_->getEgoPose(), module_type_->getLaneChangePath().path) &&
     std::isfinite(ego_velocity) && std::abs(ego_velocity) <= stopped_velocity;
   if (!forced_running_stop) {
     forced_stop_started_.reset();

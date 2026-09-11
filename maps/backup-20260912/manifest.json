@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "map_relative_path": "HL_FMA_VTD_LivingLab_topology_fixed",
+  "archive": {
+    "path": "map.tar.gz",
+    "bytes": 22164727,
+    "sha256": "db503b3f7c75aa676926e65b9b73c362a2e7625d2ad304b3c421b2a8ae6e6761"
+  },
+  "files": [
+    {
+      "path": "HL_FMA_VTD_LivingLab_laneoffset_fixed.xodr",
+      "bytes": 8585410,
+      "sha256": "5d2f45f7bf33418b5233a634ec45ef12a096470b6438bf5d87a770c6b39979b9"
+    },
+    {
+      "path": "lanelet2_map.osm",
+      "bytes": 141856522,
+      "sha256": "f3b4546b310c40626257c7fd37856bf1a64041113cb87a11f2ce5990fda4b851"
+    },
+    {
+      "path": "map_projector_info.yaml",
+      "bytes": 22,
+      "sha256": "a6fb6af33e164e61a075f9a79eeffa5eca3ead4435dc3de49e811525175b8307"
+    },
+    {
+      "path": "pointcloud_map.pcd",
+      "bytes": 168,
+      "sha256": "ec51d0881846efd920ede10bd5c63ce59732a422e23fe848f74bb606b38278b6"
+    }
+  ]
+}

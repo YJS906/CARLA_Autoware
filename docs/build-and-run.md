@@ -1,5 +1,8 @@
 # Reproducible VTD build and run
 
+For the 2026-09-12 backup, including the bridge and map, use
+[the existing-PC update guide](update-existing-pc-20260912.md).
+
 This repository's VTD path uses a digest-pinned Autoware CUDA/Jazzy base image
 and builds the tracked source overlay into `/opt/selfcar_overlay`. It does not
 mount source files or `.so` files from a developer home directory.
@@ -19,7 +22,7 @@ bridge additionally mounts the VTD installation for its simulator connection.
 ```bash
 git clone https://github.com/DCAM1/selfcar_2026_.git
 cd selfcar_2026_
-git checkout chore/reproducible-vtd-source
+git checkout backup-20260912-intersection-exit
 cp .env.example .env
 # Edit .env: set AUTOWARE_MAP_DIR, AUTOWARE_ML_MODELS_DIR,
 # VTD_MAP_DIR, VTD_MAP_RELATIVE_PATH, VTD_INSTALL_DIR and DISPLAY.
@@ -88,21 +91,24 @@ preview. If map matching fails, the raw CSV points remain visible without a
 fabricated matched route. Direction and goal validation are informational by
 default; use `--strict-validation` to make them block route submission.
 
-When no saved preview exists, bridge startup creates it from
-`AUTOWARE_CSV_PREVIEW_CSV` (default: `$HOME/route_example.csv`). This bootstrap is
+Every bridge/preview process start rebuilds the preview from
+`AUTOWARE_CSV_PREVIEW_CSV` (default: `$HOME/route_example.csv`), replacing the previous
+saved visualization even when the filename is unchanged. This refresh is
 **visualization only**: it does not call the route API or wait for Autoware, localization,
 engagement or a running simulation clock. Raw points are saved/published before map matching;
-matching failure leaves those points visible. A valid saved preview, including user overrides,
-takes precedence over the bootstrap CSV. An explicit CSV load during bootstrap cannot be
-overwritten by the background match result.
+matching failure leaves those points visible. A missing or invalid CSV preserves the last
+saved preview and reports the refresh failure. During the run, explicit CSV loads and user
+overrides remain visible; the startup refresh runs only once. An explicit load during startup
+cannot be overwritten by the background match result. Starting the bridge again reloads the
+configured CSV, including when earlier overrides were saved.
 
 `./autoware` (or the `autoware_run` wrapper) without a CSV argument restores or
 initializes **only the visualization**. It never resubmits the saved driving route.
 An explicit CSV argument still requests route submission as before. State is
 stored under `${XDG_STATE_HOME:-$HOME/.local/state}/selfcar/csv-preview` by default;
 set `AUTOWARE_CSV_PREVIEW_DIR` in `.env` to override it. The state is separate from
-the image and keyed by map path; a map-content hash prevents replay on a different
-map. After changing map contents, load the CSV again. `--dry-run` and `--no-preview`
+the image and keyed by map path. The map hash is recorded as provenance; startup refresh
+matches against the current map. `--dry-run` and `--no-preview`
 do not update saved state. Missing/unreadable bootstrap CSV is reported; it does not prevent
 restoring an existing valid saved preview or stop the bridge's other functions.
 
@@ -178,8 +184,8 @@ external VTD installation:
 ```
 
 `./vtd_bridge` checks `.env`, `VTD_INSTALL_DIR`, and the locally built image,
-then starts the bridge through Docker Compose. The RDB server defaults to
-`VTD_RDB_HOST` from `.env`, or `127.0.0.1` when the variable is omitted. A
+then starts the bridge through Docker Compose. The HLVTD host defaults to
+`HLVTD_HOST` from `.env`, or `127.0.0.1` when the variable is omitted. A
 one-time address can be supplied without editing files:
 
 ```bash

@@ -88,7 +88,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--state", required=True, type=Path)
     parser.add_argument("--map", required=True, type=Path, dest="map_path")
-    parser.add_argument("--csv", type=Path, help="create missing saved preview from this CSV")
+    parser.add_argument("--csv", type=Path, help="refresh the preview from this CSV on every start")
     args = parser.parse_args()
 
     import rclpy
@@ -114,13 +114,21 @@ def main() -> int:
             self.messages: dict[str, Any] = {}
             self.state_version = None
             self.last_error = None
+            self.refresh_on_startup = args.csv is not None
             # Continue republishing when simulation time stops or jumps backwards.
             self.wall_clock = Clock(clock_type=ClockType.STEADY_TIME)
             self.timer = self.create_timer(1.0, self.tick, clock=self.wall_clock)
             self.get_logger().info(f"CSV preview only; persistent state: {args.state}")
             self.tick()
 
-        def bootstrap(self) -> None:
+        def bootstrap(self, *, replace_existing: bool = False) -> None:
+            # Snapshot before parsing/matching so an explicit load performed during
+            # startup wins over this automatic refresh.
+            expected_saved_at_ns = None
+            if replace_existing and args.state.exists():
+                expected_saved_at_ns = json.loads(
+                    args.state.read_text(encoding="utf-8")
+                )["saved_at_ns"]
             # Import only parsing, map matching and marker rendering. Never invoke
             # the setter main(), create a route client, or wait for Autoware.
             from set_route_from_csv import (
@@ -144,12 +152,14 @@ def main() -> int:
             renderer = RoutePreviewPublisher(self, "map", state_path=str(args.state))
             raw_messages = renderer.render_messages(points)
             version = save_preview_state(
-                args.state, metadata, raw_messages, only_if_absent=True,
+                args.state, metadata, raw_messages,
+                only_if_absent=expected_saved_at_ns is None,
+                expected_saved_at_ns=expected_saved_at_ns,
             )
             if version is None:
                 return  # An explicit load won the race; restore that saved preview.
             self.get_logger().info(
-                f"Created missing CSV preview from {metadata['source_csv']} "
+                f"Refreshed CSV preview from {metadata['source_csv']} "
                 f"({len(points)} checkpoints); visualization only, no route request"
             )
             # Publish original points before map matching, and retain them on failure.
@@ -178,12 +188,19 @@ def main() -> int:
 
         def tick(self) -> None:
             try:
-                # The simulator keeps the same map coordinate frame across file edits.
-                # Restore the saved coordinates independently of map hash/mtime. The
-                # map is needed only to generate a missing preview, not to display it.
-                if not args.state.exists():
+                if self.refresh_on_startup:
+                    self.refresh_on_startup = False
+                    try:
+                        self.bootstrap(replace_existing=True)
+                    except (OSError, ValueError, KeyError, TypeError) as error:
+                        self.get_logger().warning(
+                            f"CSV startup refresh failed; restoring saved preview: {error}"
+                        )
+                elif not args.state.exists():
                     self.state_version = None
                     self.bootstrap()
+                # After startup, restore explicit loads/overrides from the saved
+                # state. Do not keep replacing them with the startup CSV.
                 stat = args.state.stat()
                 version = (stat.st_ino, stat.st_mtime_ns, stat.st_size)
                 if version != self.state_version:

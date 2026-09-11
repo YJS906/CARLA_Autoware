@@ -5,12 +5,14 @@ import math
 import struct
 import unittest
 
+import numpy as np
+
 from autoware_perception_msgs.msg import DetectedObject, DetectedObjects, PredictedObject, PredictedObjects, Shape
 from geometry_msgs.msg import Transform
 from rclpy.serialization import serialize_message
 from sensor_msgs.msg import PointCloud2, PointField
 
-from selfcar_obstacle_timeout_replan.cloud_geometry import associate_detection_boxes, filter_cloud
+from selfcar_obstacle_timeout_replan.cloud_geometry import associate_detection_boxes, filter_cloud, rotation
 
 
 def box(uid=1, x=5.0, y=0.0, yaw=0.0):
@@ -100,6 +102,32 @@ class TestCloudGeometry(unittest.TestCase):
         self.objects.objects[0].kinematics.initial_pose_with_covariance.pose.position.z = 1.0
         out2, count2 = self.apply(msg, z_is_ground=False)
         self.assertEqual((bytes(out2.data), count2), (bytes(out.data), count))
+
+    def test_tilted_ego_tf_matches_bridge_cloud_and_preserves_new_uuid(self):
+        # Ego is at map (100,200), facing +Y. The bridge puts these boxes at
+        # base (10,0) and (20,0), regardless of the roll/pitch reported in TF.
+        self.objects.objects = [box(x=100.0, y=210.0, yaw=math.pi / 2),
+                                box(uid=2, x=100.0, y=220.0, yaw=math.pi / 2)]
+        msg = cloud([(8, 0, 2, 1), (8, 1, 1, 2), (18, 0, 2, 3), (40, 40, 4, 4)])
+        msg.header.frame_id = "base_link"
+        for roll_deg, pitch_deg in ((0.0, -2.6), (4.0, 3.0)):
+            with self.subTest(roll=roll_deg, pitch=pitch_deg):
+                roll, pitch, yaw = math.radians(roll_deg), math.radians(pitch_deg), math.pi / 2
+                cr, sr = math.cos(roll / 2), math.sin(roll / 2)
+                cp, sp = math.cos(pitch / 2), math.sin(pitch / 2)
+                cy, sy = math.cos(yaw / 2), math.sin(yaw / 2)
+                # Inverse of the ego's full 3D pose, as supplied by TF.
+                q = self.transform.rotation
+                q.x = -(sr * cp * cy - cr * sp * sy)
+                q.y = -(cr * sp * cy + sr * cp * sy)
+                q.z = -(cr * cp * sy - sr * sp * cy)
+                q.w = cr * cp * cy + sr * sp * sy
+                offset = -(rotation(q) @ np.array([100.0, 200.0, 0.0]))
+                t = self.transform.translation
+                t.x, t.y, t.z = map(float, offset)
+                output, removed = self.apply(msg)
+                self.assertEqual(removed, 2)
+                self.assertEqual(bytes(output.data), bytes(msg.data)[32:])
 
     def test_nonfinite_points_preserved(self):
         msg = cloud([(3, 0, 0, 11), (float('nan'), 0, 0, 12)])

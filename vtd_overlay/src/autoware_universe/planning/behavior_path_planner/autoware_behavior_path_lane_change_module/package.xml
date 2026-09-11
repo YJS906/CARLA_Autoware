@@ -24,12 +24,14 @@
   <depend>autoware_frenet_planner</depend>
   <depend>autoware_lanelet2_utils</depend>
   <depend>autoware_motion_utils</depend>
+  <depend>autoware_interpolation</depend>
   <depend>autoware_rtc_interface</depend>
   <depend>autoware_utils</depend>
   <depend>fmt</depend>
   <depend>pluginlib</depend>
   <depend>range-v3</depend>
   <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
   <depend>tier4_rtc_msgs</depend>
   <depend>visualization_msgs</depend>
 

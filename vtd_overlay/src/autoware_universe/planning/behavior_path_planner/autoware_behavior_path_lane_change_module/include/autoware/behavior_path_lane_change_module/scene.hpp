@@ -62,6 +62,7 @@ public:
   void updateLaneChangeStatus() override;
 
   bool updateApprovedPath() override;
+  bool replanAfterDrivableAreaStop();
 
   void setObstacleStopActive(bool active) { obstacle_stop_active_ = active; }
 
@@ -242,6 +243,7 @@ protected:
   std::optional<LaneChangePath> stopped_curve_template_;
   size_t stopped_curve_cursor_{0};
   double stopped_curve_offset_{0.0};
+  size_t boundary_replan_cursor_{0};
   // Keep the selected longitudinal target until hand-off/reset, not an unsafe lateral path.
   mutable std::optional<double> speed_preparation_target_;
   mutable lanelet::Id speed_preparation_lane_id_{lanelet::InvalId};

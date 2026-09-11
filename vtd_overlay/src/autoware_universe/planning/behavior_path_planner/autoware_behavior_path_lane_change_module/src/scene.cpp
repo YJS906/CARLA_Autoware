@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "autoware/behavior_path_lane_change_module/utils/intersection_exit.hpp"
 #include "autoware/behavior_path_lane_change_module/scene.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/tactical_lane_selection.hpp"
 
@@ -375,6 +376,13 @@ std::pair<bool, bool> NormalLaneChange::getSafePath(LaneChangePath & safe_path) 
     valid_paths.push_back(terminal_lane_change_path_.value());
   }
 
+  // An early exit maneuver is invalid geometry, including cached or force-approval fallback.
+  const auto premature = [&](const auto & path) {
+    return utils::lane_change::starts_before_intersection_exit(
+      common_data_ptr_, path.info.lane_changing_start);
+  };
+  if (found_safe_path && !valid_paths.empty() && premature(valid_paths.back())) found_safe_path = false;
+  valid_paths.erase(std::remove_if(valid_paths.begin(), valid_paths.end(), premature), valid_paths.end());
   lane_change_debug_.valid_paths = valid_paths;
 
   if (valid_paths.empty()) {
@@ -876,6 +884,7 @@ void NormalLaneChange::resetParameters()
   stopped_curve_template_.reset();
   stopped_curve_cursor_ = 0;
   stopped_curve_offset_ = 0.0;
+  boundary_replan_cursor_ = 0;
   is_abort_path_approved_ = false;
   is_abort_approval_requested_ = false;
   current_lane_change_state_ = LaneChangeStates::Normal;
@@ -939,7 +948,8 @@ lanelet::ConstLanelets NormalLaneChange::get_lane_change_lanes(
   // generation has the same usable distance on every map without changing map lanelet IDs.
   if (
     !target_lanes.empty() && signed_distance > 0.0 &&
-    lane_change_parameters_->trajectory.target_lane_backward_overlap_length > 0.0) {
+    lane_change_parameters_->trajectory.target_lane_backward_overlap_length > 0.0 &&
+    !utils::lane_change::is_intersection_exit_target(target_lanes.front(), current_lanes, direction_)) {
     const auto extended_target = utils::lane_change::extend_target_lane_backward(
       target_lanes.front(), current_lanes, direction_,
       lane_change_parameters_->trajectory.target_lane_backward_overlap_length);
@@ -1485,6 +1495,8 @@ bool NormalLaneChange::get_path_using_frenet(
             RCLCPP_DEBUG(logger_, "%s", e.what());
             continue;
           }
+          if (utils::lane_change::starts_before_intersection_exit(
+                common_data_ptr_, candidate_path_opt->info.lane_changing_start)) continue;
           if (hasNarrowAvoidanceLanding(*candidate_path_opt)) continue;
           bool accepted = false;
           try {
@@ -1608,6 +1620,8 @@ bool NormalLaneChange::get_path_using_path_shifter(
 
         // Reject an unusable landing before collision checks or speed adaptation. Retiming
         // cannot widen the target; keep searching other geometries/targets instead.
+        if (utils::lane_change::starts_before_intersection_exit(
+              common_data_ptr_, candidate_path.info.lane_changing_start)) continue;
         if (hasNarrowAvoidanceLanding(candidate_path)) continue;
 
         // A curvature-speed failure is a new speed target, not proof that the geometry cannot
@@ -1805,6 +1819,8 @@ std::optional<PathWithLaneId> NormalLaneChange::compute_terminal_lane_change_pat
         utils::combinePath(prepare_segment, terminal_lane_change_path_->shifted_path.path);
     }
     if (
+      !utils::lane_change::starts_before_intersection_exit(
+        common_data_ptr_, terminal_lane_change_path_->info.lane_changing_start) &&
       !hasNarrowAvoidanceLanding(*terminal_lane_change_path_) &&
       isStaticObstaclePathSafe(*terminal_lane_change_path_))
       return terminal_lane_change_path_->path;
@@ -1849,6 +1865,8 @@ std::optional<PathWithLaneId> NormalLaneChange::compute_terminal_lane_change_pat
     } catch (const std::exception & e) {
       continue;
     }
+    if (utils::lane_change::starts_before_intersection_exit(
+          common_data_ptr_, candidate_path.info.lane_changing_start)) continue;
     if (hasNarrowAvoidanceLanding(candidate_path) || !isStaticObstaclePathSafe(candidate_path)) continue;
     terminal_lane_change_path_ = candidate_path;
     return candidate_path.path;

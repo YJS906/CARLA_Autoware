@@ -15,6 +15,7 @@
 #include "autoware/behavior_path_lane_change_module/manager.hpp"
 
 #include "obstacle_stop_recovery.hpp"
+#include "drivable_area_recovery.hpp"
 
 #include "autoware/behavior_path_lane_change_module/interface.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/tactical_lane_selection.hpp"
@@ -37,6 +38,7 @@ void LaneChangeModuleManager::init(rclcpp::Node * node)
   // Declare before the planner installs its parameter callback. Declaring while a
   // candidate is constructed under the planner mutex would re-enter that mutex.
   ObstacleStopRecovery::declareParameters(*node);
+  DrivableAreaRecovery::declareParameters(*node);
   // init manager interface
   initInterface(node, {""});
   initParams(node);
@@ -44,6 +46,7 @@ void LaneChangeModuleManager::init(rclcpp::Node * node)
 
 LCParamPtr LaneChangeModuleManager::set_params(rclcpp::Node * node, const std::string & node_name)
 {
+  DrivableAreaRecovery::declareParameters(*node);
   using autoware_utils::get_or_declare_parameter;
 
   LaneChangeParameters p{};

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "autoware/behavior_path_lane_change_module/utils/intersection_exit.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/path.hpp"
 
 #include "autoware/behavior_path_lane_change_module/structs/data.hpp"
@@ -450,6 +451,7 @@ bool get_prepare_segment(
   // TODO(Quda, Azu): Is it possible to remove these checks if we ensure prepare segment length is
   // larger than distance to target lane start
   if (!is_valid_start_point(common_data_ptr, lc_start_pose)) return false;
+  if (starts_before_intersection_exit(common_data_ptr, lc_start_pose)) return false;
 
   // lane changing start is at the end of prepare segment
   const auto target_length_from_lane_change_start_pose =

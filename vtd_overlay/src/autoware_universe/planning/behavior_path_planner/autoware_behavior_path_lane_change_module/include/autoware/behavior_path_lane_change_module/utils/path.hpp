@@ -109,6 +109,11 @@ LaneChangePath construct_candidate_path(
 std::optional<LaneChangePath> generate_low_speed_path(
   const CommonDataPtr & data, double target_distance, double velocity);
 
+// Intersection-exit recovery: follow the source reference before starting the lateral curve.
+// The caller checks the complete footprint against the actual map corridor and traffic safety.
+std::optional<LaneChangePath> generate_exit_lane_change_path(
+  const CommonDataPtr & data, double prepare_distance, double target_distance, double velocity);
+
 // Rigidly translates the remaining approved curve and continuation along the source lane.
 // Only the connector from the stopped ego to that curve is interpolated.
 std::optional<LaneChangePath> translate_approved_curve(

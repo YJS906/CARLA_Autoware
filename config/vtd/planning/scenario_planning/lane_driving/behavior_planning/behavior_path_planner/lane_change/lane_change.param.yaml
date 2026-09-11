@@ -1,6 +1,12 @@
 /**:
   ros__parameters:
     lane_change:
+      drivable_area_recovery:
+        enabled: true
+        duration: 10.0 # [s] persistent nearby boundary stop while an approved maneuver is stopped
+        retry_interval: 1.0 # [s] bounded alternative search; no speed/RTC override
+        message_timeout: 0.5 # [s] stale or interrupted feedback resets the wait
+        stop_distance: 2.0 # [m] only a stop near ego triggers recovery
       tactical_selection:
         enable: true # shared local corridor ranking; no final-return path reservation
       # Explicit RTC force approval for a valid candidate after obstacle_stop persists.

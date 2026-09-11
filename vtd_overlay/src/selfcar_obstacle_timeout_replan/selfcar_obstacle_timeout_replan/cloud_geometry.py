@@ -107,6 +107,7 @@ def filter_cloud(cloud, objects, ignored_ids, transform, *, margin=0.1, z_is_gro
     """Return (cloud, removed_count). Unchanged messages retain their exact bytes.
 
     transform maps the object frame into the cloud frame at the cloud timestamp.
+    Match the bridge's yaw-only cloud projection even when ego TF has roll/pitch.
     VTD flattens tracked object z to ground; its synthetic cloud still has box height.
     Only points close to TWO box faces (an edge) can belong to a VTD box wireframe.
     Any non-excluded object's expanded volume protects its points from exclusion.
@@ -121,6 +122,16 @@ def filter_cloud(cloud, objects, ignored_ids, transform, *, margin=0.1, z_is_gro
                             transform.translation.z])
     if not np.isfinite(translation).all():
         raise ValueError("invalid transform")
+    # publish_vtd_obstacle_pointcloud subtracts ego position and rotates XY by
+    # ego yaw only. Its base_link-labelled wireframe does not include ego tilt.
+    # Recover the map-frame ego origin BEFORE dropping roll/pitch: keeping the
+    # full-TF translation with a yaw-only rotation shifts the entire cloud.
+    ego_rotation = cloud_rotation.T
+    ego_position = -(ego_rotation @ translation)
+    ego_yaw = np.arctan2(ego_rotation[1, 0], ego_rotation[0, 0])
+    cosine, sine = np.cos(ego_yaw), np.sin(ego_yaw)
+    cloud_rotation = np.array([[cosine, sine, 0.0], [-sine, cosine, 0.0], [0.0, 0.0, 1.0]])
+    translation = -(cloud_rotation @ ego_position)
     dt = (cloud.header.stamp.sec - objects.header.stamp.sec
           + (cloud.header.stamp.nanosec - objects.header.stamp.nanosec) * 1e-9)
     remove = np.zeros(len(xyz), dtype=bool)

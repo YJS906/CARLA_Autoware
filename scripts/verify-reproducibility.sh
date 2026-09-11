@@ -27,7 +27,9 @@ else
   pass "active runtime path has no developer home/overlay reference"
 fi
 
-if rg -n '\.so' docker/vtd docker/examples/basic/dev-nvidia.compose.yaml 2>/dev/null; then
+# Image-layer library copies are expected; only runtime Compose files must be
+# independent of shared libraries built on the host.
+if rg -n '\.so' docker/vtd/compose.yaml docker/examples/basic/dev-nvidia.compose.yaml 2>/dev/null; then
   fail "runtime compose contains a shared-library reference"
 else
   pass "runtime compose has no host .so mount"
@@ -69,7 +71,10 @@ fi
 
 custom_packages=(
   autoware_mission_planner_universe
+  autoware_path_optimizer
   autoware_behavior_path_lane_change_module
+  autoware_behavior_path_avoidance_by_lane_change_module
+  autoware_behavior_path_external_request_lane_change_module
   autoware_behavior_path_planner
   autoware_behavior_path_planner_common
   autoware_behavior_path_static_obstacle_avoidance_module

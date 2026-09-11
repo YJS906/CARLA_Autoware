@@ -46,6 +46,7 @@ using geometry_msgs::msg::Pose;
 using geometry_msgs::msg::Twist;
 
 class ObstacleStopRecovery;
+class DrivableAreaRecovery;
 
 class LaneChangeInterface : public SceneModuleInterface
 {
@@ -104,6 +105,7 @@ protected:
   std::unique_ptr<LaneChangeBase> module_type_;
 
   std::shared_ptr<ObstacleStopRecovery> obstacle_stop_recovery_;
+  std::shared_ptr<DrivableAreaRecovery> drivable_area_recovery_;
 
   PathSafetyStatus post_process_safety_status_;
 

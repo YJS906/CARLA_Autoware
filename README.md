@@ -46,6 +46,10 @@ Autoware is the world's leading open-source autonomous driving framework. Autowa
 
 ## Selfcar 2026 VTD runtime
 
+**2026-09-12 최신 백업(브릿지·지도 포함), 구버전 PC 업데이트:**
+[Codex 인수인계 및 설치 가이드](docs/update-existing-pc-20260912.md).
+고정 태그: `backup-20260912-intersection-exit`.
+
 This branch preserves the local VTD Autoware changes as complete ROS 2 source
 packages under `vtd_overlay/src/` and the runtime configuration under
 `config/vtd/`. The custom overlay is built into an immutable image; host-built
@@ -67,7 +71,7 @@ model, and VTD installation assets, then run:
 ```bash
 git clone https://github.com/DCAM1/selfcar_2026_.git
 cd selfcar_2026_
-git checkout chore/reproducible-vtd-source
+git checkout backup-20260912-intersection-exit
 cp .env.example .env
 # Edit .env with the external asset paths.
 ./scripts/verify-reproducibility.sh

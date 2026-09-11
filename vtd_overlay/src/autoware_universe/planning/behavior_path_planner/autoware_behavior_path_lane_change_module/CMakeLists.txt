@@ -8,6 +8,8 @@ pluginlib_export_plugin_description_file(autoware_behavior_path_planner plugins.
 ament_auto_add_library(${PROJECT_NAME} SHARED
   src/interface.cpp
   src/obstacle_stop_recovery.cpp
+  src/drivable_area_recovery.cpp
+  src/boundary_replan.cpp
   src/manager.cpp
   src/scene.cpp
   src/obstacle_aware.cpp
@@ -19,11 +21,23 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/utils/utils.cpp
   src/utils/path.cpp
   src/utils/low_speed.cpp
+  src/utils/intersection_exit.cpp
+  src/utils/exit_lane_change.cpp
   src/utils/translated_curve.cpp
   src/utils/target_landing.cpp
 )
 
 if(BUILD_TESTING)
+  ament_add_gtest(test_intersection_exit test/test_intersection_exit.cpp)
+  target_link_libraries(test_intersection_exit ${PROJECT_NAME})
+  add_executable(current_boundary_recovery test/current_boundary_recovery.cpp)
+  target_link_libraries(current_boundary_recovery ${PROJECT_NAME})
+  ament_add_gtest(test_boundary_feedback test/test_drivable_area_recovery.cpp)
+  target_include_directories(test_boundary_feedback PRIVATE src)
+  target_link_libraries(test_boundary_feedback ${PROJECT_NAME})
+
+  ament_add_gtest(test_boundary_replan test/test_obstacle_aware.cpp)
+  target_link_libraries(test_boundary_replan ${PROJECT_NAME})
   ament_add_gtest(test_target_landing test/test_target_landing.cpp)
   target_link_libraries(test_target_landing ${PROJECT_NAME})
 

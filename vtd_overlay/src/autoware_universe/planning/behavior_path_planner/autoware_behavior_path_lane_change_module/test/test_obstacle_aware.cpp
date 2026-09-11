@@ -116,6 +116,13 @@ public:
     is_activated_ = true;
   }
   using NormalLaneChange::check_candidate_path_safety;
+  void prepare_boundary_recovery()
+  {
+    // The synthetic pair is the whole corridor; no routing graph is needed for this fixture.
+    direction_ = Direction::NONE;
+    common_data_ptr_->transient_data.is_ego_stuck = true;
+    lane_change_parameters_->stopped_replan_velocity = 1.5;
+  }
   using NormalLaneChange::isStaticObstaclePathSafe;
   auto common() { return common_data_ptr_; }
   auto params() { return lane_change_parameters_; }
@@ -276,5 +283,53 @@ TEST_F(ObstacleAware, ObstacleDistanceAloneDoesNotTranslateCurve)
   EXPECT_FALSE(module.updateApprovedPath());
   EXPECT_EQ(module.getLaneChangePath().path, old->path);
   EXPECT_FALSE(module.isApprovedPathBlocked());
+}
+TEST_F(ObstacleAware, BoundaryReplanStartsAtEgoAndRetainsApprovedTarget)
+{
+  ObstacleLaneChange module;
+  const auto old = utils::lane_change::generate_low_speed_path(module.common(), 36.0, 1.5);
+  ASSERT_TRUE(old);
+  module.approve(*old);
+  module.prepare_boundary_recovery();
+  module.odometry->pose.pose.position.x = 2.0;
+  module.odometry->pose.pose.position.y = 0.5;
+  module.odometry->pose.pose.orientation = autoware_utils::create_quaternion_from_yaw(0.12);
+  ASSERT_TRUE(module.replanAfterDrivableAreaStop());
+  const auto replacement = module.getLaneChangePath();
+  EXPECT_EQ(replacement.path.points.front().point.pose, module.odometry->pose.pose);
+  EXPECT_NE(replacement.path, old->path);
+  EXPECT_EQ(module.common()->requested_target_lane_id, 101);
+  EXPECT_TRUE(module.isSafe());
+  EXPECT_TRUE(module.isStaticObstaclePathSafe(replacement));
+  EXPECT_LE(replacement.info.terminal_lane_changing_velocity, 1.5);
+}
+
+TEST_F(ObstacleAware, BoundaryReplanFailureAndMotionKeepOldPath)
+{
+  ObstacleLaneChange module;
+  const auto old = utils::lane_change::generate_low_speed_path(module.common(), 36.0, 1.5);
+  ASSERT_TRUE(old);
+  module.approve(*old);
+  module.prepare_boundary_recovery();
+  module.odometry->twist.twist.linear.x = 0.2;
+  EXPECT_FALSE(module.replanAfterDrivableAreaStop());
+  EXPECT_EQ(module.getLaneChangePath().path, old->path);
+  module.odometry->twist.twist.linear.x = 0.0;
+  module.block(4.0, 1.75, 12.0);
+  EXPECT_FALSE(module.replanAfterDrivableAreaStop());
+  EXPECT_EQ(module.getLaneChangePath().path, old->path);
+  EXPECT_EQ(module.common()->requested_target_lane_id, 101);
+}
+
+TEST_F(ObstacleAware, BoundaryReplanRejectsFootprintAlreadyOutsideLegalCorridor)
+{
+  ObstacleLaneChange module;
+  const auto old = utils::lane_change::generate_low_speed_path(module.common(), 36.0, 1.5);
+  ASSERT_TRUE(old);
+  module.approve(*old);
+  module.prepare_boundary_recovery();
+  module.odometry->pose.pose.position.y = -1.7;
+  EXPECT_FALSE(module.replanAfterDrivableAreaStop());
+  EXPECT_EQ(module.getLaneChangePath().path, old->path);
 }
 }  // namespace autoware::behavior_path_planner

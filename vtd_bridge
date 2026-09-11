@@ -12,8 +12,8 @@ Usage: ./vtd_bridge [HLVTD_HOST]
 Start the VTD ROS 2 bridge from the repository-built Docker image.
 The HLVTD host defaults to HLVTD_HOST from .env, or 127.0.0.1.
 Inter-PC traffic is limited to TCP 9910, RTSP 8554 and UDP 9912.
-The bridge also restores CSV RViz markers, or creates them from
-AUTOWARE_CSV_PREVIEW_CSV (default: $HOME/route_example.csv) when no saved preview exists.
+The bridge refreshes CSV RViz markers from AUTOWARE_CSV_PREVIEW_CSV
+(default: $HOME/route_example.csv) on every start, even when saved markers exist.
 It never submits a driving route. Set VTD_BRIDGE_DETACHED=1 for a detached start.
 
 Examples:
