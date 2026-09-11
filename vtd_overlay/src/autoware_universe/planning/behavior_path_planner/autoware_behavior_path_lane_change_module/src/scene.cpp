@@ -17,6 +17,7 @@
 
 #include "autoware/behavior_path_lane_change_module/utils/calculation.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/path.hpp"
+#include "autoware/behavior_path_lane_change_module/utils/target_landing.hpp"
 #include "autoware/behavior_path_lane_change_module/utils/utils.hpp"
 #include "autoware/behavior_path_planner_common/utils/drivable_area_expansion/static_drivable_area.hpp"
 #include "autoware/behavior_path_planner_common/utils/path_safety_checker/objects_filtering.hpp"
@@ -368,7 +369,9 @@ std::pair<bool, bool> NormalLaneChange::getSafePath(LaneChangePath & safe_path) 
   bool found_safe_path = get_lane_change_paths(valid_paths);
   // if no safe path is found and ego is stuck, try to find a path with a small margin
 
-  if (valid_paths.empty() && terminal_lane_change_path_) {
+  if (
+    valid_paths.empty() && terminal_lane_change_path_ &&
+    !hasNarrowAvoidanceLanding(*terminal_lane_change_path_)) {
     valid_paths.push_back(terminal_lane_change_path_.value());
   }
 
@@ -821,19 +824,25 @@ std::optional<PathWithLaneId> NormalLaneChange::extendPath()
                                      target_lanes, path.points.back().point.pose)
                                      .length;
 
+  const auto extend_to = [&](const double end) -> std::optional<PathWithLaneId> {
+    // A zero-length request makes RouteHandler add a synthetic 0.1 m point for yaw.
+    // At a lane/route end that point is outside the mapped corridor, not an extension.
+    if (end <= dist_to_end_of_path + 1e-6) return std::nullopt;
+    return getRouteHandler()->getCenterLinePath(target_lanes, dist_to_end_of_path, end);
+  };
+
   if (common_data_ptr_->lanes_ptr->target_lane_in_goal_section) {
     const auto goal_pose = getRouteHandler()->getGoalPose();
 
     const auto dist_to_goal =
       autoware::experimental::lanelet2_utils::get_arc_coordinates(target_lanes, goal_pose).length;
 
-    return getRouteHandler()->getCenterLinePath(target_lanes, dist_to_end_of_path, dist_to_goal);
+    return extend_to(dist_to_goal);
   }
 
   lanelet::ConstLanelet next_lane;
   if (!getRouteHandler()->getNextLaneletWithinRoute(target_lanes.back(), &next_lane)) {
-    return getRouteHandler()->getCenterLinePath(
-      target_lanes, dist_to_end_of_path, transient_data.target_lane_length);
+    return extend_to(transient_data.target_lane_length);
   }
 
   target_lanes.push_back(next_lane);
@@ -850,8 +859,7 @@ std::optional<PathWithLaneId> NormalLaneChange::extendPath()
   const auto dist_to_target_pose =
     autoware::experimental::lanelet2_utils::get_arc_coordinates(target_lanes, target_pose).length;
 
-  return getRouteHandler()->getCenterLinePath(
-    target_lanes, dist_to_end_of_path, dist_to_target_pose);
+  return extend_to(dist_to_target_pose);
 }
 
 void NormalLaneChange::resetParameters()
@@ -1477,6 +1485,7 @@ bool NormalLaneChange::get_path_using_frenet(
             RCLCPP_DEBUG(logger_, "%s", e.what());
             continue;
           }
+          if (hasNarrowAvoidanceLanding(*candidate_path_opt)) continue;
           bool accepted = false;
           try {
             accepted = check_candidate_path_safety(*candidate_path_opt, target_objects);
@@ -1597,6 +1606,10 @@ bool NormalLaneChange::get_path_using_path_shifter(
           continue;
         }
 
+        // Reject an unusable landing before collision checks or speed adaptation. Retiming
+        // cannot widen the target; keep searching other geometries/targets instead.
+        if (hasNarrowAvoidanceLanding(candidate_path)) continue;
+
         // A curvature-speed failure is a new speed target, not proof that the geometry cannot
         // be followed. Regenerate preparation AND lateral geometry with reachable braking.
         std::optional<double> speed_limit;
@@ -1637,6 +1650,23 @@ bool NormalLaneChange::get_path_using_path_shifter(
 
   RCLCPP_DEBUG(logger_, "No safety path found.");
   return false;
+}
+
+bool NormalLaneChange::hasNarrowAvoidanceLanding(const LaneChangePath & candidate_path) const
+{
+  if (getModuleType() != LaneChangeModuleType::AVOIDANCE_BY_LANE_CHANGE || is_activated_) {
+    return false;
+  }
+  const auto narrow = utils::lane_change::find_narrow_target_landing(
+    get_target_lanes(), candidate_path.info.lane_changing_end,
+    planner_data_->parameters.vehicle_info);
+  if (!narrow) return false;
+  RCLCPP_INFO_THROTTLE(
+    logger_, clock_, 3000,
+    "Reject avoidance landing: target=%lld width=%.3f m vehicle=%.3f m offset=%.2f m",
+    static_cast<long long>(narrow->lane_id), narrow->width,
+    planner_data_->parameters.vehicle_info.vehicle_width_m, narrow->longitudinal_offset);
+  return true;
 }
 
 bool NormalLaneChange::check_candidate_path_safety(
@@ -1774,7 +1804,9 @@ std::optional<PathWithLaneId> NormalLaneChange::compute_terminal_lane_change_pat
       terminal_lane_change_path_->path =
         utils::combinePath(prepare_segment, terminal_lane_change_path_->shifted_path.path);
     }
-    if (isStaticObstaclePathSafe(*terminal_lane_change_path_))
+    if (
+      !hasNarrowAvoidanceLanding(*terminal_lane_change_path_) &&
+      isStaticObstaclePathSafe(*terminal_lane_change_path_))
       return terminal_lane_change_path_->path;
     terminal_lane_change_path_.reset();
     return std::nullopt;
@@ -1817,7 +1849,7 @@ std::optional<PathWithLaneId> NormalLaneChange::compute_terminal_lane_change_pat
     } catch (const std::exception & e) {
       continue;
     }
-    if (!isStaticObstaclePathSafe(candidate_path)) continue;
+    if (hasNarrowAvoidanceLanding(candidate_path) || !isStaticObstaclePathSafe(candidate_path)) continue;
     terminal_lane_change_path_ = candidate_path;
     return candidate_path.path;
   }

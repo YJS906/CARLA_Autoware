@@ -18,12 +18,37 @@
 #include <autoware/motion_utils/trajectory/trajectory.hpp>
 #include <autoware/traffic_light_utils/traffic_light_utils.hpp>
 
+#include <algorithm>
 #include <limits>
 #include <memory>
 
 namespace autoware::behavior_path_planner::utils::traffic_light
 {
 using autoware::motion_utils::calcSignedArcLength;
+
+namespace
+{
+bool requiresSignalWait(
+  const lanelet::ConstLanelet & lanelet,
+  const autoware_perception_msgs::msg::TrafficLightGroup & signal)
+{
+  using Element = autoware_perception_msgs::msg::TrafficLightElement;
+  // Explicit UNKNOWN reports are ignored. Flashing amber's single stop is owned
+  // by the velocity planner, rather than the persistent red-light waiting gates.
+  // Empty observations and any simultaneous solid/directional signal retain the
+  // existing traffic_light_utils decision.
+  if (
+    !signal.elements.empty() &&
+    std::all_of(signal.elements.begin(), signal.elements.end(), [](const auto & element) {
+      return element.color == Element::UNKNOWN ||
+             (element.color == Element::AMBER && element.shape == Element::CIRCLE &&
+              element.status == Element::FLASHING);
+    })) {
+    return false;
+  }
+  return autoware::traffic_light_utils::isTrafficSignalStop(lanelet, signal);
+}
+}  // namespace
 
 double getDistanceToNextTrafficLight(
   const Pose & current_pose, const lanelet::ConstLanelets & lanelets)
@@ -98,8 +123,7 @@ std::optional<double> calcDistanceToRedTrafficLight(
         continue;
       }
 
-      if (!autoware::traffic_light_utils::isTrafficSignalStop(
-            lanelet, traffic_signal_stamped.value().signal)) {
+      if (!requiresSignalWait(lanelet, traffic_signal_stamped.value().signal)) {
         continue;
       }
 
@@ -149,8 +173,7 @@ bool isTrafficSignalStop(
         continue;
       }
 
-      if (autoware::traffic_light_utils::isTrafficSignalStop(
-            lanelet, traffic_signal_stamped.value().signal)) {
+      if (requiresSignalWait(lanelet, traffic_signal_stamped.value().signal)) {
         return true;
       }
     }

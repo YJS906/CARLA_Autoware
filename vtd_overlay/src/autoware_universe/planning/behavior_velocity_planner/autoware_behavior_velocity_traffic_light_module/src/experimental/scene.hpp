@@ -15,6 +15,8 @@
 #ifndef EXPERIMENTAL__SCENE_HPP_
 #define EXPERIMENTAL__SCENE_HPP_
 
+#include "../traffic_signal_policy.hpp"
+
 #define EIGEN_MPL2_ONLY
 
 #include <autoware/behavior_velocity_rtc_interface/experimental/scene_module_interface_with_rtc.hpp>
@@ -66,6 +68,7 @@ public:
     double yellow_lamp_period;
     double yellow_light_stop_velocity;
     double stop_time_hysteresis;
+    traffic_signal_policy::FlashingStopParameters flashing_stop;
     bool enable_pass_judge;
     // Enable arrow-aware passing logic for yellow signals in turn lanes.
     bool enable_arrow_aware_yellow_passing;
@@ -149,6 +152,8 @@ private:
 
   // State
   State state_;
+  traffic_signal_policy::FlashingStop flashing_stop_;
+  traffic_signal_policy::Signal signal_policy_{traffic_signal_policy::Signal::NORMAL};
 
   // Parameter
   PlannerParam planner_param_;

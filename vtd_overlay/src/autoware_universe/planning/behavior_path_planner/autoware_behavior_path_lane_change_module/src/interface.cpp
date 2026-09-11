@@ -29,6 +29,7 @@
 #include <fmt/format.h>
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include <memory>
 #include <string>
@@ -60,6 +61,8 @@ LaneChangeInterface::LaneChangeInterface(
 
 void LaneChangeInterface::processOnExit()
 {
+  forced_stop_started_.reset();
+  forced_stop_last_update_.reset();
   if (obstacle_stop_recovery_) obstacle_stop_recovery_->reset();
   module_type_->resetParameters();
   debug_marker_.markers.clear();
@@ -298,6 +301,11 @@ void LaneChangeInterface::setData(const std::shared_ptr<const PlannerData> & dat
 
 bool LaneChangeInterface::canTransitSuccessState()
 {
+  if (module_type_->isCancelState()) {
+    forced_stop_started_.reset();
+    forced_stop_last_update_.reset();
+    return false;
+  }
   auto log_debug_throttled = [&](std::string_view message) -> void {
     RCLCPP_DEBUG(getLogger(), "%s", message.data());
   };
@@ -316,6 +324,37 @@ bool LaneChangeInterface::canTransitSuccessState()
   if (module_type_->specialExpiredCheck() && isWaitingApproval()) {
     log_debug_throttled("Run specialExpiredCheck.");
     return true;
+  }
+
+  // Count only a continuous stop after force approval has entered RUNNING. The regular
+  // stuck timer includes WAITING_APPROVAL, so reusing it would finish immediately on activation.
+  constexpr double stopped_velocity = 1e-3;  // [m/s], tolerate numerical noise around zero.
+  constexpr double stopped_duration = 3.0;   // [s]
+  const auto ego_velocity = module_type_->getEgoVelocity();
+  const bool forced_running_stop =
+    getCurrentStatus() == ModuleStatus::RUNNING && is_rtc_force_activated() &&
+    module_type_->isValidPath() && !module_type_->isAbortState() &&
+    std::isfinite(ego_velocity) && std::abs(ego_velocity) <= stopped_velocity;
+  if (!forced_running_stop) {
+    forced_stop_started_.reset();
+    forced_stop_last_update_.reset();
+  } else {
+    const auto now = clock_->now();
+    if (
+      !forced_stop_started_ || !forced_stop_last_update_ || now < *forced_stop_last_update_ ||
+      (now - *forced_stop_last_update_).seconds() > 0.5) {
+      forced_stop_started_ = now;
+    }
+    forced_stop_last_update_ = now;
+    if ((now - *forced_stop_started_).seconds() >= stopped_duration) {
+      RCLCPP_WARN(
+        getLogger(), "Complete force-activated lane change after %.1f s stopped (speed=%.6f m/s)",
+        stopped_duration, ego_velocity);
+      forced_stop_started_.reset();
+      forced_stop_last_update_.reset();
+      module_type_->resetParameters();
+      return true;
+    }
   }
 
   if (module_type_->hasFinishedLaneChange()) {

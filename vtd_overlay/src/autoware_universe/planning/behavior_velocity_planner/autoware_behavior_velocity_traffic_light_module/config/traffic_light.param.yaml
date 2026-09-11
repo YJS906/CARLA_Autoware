@@ -10,6 +10,11 @@
       enable_arrow_aware_yellow_passing: false
       enable_rtc: false # If set to true, the scene modules require approval from the rtc (request to cooperate) function. If set to false, the modules can be executed without requiring rtc approval
 
+      flashing:
+        stop_duration: 1.0 # [s] one continuous stop per signal approach
+        stop_velocity: 0.01 # [m/s] measured standstill threshold
+        stop_distance: 1.0 # [m] tolerance around the planned stop pose
+
       restart_suppression:
         min_behind_distance_to_stop: 0.5 #[m]
         max_behind_distance_to_stop: 1.0 #[m]

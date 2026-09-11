@@ -37,6 +37,14 @@ TrafficLightModuleManager::TrafficLightModuleManager(rclcpp::Node & node)
     get_or_declare_parameter<double>(node, ns + ".tl_state_timeout");
   planner_param_.stop_time_hysteresis =
     get_or_declare_parameter<double>(node, ns + ".stop_time_hysteresis");
+  const auto flashing_parameter = [&node, &ns](const std::string & name, double value) {
+    const auto key = ns + ".flashing." + name;
+    return node.has_parameter(key) ? node.get_parameter(key).as_double()
+                                   : node.declare_parameter<double>(key, value);
+  };
+  planner_param_.flashing_stop.duration = flashing_parameter("stop_duration", 1.0);
+  planner_param_.flashing_stop.velocity = flashing_parameter("stop_velocity", 0.01);
+  planner_param_.flashing_stop.distance = flashing_parameter("stop_distance", 1.0);
   planner_param_.enable_pass_judge =
     get_or_declare_parameter<bool>(node, ns + ".enable_pass_judge");
   planner_param_.yellow_lamp_period =

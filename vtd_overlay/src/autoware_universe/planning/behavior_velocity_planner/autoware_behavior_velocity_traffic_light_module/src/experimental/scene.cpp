@@ -22,6 +22,7 @@
 #include <tf2_eigen/tf2_eigen.hpp>
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
 #include <memory>
 #include <string>
@@ -75,6 +76,9 @@ bool TrafficLightModule::modifyPathVelocity(
     RCLCPP_WARN_STREAM_ONCE(
       logger_,
       "Failed to calculate stop point for regulatory element id " << traffic_light_reg_elem_.id());
+    flashing_stop_.update(
+      false, clock_->now().seconds(), 0.0, 0.0, planner_param_.flashing_stop,
+      planner_param_.tl_state_timeout);
     setSafe(true);
     setDistance(std::numeric_limits<double>::lowest());
     return false;
@@ -100,7 +104,14 @@ bool TrafficLightModule::modifyPathVelocity(
     first_stop_point_s_ = stop_point_s;
 
     // Check if stop is coming.
-    const bool is_stop_signal = isStopSignal(planner_data);
+    bool is_stop_signal = isStopSignal(planner_data);
+    const bool is_flashing = signal_policy_ == traffic_signal_policy::Signal::FLASHING_AMBER;
+    const auto & velocity = planner_data.current_velocity->twist.linear;
+    const bool flashing_stop_required = flashing_stop_.update(
+      is_flashing, clock_->now().seconds(), signed_arc_length_to_stop_point,
+      std::hypot(velocity.x, velocity.y, velocity.z), planner_param_.flashing_stop,
+      planner_param_.tl_state_timeout);
+    if (is_flashing) is_stop_signal = flashing_stop_required;
 
     // Update stop signal received time
     if (!is_stop_signal) {
@@ -114,11 +125,13 @@ bool TrafficLightModule::modifyPathVelocity(
       stop_signal_received_time_ptr_
         ? std::max((clock_->now() - *stop_signal_received_time_ptr_).seconds(), 0.0)
         : 0.0;
-    bool to_be_stopped =
-      is_stop_signal && (is_prev_state_stop_ || time_diff > planner_param_.stop_time_hysteresis);
+    bool to_be_stopped = is_stop_signal && (is_flashing || is_prev_state_stop_ ||
+                                            time_diff > planner_param_.stop_time_hysteresis);
 
     debug_data_.is_remaining_time_used = false;
-    if (planner_param_.v2i_use_remaining_time) {
+    if (
+      planner_param_.v2i_use_remaining_time &&
+      signal_policy_ == traffic_signal_policy::Signal::NORMAL) {
       const bool will_traffic_light_turn_red_before_reaching_stop_line =
         willTrafficLightTurnRedBeforeReachingStopLine(
           signed_arc_length_to_stop_point, planner_data);
@@ -150,7 +163,7 @@ bool TrafficLightModule::modifyPathVelocity(
     }
 
     // Decide whether to stop or pass even if a stop signal is received.
-    if (!isPassthrough(signed_arc_length_to_stop_point, planner_data)) {
+    if (flashing_stop_required || !isPassthrough(signed_arc_length_to_stop_point, planner_data)) {
       path = insertStopVelocity(path, *stop_point_s, planner_data);
       is_prev_state_stop_ = true;
     }
@@ -162,6 +175,7 @@ bool TrafficLightModule::modifyPathVelocity(
     if (use_initialization_after_start && signed_arc_length_to_stop_point > restart_length) {
       RCLCPP_DEBUG(logger_, "GO_OUT(RESTART) -> APPROACH");
       state_ = State::APPROACH;
+      flashing_stop_.reset();
     }
     stop_signal_received_time_ptr_.reset();
     return true;
@@ -172,6 +186,8 @@ bool TrafficLightModule::modifyPathVelocity(
 
 bool TrafficLightModule::isStopSignal(const PlannerData & planner_data)
 {
+  signal_policy_ = traffic_signal_policy::Signal::NORMAL;
+
   // Store previous state before updating
   prev_looking_tl_state_ = looking_tl_state_;
 
@@ -189,6 +205,13 @@ bool TrafficLightModule::isStopSignal(const PlannerData & planner_data)
   // Stop if the traffic signal information has timed out
   if (isTrafficSignalTimedOut()) {
     return true;
+  }
+
+  signal_policy_ = traffic_signal_policy::classify(looking_tl_state_);
+  if (signal_policy_ != traffic_signal_policy::Signal::NORMAL) {
+    yellow_transition_state_ = YellowState::kNotYellow;
+    // The distance/speed-aware flashing stop is handled by modifyPathVelocity.
+    return signal_policy_ == traffic_signal_policy::Signal::FLASHING_AMBER;
   }
 
   // Check if current state is yellow

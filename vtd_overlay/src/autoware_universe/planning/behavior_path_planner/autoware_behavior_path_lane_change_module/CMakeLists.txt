@@ -20,9 +20,13 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   src/utils/path.cpp
   src/utils/low_speed.cpp
   src/utils/translated_curve.cpp
+  src/utils/target_landing.cpp
 )
 
 if(BUILD_TESTING)
+  ament_add_gtest(test_target_landing test/test_target_landing.cpp)
+  target_link_libraries(test_target_landing ${PROJECT_NAME})
+
   ament_add_gtest(test_translated_curve test/test_translated_curve.cpp)
   target_link_libraries(test_translated_curve ${PROJECT_NAME})
   add_executable(test_corridor_choice test/test_corridor_choice.cpp)

@@ -19,6 +19,7 @@ if(BUILD_TESTING)
   test/test_utils.cpp
   test/test_node_interface.cpp
   test/test_traffic_light_module.cpp
+  test/test_traffic_signal_policy.cpp
   )
   target_link_libraries(test_${PROJECT_NAME}
     ${PROJECT_NAME}

@@ -4,6 +4,20 @@ The Lane Change module is activated when lane change is needed (Ego is not on pr
 
 ## Obstacle-aware candidates and stopped recovery
 
+New avoidance-by-lane-change candidates are discarded before collision checks and speed
+adaptation when their target lane is demonstrably too narrow under the vehicle at the planned
+lane-change completion pose. Finite left/right boundaries must bracket consecutive vehicle
+cross-sections 0.5 m apart, with width more than 0.1 m below the actual vehicle width. The
+0.1 m deficit tolerance avoids turning small map errors into a new rejection; it is not a
+road-departure allowance. The check uses only the target sequence and the vehicle's longitudinal
+extent at completion. Ambiguous/missing boundaries defer to existing safety checks, and a wide
+overlapping target continuation prevents a narrow endpoint from vetoing the candidate.
+The same filter covers shifter, Frenet and terminal fallback candidates. Rejected geometry is
+not retained as a force-approvable candidate or sent through speed adaptation. Other geometries
+and target lanes remain searchable. Ordinary lane changes and already activated maneuvers are
+unaffected. There is no fixed minimum path length, future-return reservation or whole-path
+drivable-area containment test in this filter.
+
 Stationary objects on the current path trigger joint sampling of preparation duration,
 longitudinal acceleration and lateral shift length before the stuck timeout. Preparation is
 bounded by the remaining swept-footprint clearance. Speeds below the normal lane-changing
@@ -27,6 +41,14 @@ lane containment, prohibited lane crossings, regulatory distance, static clearan
 traffic. Success replaces the path without changing the target or RTC approval; failure retains
 the original path and stop. The downstream optimizer, velocity planner and controller still
 validate and execute the resulting path. Pointcloud-only hazards continue to be handled downstream.
+
+A force-activated lane change in `RUNNING` completes with `SUCCESS` after the measured ego
+speed remains within 0.001 m/s of zero for three continuous seconds. The timer starts only
+after entering `RUNNING`; approval waiting time is excluded. Movement, loss of force approval,
+an invalid path, abort/cancel, or module exit resets it. A backward ROS clock jump or a gap
+of more than 0.5 seconds between checks restarts the timer.
+The normal success handoff releases the approved maneuver and resets route-lane selection
+from the actual ego pose; it does not mark the destination or driving route as arrived.
 
 ## Lane Change Requirements
 

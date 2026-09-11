@@ -178,6 +178,8 @@ public:
 
   bool isStopState() const { return current_lane_change_state_ == LaneChangeStates::Stop; }
 
+  bool isCancelState() const { return current_lane_change_state_ == LaneChangeStates::Cancel; }
+
   bool isValidPath() const { return status_.is_valid_path; }
 
   void setData(const std::shared_ptr<const PlannerData> & data)

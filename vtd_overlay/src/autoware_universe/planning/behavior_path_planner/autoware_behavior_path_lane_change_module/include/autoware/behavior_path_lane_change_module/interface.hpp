@@ -32,6 +32,7 @@
 #include <geometry_msgs/msg/twist.hpp>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -137,6 +138,9 @@ protected:
   bool is_abort_path_approved_{false};
 
   bool is_abort_approval_requested_{false};
+
+  std::optional<rclcpp::Time> forced_stop_started_;
+  std::optional<rclcpp::Time> forced_stop_last_update_;
 
   mutable lane_change::InterfaceDebug interface_debug_;
 };
