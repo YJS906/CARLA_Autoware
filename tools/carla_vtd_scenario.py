@@ -237,6 +237,29 @@ class Runtime:
         if blueprint.has_attribute("role_name"):
             blueprint.set_attribute("role_name", ROLE_PREFIX + name)
 
+    @staticmethod
+    def _traffic_manager_call(description: str, operation, attempts: int = 12) -> None:
+        """Retry Traffic Manager RPCs while its custom-map cache is being built."""
+        for attempt in range(1, attempts + 1):
+            try:
+                operation()
+                return
+            except RuntimeError as exc:
+                message = str(exc).lower()
+                if "timeout" not in message and "time-out" not in message:
+                    raise
+                if attempt == attempts:
+                    raise RuntimeError(
+                        f"Traffic Manager did not become ready for {description} "
+                        f"after {attempts} attempts"
+                    ) from exc
+                if attempt == 1:
+                    print(
+                        f"Traffic Manager is preparing the OpenDRIVE map; retrying {description} ...",
+                        flush=True,
+                    )
+                time.sleep(min(0.5 * attempt, 2.0))
+
     def _vehicle_blueprint(self, source_type: str, index: int) -> carla.ActorBlueprint:
         assert self.world is not None
         lib = self.world.get_blueprint_library()
@@ -373,8 +396,16 @@ class Runtime:
             initial_speed = number(player.find("./Init/Speed"), "Value")
             has_action = any(a.actor_name == name for a in self.scenario.vehicle_actions)
             if desc.get("Driver") != "No Driver" or initial_speed > 0 or has_action:
-                actor.set_autopilot(True, self.args.traffic_manager_port)
-                self.tm.set_desired_speed(actor, max(0.0, initial_speed * 3.6))
+                self._traffic_manager_call(
+                    f"vehicle '{name}' registration",
+                    lambda actor=actor: actor.set_autopilot(True, self.args.traffic_manager_port),
+                )
+                self._traffic_manager_call(
+                    f"vehicle '{name}' speed",
+                    lambda actor=actor, initial_speed=initial_speed: self.tm.set_desired_speed(
+                        actor, max(0.0, initial_speed * 3.6)
+                    ),
+                )
         return spawned, failed
 
     def spawn_characters(self) -> tuple[int, int]:
@@ -460,11 +491,24 @@ class Runtime:
             actor = self.actors.get(action.actor_name)
             if actor is None:
                 continue
-            actor.set_autopilot(True, self.args.traffic_manager_port)
+            self._traffic_manager_call(
+                f"vehicle action '{action.actor_name}' registration",
+                lambda actor=actor: actor.set_autopilot(True, self.args.traffic_manager_port),
+            )
             if action.target_speed_mps is not None:
-                self.tm.set_desired_speed(actor, action.target_speed_mps * 3.6)
+                self._traffic_manager_call(
+                    f"vehicle action '{action.actor_name}' speed",
+                    lambda actor=actor, action=action: self.tm.set_desired_speed(
+                        actor, action.target_speed_mps * 3.6
+                    ),
+                )
             if action.lane_direction is not None:
-                self.tm.force_lane_change(actor, action.lane_direction > 0)
+                self._traffic_manager_call(
+                    f"vehicle action '{action.actor_name}' lane change",
+                    lambda actor=actor, action=action: self.tm.force_lane_change(
+                        actor, action.lane_direction > 0
+                    ),
+                )
             action.fired = True
             print(f"vehicle action: {action.actor_name}", flush=True)
         for action in self.scenario.walker_actions:

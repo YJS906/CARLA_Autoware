@@ -3,9 +3,17 @@ set -euo pipefail
 
 carla_python="${CARLA_PYTHON:-/home/a/CARLA/venv-0.9.16/bin/python}"
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+lock_root="${XDG_RUNTIME_DIR:-/tmp}"
+lock_file="$lock_root/carla-vtd-scenario-${USER:-user}.lock"
 
 if [[ ! -x "$carla_python" ]]; then
   echo "CARLA Python environment is missing: $carla_python" >&2
+  exit 1
+fi
+
+exec 9>"$lock_file"
+if ! flock -n 9; then
+  echo "A CARLA VTD scenario is already running. Stop its terminal with Ctrl-C before starting another one." >&2
   exit 1
 fi
 
