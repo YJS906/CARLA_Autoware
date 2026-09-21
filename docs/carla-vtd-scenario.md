@@ -61,15 +61,25 @@ use `--spawn-ego` instead. After the map has already been loaded, omit
 ./carla_vtd_scenario --spawn-ego
 ```
 
-In the Autoware container, launch `autoware_carla_interface` with the generated
-map already selected and the VTD ego pose converted to CARLA coordinates:
+Stop any Town01 Autoware container before starting the HL_FMA setup:
 
 ```bash
-ros2 launch autoware_carla_interface autoware_carla_interface.launch.xml \
-  carla_map:=OpenDriveMap \
-  spawn_point:="237.698070,-142.085686,37.2,0.0,0.0,73.293666" \
-  use_traffic_manager:=False
+./scripts/carla/carla_autoware stop
 ```
+
+Start Autoware from another terminal with the generated map already selected
+and the VTD ego pose converted to CARLA coordinates:
+
+```bash
+cd /home/a/carla_pp
+./scripts/carla/carla_autoware start-hl-fma
+```
+
+The scenario adapter supplies the 71 NPC vehicles and 32 characters, so the
+Town01 background-traffic service and interface-owned traffic are disabled.
+The bundled HL_FMA point-cloud file is intentionally empty; direct CARLA
+localization supplies `/localization/kinematic_state`, acceleration, and the
+`map` to `base_link` transform without NDT initialization.
 
 The CARLA interface owns the synchronous simulation clock. The scenario
 adapter observes those ticks and does not call `world.tick()`, so the two

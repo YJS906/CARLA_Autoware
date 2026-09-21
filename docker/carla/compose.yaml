@@ -31,14 +31,17 @@ services:
         source /opt/autoware/setup.bash &&
         source /opt/selfcar_overlay/setup.bash &&
         exec ros2 launch autoware_launch e2e_simulator.launch.xml
-        map_path:=/home/aw/autoware_data/maps/Town01
+        map_path:=/home/aw/autoware_data/maps/${AUTOWARE_MAP_NAME:-Town01}
+        carla_map:=${CARLA_MAP_NAME:-}
         vehicle_model:=sample_vehicle
         sensor_model:=carla_sensor_kit
         simulator_type:=carla
         planning_module_preset:=vtd_low_memory
+        localization:=${CARLA_AUTOWARE_LOCALIZATION:-true}
+        use_carla_direct_localization:=${CARLA_DIRECT_LOCALIZATION:-false}
         use_light_weight_sensor_mapping:=${CARLA_LIGHTWEIGHT_SENSORS:-True}
-        use_traffic_light_recognition:=false
-        use_carla_traffic_manager:=true
+        use_traffic_light_recognition:=${CARLA_TRAFFIC_LIGHT_RECOGNITION:-false}
+        use_carla_traffic_manager:=${CARLA_USE_TRAFFIC_MANAGER:-true}
         spawn_point:=${CARLA_EGO_SPAWN:-None}
 
   traffic:

@@ -58,6 +58,17 @@ PY
 }
 
 case "${1:-start}" in
+  start-hl-fma)
+    export AUTOWARE_MAP_DIR="${AUTOWARE_MAP_DIR:-/home/a/vtd_autoware_maps}"
+    export AUTOWARE_MAP_NAME="${AUTOWARE_MAP_NAME:-HL_FMA_VTD_LivingLab_topology_fixed}"
+    export CARLA_MAP_NAME="OpenDriveMap"
+    export CARLA_EGO_SPAWN="${CARLA_EGO_SPAWN:-237.698070,-142.085686,37.2,0.0,0.0,73.293666}"
+    export CARLA_USE_TRAFFIC_MANAGER="false"
+    export CARLA_EXTRA_TRAFFIC_ENABLED="false"
+    export CARLA_AUTOWARE_LOCALIZATION="false"
+    export CARLA_DIRECT_LOCALIZATION="true"
+    "$0" start
+    ;;
   start)
     if ! carla_ready; then
       echo "CARLA is not listening on 127.0.0.1:2000. Run ${script_dir}/carla_run first." >&2
@@ -74,11 +85,19 @@ case "${1:-start}" in
     "${script_dir}/carla_traffic" stop >/dev/null || true
     clear_dynamic_actors
     xhost +local:docker >/dev/null 2>&1 || true
+    services=(autoware spectator)
+    if [[ "${CARLA_EXTRA_TRAFFIC_ENABLED:-true}" == "true" ]]; then
+      services+=(traffic)
+    fi
     HOST_UID="$(id -u)" HOST_GID="$(id -g)" DISPLAY="${DISPLAY:-:0}" \
-      docker compose -f "${compose_file}" up -d
+      docker compose -f "${compose_file}" up -d "${services[@]}"
     wait_for_ego
-    echo "Autoware + CARLA Town01 started. Traffic will appear after bridge startup."
-    echo "Use Init by GNSS, Goal Pose, then Engage in RViz."
+    echo "Autoware + CARLA ${CARLA_MAP_NAME:-${AUTOWARE_MAP_NAME:-Town01}} started."
+    if [[ "${CARLA_DIRECT_LOCALIZATION:-false}" == "true" ]]; then
+      echo "Direct CARLA localization is active. Set Goal Pose, then Engage in RViz."
+    else
+      echo "Use Init by GNSS, Goal Pose, then Engage in RViz."
+    fi
     ;;
   stop)
     docker compose -f "${compose_file}" down
@@ -104,7 +123,7 @@ PY
     docker compose -f "${compose_file}" logs -f --tail=120 autoware traffic spectator
     ;;
   *)
-    echo "usage: $0 {start|stop|restart|status|logs}" >&2
+    echo "usage: $0 {start|start-hl-fma|stop|restart|status|logs}" >&2
     exit 2
     ;;
 esac
