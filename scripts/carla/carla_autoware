@@ -39,11 +39,19 @@ PY
 clear_dynamic_actors() {
   "${python}" - <<'PY'
 import carla
+import time
 
 c = carla.Client("127.0.0.1", 2000)
 c.set_timeout(5.0)
 w = c.get_world()
 actors = w.get_actors()
+# Large generated OpenDRIVE worlds can transiently return an empty actor
+# registry while CARLA finishes synchronizing a new client.
+for _ in range(10):
+    if len(actors) > 0:
+        break
+    time.sleep(0.2)
+    actors = w.get_actors()
 dynamic = []
 for pattern in ("sensor.*", "controller.ai.walker", "walker.pedestrian.*", "vehicle.*"):
     dynamic.extend(actor.id for actor in actors.filter(pattern))

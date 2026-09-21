@@ -79,7 +79,9 @@ The scenario adapter supplies the 71 NPC vehicles and 32 characters, so the
 Town01 background-traffic service and interface-owned traffic are disabled.
 The bundled HL_FMA point-cloud file is intentionally empty; direct CARLA
 localization supplies `/localization/kinematic_state`, acceleration, and the
-`map` to `base_link` transform without NDT initialization.
+`map` to `base_link` transform without NDT initialization. It also publishes
+the localization `INITIALIZED` state and uses a direct-localization diagnostic
+graph so unavailable NDT/EKF diagnostics do not block autonomous mode.
 
 The CARLA interface owns the synchronous simulation clock. The scenario
 adapter observes those ticks and does not call `world.tick()`, so the two

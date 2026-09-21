@@ -14,6 +14,10 @@ COPY config/carla/launch/e2e_simulator.launch.xml \
   /opt/autoware/autoware_launch/share/autoware_launch/launch/e2e_simulator.launch.xml
 COPY config/carla/launch/autoware_carla_interface.launch.xml \
   /opt/autoware/autoware_carla_interface/share/autoware_carla_interface/launch/autoware_carla_interface.launch.xml
+COPY config/carla/diagnostics/autoware-carla-direct.yaml \
+  /opt/autoware/autoware_launch/share/autoware_launch/config/system/diagnostics/autoware-carla-direct.yaml
+COPY --chmod=0755 tools/carla_localization_ready.py \
+  /opt/autoware/autoware_carla_interface/lib/autoware_carla_interface/carla_localization_ready
 
 LABEL org.opencontainers.image.title="selfcar_2026 Autoware for CARLA 0.9.16" \
       org.opencontainers.image.description="Final VTD-tested Autoware planner plus the CARLA 0.9.16 Python API"
