@@ -101,6 +101,44 @@ check that source/configuration inputs remain tracked. The former direct host
 requests run the static checks; the full image build is a manual workflow for a
 self-hosted NVIDIA runner.
 
+## CARLA 0.9.16 integration
+
+This repository also contains the CARLA runtime layer developed from the final
+VTD-tested image. It runs Autoware against Town01, starts bridge-managed NPC
+vehicles, adds continuously roaming pedestrians, and follows the ego vehicle
+with the CARLA spectator.
+
+Build the runtime image after building `selfcar-2026-vtd:local`:
+
+```bash
+docker build \
+  --build-arg AUTOWARE_IMAGE=selfcar-2026-vtd:local \
+  -t selfcar-2026-carla:local \
+  -f docker/carla/Dockerfile .
+```
+
+CARLA itself, the Town01 point-cloud/Lanelet2 map, ML models, and generated
+TensorRT engines are external runtime assets and are intentionally not stored
+in Git. With CARLA 0.9.16 installed under `/home/a/CARLA/0.9.16` and the map
+and models under `/home/a/autoware_data`, run:
+
+```bash
+./scripts/carla/carla_run -quality-level=Low
+./scripts/carla/carla_autoware start
+./scripts/carla/carla_autoware status
+```
+
+The original VTD scenario adapter and matching OpenDRIVE are retained under
+`tools/carla_vtd_scenario.py` and `config/carla/`. The active Town01 setup does
+not use that converted scenario. See
+[docs/carla-autoware-town01.md](docs/carla-autoware-town01.md) and
+[docs/carla-vtd-scenario.md](docs/carla-vtd-scenario.md).
+
+Town01's supplied Lanelet2 map has no traffic-light, stop-line, or crosswalk
+regulatory elements. Vehicle and pedestrian perception and obstacle planning
+are available, while traffic-rule behavior needs a CARLA-specific regulatory
+map and traffic-signal bridge.
+
 ## Documentation
 
 To learn more about using or developing Autoware, refer to the [Autoware documentation site](https://autowarefoundation.github.io/autoware-documentation/main/). You can find the source for the documentation in [autowarefoundation/autoware-documentation](https://github.com/autowarefoundation/autoware-documentation).

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+carla_root="${CARLA_ROOT:-/home/a/CARLA/0.9.16}"
+if [[ ${1:-} == --help || ${1:-} == -h ]]; then
+  cat <<'EOF'
+CARLA 0.9.16 simulator
+
+  /home/a/carla_run                          Open the simulator window
+  /home/a/carla_run -quality-level=Low       Reduce graphics load
+  /home/a/carla_run -RenderOffScreen         Render without a window
+
+After the map loads, run /home/a/carla_drive in another terminal to drive.
+Additional arguments are passed directly to CarlaUE4.sh.
+EOF
+  exit 0
+fi
+
+if [[ ! -f "$carla_root/CarlaUE4.sh" ]]; then
+  echo "CARLA installation is not ready: $carla_root/CarlaUE4.sh" >&2
+  exit 1
+fi
+
+mkdir -p "${carla_root}/logs"
+exec 9>"${carla_root}/logs/server.lock"
+if ! flock -n 9; then
+  echo 'CARLA is already running. Use /home/a/carla_drive to connect.' >&2
+  exit 1
+fi
+
+cd "$carla_root"
+exec bash ./CarlaUE4.sh -windowed -ResX=1280 -ResY=720 -quality-level=Epic -nosound "$@"

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+carla_python="${CARLA_PYTHON:-/home/a/CARLA/venv-0.9.16/bin/python}"
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+
+if [[ ! -x "$carla_python" ]]; then
+  echo "CARLA Python environment is missing: $carla_python" >&2
+  exit 1
+fi
+
+exec "$carla_python" -u "$script_dir/tools/carla_vtd_scenario.py" "$@"

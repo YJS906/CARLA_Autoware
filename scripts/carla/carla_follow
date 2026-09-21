@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+repo_root="$(cd -- "${script_dir}/../.." && pwd -P)"
+compose_file="${repo_root}/docker/carla/compose.yaml"
+
+exec docker compose -f "${compose_file}" up spectator

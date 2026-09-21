@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+carla_root="${CARLA_ROOT:-/home/a/CARLA/0.9.16}"
+carla_python="${CARLA_PYTHON:-/home/a/CARLA/venv-0.9.16/bin/python}"
+unset PYTHONPATH PYTHONHOME
+export PYGAME_HIDE_SUPPORT_PROMPT=1
+cd "$carla_root/PythonAPI/examples"
+exec "$carla_python" -u manual_control.py --host 127.0.0.1 --port 2000 --res 1280x720 --filter vehicle.tesla.model3 --generation All "$@"

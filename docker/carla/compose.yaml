@@ -1,0 +1,75 @@
+services:
+  autoware:
+    image: ${CARLA_AUTOWARE_IMAGE:-selfcar-2026-carla:local}
+    container_name: selfcar-carla-autoware
+    network_mode: host
+    ipc: host
+    privileged: true
+    runtime: nvidia
+    stdin_open: true
+    tty: true
+    environment:
+      AUTOWARE_RUNTIME: "1"
+      DISPLAY: ${DISPLAY:-:0}
+      HOST_UID: ${HOST_UID:-1000}
+      HOST_GID: ${HOST_GID:-1000}
+      NVIDIA_DRIVER_CAPABILITIES: all
+      NVIDIA_VISIBLE_DEVICES: all
+      QT_X11_NO_MITSHM: "1"
+      RMW_IMPLEMENTATION: rmw_cyclonedds_cpp
+      CYCLONEDDS_URI: file:///home/aw/cyclonedds.xml
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${AUTOWARE_MAP_DIR:-/home/a/autoware_data/maps}:/home/aw/autoware_data/maps:ro
+      # TensorRT writes its generated engine cache next to the ONNX models.
+      - ${AUTOWARE_ML_MODELS_DIR:-/home/a/autoware_data/ml_models}:/home/aw/autoware_data/ml_models:rw
+    command:
+      - bash
+      - -lc
+      - >-
+        source /opt/ros/jazzy/setup.bash &&
+        source /opt/autoware/setup.bash &&
+        source /opt/selfcar_overlay/setup.bash &&
+        exec ros2 launch autoware_launch e2e_simulator.launch.xml
+        map_path:=/home/aw/autoware_data/maps/Town01
+        vehicle_model:=sample_vehicle
+        sensor_model:=carla_sensor_kit
+        simulator_type:=carla
+        planning_module_preset:=vtd_low_memory
+        use_light_weight_sensor_mapping:=${CARLA_LIGHTWEIGHT_SENSORS:-True}
+        use_traffic_light_recognition:=false
+        use_carla_traffic_manager:=true
+        spawn_point:=${CARLA_EGO_SPAWN:-None}
+
+  traffic:
+    image: ${CARLA_AUTOWARE_IMAGE:-selfcar-2026-carla:local}
+    container_name: selfcar-carla-traffic
+    network_mode: host
+    depends_on:
+      - autoware
+    stop_signal: SIGINT
+    stop_grace_period: 20s
+    volumes:
+      - ../../tools/carla_traffic_after_ego.py:/opt/selfcar-tools/carla_traffic_after_ego.py:ro
+      - ${AUTOWARE_ML_MODELS_DIR:-/home/a/autoware_data/ml_models}:/home/aw/autoware_data/ml_models:ro
+    command:
+      - python3
+      - -u
+      - /opt/selfcar-tools/carla_traffic_after_ego.py
+      - --walkers
+      - ${CARLA_TRAFFIC_WALKERS:-30}
+
+  spectator:
+    image: ${CARLA_AUTOWARE_IMAGE:-selfcar-2026-carla:local}
+    container_name: selfcar-carla-spectator
+    network_mode: host
+    depends_on:
+      - autoware
+    command:
+      - bash
+      - -lc
+      - >-
+        source /opt/ros/jazzy/setup.bash &&
+        source /opt/autoware/setup.bash &&
+        exec ros2 run autoware_carla_interface spectator_follow
+        --role ego_vehicle --distance 8 --height 4 --pitch -15

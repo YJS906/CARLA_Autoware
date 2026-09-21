@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+repo_root="$(cd -- "${script_dir}/../.." && pwd -P)"
+compose_file="${repo_root}/docker/carla/compose.yaml"
+
+case "${1:-start}" in
+  start)
+    docker compose -f "${compose_file}" up -d traffic
+    ;;
+  stop)
+    docker compose -f "${compose_file}" stop traffic >/dev/null 2>&1 || true
+    docker compose -f "${compose_file}" rm -f traffic >/dev/null 2>&1 || true
+    ;;
+  status)
+    docker compose -f "${compose_file}" ps traffic
+    ;;
+  logs)
+    docker compose -f "${compose_file}" logs -f --tail=100 traffic
+    ;;
+  *)
+    echo "usage: $0 {start|stop|status|logs}" >&2
+    exit 2
+    ;;
+esac

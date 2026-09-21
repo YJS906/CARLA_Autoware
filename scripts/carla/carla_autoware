@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+repo_root="$(cd -- "${script_dir}/../.." && pwd -P)"
+compose_file="${repo_root}/docker/carla/compose.yaml"
+python="${CARLA_PYTHON:-/home/a/CARLA/venv-0.9.16/bin/python}"
+
+carla_ready() {
+  "${python}" - <<'PY' >/dev/null 2>&1
+import carla
+c = carla.Client("127.0.0.1", 2000)
+c.set_timeout(2.0)
+c.get_world()
+PY
+}
+
+wait_for_ego() {
+  "${python}" - <<'PY'
+import carla, sys, time
+c = carla.Client("127.0.0.1", 2000)
+c.set_timeout(3.0)
+for _ in range(120):
+    try:
+        world = c.get_world()
+        ego = [a for a in world.get_actors().filter("vehicle.*")
+               if a.attributes.get("role_name") == "ego_vehicle"]
+        if ego:
+            print(f"ego_vehicle ready: id={ego[0].id}, map={world.get_map().name}")
+            sys.exit(0)
+    except RuntimeError:
+        pass
+    time.sleep(1)
+print("ego_vehicle did not appear within 120 seconds", file=sys.stderr)
+sys.exit(1)
+PY
+}
+
+clear_dynamic_actors() {
+  "${python}" - <<'PY'
+import carla
+
+c = carla.Client("127.0.0.1", 2000)
+c.set_timeout(5.0)
+w = c.get_world()
+actors = w.get_actors()
+dynamic = []
+for pattern in ("sensor.*", "controller.ai.walker", "walker.pedestrian.*", "vehicle.*"):
+    dynamic.extend(actor.id for actor in actors.filter(pattern))
+if dynamic:
+    c.apply_batch_sync([carla.command.DestroyActor(actor_id) for actor_id in dynamic], False)
+settings = w.get_settings()
+settings.synchronous_mode = False
+settings.fixed_delta_seconds = None
+w.apply_settings(settings)
+print(f"cleared {len(dynamic)} stale dynamic actors")
+PY
+}
+
+case "${1:-start}" in
+  start)
+    if ! carla_ready; then
+      echo "CARLA is not listening on 127.0.0.1:2000. Run ${script_dir}/carla_run first." >&2
+      exit 1
+    fi
+    if [[ "$(docker inspect -f '{{.State.Running}}' selfcar-carla-autoware 2>/dev/null || true)" == "true" ]]; then
+      echo "Autoware is already running."
+      "$0" status
+      exit 0
+    fi
+    # Remove the earlier manual-control hero and stale actors before the bridge
+    # takes ownership of CARLA's synchronous tick.
+    pkill -INT -f '/manual_control.py --rolename hero' 2>/dev/null || true
+    "${script_dir}/carla_traffic" stop >/dev/null || true
+    clear_dynamic_actors
+    xhost +local:docker >/dev/null 2>&1 || true
+    HOST_UID="$(id -u)" HOST_GID="$(id -g)" DISPLAY="${DISPLAY:-:0}" \
+      docker compose -f "${compose_file}" up -d
+    wait_for_ego
+    echo "Autoware + CARLA Town01 started. Traffic will appear after bridge startup."
+    echo "Use Init by GNSS, Goal Pose, then Engage in RViz."
+    ;;
+  stop)
+    docker compose -f "${compose_file}" down
+    carla_ready && clear_dynamic_actors || true
+    ;;
+  restart)
+    "$0" stop
+    "$0" start
+    ;;
+  status)
+    docker compose -f "${compose_file}" ps
+    "${python}" - <<'PY'
+import carla
+c = carla.Client("127.0.0.1", 2000); c.set_timeout(3)
+w = c.get_world()
+w.wait_for_tick(3.0)
+actors = w.get_actors()
+ego = [a for a in actors.filter("vehicle.*") if a.attributes.get("role_name") == "ego_vehicle"]
+print(f"map={w.get_map().name} ego={len(ego)} vehicles={len(actors.filter('vehicle.*'))} walkers={len(actors.filter('walker.pedestrian.*'))}")
+PY
+    ;;
+  logs)
+    docker compose -f "${compose_file}" logs -f --tail=120 autoware traffic spectator
+    ;;
+  *)
+    echo "usage: $0 {start|stop|restart|status|logs}" >&2
+    exit 2
+    ;;
+esac
