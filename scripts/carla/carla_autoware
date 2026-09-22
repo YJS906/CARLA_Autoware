@@ -76,11 +76,13 @@ case "${1:-start}" in
     export CARLA_AUTOWARE_LOCALIZATION="false"
     export CARLA_DIRECT_LOCALIZATION="true"
     export CARLA_TRAFFIC_LIGHT_RECOGNITION="false"
+    # Signal states come from the simulator with matching Lanelet2 group IDs.
+    export CARLA_TRAFFIC_SIGNALS_ENABLED="true"
     map_dir="${AUTOWARE_MAP_DIR}/${AUTOWARE_MAP_NAME}"
-    for map_file in lanelet2_map.osm pointcloud_map.pcd map_projector_info.yaml; do
+    for map_file in lanelet2_map.osm pointcloud_map.pcd map_projector_info.yaml carla_traffic_signals.json; do
       if [[ ! -s "${map_dir}/${map_file}" ]]; then
         echo "Town05 map asset is missing: ${map_dir}/${map_file}" >&2
-        echo "Run ${script_dir}/install_town05_map first." >&2
+        echo "Install the Town05 assets, then run ${script_dir}/prepare_town05_map." >&2
         exit 1
       fi
     done
@@ -117,6 +119,9 @@ case "${1:-start}" in
     if [[ "${CARLA_EXTRA_TRAFFIC_ENABLED:-true}" == "true" ]]; then
       services+=(traffic)
     fi
+    if [[ "${CARLA_TRAFFIC_SIGNALS_ENABLED:-false}" == "true" ]]; then
+      services+=(traffic_signals)
+    fi
     HOST_UID="$(id -u)" HOST_GID="$(id -g)" DISPLAY="${DISPLAY:-:0}" \
       docker compose -f "${compose_file}" up -d "${services[@]}"
     wait_for_ego
@@ -148,7 +153,7 @@ print(f"map={w.get_map().name} ego={len(ego)} vehicles={len(actors.filter('vehic
 PY
     ;;
   logs)
-    docker compose -f "${compose_file}" logs -f --tail=120 autoware traffic spectator
+    docker compose -f "${compose_file}" logs -f --tail=120 autoware traffic spectator traffic_signals
     ;;
   *)
     echo "usage: $0 {start|start-town05|start-hl-fma|stop|restart|status|logs}" >&2

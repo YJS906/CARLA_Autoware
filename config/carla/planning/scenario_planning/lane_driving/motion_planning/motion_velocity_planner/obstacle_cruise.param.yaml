@@ -1,0 +1,102 @@
+# CARLA labels are semantic; stop/cruise cover all road users. Run-out handles crossing VRUs/UNKNOWN; road-user stop handles classified VRUs.
+/**:
+  ros__parameters:
+    obstacle_cruise:
+      option:
+        planning_algorithm: pid_base
+      cruise_planning:
+        idling_time: 2.0
+        min_ego_accel_for_rss: -1.0
+        min_object_accel_for_rss: -1.0
+        safe_distance_margin: 5.0
+        pid_based_planner:
+          use_velocity_limit_based_planner: true
+          error_function_type: quadratic
+          velocity_limit_based_planner:
+            kp: 10.0
+            ki: 0.0
+            kd: 2.0
+            output_ratio_during_accel: 0.6
+            vel_to_acc_weight: 12.0
+            enable_jerk_limit_to_output_acc: false
+            disable_target_acceleration: true
+          velocity_insertion_based_planner:
+            kp_acc: 6.0
+            ki_acc: 0.0
+            kd_acc: 2.0
+            kp_jerk: 20.0
+            ki_jerk: 0.0
+            kd_jerk: 0.0
+            output_acc_ratio_during_accel: 0.6
+            output_jerk_ratio_during_accel: 1.0
+            enable_jerk_limit_to_output_acc: true
+          min_accel_during_cruise: -1.4
+          min_cruise_target_vel: 0.0
+          time_to_evaluate_rss: 0.0
+          lpf_normalized_error_cruise_dist_gain: 0.2
+        optimization_based_planner:
+          dense_resampling_time_interval: 0.2
+          sparse_resampling_time_interval: 2.0
+          dense_time_horizon: 5.0
+          max_time_horizon: 25.0
+          velocity_margin: 0.2
+          t_dangerous: 0.5
+          replan_vel_deviation: 5.0
+          engage_velocity: 0.25
+          engage_acceleration: 0.1
+          engage_exit_ratio: 0.5
+          stop_dist_to_prohibit_engage: 0.5
+          max_s_weight: 100.0
+          max_v_weight: 1.0
+          over_s_safety_weight: 1000000.0
+          over_s_ideal_weight: 50.0
+          over_v_weight: 500000.0
+          over_a_weight: 5000.0
+          over_j_weight: 10000.0
+      obstacle_filtering:
+        object_type:
+          inside:
+            unknown: true
+            car: true
+            truck: true
+            bus: true
+            trailer: true
+            motorcycle: true
+            bicycle: true
+            pedestrian: true
+          outside:
+            unknown: true
+            car: true
+            truck: true
+            bus: true
+            trailer: true
+            motorcycle: true
+            bicycle: true
+            pedestrian: true
+          side_stopped:
+            unknown: true
+            car: true
+            truck: true
+            bus: true
+            trailer: true
+            motorcycle: true
+            bicycle: true
+            pedestrian: true
+        max_lat_margin: 1.0
+        crossing_obstacle:
+          obstacle_velocity_threshold: 1.0
+          obstacle_traj_angle_threshold: 0.523599
+        outside_obstacle:
+          obstacle_velocity_threshold: 1.5
+          ego_obstacle_overlap_time_threshold: 0.2
+          max_prediction_time_for_collision_check: 10.0
+          max_lateral_time_margin: 5.0
+          num_of_predicted_paths: 1
+        yield:
+          enable_yield: true
+          lat_distance_threshold: 5.0
+          max_lat_dist_between_obstacles: 2.5
+          max_obstacles_collision_time: 10.0
+          stopped_obstacle_velocity_threshold: 0.5
+        obstacle_velocity_threshold_from_cruise: 3.0
+        obstacle_velocity_threshold_to_cruise: 3.5

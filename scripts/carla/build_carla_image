@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+repo_root="$(cd -- "${script_dir}/../.." && pwd -P)"
+image="${CARLA_AUTOWARE_IMAGE:-selfcar-2026-carla:local}"
+base="${CARLA_BASE_IMAGE:-selfcar-2026-vtd:local}"
+docker image inspect "${base}" >/dev/null
+exec docker build --progress=plain \
+  --build-arg "AUTOWARE_IMAGE=${base}" \
+  -t "${image}" -f "${repo_root}/docker/carla/Dockerfile" "${repo_root}"

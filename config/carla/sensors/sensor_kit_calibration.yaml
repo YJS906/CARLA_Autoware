@@ -1,0 +1,68 @@
+# ROS extrinsics: x forward, y left, z up; angles in radians.
+# base_link is the Prius rear axle projected onto bbox bottom.
+# LiDAR mount-to-scan +0.0377 m is supplied by VLP-16.urdf.xacro
+# and by measurement_frame_offset in the CARLA sensor mappings.
+sensor_kit_base_link:
+  CAM_FRONT/camera_link:
+    x: 2.1992362400000003
+    y: -0.00039074
+    z: 1.6382474100000002
+    roll: 0.0
+    pitch: 0.0
+    yaw: -0.0
+  CAM_FRONT_LEFT/camera_link:
+    x: 1.66923624
+    y: 0.5496092600000001
+    z: 1.6382474100000002
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.9599310885968813
+  CAM_FRONT_RIGHT/camera_link:
+    x: 1.66923624
+    y: -0.55039074
+    z: 1.6382474100000002
+    roll: 0.0
+    pitch: 0.0
+    yaw: -0.9599310885968813
+  CAM_BACK/camera_link:
+    x: -0.60076376
+    y: -0.00039074
+    z: 1.6382474100000002
+    roll: 0.0
+    pitch: 0.0
+    yaw: -3.141592653589793
+  CAM_BACK_LEFT/camera_link:
+    x: 1.07923624
+    y: 0.5496092600000001
+    z: 1.6382474100000002
+    roll: 0.0
+    pitch: 0.0
+    yaw: 1.9198621771937625
+  CAM_BACK_RIGHT/camera_link:
+    x: 1.07923624
+    y: -0.55039074
+    z: 1.6382474100000002
+    roll: 0.0
+    pitch: 0.0
+    yaw: -1.9198621771937625
+  velodyne_top_base_link:
+    x: 1.00923624
+    y: -0.00039074
+    z: 1.84054741
+    roll: 0.0
+    pitch: 0.0
+    yaw: -0.0
+  gnss_link:
+    x: -0.0007637599999998912
+    y: -0.00039074
+    z: 0.03824741
+    roll: 0.0
+    pitch: 0.0
+    yaw: -0.0
+  tamagawa/imu_link:
+    x: -0.0007637599999998912
+    y: -0.00039074
+    z: 0.03824741
+    roll: 0.0
+    pitch: 0.0
+    yaw: -0.0

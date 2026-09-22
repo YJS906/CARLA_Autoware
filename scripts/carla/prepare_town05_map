@@ -1,0 +1,143 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+repo_root="$(cd -- "${script_dir}/../.." && pwd -P)"
+python="${CARLA_PYTHON:-/home/a/CARLA/venv-0.9.16/bin/python}"
+map_dir="${AUTOWARE_TOWN05_MAP_DIR:-/home/a/autoware_data/maps/Town05}"
+carla_root="${CARLA_ROOT:-/home/a/CARLA/0.9.16}"
+export PYTHONDONTWRITEBYTECODE=1
+
+# All geometry comes from the recorded native Town05 snapshot. No connection
+# to CARLA, map reload, actor manipulation or simulator tick is necessary.
+exec "${python}" - "${repo_root}" "${map_dir}" "${carla_root}" <<'PY'
+import hashlib
+import json
+import math
+import os
+from datetime import datetime, timezone
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+import uuid
+import xml.etree.ElementTree as ET
+
+repo, maps, carla = map(Path, sys.argv[1:])
+target = maps / "lanelet2_map.osm"
+original = maps / "lanelet2_map.before-carla-repair.osm"
+bundle_names = ("lanelet2_map.osm", "carla_traffic_signals.json", "carla_map_report.json")
+
+def file_hash(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+def validate_bundle(osm, manifest):
+    # Reject the exact zero-length/nonfinite boundary defect that caused the
+    # old Autoware centerline sampler to produce NaN route lengths.
+    tree = ET.parse(osm).getroot()
+    def tags(element):
+        return {tag.get("k"): tag.get("v") for tag in element.findall("tag")}
+    nodes = {}
+    for node in tree.findall("node"):
+        attr = tags(node)
+        xyz = tuple(float(attr[k]) for k in ("local_x", "local_y")) + (float(attr.get("ele", 0)),)
+        if not all(math.isfinite(value) for value in xyz):
+            raise SystemExit("Nonfinite map point: " + node.get("id"))
+        nodes[node.get("id")] = xyz
+    ways = {way.get("id"): [nd.get("ref") for nd in way.findall("nd")] for way in tree.findall("way")}
+    for relation in tree.findall("relation"):
+        if tags(relation).get("type") != "lanelet":
+            continue
+        for member in relation.findall("member"):
+            if member.get("role") not in ("left", "right"):
+                continue
+            refs = ways[member.get("ref")]
+            if len(refs) < 2 or any(math.dist(nodes[a], nodes[b]) <= 1e-9 for a, b in zip(refs, refs[1:])):
+                raise SystemExit("Degenerate lane boundary: " + member.get("ref"))
+    mapping = json.loads(manifest.read_text())
+    if hashlib.sha256(osm.read_bytes()).hexdigest() != mapping["map_sha256"]:
+        raise SystemExit("Map and traffic-signal manifest differ. Existing edits were preserved; "
+                         "review and regenerate their mapping together before installation.")
+    light_ids = {int(r.get("id")) for r in tree.findall("relation")
+                 if tags(r).get("type") == "regulatory_element" and tags(r).get("subtype") == "traffic_light"}
+    groups = mapping.get("groups", [])
+    if mapping.get("map_name") != "Town05" or len(groups) != 54 or \
+            {g["group_id"] for g in groups} != light_ids:
+        raise SystemExit("Town05 signal groups do not match map regulations; existing files were preserved.")
+
+if not target.is_file():
+    raise SystemExit("Install the Town05 map assets first.")
+initial_hashes = {name: file_hash(maps/name) for name in bundle_names}
+if b"carla_town05_native_v1" in target.read_bytes():
+    manifest = maps / "carla_traffic_signals.json"
+    if not manifest.is_file():
+        raise SystemExit("The map is already augmented but its signal manifest is missing. "
+                         "Existing edits were preserved; restore/review the matching bundle.")
+    validate_bundle(target, manifest)
+    print("Town05 map and signal manifest already match and passed validation; no files changed.")
+    sys.exit(0)
+if original.exists() and file_hash(target) != file_hash(original):
+    raise SystemExit("The current unaugmented map differs from the saved original. "
+                     "Existing edits were preserved; review this map before preparing a replacement.")
+
+# A successful preparation changes the map files seen by Autoware at its next
+# load. Require the runtime to be stopped for that promotion; no-op validation
+# above remains available while it is running.
+for container in ("selfcar-carla-autoware", "selfcar-carla-signals"):
+    status = subprocess.run(["docker", "inspect", "-f", "{{.State.Running}}", container],
+                            text=True, capture_output=True, check=False)
+    if status.returncode == 0 and status.stdout.strip() == "true":
+        raise SystemExit("Stop the CARLA Autoware runtime before replacing its map bundle. "
+                         "No map files were changed.")
+if not original.exists():
+    shutil.copy2(target, original)
+
+with tempfile.TemporaryDirectory(prefix=".town05-build-", dir=maps) as directory:
+    work = Path(directory)
+    osm, manifest, report = (work / name for name in bundle_names)
+    subprocess.run([
+        sys.executable, str(repo / "tools/map/augment_town05_map.py"),
+        "--map", str(original), "--xodr", str(carla / "CarlaUE4/Content/Carla/Maps/OpenDrive/Town05_Opt.xodr"),
+        "--source", str(repo / "config/carla/maps/Town05_regulatory_source.json"),
+        "--output", str(osm), "--manifest", str(manifest), "--report", str(report)
+    ], check=True)
+    validate_bundle(osm, manifest)
+    if initial_hashes != {name: file_hash(maps/name) for name in bundle_names}:
+        raise SystemExit("Map bundle changed during preparation; current edits were preserved.")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    backup = maps / "backups" / ("carla-map-"+stamp+"-"+uuid.uuid4().hex[:8])
+    backup.mkdir(parents=True)
+    for name in bundle_names:
+        if (maps/name).exists():
+            shutil.copy2(maps/name, backup/name)
+    (backup/"bundle.json").write_text(json.dumps({"previous_sha256": initial_hashes}, indent=2)+"\n")
+    promoted = []
+    try:
+        # Each rename is atomic; the multi-file bundle is NOT an atomic transaction.
+        # On a Python exception restore every file already promoted from this backup.
+        for file in (osm, manifest, report):
+            os.replace(file, maps/file.name)
+            promoted.append(file.name)
+    except BaseException:
+        rollback_errors = []
+        for name in promoted:
+            try:
+                saved = backup/name
+                if saved.exists():
+                    restored = work/(name+".restore")
+                    shutil.copy2(saved, restored)
+                    os.replace(restored, maps/name)
+                else:
+                    (maps/name).unlink(missing_ok=True)
+            except OSError as error:
+                rollback_errors.append(f"{name}: {error}")
+        if rollback_errors:
+            print("Rollback needs manual recovery from", backup, "; ".join(rollback_errors), file=sys.stderr)
+        else:
+            print("Promotion failed; restored previous files from", backup, file=sys.stderr)
+        raise
+print("Installed native Town05 map and signal manifest. Original backup:", original)
+print("Previous bundle backup:", backup)
+print("Reload the map/restart Autoware to apply the map change.")
+PY

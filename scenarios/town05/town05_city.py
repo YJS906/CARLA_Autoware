@@ -10,6 +10,7 @@ from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.scenarioatomics.atomic_behaviors import Idle
 from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
 from srunner.scenarios.basic_scenario import BasicScenario
+from town05_events import CutInEvent, PedestrianEvent, enabled
 
 
 class Town05CityScenario(BasicScenario):
@@ -36,6 +37,7 @@ class Town05CityScenario(BasicScenario):
         self._world = world
         self._map = CarlaDataProvider.get_map()
         self._rng = random.Random(906 if not randomize else None)
+        self._events = []
         super().__init__(
             "Town05CityScenario",
             ego_vehicles,
@@ -80,6 +82,31 @@ class Town05CityScenario(BasicScenario):
         )
         traffic_manager.global_percentage_speed_difference(self._speed_difference)
 
+        def spawn_event(model, transform, role):
+            actor = CarlaDataProvider.request_new_actor(
+                model, transform, rolename=role, autopilot=False, tick=False
+            )
+            if actor is None:
+                raise ValueError(
+                    f"Cannot spawn {role} at {transform.location}; "
+                    "check for an occupied spawn point or a physical obstacle"
+                )
+            self.other_actors.append(actor)
+            return actor
+
+        # Create event actors first so our background spawns can avoid them.
+        try:
+            pedestrian = config.other_parameters.get("pedestrian_event", {})
+            cut_in = config.other_parameters.get("cut_in_event", {})
+            if enabled(pedestrian):
+                self._events.append(PedestrianEvent(self._world, self.ego_vehicles[0], pedestrian, spawn_event))
+            if enabled(cut_in):
+                self._events.append(CutInEvent(self._world, self.ego_vehicles[0], cut_in, spawn_event, traffic_manager))
+        except Exception:
+            self.remove_all_actors()
+            raise
+        event_locations = [actor.get_location() for actor in self.other_actors]
+
         for actor in existing_background:
             traffic_manager.auto_lane_change(actor, self._automatic_lane_change)
             traffic_manager.distance_to_leading_vehicle(
@@ -88,10 +115,13 @@ class Town05CityScenario(BasicScenario):
             traffic_manager.ignore_lights_percentage(actor, 0.0)
             traffic_manager.ignore_signs_percentage(actor, 0.0)
 
+        spawned_background = 0
         for spawn_point in spawn_points:
-            if len(self.other_actors) >= vehicles_to_spawn:
+            if spawned_background >= vehicles_to_spawn:
                 break
             if spawn_point.location.distance(ego_location) < self._spawn_clearance:
+                continue
+            if any(spawn_point.location.distance(location) < 8 for location in event_locations):
                 continue
 
             actor = CarlaDataProvider.request_new_actor(
@@ -112,15 +142,22 @@ class Town05CityScenario(BasicScenario):
             traffic_manager.ignore_lights_percentage(actor, 0.0)
             traffic_manager.ignore_signs_percentage(actor, 0.0)
             self.other_actors.append(actor)
+            spawned_background += 1
 
         print(
             "Town05 city traffic: kept {} and spawned {} background vehicles".format(
-                len(existing_background), len(self.other_actors)
+                len(existing_background), spawned_background
             )
         )
 
     def _create_behavior(self):
-        return Idle(self.timeout, name="Town05 city traffic")
+        root = py_trees.composites.Parallel(
+            "Town05 traffic and proximity events",
+            policy=py_trees.common.ParallelPolicy.SUCCESS_ON_ONE,
+        )
+        root.add_child(Idle(self.timeout, name="Town05 city traffic"))
+        root.add_children(self._events)
+        return root
 
     def _create_test_criteria(self):
         return [CollisionTest(self.ego_vehicles[0])]

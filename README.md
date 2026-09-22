@@ -103,6 +103,11 @@ self-hosted NVIDIA runner.
 
 ## CARLA 0.9.16 integration
 
+The current city setup is Town05. See the [Town05 repair and validation record](docs/carla-repair-20260922.md)
+for the Prius calibration, CARLA planning preset, native traffic signals/crosswalks,
+map preparation and runtime commands. Custom CARLA bridge changes are maintained
+in `carla_overlay/src/` and rebuilt with `./scripts/carla/build_carla_image`.
+
 This repository also contains the CARLA runtime layer developed from the final
 VTD-tested image. It runs Autoware against Town01, starts bridge-managed NPC
 vehicles, adds continuously roaming pedestrians, and follows the ego vehicle

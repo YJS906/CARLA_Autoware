@@ -1,0 +1,1675 @@
+{
+  "original_sha256": "45cdcfd7eca052969e84c645becdfcbda5b0d9f63002da49d6f22b553fab6ad0",
+  "invalid_original_polygons_preserved": [
+    32797,
+    32835,
+    25301,
+    27547,
+    34045,
+    34673
+  ],
+  "duplicate_boundary_points_removed": [
+    {
+      "way_id": 28673,
+      "removed": 1
+    },
+    {
+      "way_id": 32795,
+      "removed": 1
+    },
+    {
+      "way_id": 28712,
+      "removed": 1
+    },
+    {
+      "way_id": 29029,
+      "removed": 1
+    },
+    {
+      "way_id": 32906,
+      "removed": 1
+    },
+    {
+      "way_id": 32907,
+      "removed": 1
+    },
+    {
+      "way_id": 32944,
+      "removed": 1
+    },
+    {
+      "way_id": 30898,
+      "removed": 1
+    },
+    {
+      "way_id": 31098,
+      "removed": 1
+    },
+    {
+      "way_id": 28995,
+      "removed": 1
+    },
+    {
+      "way_id": 28996,
+      "removed": 1
+    },
+    {
+      "way_id": 35147,
+      "removed": 1
+    },
+    {
+      "way_id": 24935,
+      "removed": 1
+    },
+    {
+      "way_id": 29062,
+      "removed": 1
+    },
+    {
+      "way_id": 25026,
+      "removed": 1
+    },
+    {
+      "way_id": 33350,
+      "removed": 1
+    },
+    {
+      "way_id": 29313,
+      "removed": 1
+    },
+    {
+      "way_id": 33724,
+      "removed": 1
+    },
+    {
+      "way_id": 29722,
+      "removed": 1
+    },
+    {
+      "way_id": 23585,
+      "removed": 1
+    },
+    {
+      "way_id": 29754,
+      "removed": 1
+    },
+    {
+      "way_id": 25670,
+      "removed": 1
+    },
+    {
+      "way_id": 27896,
+      "removed": 1
+    },
+    {
+      "way_id": 29575,
+      "removed": 1
+    },
+    {
+      "way_id": 26847,
+      "removed": 1
+    },
+    {
+      "way_id": 30108,
+      "removed": 1
+    },
+    {
+      "way_id": 34256,
+      "removed": 1
+    },
+    {
+      "way_id": 24115,
+      "removed": 1
+    },
+    {
+      "way_id": 29689,
+      "removed": 1
+    },
+    {
+      "way_id": 32555,
+      "removed": 1
+    },
+    {
+      "way_id": 29690,
+      "removed": 1
+    },
+    {
+      "way_id": 24528,
+      "removed": 1
+    },
+    {
+      "way_id": 28410,
+      "removed": 1
+    },
+    {
+      "way_id": 31366,
+      "removed": 1
+    },
+    {
+      "way_id": 26408,
+      "removed": 1
+    },
+    {
+      "way_id": 28465,
+      "removed": 1
+    },
+    {
+      "way_id": 32610,
+      "removed": 1
+    },
+    {
+      "way_id": 26594,
+      "removed": 1
+    }
+  ],
+  "signals": [
+    {
+      "opendrive_id": "2376",
+      "group_id": 35817,
+      "max_center_error_m": 3.0230392026891555e-06
+    },
+    {
+      "opendrive_id": "2377",
+      "group_id": 35833,
+      "max_center_error_m": 3.84828310730158e-06
+    },
+    {
+      "opendrive_id": "2378",
+      "group_id": 35849,
+      "max_center_error_m": 2.185981064429949e-06
+    },
+    {
+      "opendrive_id": "2379",
+      "group_id": 35865,
+      "max_center_error_m": 4.788685447079344e-06
+    },
+    {
+      "opendrive_id": "2380",
+      "group_id": 35881,
+      "max_center_error_m": 4.103264278757915e-06
+    },
+    {
+      "opendrive_id": "2381",
+      "group_id": 35897,
+      "max_center_error_m": 2.7536108380406456e-06
+    },
+    {
+      "opendrive_id": "2382",
+      "group_id": 35913,
+      "max_center_error_m": 3.5945529988332282e-06
+    },
+    {
+      "opendrive_id": "2383",
+      "group_id": 35929,
+      "max_center_error_m": 7.365254685552687e-07
+    },
+    {
+      "opendrive_id": "2385",
+      "group_id": 35945,
+      "max_center_error_m": 1.1499908568196554e-07
+    },
+    {
+      "opendrive_id": "2386",
+      "group_id": 35961,
+      "max_center_error_m": 1.0938810719047592e-05
+    },
+    {
+      "opendrive_id": "2387",
+      "group_id": 35977,
+      "max_center_error_m": 1.3287492350778878e-07
+    },
+    {
+      "opendrive_id": "2388",
+      "group_id": 35993,
+      "max_center_error_m": 6.328335255704366e-06
+    },
+    {
+      "opendrive_id": "2389",
+      "group_id": 36009,
+      "max_center_error_m": 1.6477766087049468e-07
+    },
+    {
+      "opendrive_id": "2390",
+      "group_id": 36025,
+      "max_center_error_m": 4.1000495061560404e-05
+    },
+    {
+      "opendrive_id": "2391",
+      "group_id": 36041,
+      "max_center_error_m": 5.566397764562175e-06
+    },
+    {
+      "opendrive_id": "2392",
+      "group_id": 36057,
+      "max_center_error_m": 9.773306171653594e-08
+    },
+    {
+      "opendrive_id": "2393",
+      "group_id": 36073,
+      "max_center_error_m": 1.5210848558344824e-06
+    },
+    {
+      "opendrive_id": "2394",
+      "group_id": 36089,
+      "max_center_error_m": 6.242456384614445e-06
+    },
+    {
+      "opendrive_id": "2395",
+      "group_id": 36105,
+      "max_center_error_m": 0.002252865441592463
+    },
+    {
+      "opendrive_id": "2396",
+      "group_id": 36121,
+      "max_center_error_m": 3.4163120183540437e-06
+    },
+    {
+      "opendrive_id": "2397",
+      "group_id": 36137,
+      "max_center_error_m": 4.474523999175809e-06
+    },
+    {
+      "opendrive_id": "2398",
+      "group_id": 36153,
+      "max_center_error_m": 4.090369264544579e-06
+    },
+    {
+      "opendrive_id": "2399",
+      "group_id": 36169,
+      "max_center_error_m": 3.7533565747500068e-06
+    },
+    {
+      "opendrive_id": "2400",
+      "group_id": 36185,
+      "max_center_error_m": 1.7019282935200806e-06
+    },
+    {
+      "opendrive_id": "2401",
+      "group_id": 36201,
+      "max_center_error_m": 0.00024617911780757865
+    },
+    {
+      "opendrive_id": "2402",
+      "group_id": 36217,
+      "max_center_error_m": 8.898536254085481e-08
+    },
+    {
+      "opendrive_id": "2403",
+      "group_id": 36233,
+      "max_center_error_m": 3.3502148148088854e-06
+    },
+    {
+      "opendrive_id": "2404",
+      "group_id": 36249,
+      "max_center_error_m": 1.4502393110816743e-07
+    },
+    {
+      "opendrive_id": "2405",
+      "group_id": 36265,
+      "max_center_error_m": 1.5595564798947068e-07
+    },
+    {
+      "opendrive_id": "2406",
+      "group_id": 36281,
+      "max_center_error_m": 1.3660597245180616e-06
+    },
+    {
+      "opendrive_id": "2407",
+      "group_id": 36297,
+      "max_center_error_m": 2.645895431963547e-07
+    },
+    {
+      "opendrive_id": "2408",
+      "group_id": 36313,
+      "max_center_error_m": 0.0002098906467862942
+    },
+    {
+      "opendrive_id": "2409",
+      "group_id": 36329,
+      "max_center_error_m": 5.313565846421481e-06
+    },
+    {
+      "opendrive_id": "2410",
+      "group_id": 36345,
+      "max_center_error_m": 3.7176102799467075e-06
+    },
+    {
+      "opendrive_id": "2411",
+      "group_id": 36361,
+      "max_center_error_m": 5.545446280226135e-06
+    },
+    {
+      "opendrive_id": "2412",
+      "group_id": 36377,
+      "max_center_error_m": 3.28934251624593e-06
+    },
+    {
+      "opendrive_id": "2413",
+      "group_id": 36393,
+      "max_center_error_m": 7.830430111997718e-06
+    },
+    {
+      "opendrive_id": "2414",
+      "group_id": 36409,
+      "max_center_error_m": 8.835469979796194e-06
+    },
+    {
+      "opendrive_id": "2415",
+      "group_id": 36425,
+      "max_center_error_m": 1.827452229939896e-05
+    },
+    {
+      "opendrive_id": "2419",
+      "group_id": 36441,
+      "max_center_error_m": 6.9199035546725564e-06
+    },
+    {
+      "opendrive_id": "2420",
+      "group_id": 36457,
+      "max_center_error_m": 1.047260978001129e-05
+    },
+    {
+      "opendrive_id": "2421",
+      "group_id": 36473,
+      "max_center_error_m": 1.3006667894759114e-06
+    },
+    {
+      "opendrive_id": "2423",
+      "group_id": 36489,
+      "max_center_error_m": 6.157782941524373e-06
+    },
+    {
+      "opendrive_id": "2424",
+      "group_id": 36505,
+      "max_center_error_m": 6.798259870944241e-07
+    },
+    {
+      "opendrive_id": "2425",
+      "group_id": 36521,
+      "max_center_error_m": 3.2519318209178025e-06
+    },
+    {
+      "opendrive_id": "2426",
+      "group_id": 36537,
+      "max_center_error_m": 1.906188717774522e-06
+    },
+    {
+      "opendrive_id": "2427",
+      "group_id": 36553,
+      "max_center_error_m": 6.417997301236206e-06
+    },
+    {
+      "opendrive_id": "2428",
+      "group_id": 36569,
+      "max_center_error_m": 3.0385890070596595e-06
+    },
+    {
+      "opendrive_id": "2429",
+      "group_id": 36585,
+      "max_center_error_m": 9.457481399313561e-06
+    },
+    {
+      "opendrive_id": "2430",
+      "group_id": 36592,
+      "max_center_error_m": 0.0005029100458143568
+    },
+    {
+      "opendrive_id": "2431",
+      "group_id": 36599,
+      "max_center_error_m": 1.3049769896074968e-06
+    },
+    {
+      "opendrive_id": "2432",
+      "group_id": 36615,
+      "max_center_error_m": 1.8500894705704878e-05
+    },
+    {
+      "opendrive_id": "2433",
+      "group_id": 36631,
+      "max_center_error_m": 5.71726450376655e-07
+    },
+    {
+      "opendrive_id": "2434",
+      "group_id": 36647,
+      "max_center_error_m": 1.6812153558855835e-05
+    }
+  ],
+  "stop_signs": [
+    {
+      "opendrive_id": "2384",
+      "regulatory_id": 36654,
+      "stop_line_id": 36653,
+      "lanelet_id": 22891,
+      "trigger_projection_error_m": 0.053574999139294276
+    },
+    {
+      "opendrive_id": "2416",
+      "regulatory_id": 36661,
+      "stop_line_id": 36660,
+      "lanelet_id": 843,
+      "trigger_projection_error_m": 0.4339317116090629
+    },
+    {
+      "opendrive_id": "2416",
+      "regulatory_id": 36665,
+      "stop_line_id": 36664,
+      "lanelet_id": 901,
+      "trigger_projection_error_m": 0.022870622061738777
+    },
+    {
+      "opendrive_id": "2417",
+      "regulatory_id": 36672,
+      "stop_line_id": 36671,
+      "lanelet_id": 2847,
+      "trigger_projection_error_m": 0.07181157706103149
+    },
+    {
+      "opendrive_id": "2417",
+      "regulatory_id": 36676,
+      "stop_line_id": 36675,
+      "lanelet_id": 2838,
+      "trigger_projection_error_m": 0.007019417172284053
+    },
+    {
+      "opendrive_id": "2418",
+      "regulatory_id": 36683,
+      "stop_line_id": 36682,
+      "lanelet_id": 2780,
+      "trigger_projection_error_m": 0.017487039214452244
+    },
+    {
+      "opendrive_id": "2418",
+      "regulatory_id": 36687,
+      "stop_line_id": 36686,
+      "lanelet_id": 2768,
+      "trigger_projection_error_m": 0.6078652068998757
+    },
+    {
+      "opendrive_id": "2422",
+      "regulatory_id": 36694,
+      "stop_line_id": 36693,
+      "lanelet_id": 29973,
+      "trigger_projection_error_m": 0.22135876015029599
+    }
+  ],
+  "crosswalks": [
+    {
+      "lanelet_id": 36710,
+      "regulatory_id": 36711,
+      "linked_road_lanelets": [
+        2821,
+        2829,
+        2838,
+        2847,
+        26904,
+        26933,
+        33867,
+        34114,
+        34594,
+        34622
+      ],
+      "area_m2": 39.65078213051311
+    },
+    {
+      "lanelet_id": 36727,
+      "regulatory_id": 36728,
+      "linked_road_lanelets": [
+        2768,
+        2780,
+        2793,
+        2806,
+        26904,
+        26933,
+        33598,
+        33773,
+        34594,
+        34622
+      ],
+      "area_m2": 39.12284264713526
+    },
+    {
+      "lanelet_id": 36740,
+      "regulatory_id": 36741,
+      "linked_road_lanelets": [
+        33598,
+        33773,
+        33867,
+        34114
+      ],
+      "area_m2": 40.23716233103187
+    },
+    {
+      "lanelet_id": 36753,
+      "regulatory_id": 36754,
+      "linked_road_lanelets": [
+        24937,
+        24971,
+        25933,
+        25966,
+        26694,
+        26849,
+        27132,
+        28518
+      ],
+      "area_m2": 38.84167869220255
+    },
+    {
+      "lanelet_id": 36766,
+      "regulatory_id": 36767,
+      "linked_road_lanelets": [
+        32612,
+        32641,
+        32696,
+        32724,
+        33818,
+        34147,
+        34258,
+        34467
+      ],
+      "area_m2": 40.26676289049283
+    },
+    {
+      "lanelet_id": 36779,
+      "regulatory_id": 36780,
+      "linked_road_lanelets": [
+        27704,
+        27735,
+        34045,
+        34077,
+        34506,
+        34673,
+        34893,
+        35022
+      ],
+      "area_m2": 40.821361878013704
+    },
+    {
+      "lanelet_id": 36792,
+      "regulatory_id": 36793,
+      "linked_road_lanelets": [
+        32147,
+        32176,
+        33563,
+        33726,
+        34147,
+        34258,
+        34728,
+        34756
+      ],
+      "area_m2": 38.80644911927084
+    },
+    {
+      "lanelet_id": 36805,
+      "regulatory_id": 36806,
+      "linked_road_lanelets": [
+        32147,
+        32176,
+        33170,
+        33307,
+        33818,
+        34467,
+        34728,
+        34756
+      ],
+      "area_m2": 38.542607573472196
+    },
+    {
+      "lanelet_id": 36818,
+      "regulatory_id": 36819,
+      "linked_road_lanelets": [
+        26269,
+        26361,
+        27132,
+        27800,
+        27833,
+        27898,
+        27932,
+        28518
+      ],
+      "area_m2": 39.04898873320781
+    },
+    {
+      "lanelet_id": 36831,
+      "regulatory_id": 36832,
+      "linked_road_lanelets": [
+        24811,
+        25028,
+        26694,
+        26849,
+        27800,
+        27833,
+        27898,
+        27932
+      ],
+      "area_m2": 40.681236912554596
+    },
+    {
+      "lanelet_id": 36844,
+      "regulatory_id": 36845,
+      "linked_road_lanelets": [
+        24426,
+        24461,
+        24530,
+        24566,
+        27181,
+        34893,
+        35022,
+        35259
+      ],
+      "area_m2": 43.95348750252742
+    },
+    {
+      "lanelet_id": 36857,
+      "regulatory_id": 36858,
+      "linked_road_lanelets": [
+        24426,
+        24461,
+        24530,
+        24566,
+        34506,
+        34673,
+        35149,
+        35396
+      ],
+      "area_m2": 42.9860563823604
+    },
+    {
+      "lanelet_id": 36870,
+      "regulatory_id": 36871,
+      "linked_road_lanelets": [
+        32612,
+        32641,
+        32696,
+        32724,
+        33170,
+        33307,
+        33563,
+        33726
+      ],
+      "area_m2": 39.882342383101786
+    },
+    {
+      "lanelet_id": 36883,
+      "regulatory_id": 36884,
+      "linked_road_lanelets": [
+        24811,
+        24937,
+        24971,
+        25028,
+        25933,
+        25966,
+        26269,
+        26361
+      ],
+      "area_m2": 41.95696094899904
+    },
+    {
+      "lanelet_id": 36896,
+      "regulatory_id": 36897,
+      "linked_road_lanelets": [
+        27181,
+        27704,
+        27735,
+        34045,
+        34077,
+        35149,
+        35259,
+        35396
+      ],
+      "area_m2": 42.27158490289003
+    },
+    {
+      "lanelet_id": 36913,
+      "regulatory_id": 36914,
+      "linked_road_lanelets": [
+        32797,
+        32835,
+        32908,
+        32945,
+        33137,
+        33221
+      ],
+      "area_m2": 39.49867743020877
+    },
+    {
+      "lanelet_id": 36930,
+      "regulatory_id": 36931,
+      "linked_road_lanelets": [
+        29315,
+        29353,
+        29426,
+        29463,
+        29516,
+        34434
+      ],
+      "area_m2": 39.32656540046446
+    },
+    {
+      "lanelet_id": 36943,
+      "regulatory_id": 36944,
+      "linked_road_lanelets": [
+        26596,
+        28934,
+        29628,
+        30263,
+        31917,
+        31952,
+        32021,
+        32057
+      ],
+      "area_m2": 38.15656848758226
+    },
+    {
+      "lanelet_id": 36956,
+      "regulatory_id": 36957,
+      "linked_road_lanelets": [
+        2124,
+        26308,
+        26410,
+        26545,
+        27230,
+        27997,
+        28031,
+        28096,
+        28129
+      ],
+      "area_m2": 39.03789251181297
+    },
+    {
+      "lanelet_id": 36969,
+      "regulatory_id": 36970,
+      "linked_road_lanelets": [
+        24062,
+        24668,
+        24703,
+        26009,
+        29130,
+        29164,
+        35200,
+        35349
+      ],
+      "area_m2": 43.59280010750808
+    },
+    {
+      "lanelet_id": 36982,
+      "regulatory_id": 36983,
+      "linked_road_lanelets": [
+        23893,
+        23922,
+        23979,
+        24009,
+        24062,
+        25352,
+        25480,
+        26009
+      ],
+      "area_m2": 51.78769389161607
+    },
+    {
+      "lanelet_id": 36995,
+      "regulatory_id": 36996,
+      "linked_road_lanelets": [
+        25128,
+        25157,
+        25212,
+        25240,
+        26308,
+        26743,
+        26970,
+        27230
+      ],
+      "area_m2": 51.15684024212533
+    },
+    {
+      "lanelet_id": 37008,
+      "regulatory_id": 37009,
+      "linked_road_lanelets": [
+        23893,
+        23922,
+        23979,
+        24009,
+        34930,
+        34979,
+        35200,
+        35349
+      ],
+      "area_m2": 51.658956212682824
+    },
+    {
+      "lanelet_id": 37021,
+      "regulatory_id": 37022,
+      "linked_road_lanelets": [
+        25128,
+        25157,
+        25212,
+        25240,
+        25776,
+        26410,
+        26545,
+        35059
+      ],
+      "area_m2": 51.638578119454905
+    },
+    {
+      "lanelet_id": 37034,
+      "regulatory_id": 37035,
+      "linked_road_lanelets": [
+        33137,
+        33221,
+        33434,
+        33487
+      ],
+      "area_m2": 51.002007928909734
+    },
+    {
+      "lanelet_id": 37047,
+      "regulatory_id": 37048,
+      "linked_road_lanelets": [
+        26596,
+        28773,
+        28804,
+        28863,
+        28893,
+        30263,
+        30990,
+        31141
+      ],
+      "area_m2": 50.569227004481945
+    },
+    {
+      "lanelet_id": 37060,
+      "regulatory_id": 37061,
+      "linked_road_lanelets": [
+        28773,
+        28804,
+        28863,
+        28893,
+        28934,
+        29628,
+        29794,
+        34840
+      ],
+      "area_m2": 50.59374577211565
+    },
+    {
+      "lanelet_id": 37073,
+      "regulatory_id": 37074,
+      "linked_road_lanelets": [
+        28359,
+        28412,
+        29516,
+        34434
+      ],
+      "area_m2": 51.48586289235391
+    },
+    {
+      "lanelet_id": 37086,
+      "regulatory_id": 37087,
+      "linked_road_lanelets": [
+        24668,
+        24703,
+        25352,
+        25480,
+        29130,
+        29164,
+        34930,
+        34979
+      ],
+      "area_m2": 40.88244625106199
+    },
+    {
+      "lanelet_id": 37099,
+      "regulatory_id": 37100,
+      "linked_road_lanelets": [
+        25776,
+        26743,
+        26970,
+        27997,
+        28031,
+        28096,
+        28129,
+        35059
+      ],
+      "area_m2": 41.30106594329118
+    },
+    {
+      "lanelet_id": 37116,
+      "regulatory_id": 37117,
+      "linked_road_lanelets": [
+        32797,
+        32835,
+        32908,
+        32945,
+        33434,
+        33487
+      ],
+      "area_m2": 39.60378401284106
+    },
+    {
+      "lanelet_id": 37129,
+      "regulatory_id": 37130,
+      "linked_road_lanelets": [
+        29794,
+        30990,
+        31141,
+        31917,
+        31952,
+        32021,
+        32057,
+        34840
+      ],
+      "area_m2": 38.19532936246833
+    },
+    {
+      "lanelet_id": 37146,
+      "regulatory_id": 37147,
+      "linked_road_lanelets": [
+        20779,
+        28359,
+        28412,
+        29315,
+        29353,
+        29426,
+        29463
+      ],
+      "area_m2": 39.92052419669926
+    },
+    {
+      "lanelet_id": 37159,
+      "regulatory_id": 37160,
+      "linked_road_lanelets": [
+        27547,
+        29853,
+        29883,
+        31235,
+        31323,
+        31491,
+        34317,
+        34348
+      ],
+      "area_m2": 38.51267179065326
+    },
+    {
+      "lanelet_id": 37172,
+      "regulatory_id": 37173,
+      "linked_road_lanelets": [
+        26475,
+        26508,
+        28194,
+        28228,
+        28273,
+        28467,
+        28569,
+        28675
+      ],
+      "area_m2": 42.173554431661614
+    },
+    {
+      "lanelet_id": 37185,
+      "regulatory_id": 37186,
+      "linked_road_lanelets": [
+        24284,
+        24312,
+        30055,
+        33922,
+        33951,
+        34213,
+        35092,
+        35439
+      ],
+      "area_m2": 39.33098316138694
+    },
+    {
+      "lanelet_id": 37198,
+      "regulatory_id": 37199,
+      "linked_road_lanelets": [
+        27461,
+        27598,
+        28569,
+        28675,
+        30336,
+        30373,
+        30446,
+        30484
+      ],
+      "area_m2": 42.99278229629272
+    },
+    {
+      "lanelet_id": 37211,
+      "regulatory_id": 37212,
+      "linked_road_lanelets": [
+        27271,
+        27357,
+        28273,
+        28467,
+        30336,
+        30373,
+        30446,
+        30484
+      ],
+      "area_m2": 41.20312549942173
+    },
+    {
+      "lanelet_id": 37224,
+      "regulatory_id": 37225,
+      "linked_road_lanelets": [
+        27547,
+        29932,
+        30010,
+        31235,
+        32319,
+        32351,
+        32414,
+        32447
+      ],
+      "area_m2": 39.5166433765844
+    },
+    {
+      "lanelet_id": 37237,
+      "regulatory_id": 37238,
+      "linked_road_lanelets": [
+        23683,
+        23711,
+        23766,
+        23795,
+        29242,
+        34213,
+        34789,
+        35439
+      ],
+      "area_m2": 39.99016089210636
+    },
+    {
+      "lanelet_id": 37250,
+      "regulatory_id": 37251,
+      "linked_road_lanelets": [
+        30939,
+        31323,
+        31491,
+        32319,
+        32351,
+        32414,
+        32447,
+        35308
+      ],
+      "area_m2": 39.13484133385646
+    },
+    {
+      "lanelet_id": 37263,
+      "regulatory_id": 37264,
+      "linked_road_lanelets": [
+        23683,
+        23711,
+        23766,
+        23795,
+        30055,
+        34393,
+        34539,
+        35092
+      ],
+      "area_m2": 39.66594724440074
+    },
+    {
+      "lanelet_id": 37276,
+      "regulatory_id": 37277,
+      "linked_road_lanelets": [
+        26475,
+        26508,
+        27271,
+        27357,
+        27461,
+        27598,
+        28194,
+        28228
+      ],
+      "area_m2": 42.01955927810923
+    },
+    {
+      "lanelet_id": 37289,
+      "regulatory_id": 37290,
+      "linked_road_lanelets": [
+        24284,
+        24312,
+        29242,
+        33922,
+        33951,
+        34393,
+        34539,
+        34789
+      ],
+      "area_m2": 40.32642075309013
+    },
+    {
+      "lanelet_id": 37302,
+      "regulatory_id": 37303,
+      "linked_road_lanelets": [
+        29853,
+        29883,
+        29932,
+        30010,
+        30939,
+        34317,
+        34348,
+        35308
+      ],
+      "area_m2": 37.87956930798828
+    },
+    {
+      "lanelet_id": 37315,
+      "regulatory_id": 37316,
+      "linked_road_lanelets": [
+        24764,
+        24872,
+        25301,
+        25672,
+        25813,
+        26042,
+        26142,
+        29577
+      ],
+      "area_m2": 40.195618208061205
+    },
+    {
+      "lanelet_id": 37328,
+      "regulatory_id": 37329,
+      "linked_road_lanelets": [
+        24357,
+        24601,
+        25073,
+        25535,
+        25727,
+        25868,
+        26097,
+        33984
+      ],
+      "area_m2": 40.597121988239905
+    },
+    {
+      "lanelet_id": 37341,
+      "regulatory_id": 37342,
+      "linked_road_lanelets": [
+        30541,
+        30637,
+        31045,
+        31196,
+        31270,
+        31646,
+        31724,
+        34180
+      ],
+      "area_m2": 39.738575580006
+    },
+    {
+      "lanelet_id": 37354,
+      "regulatory_id": 37355,
+      "linked_road_lanelets": [
+        25073,
+        27025,
+        27054,
+        27496,
+        27643,
+        31820,
+        31848,
+        33984
+      ],
+      "area_m2": 40.48232348829515
+    },
+    {
+      "lanelet_id": 37367,
+      "regulatory_id": 37368,
+      "linked_road_lanelets": [
+        24357,
+        24601,
+        27025,
+        27054,
+        27304,
+        27402,
+        31820,
+        31848
+      ],
+      "area_m2": 39.1410501795508
+    },
+    {
+      "lanelet_id": 37380,
+      "regulatory_id": 37381,
+      "linked_road_lanelets": [
+        31450,
+        31556,
+        31765,
+        32557
+      ],
+      "area_m2": 47.48234276205767
+    },
+    {
+      "lanelet_id": 37393,
+      "regulatory_id": 37394,
+      "linked_road_lanelets": [
+        25411,
+        25441,
+        25594,
+        25625,
+        26042,
+        26142,
+        26794,
+        27093
+      ],
+      "area_m2": 40.23212909439462
+    },
+    {
+      "lanelet_id": 37406,
+      "regulatory_id": 37407,
+      "linked_road_lanelets": [
+        25411,
+        25441,
+        25594,
+        25625,
+        25672,
+        25813,
+        26651,
+        28318
+      ],
+      "area_m2": 38.46564127551392
+    },
+    {
+      "lanelet_id": 37419,
+      "regulatory_id": 37420,
+      "linked_road_lanelets": [
+        26197,
+        26226,
+        31724,
+        32256,
+        32492,
+        33653,
+        33681,
+        34180
+      ],
+      "area_m2": 39.12476671265904
+    },
+    {
+      "lanelet_id": 37432,
+      "regulatory_id": 37433,
+      "linked_road_lanelets": [
+        26197,
+        26226,
+        31270,
+        31646,
+        32092,
+        32221,
+        33653,
+        33681
+      ],
+      "area_m2": 39.19702924507874
+    },
+    {
+      "lanelet_id": 37445,
+      "regulatory_id": 37446,
+      "linked_road_lanelets": [
+        23587,
+        23628,
+        35760,
+        35801
+      ],
+      "area_m2": 41.96985138567106
+    },
+    {
+      "lanelet_id": 37458,
+      "regulatory_id": 37459,
+      "linked_road_lanelets": [
+        23836,
+        29973
+      ],
+      "area_m2": 37.62444481460261
+    },
+    {
+      "lanelet_id": 37471,
+      "regulatory_id": 37472,
+      "linked_road_lanelets": [
+        25535,
+        25727,
+        25868,
+        26097,
+        27304,
+        27402,
+        27496,
+        27643
+      ],
+      "area_m2": 42.459592595270806
+    },
+    {
+      "lanelet_id": 37484,
+      "regulatory_id": 37485,
+      "linked_road_lanelets": [
+        24764,
+        24872,
+        25301,
+        26651,
+        26794,
+        27093,
+        28318,
+        29577
+      ],
+      "area_m2": 42.202142691312474
+    },
+    {
+      "lanelet_id": 37497,
+      "regulatory_id": 37498,
+      "linked_road_lanelets": [
+        30541,
+        30637,
+        31045,
+        31196,
+        32092,
+        32221,
+        32256,
+        32492
+      ],
+      "area_m2": 41.706757982377894
+    },
+    {
+      "lanelet_id": 37510,
+      "regulatory_id": 37511,
+      "linked_road_lanelets": [
+        30582,
+        30678
+      ],
+      "area_m2": 33.81795503132162
+    },
+    {
+      "lanelet_id": 37523,
+      "regulatory_id": 37524,
+      "linked_road_lanelets": [
+        29197,
+        30900,
+        31100,
+        31601,
+        31679,
+        33352
+      ],
+      "area_m2": 41.81500896430589
+    },
+    {
+      "lanelet_id": 37536,
+      "regulatory_id": 37537,
+      "linked_road_lanelets": [
+        30733,
+        30761,
+        30816,
+        30845,
+        31368,
+        31409,
+        31601,
+        31679
+      ],
+      "area_m2": 39.331562561375904
+    },
+    {
+      "lanelet_id": 37549,
+      "regulatory_id": 37550,
+      "linked_road_lanelets": [
+        28612,
+        28714,
+        29197,
+        30733,
+        30761,
+        30816,
+        30845,
+        33352
+      ],
+      "area_m2": 39.050915878018714
+    },
+    {
+      "lanelet_id": 37562,
+      "regulatory_id": 37563,
+      "linked_road_lanelets": [
+        28612,
+        28714,
+        30900,
+        31100,
+        31368,
+        31409
+      ],
+      "area_m2": 32.8444274573485
+    },
+    {
+      "lanelet_id": 37575,
+      "regulatory_id": 37576,
+      "linked_road_lanelets": [
+        33096,
+        33262,
+        33393,
+        33530
+      ],
+      "area_m2": 32.10093465971295
+    }
+  ],
+  "turn_directions": {
+    "25128": "straight",
+    "25157": "straight",
+    "25212": "straight",
+    "25240": "straight",
+    "25776": "left",
+    "35059": "right",
+    "26410": "left",
+    "26545": "right",
+    "26743": "left",
+    "26970": "right",
+    "27230": "left",
+    "26308": "right",
+    "28031": "straight",
+    "27997": "straight",
+    "28096": "straight",
+    "28129": "straight",
+    "34317": "straight",
+    "34348": "straight",
+    "29853": "straight",
+    "29883": "straight",
+    "29932": "left",
+    "30010": "right",
+    "35308": "left",
+    "30939": "right",
+    "27547": "left",
+    "31235": "right",
+    "31323": "left",
+    "31491": "right",
+    "32351": "straight",
+    "32319": "straight",
+    "32447": "straight",
+    "32414": "straight",
+    "33096": "left",
+    "33530": "right",
+    "32612": "straight",
+    "32641": "straight",
+    "32724": "straight",
+    "32696": "straight",
+    "33170": "right",
+    "33307": "left",
+    "33563": "right",
+    "33726": "left",
+    "33818": "left",
+    "34467": "right",
+    "34147": "right",
+    "34258": "left",
+    "32176": "straight",
+    "32147": "straight",
+    "34756": "straight",
+    "34728": "straight",
+    "34930": "right",
+    "34979": "left",
+    "35200": "left",
+    "35349": "right",
+    "23922": "straight",
+    "23893": "straight",
+    "23979": "straight",
+    "24009": "straight",
+    "24703": "straight",
+    "24668": "straight",
+    "29130": "straight",
+    "29164": "straight",
+    "25352": "left",
+    "25480": "right",
+    "24062": "left",
+    "26009": "right",
+    "28228": "straight",
+    "28194": "straight",
+    "26475": "straight",
+    "26508": "straight",
+    "27271": "right",
+    "27357": "left",
+    "27461": "left",
+    "27598": "right",
+    "28273": "right",
+    "28467": "left",
+    "28569": "right",
+    "28675": "left",
+    "30336": "straight",
+    "30373": "straight",
+    "30446": "straight",
+    "30484": "straight",
+    "30541": "straight",
+    "30637": "straight",
+    "31045": "straight",
+    "31196": "straight",
+    "31270": "right",
+    "31646": "left",
+    "31724": "left",
+    "34180": "right",
+    "32092": "right",
+    "32221": "left",
+    "32256": "right",
+    "32492": "left",
+    "26226": "straight",
+    "26197": "straight",
+    "33681": "straight",
+    "33653": "straight",
+    "33951": "straight",
+    "33922": "straight",
+    "24312": "straight",
+    "24284": "straight",
+    "34393": "left",
+    "34539": "right",
+    "34789": "right",
+    "29242": "left",
+    "35092": "right",
+    "30055": "left",
+    "35439": "left",
+    "34213": "right",
+    "23683": "straight",
+    "23711": "straight",
+    "23766": "straight",
+    "23795": "straight",
+    "24357": "left",
+    "24601": "right",
+    "25073": "left",
+    "33984": "right",
+    "25535": "straight",
+    "25727": "straight",
+    "25868": "straight",
+    "26097": "straight",
+    "27054": "straight",
+    "27025": "straight",
+    "31848": "straight",
+    "31820": "straight",
+    "27304": "right",
+    "27402": "left",
+    "27496": "right",
+    "27643": "left",
+    "28773": "straight",
+    "28804": "straight",
+    "28863": "straight",
+    "28893": "straight",
+    "28934": "right",
+    "29628": "left",
+    "29794": "right",
+    "34840": "left",
+    "30263": "right",
+    "26596": "left",
+    "30990": "left",
+    "31141": "right",
+    "31917": "straight",
+    "31952": "straight",
+    "32057": "straight",
+    "32021": "straight",
+    "32797": "straight",
+    "32835": "straight",
+    "32908": "straight",
+    "32945": "straight",
+    "33137": "right",
+    "33221": "left",
+    "33434": "right",
+    "33487": "left",
+    "33598": "right",
+    "33773": "left",
+    "33867": "left",
+    "34114": "right",
+    "26904": "straight",
+    "26933": "straight",
+    "34594": "straight",
+    "34622": "straight",
+    "35502": "straight",
+    "35535": "straight",
+    "35568": "straight",
+    "35631": "straight",
+    "35663": "straight",
+    "35695": "straight",
+    "35760": "left",
+    "35801": "right",
+    "23587": "left",
+    "23628": "right",
+    "29973": "right",
+    "29577": "straight",
+    "24764": "straight",
+    "24872": "straight",
+    "25301": "straight",
+    "25672": "left",
+    "25813": "right",
+    "26042": "right",
+    "26142": "left",
+    "28318": "right",
+    "26651": "left",
+    "26794": "left",
+    "27093": "right",
+    "25411": "straight",
+    "25441": "straight",
+    "25594": "straight",
+    "25625": "straight",
+    "28359": "right",
+    "28412": "left",
+    "29315": "straight",
+    "29353": "straight",
+    "29426": "straight",
+    "29463": "straight",
+    "29516": "left",
+    "34434": "right",
+    "30110": "straight",
+    "30139": "straight",
+    "30582": "right",
+    "30678": "right",
+    "28997": "straight",
+    "29063": "straight",
+    "29030": "straight",
+    "29755": "straight",
+    "29691": "straight",
+    "29723": "straight",
+    "31450": "right",
+    "31556": "left",
+    "32557": "left",
+    "31765": "right"
+  },
+  "unmatched_connectors": [],
+  "summary": {
+    "traffic_light_groups": 54,
+    "signal_approach_lanes": 111,
+    "crosswalks": 66,
+    "turn_directions": {
+      "straight": 106,
+      "left": 51,
+      "right": 54
+    },
+    "removed_duplicate_boundary_points": 38,
+    "unmatched_signal_connectors": 0,
+    "native_stop_signs": 5,
+    "stop_sign_lane_regulations": 8,
+    "unmapped_scene_stop_triggers": 25
+  },
+  "map_sha256": "413bf0a9e9c08357d284364d8a70d9a1e94fed64c1a8b8854df65b2a214468a8"
+}

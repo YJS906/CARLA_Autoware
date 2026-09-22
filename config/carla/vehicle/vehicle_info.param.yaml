@@ -1,0 +1,15 @@
+# CARLA 0.9.16 vehicle.toyota.prius, measured without moving ego.
+# Width is bounding-box width; front wheel tread is used. Wheel width is
+# descriptive only (0.235 m); CARLA WheelPhysicsControl does not expose it.
+/**:
+  ros__parameters:
+    wheel_radius: 0.37
+    wheel_width: 0.235
+    wheel_base: 2.81918946
+    wheel_tread: 1.62851105
+    front_overhang: 0.83880027925
+    rear_overhang: 0.8555328857200002
+    left_overhang: 0.18915171491500005
+    right_overhang: 0.18915171491500005
+    vehicle_height: 1.52483344078
+    max_steer_angle: 1.2217304763960306

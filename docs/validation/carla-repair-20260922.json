@@ -1,0 +1,954 @@
+{
+  "date": "2026-09-22",
+  "runtime_image": "sha256:1d44cf81b364baca1f1db296a8735135a81a2a696f798483f3ddb907bfd45caf",
+  "map_sha256": "413bf0a9e9c08357d284364d8a70d9a1e94fed64c1a8b8854df65b2a214468a8",
+  "mission_source_sha256": "bba0d40f005378db2b35f050199ed25160a7046735375c7b01adb0143576850e",
+  "offline_tests": {
+    "mission_planner_gtest": 16,
+    "bridge_pytest": 14,
+    "traffic_signal_pytest": 10
+  },
+  "live_readonly": {
+    "sample_wall_s": 12.029989302000104,
+    "clock_sim": 45.65000068,
+    "topics": {
+      "/clock": {
+        "messages": 242,
+        "type": "rosgraph_msgs/msg/Clock",
+        "publishers": [
+          "/autoware_carla_interface"
+        ]
+      },
+      "/perception/object_recognition/detection/objects": {
+        "messages": 0,
+        "type": "autoware_perception_msgs/msg/DetectedObjects",
+        "publishers": []
+      },
+      "/perception/object_recognition/tracking/objects": {
+        "messages": 121,
+        "type": "autoware_perception_msgs/msg/TrackedObjects",
+        "publishers": [
+          "/perception/object_recognition/tracking/multi_object_tracker"
+        ],
+        "max_objects": 2,
+        "frame": "map",
+        "stamp_sim": 45.600000679,
+        "age_sim_s": 0.05000000100000079,
+        "last_objects": 2,
+        "classes": {
+          "1": 2
+        }
+      },
+      "/perception/object_recognition/objects": {
+        "messages": 121,
+        "type": "autoware_perception_msgs/msg/PredictedObjects",
+        "publishers": [
+          "/perception/object_recognition/prediction/map_based_prediction"
+        ],
+        "max_objects": 2,
+        "frame": "map",
+        "stamp_sim": 45.600000679,
+        "age_sim_s": 0.05000000100000079,
+        "last_objects": 2,
+        "classes": {
+          "1": 2
+        }
+      },
+      "/planning/mission_planning/route": {
+        "messages": 0,
+        "type": "autoware_planning_msgs/msg/LaneletRoute",
+        "publishers": [
+          "/planning/mission_planning/mission_planner"
+        ]
+      },
+      "/planning/trajectory": {
+        "messages": 0,
+        "type": "autoware_planning_msgs/msg/Trajectory",
+        "publishers": [
+          "/planning/planning_validator"
+        ]
+      },
+      "/control/command/control_cmd": {
+        "messages": 0,
+        "type": "autoware_control_msgs/msg/Control",
+        "publishers": [
+          "/control/vehicle_cmd_gate"
+        ]
+      },
+      "/control/command/actuation_cmd": {
+        "messages": 0,
+        "type": "tier4_vehicle_msgs/msg/ActuationCommandStamped",
+        "publishers": [
+          "/autoware_raw_vehicle_cmd_converter"
+        ]
+      },
+      "/control/command/gear_cmd": {
+        "messages": 121,
+        "type": "autoware_vehicle_msgs/msg/GearCommand",
+        "publishers": [
+          "/control/vehicle_cmd_gate"
+        ],
+        "stamp_sim": 0.0,
+        "age_sim_s": 45.65000068,
+        "command": 22
+      },
+      "/perception/traffic_light_recognition/traffic_signals": {
+        "messages": 120,
+        "type": "autoware_perception_msgs/msg/TrafficLightGroupArray",
+        "publishers": [
+          "/carla_traffic_signal_bridge"
+        ],
+        "stamp_sim": 45.550000678,
+        "age_sim_s": 0.10000000199999448,
+        "groups": 54,
+        "expected_54": true,
+        "states": [
+          [
+            35817,
+            [
+              1
+            ]
+          ],
+          [
+            35833,
+            [
+              1
+            ]
+          ],
+          [
+            35849,
+            [
+              1
+            ]
+          ],
+          [
+            35865,
+            [
+              3
+            ]
+          ],
+          [
+            35881,
+            [
+              1
+            ]
+          ],
+          [
+            35897,
+            [
+              3
+            ]
+          ],
+          [
+            35913,
+            [
+              1
+            ]
+          ],
+          [
+            35929,
+            [
+              1
+            ]
+          ],
+          [
+            35945,
+            [
+              1
+            ]
+          ],
+          [
+            35961,
+            [
+              3
+            ]
+          ],
+          [
+            35977,
+            [
+              1
+            ]
+          ],
+          [
+            35993,
+            [
+              1
+            ]
+          ],
+          [
+            36009,
+            [
+              1
+            ]
+          ],
+          [
+            36025,
+            [
+              3
+            ]
+          ],
+          [
+            36041,
+            [
+              1
+            ]
+          ],
+          [
+            36057,
+            [
+              1
+            ]
+          ],
+          [
+            36073,
+            [
+              1
+            ]
+          ],
+          [
+            36089,
+            [
+              1
+            ]
+          ],
+          [
+            36105,
+            [
+              3
+            ]
+          ],
+          [
+            36121,
+            [
+              1
+            ]
+          ],
+          [
+            36137,
+            [
+              1
+            ]
+          ],
+          [
+            36153,
+            [
+              1
+            ]
+          ],
+          [
+            36169,
+            [
+              1
+            ]
+          ],
+          [
+            36185,
+            [
+              3
+            ]
+          ],
+          [
+            36201,
+            [
+              1
+            ]
+          ],
+          [
+            36217,
+            [
+              1
+            ]
+          ],
+          [
+            36233,
+            [
+              3
+            ]
+          ],
+          [
+            36249,
+            [
+              1
+            ]
+          ],
+          [
+            36265,
+            [
+              1
+            ]
+          ],
+          [
+            36281,
+            [
+              1
+            ]
+          ],
+          [
+            36297,
+            [
+              1
+            ]
+          ],
+          [
+            36313,
+            [
+              3
+            ]
+          ],
+          [
+            36329,
+            [
+              3
+            ]
+          ],
+          [
+            36345,
+            [
+              1
+            ]
+          ],
+          [
+            36361,
+            [
+              1
+            ]
+          ],
+          [
+            36377,
+            [
+              1
+            ]
+          ],
+          [
+            36393,
+            [
+              1
+            ]
+          ],
+          [
+            36409,
+            [
+              1
+            ]
+          ],
+          [
+            36425,
+            [
+              3
+            ]
+          ],
+          [
+            36441,
+            [
+              1
+            ]
+          ],
+          [
+            36457,
+            [
+              3
+            ]
+          ],
+          [
+            36473,
+            [
+              1
+            ]
+          ],
+          [
+            36489,
+            [
+              1
+            ]
+          ],
+          [
+            36505,
+            [
+              3
+            ]
+          ],
+          [
+            36521,
+            [
+              1
+            ]
+          ],
+          [
+            36537,
+            [
+              1
+            ]
+          ],
+          [
+            36553,
+            [
+              3
+            ]
+          ],
+          [
+            36569,
+            [
+              1
+            ]
+          ],
+          [
+            36585,
+            [
+              1
+            ]
+          ],
+          [
+            36592,
+            [
+              1
+            ]
+          ],
+          [
+            36599,
+            [
+              3
+            ]
+          ],
+          [
+            36615,
+            [
+              3
+            ]
+          ],
+          [
+            36631,
+            [
+              1
+            ]
+          ],
+          [
+            36647,
+            [
+              1
+            ]
+          ]
+        ]
+      },
+      "/localization/kinematic_state": {
+        "messages": 720,
+        "type": "nav_msgs/msg/Odometry",
+        "publishers": [
+          "/carla_state_publisher"
+        ],
+        "frame": "map",
+        "stamp_sim": 45.600000679,
+        "age_sim_s": 0.05000000100000079,
+        "pose": {
+          "xyz": [
+            -144.1007537841797,
+            0.9974544048309326,
+            -0.001450723735615611
+          ],
+          "xyzw": [
+            2.9503926421625854e-05,
+            -7.350337902435073e-05,
+            0.999999996850573,
+            5.0621747164285205e-06
+          ]
+        },
+        "child_frame": "base_link",
+        "linear": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "angular": [
+          0.0,
+          0.0,
+          -0.0
+        ]
+      },
+      "/vehicle/status/steering_status": {
+        "messages": 240,
+        "type": "autoware_vehicle_msgs/msg/SteeringReport",
+        "publishers": [
+          "/autoware_carla_interface"
+        ],
+        "stamp_sim": 45.600000679,
+        "age_sim_s": 0.05000000100000079,
+        "steering_tire_angle": -0.0
+      },
+      "/vehicle/status/velocity_status": {
+        "messages": 240,
+        "type": "autoware_vehicle_msgs/msg/VelocityReport",
+        "publishers": [
+          "/autoware_carla_interface"
+        ],
+        "frame": "base_link",
+        "stamp_sim": 45.600000679,
+        "age_sim_s": 0.05000000100000079,
+        "longitudinal": 0.0,
+        "lateral": -0.0,
+        "heading_rate": -0.0
+      },
+      "/vehicle/status/gear_status": {
+        "messages": 240,
+        "type": "autoware_vehicle_msgs/msg/GearReport",
+        "publishers": [
+          "/autoware_carla_interface"
+        ],
+        "stamp_sim": 45.600000679,
+        "age_sim_s": 0.05000000100000079,
+        "report": 22
+      },
+      "/vehicle/status/control_mode": {
+        "messages": 240,
+        "type": "autoware_vehicle_msgs/msg/ControlModeReport",
+        "publishers": [
+          "/autoware_carla_interface"
+        ],
+        "stamp_sim": 45.600000679,
+        "age_sim_s": 0.05000000100000079,
+        "mode": 1
+      },
+      "/api/operation_mode/state": {
+        "messages": 1,
+        "type": "autoware_adapi_v1_msgs/msg/OperationModeState",
+        "publishers": [
+          "/adapi/node/operation_mode"
+        ],
+        "stamp_sim": 0.40000000500000005,
+        "age_sim_s": 45.250000674999995,
+        "mode": 1,
+        "is_autoware_control_enabled": true,
+        "is_in_transition": false,
+        "is_autonomous_mode_available": false
+      },
+      "/api/routing/state": {
+        "messages": 1,
+        "type": "autoware_adapi_v1_msgs/msg/RouteState",
+        "publishers": [
+          "/adapi/node/routing"
+        ],
+        "stamp_sim": 29.000000432,
+        "age_sim_s": 16.650000247999998,
+        "state": 1
+      },
+      "/tf": {
+        "messages": 720,
+        "type": "tf2_msgs/msg/TFMessage",
+        "publishers": [
+          "/carla_state_publisher",
+          "/robot_state_publisher"
+        ]
+      },
+      "/tf_static": {
+        "messages": 2,
+        "type": "tf2_msgs/msg/TFMessage",
+        "publishers": [
+          "/map/vector_map_tf_generator",
+          "/robot_state_publisher"
+        ]
+      }
+    },
+    "runtime_parameters": {
+      "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner": {
+        "front_overhang": 0.83880027925,
+        "launch_modules": [
+          "autoware::behavior_velocity_planner::experimental::CrosswalkModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::WalkwayModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::TrafficLightModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::IntersectionModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::BlindSpotModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::DetectionAreaModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::VirtualTrafficLightModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::NoStoppingAreaModulePlugin",
+          "autoware::behavior_velocity_planner::experimental::StopLineModulePlugin",
+          ""
+        ],
+        "left_overhang": 0.18915171491500005,
+        "max_steer_angle": 1.2217304763960306,
+        "rear_overhang": 0.8555328857200002,
+        "right_overhang": 0.18915171491500005,
+        "vehicle_height": 1.52483344078,
+        "wheel_base": 2.81918946,
+        "wheel_radius": 0.37,
+        "wheel_tread": 1.62851105
+      },
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner": {
+        "front_overhang": 0.83880027925,
+        "launch_modules": [
+          "autoware::motion_velocity_planner::ObstacleStopModule",
+          "autoware::motion_velocity_planner::ObstacleSlowDownModule",
+          "autoware::motion_velocity_planner::ObstacleCruiseModule",
+          "autoware::motion_velocity_planner::OutOfLaneModule",
+          "autoware::motion_velocity_planner::ObstacleVelocityLimiterModule",
+          "autoware::motion_velocity_planner::DynamicObstacleStopModule",
+          "autoware::motion_velocity_planner::RunOutModule",
+          "autoware::motion_velocity_planner::experimental::BoundaryDeparturePreventionModule",
+          "autoware::motion_velocity_planner::RoadUserStopModule",
+          ""
+        ],
+        "left_overhang": 0.18915171491500005,
+        "max_steer_angle": 1.2217304763960306,
+        "rear_overhang": 0.8555328857200002,
+        "right_overhang": 0.18915171491500005,
+        "vehicle_height": 1.52483344078,
+        "wheel_base": 2.81918946,
+        "wheel_radius": 0.37,
+        "wheel_tread": 1.62851105
+      },
+      "/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner": {
+        "front_overhang": 0.83880027925,
+        "launch_modules": [
+          "autoware::behavior_path_planner::StaticObstacleAvoidanceModuleManager",
+          "autoware::behavior_path_planner::SideShiftModuleManager",
+          "autoware::behavior_path_planner::BidirectionalTrafficModuleManager",
+          "autoware::behavior_path_planner::StartPlannerModuleManager",
+          "autoware::behavior_path_planner::GoalPlannerModuleManager",
+          "autoware::behavior_path_planner::LaneChangeRightModuleManager",
+          "autoware::behavior_path_planner::LaneChangeLeftModuleManager",
+          "autoware::behavior_path_planner::AvoidanceByLaneChangeModuleManager",
+          ""
+        ],
+        "left_overhang": 0.18915171491500005,
+        "max_steer_angle": 1.2217304763960306,
+        "rear_overhang": 0.8555328857200002,
+        "right_overhang": 0.18915171491500005,
+        "vehicle_height": 1.52483344078,
+        "wheel_base": 2.81918946,
+        "wheel_radius": 0.37,
+        "wheel_tread": 1.62851105
+      },
+      "/control/autonomous_emergency_braking": {
+        "front_overhang": 0.83880027925,
+        "left_overhang": 0.18915171491500005,
+        "max_steer_angle": 1.2217304763960306,
+        "rear_overhang": 0.8555328857200002,
+        "right_overhang": 0.18915171491500005,
+        "use_imu_path": false,
+        "use_pointcloud_data": true,
+        "use_predicted_object_data": false,
+        "use_predicted_trajectory": true,
+        "vehicle_height": 1.52483344078,
+        "wheel_base": 2.81918946,
+        "wheel_radius": 0.37,
+        "wheel_tread": 1.62851105
+      }
+    },
+    "module_topic_evidence": [
+      "/planning/auto_mode_status/blind_spot",
+      "/planning/cooperate_status/blind_spot",
+      "/planning/debug/objects_of_interest/blind_spot",
+      "/planning/debug/objects_of_interest/run_out",
+      "/planning/planning_factors/blind_spot",
+      "/planning/planning_factors/road_user_stop",
+      "/planning/planning_factors/run_out",
+      "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/debug/blind_spot",
+      "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/debug/blind_spot/decision_state",
+      "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/debug/blind_spot/processing_time_ms",
+      "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/debug/processing_time_detail_ms/blind_spot",
+      "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_wall/blind_spot",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/debug/processing_time_detail_ms/road_user_stop",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/debug/road_user_stop/processing_time_ms",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/debug/road_user_stop/trajectory",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/debug/run_out/processing_time_ms",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/debug/run_out/trajectory",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/road_user_stop/debug_markers",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/road_user_stop/virtual_walls",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/run_out/debug_markers",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/run_out/processing_time_detail_ms",
+      "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner/run_out/virtual_walls"
+    ],
+    "carla_readonly": {
+      "map": "Carla/Maps/Town05_Opt",
+      "frame": 128154,
+      "elapsed_sim_s": 3154.848787420313,
+      "ego_count": 1,
+      "vehicle_count": 31,
+      "walker_count": 0,
+      "ego": {
+        "id": 173,
+        "type": "vehicle.toyota.prius",
+        "actor_xyz_carla": [
+          -145.5,
+          -0.997858464717865,
+          0.03687930852174759
+        ],
+        "yaw_carla_deg": -179.99942016601562,
+        "speed_mps": 0.0,
+        "rear_base_offset_carla": [
+          -1.3992362367326194,
+          -0.0003907403334875159,
+          -0.03824740648269653
+        ],
+        "expected_base_xyz_ros": [
+          -144.100766024111,
+          0.9974591243793215,
+          -0.0014507223662705432
+        ],
+        "expected_linear_ros": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "expected_angular_ros": [
+          -0.0,
+          0.0,
+          -0.0
+        ],
+        "max_steer_rad": 1.2217303432379762,
+        "wheelbase": 2.819189454381032,
+        "steering_tire_rad_ros": -0.0,
+        "control": {
+          "throttle": 0.0,
+          "brake": 1.0,
+          "steer": 0.0,
+          "gear": 0,
+          "reverse": false,
+          "hand_brake": true
+        }
+      },
+      "base_pose_comparison": {
+        "ros_xyz": [
+          -144.1007537841797,
+          0.9974544048309326,
+          -0.001450723735615611
+        ],
+        "error_m": 1.3118310015193367e-05,
+        "note": "Sequential ROS/CARLA samples; compare numerically while ego remains stopped."
+      },
+      "sensors": [
+        {
+          "id": 177,
+          "type": "sensor.other.imu",
+          "actor_relative_xyz_carla": [
+            -1.4000091553169511,
+            -4.306543713417099e-06,
+            4.893529269300867e-09
+          ],
+          "rear_base_relative_xyz_ros": [
+            -0.0007729185843317055,
+            -0.0003864337897740988,
+            0.0382474113762258
+          ],
+          "ros_frame": "tamagawa/imu_link",
+          "tf_xyz_ros": [
+            -0.0007637599999998912,
+            -0.00039074,
+            0.03824741
+          ],
+          "tf_position_error_m": 1.0120430591956408e-05
+        },
+        {
+          "id": 176,
+          "type": "sensor.other.gnss",
+          "actor_relative_xyz_carla": [
+            -1.4000091553169511,
+            -4.306543713417099e-06,
+            4.893529269300867e-09
+          ],
+          "rear_base_relative_xyz_ros": [
+            -0.0007729185843317055,
+            -0.0003864337897740988,
+            0.0382474113762258
+          ],
+          "ros_frame": "gnss_link",
+          "tf_xyz_ros": [
+            -0.0007637599999998912,
+            -0.00039074,
+            0.03824741
+          ],
+          "tf_position_error_m": 1.0120430591956408e-05
+        },
+        {
+          "id": 175,
+          "type": "sensor.lidar.ray_cast",
+          "actor_relative_xyz_carla": [
+            -0.3899976281608417,
+            -4.611814906851919e-06,
+            1.8399999132157843
+          ],
+          "rear_base_relative_xyz_ros": [
+            1.0092386085717777,
+            -0.000386128518580664,
+            1.8782473196984808
+          ],
+          "ros_frame": "velodyne_top",
+          "tf_xyz_ros": [
+            1.00923624,
+            -0.00039074,
+            1.8782474100000002
+          ],
+          "tf_position_error_m": 5.1849828844440465e-06
+        },
+        {
+          "id": 174,
+          "type": "sensor.camera.rgb",
+          "actor_relative_xyz_carla": [
+            0.799990651537712,
+            -4.901568112392063e-06,
+            1.5999998984570998
+          ],
+          "rear_base_relative_xyz_ros": [
+            2.1992268882703314,
+            -0.00038583876537512385,
+            1.6382473049397963
+          ],
+          "ros_frame": "CAM_FRONT/camera_link",
+          "tf_xyz_ros": [
+            2.1992362400000003,
+            -0.00039074,
+            1.6382474100000002
+          ],
+          "tf_position_error_m": 1.05587871601892e-05
+        }
+      ]
+    }
+  },
+  "signals_and_detection": {
+    "manifest_groups": 54,
+    "native_signal_count": 54,
+    "missing_native_ids": [],
+    "duplicate_native_ids": [],
+    "map_hash_matches": true,
+    "xodr_hash_matches": true,
+    "signals": {
+      "messages": 40,
+      "all_groups_match_live_samples": 40,
+      "mismatch_samples": [],
+      "last_native_states": {
+        "Red": 39,
+        "Green": 15
+      }
+    },
+    "detection": {
+      "/perception/object_recognition/detection/centerpoint/objects": {
+        "messages": 40,
+        "max_objects": 2,
+        "last_objects": 1,
+        "classes": {
+          "1": 1
+        },
+        "publishers": [
+          "/perception/object_recognition/detection/centerpoint/lidar_centerpoint"
+        ]
+      },
+      "/perception/object_recognition/detection/clustering/objects": {
+        "messages": 40,
+        "max_objects": 1,
+        "last_objects": 0,
+        "classes": {},
+        "publishers": [
+          "/perception/object_recognition/detection/clustering/detected_object_feature_remover"
+        ]
+      },
+      "/perception/object_recognition/detection/camera_only/objects": {
+        "messages": 0,
+        "max_objects": 0,
+        "publishers": []
+      }
+    },
+    "sample_wall_s": 4.016116536000482
+  },
+  "live_route_test": [
+    {
+      "event": "preflight",
+      "mode": 1,
+      "stop_constant": 1,
+      "control_enabled": true,
+      "route_state": 1,
+      "ego_id": 173,
+      "start": [
+        -144.1007537841797,
+        0.9974544048309326,
+        -0.001450723735615611
+      ],
+      "carla_speed": 0.0,
+      "ros_speed": 0.0
+    },
+    {
+      "event": "set_route_points",
+      "success": true,
+      "code": 0,
+      "message": ""
+    },
+    {
+      "event": "route",
+      "segments": 11,
+      "goal": [
+        -264.26,
+        -80.0957,
+        0.0
+      ],
+      "preferred_ids": [
+        652,
+        33307,
+        21434,
+        27898,
+        21107,
+        29516,
+        23192,
+        29628,
+        5725,
+        25966,
+        6183
+      ]
+    },
+    {
+      "event": "observation",
+      "duration_sec": 15.0,
+      "trajectory_messages": 149,
+      "trajectory_nonempty": 149,
+      "trajectory_nonzero_velocity": 149,
+      "control_messages": 300,
+      "control_nonzero_velocity": 0,
+      "control_nonzero_acceleration": 300,
+      "control_nonzero_steering": 0,
+      "nonfinite_messages": 0,
+      "max_carla_speed": 0.0,
+      "max_ros_speed": 0.0,
+      "max_displacement": 0.0
+    },
+    {
+      "event": "clear_route",
+      "success": true,
+      "code": 0,
+      "message": ""
+    },
+    {
+      "event": "cleanup",
+      "success": true,
+      "state": 1,
+      "unset_constant": 1
+    },
+    {
+      "event": "result",
+      "success": true,
+      "engaged": false,
+      "control_published": false
+    }
+  ],
+  "test_goal": {
+    "x": -264.26,
+    "y": -80.0957,
+    "yaw_rad": 2.17607
+  },
+  "closed_loop_driving_tested": false,
+  "notes": [
+    "Initial /detection/objects probe is not the runtime detection endpoint; use centerpoint and clustering results.",
+    "Read-only sample ran with route unset; route flow was measured separately by live_route_test.",
+    "No AUTO engagement; test route cleared and STOP retained."
+  ],
+  "post_route_clear_actuation": {
+    "sample_sec": 3,
+    "counts": {
+      "control": 61,
+      "actuation": 60
+    },
+    "last": {
+      "control_velocity": 0.0,
+      "actuation": {
+        "accel": 0.0,
+        "brake": 0.6,
+        "steer": 0.0
+      }
+    }
+  },
+  "runtime_fatal_events": 0
+}

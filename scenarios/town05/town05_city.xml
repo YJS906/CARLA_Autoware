@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 <scenarios>
     <scenario name="Town05CityScenario" type="Town05CityScenario" town="Town05_Opt">
-        <!-- Easy-to-edit scenario settings -->
+        <!-- 배경 차량 목표 수: 기존 차량이 많아도 삭제하지 않고, 부족한 수만 추가합니다. -->
         <vehicle_count value="30" />
+        <!-- NPC 앞차와의 목표 간격(m). -->
         <following_distance value="3.0" />
-        <!-- Positive values drive slower than the road limit; negative values drive faster. -->
+        <!-- NPC 제한속도 대비 감속률(%): 10이면 제한속도의 90%, 30이면 70%. -->
         <speed_difference value="10.0" />
+        <!-- 일반적인 자동 차선 변경 허용. 특정 시점의 끼어들기 이벤트는 아닙니다. -->
         <automatic_lane_change value="true" />
+        <!-- 새 NPC를 생성할 때 ego 주변에서 비워 두는 거리(m). -->
         <spawn_clearance value="25.0" />
+        <!-- 시뮬레이션 시간(초): 1800 = 30분. -->
         <scenario_duration value="1800" />
 
         <ego_vehicle

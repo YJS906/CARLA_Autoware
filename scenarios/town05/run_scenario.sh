@@ -11,16 +11,23 @@ export PYTHONPYCACHEPREFIX="/tmp/carla-scenario-pycache-${UID}"
 mkdir -p "${PYTHONPYCACHEPREFIX}"
 
 extra_args=()
-if [[ "${1:-}" == "--wait-for-ego" ]]; then
-    extra_args+=(--waitForEgo)
-    shift
-fi
+scenario_name=Town05CityScenario
+scenario_config="${SCENARIO_ROOT}/town05_city.xml"
+for arg in "$@"; do
+    case "${arg}" in
+      --hazards)
+        scenario_name=Town05Hazards
+        scenario_config="${SCENARIO_ROOT}/town05_hazards.xml"
+        ;;
+      --wait-for-ego) extra_args+=(--waitForEgo) ;;
+      *) extra_args+=("${arg}") ;;
+    esac
+done
 
 cd "${SCENARIO_RUNNER_ROOT}"
 exec "${CARLA_PYTHON}" scenario_runner.py \
-    --scenario Town05CityScenario \
+    --scenario "${scenario_name}" \
     --additionalScenario "${SCENARIO_ROOT}/town05_city.py" \
-    --configFile "${SCENARIO_ROOT}/town05_city.xml" \
+    --configFile "${scenario_config}" \
     --output \
-    "${extra_args[@]}" \
-    "$@"
+    "${extra_args[@]}"

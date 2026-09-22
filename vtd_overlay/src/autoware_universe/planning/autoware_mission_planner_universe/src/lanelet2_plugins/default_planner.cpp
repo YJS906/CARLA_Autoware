@@ -63,22 +63,31 @@ lanelet::ConstLanelets get_lanelets_to(
   const route_handler::RouteHandler & route_handler)
 {
   lanelet::ConstLanelets lanelets;
-  if (distance <= 0.0) {
+  if (!std::isfinite(distance) || distance <= 0.0) {
     return lanelets;
   }
 
-  const auto next_lanelets = backward ? route_handler.getPreviousLanelets(start_lanelet)
-                                      : route_handler.getNextLanelets(start_lanelet);
-  if (next_lanelets.empty()) {
-    return lanelets;
+  auto current_lanelet = start_lanelet;
+  auto remaining_distance = distance;
+  std::unordered_set<lanelet::Id> visited{start_lanelet.id()};
+  while (remaining_distance > 0.0) {
+    const auto next_lanelets = backward ? route_handler.getPreviousLanelets(current_lanelet)
+                                        : route_handler.getNextLanelets(current_lanelet);
+    if (next_lanelets.empty()) {
+      break;
+    }
+    const auto & next_lanelet = next_lanelets.front();
+    const auto length = lanelet::geometry::length2d(next_lanelet);
+    // Invalid centerlines must not turn the remaining distance into NaN, which previously
+    // recursed indefinitely on a connected loop. Visit each lanelet at most once in either
+    // direction.
+    if (!std::isfinite(length) || length <= 0.0 || !visited.insert(next_lanelet.id()).second) {
+      break;
+    }
+    lanelets.insert(backward ? lanelets.begin() : lanelets.end(), next_lanelet);
+    remaining_distance -= length;
+    current_lanelet = next_lanelet;
   }
-
-  const auto & next_lanelet = next_lanelets.front();
-  lanelets.insert(backward ? lanelets.begin() : lanelets.end(), next_lanelet);
-  const auto ahead_lanelets = get_lanelets_to(
-    next_lanelet, distance - lanelet::geometry::length2d(next_lanelet), backward, route_handler);
-  lanelets.insert(
-    backward ? lanelets.begin() : lanelets.end(), ahead_lanelets.begin(), ahead_lanelets.end());
 
   return lanelets;
 }
@@ -282,6 +291,27 @@ struct ReachableGoalFallback
   double lanelet_distance;
 };
 
+bool has_valid_path_geometry(const lanelet::ConstLaneletOrAreas & path)
+{
+  if (path.empty()) {
+    return false;
+  }
+  for (const auto & element : path) {
+    if (!element.isLanelet()) {
+      continue;
+    }
+    const auto centerline = static_cast<const lanelet::ConstLanelet &>(element).centerline();
+    if (
+      centerline.size() < 2 ||
+      std::any_of(centerline.begin(), centerline.end(), [](const auto & p) {
+        return !std::isfinite(p.x()) || !std::isfinite(p.y()) || !std::isfinite(p.z());
+      })) {
+      return false;
+    }
+  }
+  return true;
+}
+
 geometry_msgs::msg::Pose project_to_lanelet_centerline(
   const lanelet::ConstLanelet & target_lanelet, const geometry_msgs::msg::Pose & pose)
 {
@@ -346,7 +376,8 @@ std::optional<ReachableGoalFallback> find_reachable_goal_fallback(
     lanelet::ConstLaneletOrAreas candidate_path;
     if (
       route_handler.planPathLaneletsBetweenCheckpoints(
-        start_pose, candidate_goal, &candidate_path, consider_no_drivable_lanes)) {
+        start_pose, candidate_goal, &candidate_path, consider_no_drivable_lanes) &&
+      has_valid_path_geometry(candidate_path)) {
       return ReachableGoalFallback{candidate_goal, candidate_path, candidate.id(), distance};
     }
   }
@@ -674,6 +705,10 @@ PlannerPlugin::LaneletRoute DefaultPlanner::plan(const RoutePoints & points)
                                                        << log_ss.str());
 
   LaneletRoute route_msg;
+  if (points.size() < 2) {
+    RCLCPP_WARN(logger, "Route planning requires at least a start and a goal checkpoint.");
+    return route_msg;
+  }
   RouteSections route_sections;
   auto planning_points = points;
 
@@ -683,9 +718,19 @@ PlannerPlugin::LaneletRoute DefaultPlanner::plan(const RoutePoints & points)
     const auto goal_check_point = planning_points.at(i);
 
     lanelet::ConstLaneletOrAreas path_lanelets_or_areas;
-    if (!route_handler_.planPathLaneletsBetweenCheckpoints(
-          start_check_point, goal_check_point, &path_lanelets_or_areas,
-          param_.consider_no_drivable_lanes)) {
+    const bool path_found = route_handler_.planPathLaneletsBetweenCheckpoints(
+      start_check_point, goal_check_point, &path_lanelets_or_areas,
+      param_.consider_no_drivable_lanes);
+    if (path_found && !has_valid_path_geometry(path_lanelets_or_areas)) {
+      // RouteHandler may report success without selecting a path when a malformed map has
+      // non-finite centerline lengths (and therefore non-finite route costs). Never pass that
+      // empty result to route segmentation, which requires a last lanelet. Also reject a selected
+      // path containing non-finite geometry, e.g. when RouteHandler prefers an existing route.
+      // Malformed geometry is not an unreachable goal: do not relocate the goal through fallback.
+      RCLCPP_WARN(logger, "Route planning produced an empty path or non-finite lanelet geometry.");
+      return route_msg;
+    }
+    if (!path_found) {
       const bool is_final_goal = i + 1 == planning_points.size();
       const auto fallback = is_final_goal
                               ? find_reachable_goal_fallback(
@@ -734,6 +779,10 @@ PlannerPlugin::LaneletRoute DefaultPlanner::plan(const RoutePoints & points)
   route_handler_.setRouteLanelets(all_route_lanelets);
   route_sections =
     route_handler_.createMapSegmentsFromLaneletOrAreaPath(all_route_lanelets_or_areas);
+  if (route_sections.empty()) {
+    RCLCPP_WARN(logger, "Route planning produced no route segments.");
+    return route_msg;
+  }
   // Route segmentation can merge the final lateral edge into one section. Keep the actual path
   // endpoint as the anchor before propagating its reachable corridor backward.
   if (!route_sections.empty() && !all_route_lanelets_or_areas.empty()) {

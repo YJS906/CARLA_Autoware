@@ -30,13 +30,14 @@ services:
         source /opt/ros/jazzy/setup.bash &&
         source /opt/autoware/setup.bash &&
         source /opt/selfcar_overlay/setup.bash &&
+        source /opt/carla_overlay/setup.bash &&
         exec ros2 launch autoware_launch e2e_simulator.launch.xml
         map_path:=/home/aw/autoware_data/maps/${AUTOWARE_MAP_NAME:-Town01}
         carla_map:=${CARLA_MAP_NAME:-}
         vehicle_model:=sample_vehicle
         sensor_model:=carla_sensor_kit
         simulator_type:=carla
-        planning_module_preset:=vtd_low_memory
+        planning_module_preset:=carla_city
         localization:=${CARLA_AUTOWARE_LOCALIZATION:-true}
         use_carla_direct_localization:=${CARLA_DIRECT_LOCALIZATION:-false}
         use_light_weight_sensor_mapping:=${CARLA_LIGHTWEIGHT_SENSORS:-True}
@@ -68,11 +69,35 @@ services:
     network_mode: host
     depends_on:
       - autoware
+    volumes:
+      - ../../tools/carla_spectator_follow.py:/opt/carla_overlay/lib/autoware_carla_interface/spectator_follow:ro
     command:
       - bash
       - -lc
       - >-
         source /opt/ros/jazzy/setup.bash &&
         source /opt/autoware/setup.bash &&
+        source /opt/carla_overlay/setup.bash &&
         exec ros2 run autoware_carla_interface spectator_follow
         --role ego_vehicle --distance 8 --height 4 --pitch -15
+
+  traffic_signals:
+    image: ${CARLA_AUTOWARE_IMAGE:-selfcar-2026-carla:local}
+    container_name: selfcar-carla-signals
+    network_mode: host
+    depends_on:
+      - autoware
+    stop_signal: SIGINT
+    volumes:
+      - ${AUTOWARE_MAP_DIR:-/home/a/autoware_data/maps}:/home/aw/autoware_data/maps:ro
+    command:
+      - bash
+      - -lc
+      - >-
+        source /opt/ros/jazzy/setup.bash &&
+        source /opt/autoware/setup.bash &&
+        exec python3 /opt/selfcar-tools/carla_traffic_signal_bridge.py
+        --host 127.0.0.1 --port 2000
+        --manifest /home/aw/autoware_data/maps/${AUTOWARE_MAP_NAME:-Town05}/carla_traffic_signals.json
+        --topic /perception/traffic_light_recognition/traffic_signals
+        --ros-args -p use_sim_time:=true

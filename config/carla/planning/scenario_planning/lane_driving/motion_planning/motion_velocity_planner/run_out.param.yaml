@@ -1,0 +1,92 @@
+# CARLA labels are semantic; stop/cruise cover all road users. Run-out handles crossing VRUs/UNKNOWN; road-user stop handles classified VRUs.
+/**:
+  ros__parameters:
+    run_out:
+      collision:
+        time_margin: 1.0
+        time_overlap_tolerance: 0.1
+        same_direction_angle_threshold: 0.5
+        opposite_direction_angle_threshold: 0.5
+        ignore_conditions:
+          if_ego_arrives_first:
+            enable: true
+            margin:
+              ego_enter_times:
+              - 0.0
+              - 3.0
+              time_margins:
+              - 0.0
+              - 6.0
+            max_overlap_duration: 2.0
+          if_ego_arrives_first_and_cannot_stop:
+            enable: false
+            deceleration_limit: 4.0
+      slowdown:
+        on_time_buffer: 0.0
+        off_time_buffer: 0.5
+        distance_buffer: 2.0
+        deceleration_limit: 4.0
+      stop:
+        on_time_buffer: 0.1
+        off_time_buffer: 1.0
+        distance_buffer: 2.5
+        deceleration_limit: 5.0
+        keep_condition:
+          time: 5.0
+          distance: 10.0
+        reuse_margin: 5.0
+      ego:
+        lateral_margin: 0.3
+        longitudinal_margin: 0.0
+      objects:
+        target_labels:
+        - UNKNOWN
+        - PEDESTRIAN
+        - BICYCLE
+        - MOTORCYCLE
+        DEFAULT:
+          ignore:
+            if_stopped: true
+            stopped_velocity_threshold: 0.25
+            if_on_ego_trajectory: true
+            if_behind_ego: true
+            polygon_types:
+            - NONE
+            lanelet_subtypes:
+            - NONE
+          ignore_collisions:
+            polygon_types:
+            - NONE
+            lanelet_subtypes:
+            - NONE
+            start_ignore_time: 0.0
+            start_ignore_distance: 0.0
+          confidence_filtering:
+            threshold: 0.0
+            only_use_highest: true
+          cut_predicted_paths:
+            if_crossing_ego_from_behind: true
+            polygon_types:
+            - NONE
+            linestring_types:
+            - NONE
+            lanelet_subtypes:
+            - NONE
+            strict_polygon_types:
+            - area.vegetation
+            strict_linestring_types:
+            - guard_rail
+            - fence
+            strict_lanelet_subtypes:
+            - NONE
+          preserved_duration: 0.0
+          preserved_distance: 0.0
+          standstill_duration_after_cut: 2.0
+      debug:
+        object_label: PEDESTRIAN
+        enabled_markers:
+          ego_footprint: true
+          objects: true
+          collisions: true
+          decisions: true
+          filtering_data: false

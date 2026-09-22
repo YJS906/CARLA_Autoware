@@ -29,6 +29,7 @@
 #include <lanelet2_core/primitives/LineString.h>
 #include <lanelet2_core/primitives/Point.h>
 
+#include <limits>
 #include <memory>
 #include <string>
 #include <vector>
@@ -44,6 +45,7 @@ struct DefaultPlanner : public autoware::mission_planner_universe::lanelet2::Def
 {
   // todo(someone): create tests with various kinds of maps
   void set_default_test_map() { route_handler_.setMap(autoware::test_utils::makeMapBinMsg()); }
+  void set_test_map(const lanelet::LaneletMapPtr & map) { route_handler_.setMap(map); }
   [[nodiscard]] bool check_goal_inside_lanes(
     const lanelet::ConstLanelets & lanelets_near_goal,
     const autoware_utils::Polygon2d & goal_footprint) const
@@ -361,6 +363,85 @@ TEST_F(DefaultPlannerTest, plan)
                   return primitive.id == path_lanelet_to_road_shoulder_ids[i];
                 }) != primitives.end());
   }
+}
+
+TEST_F(DefaultPlannerTest, rejectsInsufficientCheckpoints)
+{
+  planner_.set_default_test_map();
+  EXPECT_TRUE(planner_.plan({}).segments.empty());
+  EXPECT_TRUE(planner_.plan({Pose{}}).segments.empty());
+}
+
+TEST_F(DefaultPlannerTest, rejectsEmptyPathFromNonFiniteRouteCost)
+{
+  // Town05 duplicate boundary coordinates caused generated centerlines containing NaN. The
+  // RouteHandler reports success before comparing route costs, so a NaN cost leaves its selected
+  // path empty. Reproduce that contract violation without depending on the external Town05 map.
+  auto map = std::make_shared<lanelet::LaneletMap>();
+  lanelet::Points3d left;
+  lanelet::Points3d right;
+  for (int i = 0; i < 4; ++i) {
+    left.emplace_back(1000 + i, 10.0 * i, 2.0, 0.0);
+    right.emplace_back(2000 + i, 10.0 * i, -2.0, 0.0);
+  }
+  for (int i = 0; i < 3; ++i) {
+    lanelet::Lanelet lane(
+      100 + i, lanelet::LineString3d(3000 + i, {left[i], left[i + 1]}),
+      lanelet::LineString3d(4000 + i, {right[i], right[i + 1]}));
+    lane.attributes()["subtype"] = "road";
+    lane.attributes()["location"] = "urban";
+    lane.attributes()["one_way"] = "yes";
+    map->add(lane);
+  }
+  planner_.set_test_map(map);
+
+  Pose start;
+  start.position.x = 2.0;
+  start.orientation.w = 1.0;
+  Pose goal;
+  goal.position.x = 26.0;
+  goal.orientation.w = 1.0;
+  auto middle = map->laneletLayer.get(101);
+  const auto nan = std::numeric_limits<double>::quiet_NaN();
+  middle.setCenterline(
+    lanelet::LineString3d(
+      5000, {lanelet::Point3d(5001, 10.0, 0.0, 0.0), lanelet::Point3d(5002, nan, 0.0, 0.0)}));
+
+  // A goal footprint may extend into a neighboring lanelet. Invalid neighbors cannot be used to
+  // validate it in either direction, even though their boundary polygons remain well formed.
+  Pose forward_boundary_goal;
+  forward_boundary_goal.position.x = 9.0;
+  forward_boundary_goal.orientation.w = 1.0;
+  EXPECT_FALSE(planner_.is_goal_valid_wrapper(forward_boundary_goal));
+  Pose backward_boundary_goal;
+  backward_boundary_goal.position.x = 20.5;
+  backward_boundary_goal.orientation.w = 1.0;
+  EXPECT_FALSE(planner_.is_goal_valid_wrapper(backward_boundary_goal));
+
+  lanelet::ConstLaneletOrAreas invalid_path;
+  ASSERT_TRUE(planner_.getRouteHandler().planPathLaneletsBetweenCheckpoints(
+    start, goal, &invalid_path, false));
+  ASSERT_TRUE(invalid_path.empty());
+  EXPECT_TRUE(planner_.plan({start, goal}).segments.empty());
+
+  // A rejected request must not prevent a later valid request from succeeding.
+  middle.setCenterline(
+    lanelet::LineString3d(
+      5010, {lanelet::Point3d(5011, 10.0, 0.0, 0.0), lanelet::Point3d(5012, 20.0, 0.0, 0.0)}));
+  const auto valid_route = planner_.plan({start, goal});
+  ASSERT_FALSE(valid_route.segments.empty());
+
+  // An existing preferred route bypasses the cost comparison in RouteHandler. Reject non-finite
+  // geometry even when that branch supplies a nonempty path.
+  planner_.updateRoute(valid_route);
+  middle.setCenterline(
+    lanelet::LineString3d(
+      5020, {lanelet::Point3d(5021, 10.0, 0.0, 0.0), lanelet::Point3d(5022, nan, 0.0, 0.0)}));
+  invalid_path.clear();
+  ASSERT_TRUE(planner_.getRouteHandler().planPathLaneletsBetweenCheckpoints(
+    start, goal, &invalid_path, false));
+  ASSERT_FALSE(invalid_path.empty());
+  EXPECT_TRUE(planner_.plan({start, goal}).segments.empty());
 }
 
 //  `visualize` function is used for user too, so it is more important than debug functions

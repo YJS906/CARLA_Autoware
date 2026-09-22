@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<scenarios>
+    <scenario name="Town05Hazards" type="Town05CityScenario" town="Town05_Opt">
+        <vehicle_count value="30" />
+        <following_distance value="3.0" />
+        <speed_difference value="10.0" />
+        <automatic_lane_change value="true" />
+        <spawn_clearance value="25.0" />
+        <scenario_duration value="1800" />
+
+        <!-- Town05 동쪽 3차로 구간: CARLA 좌표의 -y 방향으로 주행합니다. -->
+        <ego_vehicle x="210.340576" y="74.101173" z="0.5" yaw="-89.335365"
+                     model="vehicle.lincoln.mkz_2017" rolename="ego_vehicle" />
+
+        <!-- 시작점에서 약 40m 앞. 인도를 왕복하다가 ego가 25m 이내로 접근하면 횡단.
+             속도는 m/s, 거리는 m. enabled="false"이면 이 이벤트만 꺼집니다.
+             end_x/end_y는 중앙 갓길의 대피 지점이며 반대편 차도까지 건너지 않습니다. -->
+        <pedestrian_event enabled="true"
+                          x="210.804581" y="34.103870" z="0"
+                          side="right" trigger_distance="25"
+                          walk_speed="1.2" run_speed="3.5" walk_distance="6"
+                          end_x="200.305298" end_y="33.982075" />
+
+        <!-- 시작점에서 약 120m 앞. 왼쪽 차로 차량이 ego 차로로 오른쪽 끼어들기.
+             ego가 35m 이내로 접근하면 옆 차로에서 주행 시작, 16m 이내면 합류.
+             차량 속도는 km/h, 거리는 m. 합류거리가 짧을수록 급격하게 차선을 변경합니다. -->
+        <cut_in_event enabled="true"
+                      x="210.332733" y="-46.094040" z="0"
+                      from_side="left" approach_distance="35" trigger_distance="16"
+                      approach_speed_kmh="12" speed_kmh="25"
+                      lane_change_distance="12" max_approach_distance="20" />
+
+        <weather cloudiness="10" precipitation="0" precipitation_deposits="0"
+                 wind_intensity="0" sun_azimuth_angle="0" sun_altitude_angle="70" />
+    </scenario>
+</scenarios>

@@ -1,0 +1,50 @@
+# CARLA labels are semantic; stop/cruise cover all road users. Run-out handles crossing VRUs/UNKNOWN; road-user stop handles classified VRUs.
+/**:
+  ros__parameters:
+    road_user_stop:
+      option:
+        suppress_sudden_stop: false
+      stop_planning:
+        longitudinal_margin:
+          default_margin: 5.0
+          terminal_margin: 3.0
+          minimum_margin: 3.0
+        opposing_traffic:
+          stop_margin: 10.0
+          max_negative_velocity: -0.1
+          min_velocity_for_stop_planning: 2.77
+          effective_deceleration: 4.0
+        hold_stop_velocity_threshold: 0.01
+        hold_stop_distance_threshold: 0.3
+        stop_on_curve:
+          enable_approaching: false
+          additional_stop_margin: 3.0
+          min_stop_margin: 6.0
+        limit_min_acc: -2.5
+        sudden_object_acc_threshold: -1.0
+        sudden_object_dist_threshold: 1000.0
+        abandon_to_stop: false
+      obstacle_filtering:
+        object_type:
+          pedestrian: true
+          bicycle: true
+          motorcycle: true
+          unknown: false
+        trajectory_lateral_margin: 1.0
+        opposing_traffic_detection:
+          enable: true
+          angle_threshold: 150.0
+          min_speed_threshold: 0.5
+        intersection:
+          exclude: false
+        crosswalk:
+          exclude: true
+          margin: 1.0
+        min_detection_duration: 0.1
+        lost_object_retention_duration: 2.0
+        polygon_expansion_length: 0.5
+      stopped_object_tracking:
+        stopped_velocity_threshold: 0.5
+        stopped_position_tolerance: 0.3
+        ego_reached_wall_distance_threshold: 0.5
+        stopped_duration_after_ego_arrival: 3.0

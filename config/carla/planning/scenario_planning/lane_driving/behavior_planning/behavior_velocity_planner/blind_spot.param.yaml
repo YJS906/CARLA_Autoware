@@ -1,0 +1,26 @@
+# CARLA blind-spot checks include all configured non-VRU vehicle types.
+/**:
+  ros__parameters:
+    blind_spot:
+      backward_attention_length: 100.0
+      ttc_start_margin: 2.0
+      ttc_end_margin: 1.0
+      minimum_default_velocity: 1.388
+      collision_judge_debounce: 0.5
+      critical_stopline_margin: 1.0
+      detect_non_vru:
+        car: true
+        truck: true
+        bus: true
+        trailer: true
+      brake:
+        critical:
+          deceleration: -6.0
+          jerk: -5.0
+        semi_critical:
+          deceleration: -4.0
+          jerk: -5.0
+      brake_for_ttc:
+        critical_threshold_ub: 3.0
+        semi_critical_threshold_lb: 5.0
+      enable_rtc: false
