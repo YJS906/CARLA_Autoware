@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<scenarios>
+    <scenario name="Town05CityScenario" type="Town05CityScenario" town="Town05_Opt">
+        <ego_vehicle
+            x="-145.5"
+            y="-1.0"
+            z="0.3"
+            yaw="180.0"
+            model="vehicle.lincoln.mkz_2017"
+            rolename="ego_vehicle" />
+        <weather
+            cloudiness="10"
+            precipitation="0"
+            precipitation_deposits="0"
+            wind_intensity="0"
+            sun_azimuth_angle="0"
+            sun_altitude_angle="70" />
+    </scenario>
+</scenarios>
