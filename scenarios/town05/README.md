@@ -1,7 +1,9 @@
 # Town05 city scenario
 
 This ScenarioRunner scenario keeps 30 Traffic Manager vehicles circulating in
-`Town05_Opt`. Traffic obeys lights and signs and keeps a 3 m following gap.
+`Town05_Opt`. Traffic obeys lights and signs and keeps a 3 m following gap. If
+the Autoware bridge already created background traffic, the scenario reuses it
+and only adds enough vehicles to reach 30.
 
 Run it with a ScenarioRunner-spawned ego vehicle:
 

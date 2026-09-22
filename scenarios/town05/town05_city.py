@@ -43,13 +43,21 @@ class Town05CityScenario(BasicScenario):
         spawn_points = list(self._map.get_spawn_points())
         self._rng.shuffle(spawn_points)
 
+        existing_background = [
+            actor
+            for actor in self._world.get_actors().filter("vehicle.*")
+            if actor.id != self.ego_vehicles[0].id
+            and actor.attributes.get("role_name") not in ("ego_vehicle", "hero")
+        ]
+        vehicles_to_spawn = max(0, self._vehicle_count - len(existing_background))
+
         tm_port = CarlaDataProvider.get_traffic_manager_port()
         traffic_manager = CarlaDataProvider.get_client().get_trafficmanager(tm_port)
         traffic_manager.set_global_distance_to_leading_vehicle(3.0)
         traffic_manager.global_percentage_speed_difference(10.0)
 
         for spawn_point in spawn_points:
-            if len(self.other_actors) >= self._vehicle_count:
+            if len(self.other_actors) >= vehicles_to_spawn:
                 break
             if spawn_point.location.distance(ego_location) < self._spawn_clearance:
                 continue
@@ -71,8 +79,11 @@ class Town05CityScenario(BasicScenario):
             traffic_manager.ignore_signs_percentage(actor, 0.0)
             self.other_actors.append(actor)
 
-        print("Town05 city traffic: spawned {} background vehicles".format(
-            len(self.other_actors)))
+        print(
+            "Town05 city traffic: kept {} and spawned {} background vehicles".format(
+                len(existing_background), len(self.other_actors)
+            )
+        )
 
     def _create_behavior(self):
         return Idle(self.timeout, name="Town05 city traffic")

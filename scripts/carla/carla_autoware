@@ -71,7 +71,7 @@ case "${1:-start}" in
     export AUTOWARE_MAP_NAME="${AUTOWARE_MAP_NAME:-Town05}"
     export CARLA_MAP_NAME="Town05_Opt"
     export CARLA_EGO_SPAWN="${CARLA_EGO_SPAWN:--145.5,-1.0,0.3,0.0,0.0,180.0}"
-    export CARLA_USE_TRAFFIC_MANAGER="false"
+    export CARLA_USE_TRAFFIC_MANAGER="true"
     export CARLA_EXTRA_TRAFFIC_ENABLED="false"
     export CARLA_AUTOWARE_LOCALIZATION="false"
     export CARLA_DIRECT_LOCALIZATION="true"
