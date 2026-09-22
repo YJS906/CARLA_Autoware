@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
 <scenarios>
     <scenario name="Town05CityScenario" type="Town05CityScenario" town="Town05_Opt">
+        <!-- Easy-to-edit scenario settings -->
+        <vehicle_count value="30" />
+        <following_distance value="3.0" />
+        <!-- Positive values drive slower than the road limit; negative values drive faster. -->
+        <speed_difference value="10.0" />
+        <automatic_lane_change value="true" />
+        <spawn_clearance value="25.0" />
+        <scenario_duration value="1800" />
+
         <ego_vehicle
             x="-145.5"
             y="-1.0"

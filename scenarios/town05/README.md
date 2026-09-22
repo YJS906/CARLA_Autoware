@@ -34,3 +34,18 @@ Autoware, and then attach ScenarioRunner to the bridge-owned ego vehicle:
 The supplied CARLA Lanelet2 map does not contain Autoware traffic-light,
 stop-line, or crosswalk regulatory elements. The Town05 launcher therefore uses
 CARLA ground-truth localization and leaves traffic-light recognition disabled.
+
+## Edit basic settings
+
+Open `town05_city.xml` and change the values near the top:
+
+- `vehicle_count`: total number of ordinary traffic vehicles
+- `following_distance`: minimum following distance in metres
+- `speed_difference`: percentage slower than the road limit; a negative value is faster
+- `automatic_lane_change`: `true` or `false`
+- `spawn_clearance`: vehicle-free radius around the ego at startup, in metres
+- `scenario_duration`: run time in seconds
+
+The `ego_vehicle` block controls the ego start position, and the `weather`
+block controls clouds, rain, wind, and sun. Stop and rerun the scenario after
+saving the XML file.
