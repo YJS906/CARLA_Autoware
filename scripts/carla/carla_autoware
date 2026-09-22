@@ -66,6 +66,26 @@ PY
 }
 
 case "${1:-start}" in
+  start-town05)
+    export AUTOWARE_MAP_DIR="${AUTOWARE_MAP_DIR:-/home/a/autoware_data/maps}"
+    export AUTOWARE_MAP_NAME="${AUTOWARE_MAP_NAME:-Town05}"
+    export CARLA_MAP_NAME="Town05_Opt"
+    export CARLA_EGO_SPAWN="${CARLA_EGO_SPAWN:--145.5,-1.0,0.3,0.0,0.0,180.0}"
+    export CARLA_USE_TRAFFIC_MANAGER="false"
+    export CARLA_EXTRA_TRAFFIC_ENABLED="false"
+    export CARLA_AUTOWARE_LOCALIZATION="false"
+    export CARLA_DIRECT_LOCALIZATION="true"
+    export CARLA_TRAFFIC_LIGHT_RECOGNITION="false"
+    map_dir="${AUTOWARE_MAP_DIR}/${AUTOWARE_MAP_NAME}"
+    for map_file in lanelet2_map.osm pointcloud_map.pcd map_projector_info.yaml; do
+      if [[ ! -s "${map_dir}/${map_file}" ]]; then
+        echo "Town05 map asset is missing: ${map_dir}/${map_file}" >&2
+        echo "Run ${script_dir}/install_town05_map first." >&2
+        exit 1
+      fi
+    done
+    "$0" start
+    ;;
   start-hl-fma)
     export AUTOWARE_MAP_DIR="${AUTOWARE_MAP_DIR:-/home/a/vtd_autoware_maps}"
     export AUTOWARE_MAP_NAME="${AUTOWARE_MAP_NAME:-HL_FMA_VTD_LivingLab_topology_fixed}"
@@ -131,7 +151,7 @@ PY
     docker compose -f "${compose_file}" logs -f --tail=120 autoware traffic spectator
     ;;
   *)
-    echo "usage: $0 {start|start-hl-fma|stop|restart|status|logs}" >&2
+    echo "usage: $0 {start|start-town05|start-hl-fma|stop|restart|status|logs}" >&2
     exit 2
     ;;
 esac

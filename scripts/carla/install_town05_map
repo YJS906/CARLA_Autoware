@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+map_dir="${AUTOWARE_TOWN05_MAP_DIR:-/home/a/autoware_data/maps/Town05}"
+base_url="https://bitbucket.org/carla-simulator/autoware-contents/raw/master/maps"
+osm_sha256="45cdcfd7eca052969e84c645becdfcbda5b0d9f63002da49d6f22b553fab6ad0"
+pcd_sha256="ac91aca5a37ad0e01ace3c9aef269b94afb280bf461884feba7c02bb76269a4a"
+
+mkdir -p "${map_dir}"
+
+download() {
+  local url="$1"
+  local destination="$2"
+  local expected_sha256="$3"
+  local partial="${destination}.part"
+
+  if [[ -f "${destination}" ]] && printf '%s  %s\n' "${expected_sha256}" "${destination}" | sha256sum --check --status; then
+    echo "Already valid: ${destination}"
+    return
+  fi
+
+  curl --location --fail --retry 3 --continue-at - --output "${partial}" "${url}"
+  printf '%s  %s\n' "${expected_sha256}" "${partial}" | sha256sum --check
+  mv "${partial}" "${destination}"
+}
+
+download \
+  "${base_url}/vector_maps/lanelet2/Town05.osm" \
+  "${map_dir}/lanelet2_map.osm" \
+  "${osm_sha256}"
+download \
+  "${base_url}/point_cloud_maps/Town05.pcd" \
+  "${map_dir}/pointcloud_map.pcd" \
+  "${pcd_sha256}"
+
+cat > "${map_dir}/map_projector_info.yaml" <<'EOF'
+projector_type: Local
+EOF
+
+echo "Town05 Autoware map installed: ${map_dir}"
