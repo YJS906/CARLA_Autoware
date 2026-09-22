@@ -1,0 +1,4 @@
+[entrypoint] WARN: failed: ip link set lo multicast on (need --privileged or --cap-add=NET_ADMIN)
+[WARN] [1790069109.594509064] [route_handler]: setMap() for invalid version map: 
+{"changeable_neighbors":[18658,18355,18052],"left_change":18355,"return_right":18052,"outer_right_change":0,"tagged_directional_edges":154,"connected_directional_edges":154,"nonfinite_centerline_points":0}
+{"road_lanelets":486,"crosswalk_lanelets":66,"traffic_light_groups":54,"crosswalk_regulations":66,"stop_sign_lane_regulations":8,"nonfinite_centerlines":0}

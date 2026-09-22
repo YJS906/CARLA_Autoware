@@ -1,0 +1,1245 @@
+{
+  "requested_mode": "ground_truth",
+  "duration_wall_s": 6.010465055998793,
+  "parameters": {
+    "/autoware_carla_interface": {
+      "carla_perception_mode": "ground_truth",
+      "ground_truth_range_m": 150.0,
+      "sync_mode": true,
+      "fixed_delta_seconds": 0.05
+    },
+    "/control/autonomous_emergency_braking": {
+      "use_predicted_object_data": true,
+      "use_pointcloud_data": true
+    }
+  },
+  "publishers": {
+    "clock": [
+      {
+        "node": "/autoware_carla_interface",
+        "type": "rosgraph_msgs/msg/Clock",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "odom": [
+      {
+        "node": "/carla_state_publisher",
+        "type": "nav_msgs/msg/Odometry",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "tracked": [
+      {
+        "node": "/autoware_carla_interface",
+        "type": "autoware_perception_msgs/msg/TrackedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "predicted": [
+      {
+        "node": "/perception/object_recognition/prediction/map_based_prediction",
+        "type": "autoware_perception_msgs/msg/PredictedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "centerpoint": [],
+    "detected": [],
+    "mode": [
+      {
+        "node": "/adapi/node/operation_mode",
+        "type": "autoware_adapi_v1_msgs/msg/OperationModeState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route_state": [
+      {
+        "node": "/adapi/node/routing",
+        "type": "autoware_adapi_v1_msgs/msg/RouteState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route": [
+      {
+        "node": "/planning/mission_planning/mission_planner",
+        "type": "autoware_planning_msgs/msg/LaneletRoute",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ]
+  },
+  "active_nodes": [
+    "/adapi/container",
+    "/adapi/node/autoware_state",
+    "/adapi/node/diagnostics",
+    "/adapi/node/fail_safe",
+    "/adapi/node/heartbeat",
+    "/adapi/node/interface",
+    "/adapi/node/localization",
+    "/adapi/node/manual/local",
+    "/adapi/node/manual/remote",
+    "/adapi/node/motion",
+    "/adapi/node/mrm_request",
+    "/adapi/node/operation_mode",
+    "/adapi/node/perception",
+    "/adapi/node/planning",
+    "/adapi/node/routing",
+    "/adapi/node/vehicle_command",
+    "/adapi/node/vehicle_door",
+    "/adapi/node/vehicle_info",
+    "/adapi/node/vehicle_metrics",
+    "/adapi/node/vehicle_status",
+    "/autoware_carla_interface",
+    "/autoware_raw_vehicle_cmd_converter",
+    "/carla_behavior_runtime_check",
+    "/carla_localization_ready",
+    "/carla_state_publisher",
+    "/carla_traffic_signal_bridge",
+    "/carla_twist2accel",
+    "/control/autonomous_emergency_braking",
+    "/control/autoware_operation_mode_transition_manager",
+    "/control/autoware_shift_decider",
+    "/control/collision_detector",
+    "/control/control_check_container",
+    "/control/control_container",
+    "/control/control_evaluator",
+    "/control/control_validator",
+    "/control/external_cmd_converter",
+    "/control/external_cmd_selector",
+    "/control/trajectory_follower/controller_node_exe",
+    "/control/trajectory_follower/lane_departure_checker_node",
+    "/control/transform_listener_impl_7373d000d740",
+    "/control/transform_listener_impl_73740c129330",
+    "/control/vehicle_cmd_gate",
+    "/default_adapi/helpers/autoware_initial_pose_adaptor",
+    "/default_adapi/helpers/autoware_routing_adaptor",
+    "/default_adapi/helpers/transform_listener_impl_6419a829ebb8",
+    "/launch_ros_1",
+    "/logging_diag_graph",
+    "/managed_tf_listener_impl_e4282e771582",
+    "/map/lanelet2_map_loader",
+    "/map/lanelet2_map_visualization",
+    "/map/map_container",
+    "/map/map_hash_generator",
+    "/map/map_projection_loader",
+    "/map/pointcloud_map_loader",
+    "/map/vector_map_tf_generator",
+    "/perception/object_recognition/prediction/map_based_prediction",
+    "/perception/object_recognition/prediction/transform_listener_impl_5a90a2cd4950",
+    "/perception/obstacle_segmentation/common_ground_filter",
+    "/perception/obstacle_segmentation/crop_box_filter",
+    "/perception/obstacle_segmentation/occupancy_grid_based_outlier_filter",
+    "/perception/occupancy_grid_map/occupancy_grid_map_node",
+    "/perception_analytics_publisher",
+    "/planning/mission_planning/goal_pose_visualizer",
+    "/planning/mission_planning/manual_lane_change_handler",
+    "/planning/mission_planning/mission_planner",
+    "/planning/mission_planning/mission_planner_container",
+    "/planning/mission_planning/route_selector",
+    "/planning/mission_planning/transform_listener_impl_73dd6402de48",
+    "/planning/planning_evaluator",
+    "/planning/planning_validator",
+    "/planning/planning_validator_container",
+    "/planning/scenario_planning/autoware_hazard_lights_selector",
+    "/planning/scenario_planning/external_velocity_limit_selector",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_planning_container",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/transform_listener_impl_7d188404ed30",
+    "/planning/scenario_planning/lane_driving/motion_planning/elastic_band_smoother",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_planning_container",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner",
+    "/planning/scenario_planning/lane_driving/motion_planning/path_optimizer",
+    "/planning/scenario_planning/lane_driving/motion_planning/transform_listener_impl_776060080870",
+    "/planning/scenario_planning/scenario_selector",
+    "/planning/scenario_planning/velocity_smoother",
+    "/planning/scenario_planning/velocity_smoother_container",
+    "/planning/transform_listener_impl_5dd5989b27c0",
+    "/planning/transform_listener_impl_70de1813fff0",
+    "/pointcloud_container",
+    "/robot_state_publisher",
+    "/rviz2",
+    "/sensing/imu/gyro_bias_scale_validator",
+    "/sensing/imu/imu_corrector",
+    "/sensing/imu/transform_listener_impl_61730b61c540",
+    "/sensing/imu/transform_listener_impl_644b616a99a0",
+    "/sensing/lidar/crop_box_filter_mirror",
+    "/sensing/lidar/crop_box_filter_self",
+    "/sensing/lidar/pointcloud_relay",
+    "/sensing/vehicle_velocity_converter",
+    "/system/aggregator",
+    "/system/component_state_monitor/component",
+    "/system/component_state_monitor/container",
+    "/system/converter",
+    "/system/duplicated_node_checker",
+    "/system/hazard_status_converter",
+    "/system/mrm_comfortable_stop_operator",
+    "/system/mrm_comfortable_stop_operator/mrm_comfortable_stop_operator_container",
+    "/system/mrm_emergency_stop_operator",
+    "/system/mrm_emergency_stop_operator/mrm_emergency_stop_operator_container",
+    "/system/mrm_handler",
+    "/system/pipeline_latency_monitor",
+    "/system/processing_time_checker",
+    "/system/service_log_checker",
+    "/system/topic_state_monitor_control_command_control_cmd",
+    "/system/topic_state_monitor_mission_planning_route",
+    "/system/topic_state_monitor_object_recognition_objects",
+    "/system/topic_state_monitor_obstacle_segmentation_pointcloud",
+    "/system/topic_state_monitor_pointcloud_map",
+    "/system/topic_state_monitor_pose_twist_fusion_filter_pose",
+    "/system/topic_state_monitor_scenario_planning_trajectory",
+    "/system/topic_state_monitor_system_emergency_control_cmd",
+    "/system/topic_state_monitor_traffic_light_recognition_traffic_signals",
+    "/system/topic_state_monitor_trajectory_follower_control_cmd",
+    "/system/topic_state_monitor_transform_map_to_base_link",
+    "/system/topic_state_monitor_vector_map",
+    "/system/topic_state_monitor_vehicle_status_steering_status",
+    "/system/topic_state_monitor_vehicle_status_velocity_status",
+    "/transform_listener_impl_564f9888a740",
+    "/transform_listener_impl_5eae35728650",
+    "/transform_listener_impl_703c9c05aeb0",
+    "/transform_listener_impl_703cbc0732d0",
+    "/vehicle_velocity_converter"
+  ],
+  "streams": {
+    "clock": {
+      "topic": "/clock",
+      "received": 122,
+      "frame": null,
+      "stamp_first": 22.20000033,
+      "stamp_last": 28.25000042,
+      "age_wall_s": 0.029445975000271574,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "odom": {
+      "topic": "/localization/kinematic_state",
+      "received": 363,
+      "frame": "map",
+      "stamp_first": 22.250000331,
+      "stamp_last": 28.25000042,
+      "age_wall_s": 0.022255730000324547,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "tracked": {
+      "topic": "/perception/object_recognition/tracking/objects",
+      "received": 120,
+      "frame": "map",
+      "stamp_first": 22.300000332,
+      "stamp_last": 28.25000042,
+      "age_wall_s": 0.023660350998397917,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": 18,
+      "object_count_max": 18,
+      "latest_class_counts": {
+        "1": 18
+      },
+      "latest_objects": [
+        {
+          "label": 1,
+          "position": [
+            -121.2162760639494,
+            68.68856039758363,
+            1.0209783933173924
+          ],
+          "dimensions": [
+            5.565828800201416,
+            2.1499669551849365,
+            2.045147180557251
+          ],
+          "uuid": "0b7591e6c88a582fa55c6595dd3980e2",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.2260250377444635,
+            0.0006446557145384167,
+            0.003794103052680486
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -239.83714332081092,
+            -36.6727661856099,
+            10.762692776262504
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "1b354100077652fabdc1f811b988989a",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            24.414746972511445,
+            -0.013269855336251673,
+            0.02443655459415601
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -174.09904475913015,
+            91.61689736397538,
+            0.7624413638957909
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "0f5801f15a1858a89bf844604d6ff690",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -1.5128707557585597e-09,
+            -1.152791670197733e-09,
+            -2.4789008391570875e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -100.80375309441798,
+            142.09386648675567,
+            0.7929895728318637
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "2ed0a940bf695f0fb0aaf785c994e339",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            8.887652233429836e-09,
+            9.352691587830054e-08,
+            -1.1477351467041726e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -30.40132285040684,
+            91.44139668972234,
+            0.7620817328137939
+          ],
+          "dimensions": [
+            3.633375883102417,
+            1.845113754272461,
+            1.5012825727462769
+          ],
+          "uuid": "abc9e8498df35d75995ae4e5b6e123ed",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -144.00433303451737,
+            -6.4007601736570425,
+            0.8942837470635571
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "c368c58c0e0653fa90d75fe6dbba1a05",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -132.0510417604556,
+            17.53617751598939,
+            0.8942927392132614
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "c80f8ab257c854fcb911d6f62f090588",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            9.471846657105377e-08,
+            -1.7180851048273956e-07,
+            1.561461829443941e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -120.25129473230425,
+            -109.06156481583578,
+            0.7609298643163886
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "485e972bb43e542d8659a768ec6cdb3b",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.032157558852608424,
+            0.005723138463294487,
+            0.007673344187733273
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -195.0759290901192,
+            17.962408971870072,
+            1.0754331337872651
+          ],
+          "dimensions": [
+            5.565828800201416,
+            2.1499669551849365,
+            2.045147180557251
+          ],
+          "uuid": "3031a1bdcb3755158182403fc975ddd4",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -53.305065514987284,
+            110.47800396439003,
+            0.9497585296618389
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "97b3ad9cd9c95a4ab23fa242b0cde5bf",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -6.867086917908727e-09,
+            -7.616392440508652e-09,
+            -1.2423821634345518e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -30.827199410086873,
+            -84.53142634939374,
+            0.7526186474982555
+          ],
+          "dimensions": [
+            4.901683330535889,
+            2.128324270248413,
+            1.5107464790344238
+          ],
+          "uuid": "46bc24b6ba0353da84c972639f4a468f",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -5.542389710301839e-09,
+            -3.038788593920243e-08,
+            2.861306825382404e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -175.52571978040996,
+            -87.86619809004058,
+            0.774019067628448
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "7bcb9bf89e725d84a0527383b76eb90c",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            3.2986415430692895e-07,
+            -4.355835105586868e-08,
+            -2.0028048707530227e-06
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -47.839969611968534,
+            63.64244289886521,
+            0.8669556846063656
+          ],
+          "dimensions": [
+            4.855708599090576,
+            2.0327565670013428,
+            1.6493593454360962
+          ],
+          "uuid": "5084d6d5d7115c5e90238b41447b5ecb",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.97967962086603,
+            7.920960819434159e-05,
+            0.007551465112623688
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -50.79146101859761,
+            -69.98800261104408,
+            0.829469295551075
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "636a3a24fcaa5c5bbf6a131e47f8373f",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            3.1187851854595684e-08,
+            -2.6085674973733712e-08,
+            -8.678594043502706e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -188.08726360452772,
+            64.31601011621915,
+            0.8176530210117269
+          ],
+          "dimensions": [
+            3.633375883102417,
+            1.845113754272461,
+            1.5012825727462769
+          ],
+          "uuid": "c96f881fe0e053fe9b7fab0270f80d9c",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            7.903915248719792,
+            7.40184473345769e-07,
+            -0.0002277363558981171
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -54.57046427179034,
+            17.810280594715707,
+            0.842805002572151
+          ],
+          "dimensions": [
+            5.365678787231445,
+            1.8007241487503052,
+            1.5749659538269043
+          ],
+          "uuid": "708b2b446ac65e3abb9d06717cc1e5fb",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -30.275847016051575,
+            4.3764873460542395,
+            0.9363252324724548
+          ],
+          "dimensions": [
+            4.6045098304748535,
+            1.9315929412841797,
+            1.8548461198806763
+          ],
+          "uuid": "3290829953e75569a0c24dcb88cfe9a9",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            7.003235390009731e-09,
+            5.775810430590682e-08,
+            -7.911923788923182e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -130.57584258184087,
+            -132.34886194665512,
+            0.752618756849699
+          ],
+          "dimensions": [
+            4.901683330535889,
+            2.128324270248413,
+            1.5107464790344238
+          ],
+          "uuid": "5b3957de0a145b5fb262c97121efda16",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            5.4938286463422225e-08,
+            -6.126930858256354e-08,
+            -2.7684433512094867e-07
+          ]
+        }
+      ]
+    },
+    "predicted": {
+      "topic": "/perception/object_recognition/objects",
+      "received": 121,
+      "frame": "map",
+      "stamp_first": 22.250000331,
+      "stamp_last": 28.25000042,
+      "age_wall_s": 7.53739986976143e-05,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": 18,
+      "object_count_max": 18,
+      "latest_class_counts": {
+        "1": 18
+      },
+      "latest_objects": [
+        {
+          "label": 1,
+          "position": [
+            -121.2162760639494,
+            68.68856039758363,
+            1.0209783933173924
+          ],
+          "dimensions": [
+            5.565828800201416,
+            2.1499669551849365,
+            2.045147180557251
+          ],
+          "uuid": "0b7591e6c88a582fa55c6595dd3980e2"
+        },
+        {
+          "label": 1,
+          "position": [
+            -239.83714332081092,
+            -36.6727661856099,
+            10.762692776262504
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "1b354100077652fabdc1f811b988989a"
+        },
+        {
+          "label": 1,
+          "position": [
+            -174.09904475913015,
+            91.61689736397538,
+            0.7624413638957909
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "0f5801f15a1858a89bf844604d6ff690"
+        },
+        {
+          "label": 1,
+          "position": [
+            -100.80375309441798,
+            142.09386648675567,
+            0.7929895728318637
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "2ed0a940bf695f0fb0aaf785c994e339"
+        },
+        {
+          "label": 1,
+          "position": [
+            -30.40132285040684,
+            91.44139668972234,
+            0.7620817328137939
+          ],
+          "dimensions": [
+            3.633375883102417,
+            1.845113754272461,
+            1.5012825727462769
+          ],
+          "uuid": "abc9e8498df35d75995ae4e5b6e123ed"
+        },
+        {
+          "label": 1,
+          "position": [
+            -144.00433303451737,
+            -6.4007601736570425,
+            0.8942837470635571
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "c368c58c0e0653fa90d75fe6dbba1a05"
+        },
+        {
+          "label": 1,
+          "position": [
+            -132.0510417604556,
+            17.53617751598939,
+            0.8942927392132614
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "c80f8ab257c854fcb911d6f62f090588"
+        },
+        {
+          "label": 1,
+          "position": [
+            -120.25129473230425,
+            -109.06156481583578,
+            0.7609298643163886
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "485e972bb43e542d8659a768ec6cdb3b"
+        },
+        {
+          "label": 1,
+          "position": [
+            -195.0759290901192,
+            17.962408971870072,
+            1.0754331337872651
+          ],
+          "dimensions": [
+            5.565828800201416,
+            2.1499669551849365,
+            2.045147180557251
+          ],
+          "uuid": "3031a1bdcb3755158182403fc975ddd4"
+        },
+        {
+          "label": 1,
+          "position": [
+            -53.305065514987284,
+            110.47800396439003,
+            0.9497585296618389
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "97b3ad9cd9c95a4ab23fa242b0cde5bf"
+        },
+        {
+          "label": 1,
+          "position": [
+            -30.827199410086873,
+            -84.53142634939374,
+            0.7526186474982555
+          ],
+          "dimensions": [
+            4.901683330535889,
+            2.128324270248413,
+            1.5107464790344238
+          ],
+          "uuid": "46bc24b6ba0353da84c972639f4a468f"
+        },
+        {
+          "label": 1,
+          "position": [
+            -175.52571978040996,
+            -87.86619809004058,
+            0.774019067628448
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "7bcb9bf89e725d84a0527383b76eb90c"
+        },
+        {
+          "label": 1,
+          "position": [
+            -47.839969611968534,
+            63.64244289886521,
+            0.8669556846063656
+          ],
+          "dimensions": [
+            4.855708599090576,
+            2.0327565670013428,
+            1.6493593454360962
+          ],
+          "uuid": "5084d6d5d7115c5e90238b41447b5ecb"
+        },
+        {
+          "label": 1,
+          "position": [
+            -50.79146101859761,
+            -69.98800261104408,
+            0.829469295551075
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "636a3a24fcaa5c5bbf6a131e47f8373f"
+        },
+        {
+          "label": 1,
+          "position": [
+            -188.08726360452772,
+            64.31601011621915,
+            0.8176530210117269
+          ],
+          "dimensions": [
+            3.633375883102417,
+            1.845113754272461,
+            1.5012825727462769
+          ],
+          "uuid": "c96f881fe0e053fe9b7fab0270f80d9c"
+        },
+        {
+          "label": 1,
+          "position": [
+            -54.57046427179034,
+            17.810280594715707,
+            0.842805002572151
+          ],
+          "dimensions": [
+            5.365678787231445,
+            1.8007241487503052,
+            1.5749659538269043
+          ],
+          "uuid": "708b2b446ac65e3abb9d06717cc1e5fb"
+        },
+        {
+          "label": 1,
+          "position": [
+            -30.275847016051575,
+            4.3764873460542395,
+            0.9363252324724548
+          ],
+          "dimensions": [
+            4.6045098304748535,
+            1.9315929412841797,
+            1.8548461198806763
+          ],
+          "uuid": "3290829953e75569a0c24dcb88cfe9a9"
+        },
+        {
+          "label": 1,
+          "position": [
+            -130.57584258184087,
+            -132.34886194665512,
+            0.752618756849699
+          ],
+          "dimensions": [
+            4.901683330535889,
+            2.128324270248413,
+            1.5107464790344238
+          ],
+          "uuid": "5b3957de0a145b5fb262c97121efda16"
+        }
+      ]
+    },
+    "centerpoint": {
+      "topic": "/perception/object_recognition/detection/centerpoint/objects",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "detected": {
+      "topic": "/perception/object_recognition/detection/objects",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "mode": {
+      "topic": "/api/operation_mode/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 5.993499471998803,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route_state": {
+      "topic": "/api/routing/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 5.993465396000829,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route": {
+      "topic": "/planning/mission_planning/route",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    }
+  },
+  "checks": [
+    {
+      "name": "bridge mode",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "ground_truth",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "bridge sole tick configuration",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "ground_truth",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "one clock publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "rosgraph_msgs/msg/Clock",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "clock advancing",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 122,
+        "frame": null,
+        "stamp_first": 22.20000033,
+        "stamp_last": 28.25000042,
+        "age_wall_s": 0.029445975000271574,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null,
+        "latest_objects": null
+      }
+    },
+    {
+      "name": "clock fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 122,
+        "frame": null,
+        "stamp_first": 22.20000033,
+        "stamp_last": 28.25000042,
+        "age_wall_s": 0.029445975000271574,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "odom fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/localization/kinematic_state",
+        "received": 363,
+        "frame": "map",
+        "stamp_first": 22.250000331,
+        "stamp_last": 28.25000042,
+        "age_wall_s": 0.022255730000324547,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "tracked fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/tracking/objects",
+        "received": 120,
+        "frame": "map",
+        "stamp_first": 22.300000332,
+        "stamp_last": 28.25000042,
+        "age_wall_s": 0.023660350998397917,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": 18,
+        "object_count_max": 18,
+        "latest_class_counts": {
+          "1": 18
+        }
+      }
+    },
+    {
+      "name": "predicted fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/objects",
+        "received": 121,
+        "frame": "map",
+        "stamp_first": 22.250000331,
+        "stamp_last": 28.25000042,
+        "age_wall_s": 7.53739986976143e-05,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": 18,
+        "object_count_max": 18,
+        "latest_class_counts": {
+          "1": 18
+        }
+      }
+    },
+    {
+      "name": "tracked map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "predicted map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "odom map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "one tracking publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "one map prediction publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/perception/object_recognition/prediction/map_based_prediction",
+          "type": "autoware_perception_msgs/msg/PredictedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "GT tracking source",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "sensor detection publishers disabled",
+      "passed": true,
+      "detail": {
+        "centerpoint": [],
+        "detected": []
+      }
+    },
+    {
+      "name": "sensor detection and tracking nodes disabled",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "GT range positive",
+      "passed": true,
+      "detail": 150.0
+    },
+    {
+      "name": "AEB predicted input mode",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "AEB LiDAR retained",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "operation mode state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 0,
+          "nanosec": 100000001
+        },
+        "mode": 1,
+        "is_autoware_control_enabled": true,
+        "is_in_transition": false,
+        "is_stop_mode_available": true,
+        "is_autonomous_mode_available": false,
+        "is_local_mode_available": true,
+        "is_remote_mode_available": true
+      }
+    },
+    {
+      "name": "route state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 0,
+          "nanosec": 100000001
+        },
+        "state": 1
+      }
+    }
+  ],
+  "mode": {
+    "stamp": {
+      "sec": 0,
+      "nanosec": 100000001
+    },
+    "mode": 1,
+    "is_autoware_control_enabled": true,
+    "is_in_transition": false,
+    "is_stop_mode_available": true,
+    "is_autonomous_mode_available": false,
+    "is_local_mode_available": true,
+    "is_remote_mode_available": true
+  },
+  "route_state": {
+    "stamp": {
+      "sec": 0,
+      "nanosec": 100000001
+    },
+    "state": 1
+  },
+  "odometry": {
+    "frame_id": "map",
+    "child_frame_id": "base_link",
+    "position": {
+      "x": -144.1007537841797,
+      "y": 0.9974544048309326,
+      "z": -0.001450723735615611
+    },
+    "linear_velocity": {
+      "x": 0.0,
+      "y": -0.0,
+      "z": 0.0
+    }
+  },
+  "success": true
+}

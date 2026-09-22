@@ -6,6 +6,14 @@ repo_root="$(cd -- "${script_dir}/../.." && pwd -P)"
 compose_file="${repo_root}/docker/carla/compose.yaml"
 python="${CARLA_PYTHON:-/home/a/CARLA/venv-0.9.16/bin/python}"
 
+case "${CARLA_PERCEPTION_MODE:-sensor}" in
+  sensor|ground_truth) ;;
+  *)
+    echo "CARLA_PERCEPTION_MODE must be sensor or ground_truth." >&2
+    exit 2
+    ;;
+esac
+
 carla_ready() {
   "${python}" - <<'PY' >/dev/null 2>&1
 import carla
@@ -105,6 +113,16 @@ case "${1:-start}" in
       exit 1
     fi
     if [[ "$(docker inspect -f '{{.State.Running}}' selfcar-carla-autoware 2>/dev/null || true)" == "true" ]]; then
+      running_command="$(docker inspect -f '{{join .Config.Cmd " "}}' selfcar-carla-autoware)"
+      running_mode=sensor
+      if [[ "${running_command}" == *"carla_perception_mode:=ground_truth"* ]]; then
+        running_mode=ground_truth
+      fi
+      if [[ "${running_mode}" != "${CARLA_PERCEPTION_MODE:-sensor}" ]]; then
+        echo "Autoware is running in ${running_mode} mode; requested ${CARLA_PERCEPTION_MODE:-sensor}." >&2
+        echo "Stop it, then run the chosen start command again to change object input mode." >&2
+        exit 1
+      fi
       echo "Autoware is already running."
       "$0" status
       exit 0
@@ -126,6 +144,10 @@ case "${1:-start}" in
       docker compose -f "${compose_file}" up -d "${services[@]}"
     wait_for_ego
     echo "Autoware + CARLA ${CARLA_MAP_NAME:-${AUTOWARE_MAP_NAME:-Town01}} started."
+    echo "Object input mode: ${CARLA_PERCEPTION_MODE:-sensor}"
+    if [[ "${CARLA_PERCEPTION_MODE:-sensor}" == "ground_truth" ]]; then
+      echo "Simulator object truth is active for planning/control validation."
+    fi
     if [[ "${CARLA_DIRECT_LOCALIZATION:-false}" == "true" ]]; then
       echo "Direct CARLA localization is active. Set Goal Pose, then Engage in RViz."
     else

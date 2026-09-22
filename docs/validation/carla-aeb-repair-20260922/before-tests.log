@@ -1,0 +1,83 @@
+[entrypoint] WARN: failed: ip link set lo multicast on (need --privileged or --cap-add=NET_ADMIN)
+Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+[==========] Running 14 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 14 tests from TestAEB
+[ RUN      ] TestAEB.checkCollision
+[WARN] [1790068571.037134132] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.037144184] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkCollision (43 ms)
+[ RUN      ] TestAEB.predictedPathEmpty
+[WARN] [1790068571.080377875] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.080399212] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.predictedPathEmpty (17 ms)
+[ RUN      ] TestAEB.predictedPathRetainsFirstPoint
+[WARN] [1790068571.097980940] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.097987600] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp:148: Failure
+Value of: path.has_value()
+  Actual: false
+Expected: true
+
+[  FAILED  ] TestAEB.predictedPathRetainsFirstPoint (11 ms)
+[ RUN      ] TestAEB.predictedPathFiltersDuplicatesAfterFirstPoint
+[WARN] [1790068571.109572837] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.109578540] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp:166: Failure
+Expected equality of these values:
+  path->size()
+    Which is: 2
+  3U
+    Which is: 3
+
+[  FAILED  ] TestAEB.predictedPathFiltersDuplicatesAfterFirstPoint (12 ms)
+[ RUN      ] TestAEB.getObjectOnPathData
+[WARN] [1790068571.121749696] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.121757897] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.getObjectOnPathData (13 ms)
+[ RUN      ] TestAEB.checkImuPathGeneration
+[WARN] [1790068571.135510223] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.135516710] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkImuPathGeneration (22 ms)
+[ RUN      ] TestAEB.checkIncompleteImuPathGeneration
+[WARN] [1790068571.157563622] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.157573065] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkIncompleteImuPathGeneration (19 ms)
+[ RUN      ] TestAEB.checkImuPathGenerationIsCut
+[WARN] [1790068571.176654374] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.176660946] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkImuPathGenerationIsCut (13 ms)
+[ RUN      ] TestAEB.checkEmptyPathAtZeroSpeed
+[WARN] [1790068571.190117569] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.190124803] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkEmptyPathAtZeroSpeed (11 ms)
+[ RUN      ] TestAEB.checkParamUpdate
+[WARN] [1790068571.201280199] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.201286787] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkParamUpdate (11 ms)
+[ RUN      ] TestAEB.checkEmptyFetchData
+[WARN] [1790068571.212309114] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.212318061] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkEmptyFetchData (12 ms)
+[ RUN      ] TestAEB.checkConvertObjectToPolygon
+[WARN] [1790068571.225330377] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.225341126] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.checkConvertObjectToPolygon (14 ms)
+[ RUN      ] TestAEB.CollisionDataKeeper
+[WARN] [1790068571.240101966] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068571.240108469] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.CollisionDataKeeper (1310 ms)
+[ RUN      ] TestAEB.TestCropPointCloud
+[WARN] [1790068572.550657474] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1790068572.550664902] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+[       OK ] TestAEB.TestCropPointCloud (15 ms)
+[----------] 14 tests from TestAEB (1529 ms total)
+
+[----------] Global test environment tear-down
+[==========] 14 tests from 1 test suite ran. (1529 ms total)
+[  PASSED  ] 12 tests.
+[  FAILED  ] 2 tests, listed below:
+[  FAILED  ] TestAEB.predictedPathRetainsFirstPoint
+[  FAILED  ] TestAEB.predictedPathFiltersDuplicatesAfterFirstPoint
+
+ 2 FAILED TESTS

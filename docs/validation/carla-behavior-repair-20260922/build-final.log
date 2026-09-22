@@ -1,0 +1,68 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.19kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+#2 DONE 4.8s
+
+#3 docker-image://docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
+#3 resolve docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e done
+#3 CACHED
+
+#4 [internal] load metadata for docker.io/library/selfcar-2026-vtd:local
+#4 DONE 1.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 286B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 173.76kB 0.0s done
+#6 DONE 0.0s
+
+#7 [ 1/11] FROM docker.io/library/selfcar-2026-vtd:local@sha256:ef00a3b3baa134b4ba5eddac52e0e27abc50f1e2edbff62fb0649b21e77e88ec
+#7 resolve docker.io/library/selfcar-2026-vtd:local@sha256:ef00a3b3baa134b4ba5eddac52e0e27abc50f1e2edbff62fb0649b21e77e88ec 0.0s done
+#7 DONE 0.0s
+
+#8 [ 2/11] RUN env -u PIP_CONSTRAINT python3 -m pip install --no-cache-dir --break-system-packages carla==0.9.16
+#8 CACHED
+
+#9 [ 3/11] COPY vtd_overlay/src /opt/carla-build/src/vtd
+#9 CACHED
+
+#10 [ 4/11] COPY carla_overlay/src /opt/carla-build/src/carla
+#10 CACHED
+
+#11 [ 5/11] RUN source /opt/ros/jazzy/setup.bash &&     source /opt/autoware/setup.bash &&     source /opt/selfcar_overlay/setup.bash &&     export CMAKE_BUILD_PARALLEL_LEVEL=1 MAKEFLAGS=-j1 &&     colcon --log-base /opt/carla-build/log build       --base-paths /opt/carla-build/src       --packages-select autoware_mission_planner_universe         autoware_behavior_path_static_obstacle_avoidance_module         autoware_drivable_corridor_recovery autoware_carla_interface         autoware_autonomous_emergency_braking       --executor sequential --merge-install       --install-base /opt/carla_overlay --build-base /opt/carla-build/build       --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF &&     find /opt/carla-build/src -type f -not -path '*/__pycache__/*' -print0 |       sort -z | xargs -0 sha256sum > /opt/carla-build/source-manifest.sha256 &&     rm -rf /opt/carla-build/build
+#11 CACHED
+
+#12 [ 6/11] COPY config/carla /opt/carla-config
+#12 DONE 0.0s
+
+#13 [ 7/11] COPY docker/files/install_carla_runtime.py /opt/carla-build/install_carla_runtime.py
+#13 DONE 0.0s
+
+#14 [ 8/11] RUN python3 /opt/carla-build/install_carla_runtime.py
+#14 DONE 0.1s
+
+#15 [ 9/11] COPY --chmod=0755 tools/carla_localization_ready.py   /opt/carla_overlay/lib/autoware_carla_interface/carla_localization_ready
+#15 DONE 0.0s
+
+#16 [10/11] COPY --chmod=0755 tools/carla_spectator_follow.py   /opt/carla_overlay/lib/autoware_carla_interface/spectator_follow
+#16 DONE 0.0s
+
+#17 [11/11] COPY --chmod=0755 tools/carla_traffic_signal_bridge.py /opt/selfcar-tools/carla_traffic_signal_bridge.py
+#17 DONE 0.0s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 0.2s done
+#18 exporting manifest sha256:05927f85c8dba2b14b739e67767bdc9b9621cad8800acb34501c800af8f74c81 done
+#18 exporting config sha256:9b6b2fcdce780ee33834717816c2b49c68aea809a66524eb5383891e2a46ab68 done
+#18 exporting attestation manifest sha256:083f01ec23a23f02fe506bf9ba4fcf3d09ed00612e19574077c8119a57e4115b done
+#18 exporting manifest list sha256:8bb3d0e11efdab30363636d1bddbeeae8334bb86f3699b18ef2deaf125bf5f1a done
+#18 naming to docker.io/library/selfcar-2026-carla:behavior-repair-20260922 done
+#18 unpacking to docker.io/library/selfcar-2026-carla:behavior-repair-20260922 0.1s done
+#18 DONE 0.5s

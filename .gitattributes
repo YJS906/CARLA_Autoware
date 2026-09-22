@@ -1,0 +1,3 @@
+# Validation logs are byte-for-byte evidence; retain tool-generated whitespace.
+docs/validation/**/*.log -text -whitespace
+docs/validation/**/*-assembly.txt -text -whitespace

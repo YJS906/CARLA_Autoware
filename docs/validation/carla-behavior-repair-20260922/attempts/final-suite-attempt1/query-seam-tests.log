@@ -1,0 +1,13 @@
+test_direct_native_hit_is_preserved_without_fallback (__main__.NativeLaneQueryTests.test_direct_native_hit_is_preserved_without_fallback) ... ok
+test_height_and_large_longitudinal_offsets_are_rejected (__main__.NativeLaneQueryTests.test_height_and_large_longitudinal_offsets_are_rejected) ... ok
+test_interior_point_cannot_use_seam_fallback (__main__.NativeLaneQueryTests.test_interior_point_cannot_use_seam_fallback) ... ok
+test_junction_projection_has_no_fallback (__main__.NativeLaneQueryTests.test_junction_projection_has_no_fallback) ... ok
+test_non_touching_neighbor_edges_rejected (__main__.NativeLaneQueryTests.test_non_touching_neighbor_edges_rejected) ... ok
+test_opposite_direction_nonadjacent_and_disconnected_neighbor_rejected (__main__.NativeLaneQueryTests.test_opposite_direction_nonadjacent_and_disconnected_neighbor_rejected) ... ok
+test_recorded_false_negatives_are_inside_exact_native_lane_widths (__main__.NativeLaneQueryTests.test_recorded_false_negatives_are_inside_exact_native_lane_widths) ... ok
+test_road_exterior_is_not_projected_onto_road (__main__.NativeLaneQueryTests.test_road_exterior_is_not_projected_onto_road) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.055s
+
+OK

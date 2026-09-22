@@ -1,0 +1,391 @@
+{
+  "source": "/tmp/carla-pedestrian-perception-probe-result.json",
+  "actor_id": 219,
+  "sample_wall_s": 8.006545549000293,
+  "ego_speed_mps": 1.525882993291816e-07,
+  "actor_speed_mps": 0.0,
+  "distance_m": 10.274214744567871,
+  "cloud_stages": {
+    "/sensing/lidar/top/pointcloud_before_sync": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 6,
+          "median": 8.0,
+          "max": 13
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 13,
+          "median": 16.0,
+          "max": 23
+        },
+        "total_finite_points": {
+          "min": 7466,
+          "median": 7598.0,
+          "max": 7727
+        }
+      },
+      "frames_bbox_under10": 25,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/sensing/lidar/concatenated/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 6,
+          "median": 8.0,
+          "max": 13
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 13,
+          "median": 16.0,
+          "max": 23
+        },
+        "total_finite_points": {
+          "min": 6798,
+          "median": 6906.0,
+          "max": 7018
+        }
+      },
+      "frames_bbox_under10": 25,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/sensing/lidar/self_cropped/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 6,
+          "median": 8.0,
+          "max": 13
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 13,
+          "median": 16.0,
+          "max": 23
+        },
+        "total_finite_points": {
+          "min": 6798,
+          "median": 6906.0,
+          "max": 7018
+        }
+      },
+      "frames_bbox_under10": 25,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/sensing/lidar/mirror_cropped/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 6,
+          "median": 8.0,
+          "max": 13
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 13,
+          "median": 16.0,
+          "max": 23
+        },
+        "total_finite_points": {
+          "min": 6798,
+          "median": 6906.0,
+          "max": 7018
+        }
+      },
+      "frames_bbox_under10": 25,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/perception/obstacle_segmentation/range_cropped/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 6,
+          "median": 8.0,
+          "max": 13
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 13,
+          "median": 16.0,
+          "max": 23
+        },
+        "total_finite_points": {
+          "min": 5995,
+          "median": 6097.5,
+          "max": 6239
+        }
+      },
+      "frames_bbox_under10": 25,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/perception/obstacle_segmentation/single_frame/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "total_finite_points": {
+          "min": 1597,
+          "median": 1655.5,
+          "max": 1720
+        }
+      },
+      "frames_bbox_under10": 38,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/perception/obstacle_segmentation/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "total_finite_points": {
+          "min": 1522,
+          "median": 1582.5,
+          "max": 1640
+        }
+      },
+      "frames_bbox_under10": 38,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/perception/obstacle_segmentation/pointcloud_map_filtered/downsampled/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "total_finite_points": {
+          "min": 1491,
+          "median": 1551.5,
+          "max": 1607
+        }
+      },
+      "frames_bbox_under10": 38,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/perception/object_recognition/detection/pointcloud_map_filtered/pointcloud": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "upper_body_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        },
+        "total_finite_points": {
+          "min": 5,
+          "median": 7.0,
+          "max": 12
+        }
+      },
+      "frames_bbox_under10": 38,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 40
+    },
+    "/perception/object_recognition/detection/clustering/debug/clusters": {
+      "messages": 80,
+      "sampled_frames": 40,
+      "errors": {},
+      "roi_summary": {
+        "bbox_points": {
+          "min": 0,
+          "median": 0.0,
+          "max": 11
+        },
+        "upper_body_points": {
+          "min": 0,
+          "median": 0.0,
+          "max": 10
+        },
+        "halo_points": {
+          "min": 0,
+          "median": 0.0,
+          "max": 11
+        },
+        "total_finite_points": {
+          "min": 0,
+          "median": 0.0,
+          "max": 11
+        }
+      },
+      "frames_bbox_under10": 38,
+      "frames_upper_body_under10": 38,
+      "frames_bbox_nonzero": 2
+    },
+    "/control/autonomous_emergency_braking/debug/obstacle_pointcloud": {
+      "messages": 0,
+      "sampled_frames": 0,
+      "errors": {},
+      "roi_summary": null
+    }
+  },
+  "object_stages": {
+    "/perception/object_recognition/detection/centerpoint/objects": {
+      "messages": 80,
+      "max_objects": 0,
+      "matched_messages": 0,
+      "errors": {},
+      "functional_subscribers": [
+        "/perception/object_recognition/tracking/multi_object_tracker"
+      ]
+    },
+    "/perception/object_recognition/detection/clustering/objects": {
+      "messages": 80,
+      "max_objects": 1,
+      "matched_messages": 5,
+      "errors": {},
+      "functional_subscribers": []
+    },
+    "/perception/object_recognition/detection/clustering/objects_with_feature": {
+      "messages": 80,
+      "max_objects": 1,
+      "matched_messages": 5,
+      "errors": {},
+      "functional_subscribers": [
+        "/perception/object_recognition/detection/clustering/detected_object_feature_remover"
+      ]
+    },
+    "/perception/object_recognition/tracking/objects": {
+      "messages": 80,
+      "max_objects": 0,
+      "matched_messages": 0,
+      "errors": {},
+      "functional_subscribers": [
+        "/perception/object_recognition/prediction/map_based_prediction"
+      ]
+    },
+    "/perception/object_recognition/objects": {
+      "messages": 80,
+      "max_objects": 0,
+      "matched_messages": 0,
+      "errors": {},
+      "functional_subscribers": [
+        "/control/control_evaluator",
+        "/control/autonomous_emergency_braking",
+        "/control/collision_detector",
+        "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner",
+        "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner",
+        "/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner",
+        "/planning/planning_evaluator",
+        "_NODE_NAMESPACE_UNKNOWN_/_NODE_NAME_UNKNOWN_",
+        "/system/topic_state_monitor_object_recognition_objects",
+        "/adapi/node/perception",
+        "/perception_analytics_publisher"
+      ]
+    }
+  },
+  "confirmed": [
+    "Raw CARLA lidar receives nonzero walker-region returns in every one of 40 inspected frames.",
+    "Self/mirror/range crops preserve walker bbox and upper-body count distributions; ground filter removes mainly ground-region returns; upper-body median stays 6.",
+    "Occupancy outlier, downsample and map filter preserve the remaining walker ROI count distribution (5..11 bbox points, median6).",
+    "CenterPoint receives concatenated cloud but outputs zero objects in all80 messages; tracked and predicted outputs are likewise zero in all80.",
+    "Clustering intermittently outputs a nearby UNKNOWN object in5/80 messages.",
+    "Clustering/objects has no subscriber except the diagnostic probe; it is not wired into the live tracker/prediction path. CenterPoint is wired into the tracker.",
+    "The runtime model includes PEDESTRIAN at score threshold0.35; class disable and configured 10m ROI exclusion do not explain these observations."
+  ],
+  "inferences": [
+    "Sparse body returns are a strong candidate for CenterPoint failure, but prethreshold model output/confidence was not captured; exact model/domain/threshold cause is unproven.",
+    "Median6 remaining points is below clustering minimum10 and plausibly explains intermittent fallback clusters.",
+    "AEB minimum10 after additional height crop and voxelization could reject these sparse returns, but this stationary probe did not execute AEB collision checking and does not prove the earlier driving failure mechanism."
+  ],
+  "limitations": [
+    "Stationary diagnostic at10.274m, different from the failed moving crossing test.",
+    "ROI is a CARLA bounding box padded0.15m; some bbox points include ground, so upper-body counts exclude bottom0.30m.",
+    "AEB debug pointcloud is disabled and AEB is gated off while stopped; zero debug messages is expected.",
+    "Only half-rate cloud frames were inspected (40), while message/object counts cover80 messages."
+  ]
+}

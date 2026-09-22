@@ -1,0 +1,725 @@
+{
+  "requested_mode": "sensor",
+  "duration_wall_s": 10.00575242800187,
+  "parameters": {
+    "/autoware_carla_interface": {
+      "carla_perception_mode": "sensor",
+      "ground_truth_range_m": 150.0,
+      "sync_mode": true,
+      "fixed_delta_seconds": 0.05
+    },
+    "/control/autonomous_emergency_braking": {
+      "use_predicted_object_data": false,
+      "use_pointcloud_data": true
+    }
+  },
+  "publishers": {
+    "clock": [
+      {
+        "node": "/autoware_carla_interface",
+        "type": "rosgraph_msgs/msg/Clock",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "odom": [
+      {
+        "node": "/carla_state_publisher",
+        "type": "nav_msgs/msg/Odometry",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "tracked": [
+      {
+        "node": "/perception/object_recognition/tracking/multi_object_tracker",
+        "type": "autoware_perception_msgs/msg/TrackedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "predicted": [
+      {
+        "node": "/perception/object_recognition/prediction/map_based_prediction",
+        "type": "autoware_perception_msgs/msg/PredictedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "centerpoint": [
+      {
+        "node": "/perception/object_recognition/detection/centerpoint/lidar_centerpoint",
+        "type": "autoware_perception_msgs/msg/DetectedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "detected": [],
+    "mode": [
+      {
+        "node": "/adapi/node/operation_mode",
+        "type": "autoware_adapi_v1_msgs/msg/OperationModeState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route_state": [
+      {
+        "node": "/adapi/node/routing",
+        "type": "autoware_adapi_v1_msgs/msg/RouteState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route": [
+      {
+        "node": "/planning/mission_planning/mission_planner",
+        "type": "autoware_planning_msgs/msg/LaneletRoute",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ]
+  },
+  "active_nodes": [
+    "/adapi/container",
+    "/adapi/node/autoware_state",
+    "/adapi/node/diagnostics",
+    "/adapi/node/fail_safe",
+    "/adapi/node/heartbeat",
+    "/adapi/node/interface",
+    "/adapi/node/localization",
+    "/adapi/node/manual/local",
+    "/adapi/node/manual/remote",
+    "/adapi/node/motion",
+    "/adapi/node/mrm_request",
+    "/adapi/node/operation_mode",
+    "/adapi/node/perception",
+    "/adapi/node/planning",
+    "/adapi/node/routing",
+    "/adapi/node/vehicle_command",
+    "/adapi/node/vehicle_door",
+    "/adapi/node/vehicle_info",
+    "/adapi/node/vehicle_metrics",
+    "/adapi/node/vehicle_status",
+    "/autoware_carla_interface",
+    "/autoware_raw_vehicle_cmd_converter",
+    "/carla_behavior_runtime_check",
+    "/carla_localization_ready",
+    "/carla_state_publisher",
+    "/carla_traffic_signal_bridge",
+    "/carla_twist2accel",
+    "/control/autonomous_emergency_braking",
+    "/control/autoware_operation_mode_transition_manager",
+    "/control/autoware_shift_decider",
+    "/control/collision_detector",
+    "/control/control_check_container",
+    "/control/control_container",
+    "/control/control_evaluator",
+    "/control/control_validator",
+    "/control/external_cmd_converter",
+    "/control/external_cmd_selector",
+    "/control/trajectory_follower/controller_node_exe",
+    "/control/trajectory_follower/lane_departure_checker_node",
+    "/control/transform_listener_impl_72048c00b100",
+    "/control/transform_listener_impl_7204cc03e510",
+    "/control/vehicle_cmd_gate",
+    "/default_adapi/helpers/autoware_initial_pose_adaptor",
+    "/default_adapi/helpers/autoware_routing_adaptor",
+    "/default_adapi/helpers/transform_listener_impl_59c216dd1378",
+    "/launch_ros_1",
+    "/logging_diag_graph",
+    "/managed_tf_listener_impl_1b4add33440",
+    "/map/lanelet2_map_loader",
+    "/map/lanelet2_map_visualization",
+    "/map/map_container",
+    "/map/map_hash_generator",
+    "/map/map_projection_loader",
+    "/map/pointcloud_map_loader",
+    "/map/vector_map_tf_generator",
+    "/perception/object_recognition/detection/centerpoint/lidar_centerpoint",
+    "/perception/object_recognition/detection/clustering/detected_object_feature_remover",
+    "/perception/object_recognition/detection/clustering/euclidean_cluster",
+    "/perception/object_recognition/detection/clustering/shape_estimation",
+    "/perception/object_recognition/detection/voxel_based_compare_map_filter",
+    "/perception/object_recognition/detection/voxel_grid_downsample_filter",
+    "/perception/object_recognition/prediction/map_based_prediction",
+    "/perception/object_recognition/prediction/transform_listener_impl_592bca7b0840",
+    "/perception/object_recognition/tracking/multi_object_tracker",
+    "/perception/object_recognition/tracking/transform_listener_impl_59ee6e936960",
+    "/perception/obstacle_segmentation/common_ground_filter",
+    "/perception/obstacle_segmentation/crop_box_filter",
+    "/perception/obstacle_segmentation/occupancy_grid_based_outlier_filter",
+    "/perception/occupancy_grid_map/occupancy_grid_map_node",
+    "/perception_analytics_publisher",
+    "/planning/mission_planning/goal_pose_visualizer",
+    "/planning/mission_planning/manual_lane_change_handler",
+    "/planning/mission_planning/mission_planner",
+    "/planning/mission_planning/mission_planner_container",
+    "/planning/mission_planning/route_selector",
+    "/planning/mission_planning/transform_listener_impl_755fdc02da68",
+    "/planning/planning_evaluator",
+    "/planning/planning_validator",
+    "/planning/planning_validator_container",
+    "/planning/scenario_planning/autoware_hazard_lights_selector",
+    "/planning/scenario_planning/external_velocity_limit_selector",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_planning_container",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/transform_listener_impl_7b9f3c04e7a0",
+    "/planning/scenario_planning/lane_driving/motion_planning/elastic_band_smoother",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_planning_container",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner",
+    "/planning/scenario_planning/lane_driving/motion_planning/path_optimizer",
+    "/planning/scenario_planning/lane_driving/motion_planning/transform_listener_impl_79d85c080570",
+    "/planning/scenario_planning/scenario_selector",
+    "/planning/scenario_planning/velocity_smoother",
+    "/planning/scenario_planning/velocity_smoother_container",
+    "/planning/transform_listener_impl_623ffca7be20",
+    "/planning/transform_listener_impl_79408c14ab80",
+    "/pointcloud_container",
+    "/robot_state_publisher",
+    "/rviz2",
+    "/sensing/imu/gyro_bias_scale_validator",
+    "/sensing/imu/imu_corrector",
+    "/sensing/imu/transform_listener_impl_59c5d8eed8f0",
+    "/sensing/imu/transform_listener_impl_5e2fcb2e7bb0",
+    "/sensing/lidar/crop_box_filter_mirror",
+    "/sensing/lidar/crop_box_filter_self",
+    "/sensing/lidar/pointcloud_relay",
+    "/sensing/vehicle_velocity_converter",
+    "/system/aggregator",
+    "/system/component_state_monitor/component",
+    "/system/component_state_monitor/container",
+    "/system/converter",
+    "/system/duplicated_node_checker",
+    "/system/hazard_status_converter",
+    "/system/mrm_comfortable_stop_operator",
+    "/system/mrm_comfortable_stop_operator/mrm_comfortable_stop_operator_container",
+    "/system/mrm_emergency_stop_operator",
+    "/system/mrm_emergency_stop_operator/mrm_emergency_stop_operator_container",
+    "/system/mrm_handler",
+    "/system/pipeline_latency_monitor",
+    "/system/processing_time_checker",
+    "/system/service_log_checker",
+    "/system/topic_state_monitor_control_command_control_cmd",
+    "/system/topic_state_monitor_mission_planning_route",
+    "/system/topic_state_monitor_object_recognition_objects",
+    "/system/topic_state_monitor_obstacle_segmentation_pointcloud",
+    "/system/topic_state_monitor_pointcloud_map",
+    "/system/topic_state_monitor_pose_twist_fusion_filter_pose",
+    "/system/topic_state_monitor_scenario_planning_trajectory",
+    "/system/topic_state_monitor_system_emergency_control_cmd",
+    "/system/topic_state_monitor_traffic_light_recognition_traffic_signals",
+    "/system/topic_state_monitor_trajectory_follower_control_cmd",
+    "/system/topic_state_monitor_transform_map_to_base_link",
+    "/system/topic_state_monitor_vector_map",
+    "/system/topic_state_monitor_vehicle_status_steering_status",
+    "/system/topic_state_monitor_vehicle_status_velocity_status",
+    "/transform_listener_impl_610947d31b00",
+    "/transform_listener_impl_630ee0da0508",
+    "/transform_listener_impl_64b606d1c710",
+    "/transform_listener_impl_7ea0e806a6b0",
+    "/transform_listener_impl_7ea108074460",
+    "/transform_listener_impl_7ea11081a6e0",
+    "/vehicle_velocity_converter"
+  ],
+  "streams": {
+    "clock": {
+      "topic": "/clock",
+      "received": 200,
+      "frame": null,
+      "stamp_first": 9.650000143,
+      "stamp_last": 19.600000292,
+      "age_wall_s": 0.033982042001298396,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "odom": {
+      "topic": "/localization/kinematic_state",
+      "received": 600,
+      "frame": "map",
+      "stamp_first": 9.650000143,
+      "stamp_last": 19.600000292,
+      "age_wall_s": 0.02034663100130274,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "tracked": {
+      "topic": "/perception/object_recognition/tracking/objects",
+      "received": 100,
+      "frame": "map",
+      "stamp_first": 9.700000144,
+      "stamp_last": 19.600000292,
+      "age_wall_s": 0.03319700300198747,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": 2,
+      "object_count_max": 2,
+      "latest_class_counts": {
+        "1": 2
+      },
+      "latest_objects": [
+        {
+          "label": 1,
+          "position": [
+            -121.61416715210834,
+            3.3782924122091527,
+            1.0458202417063331
+          ],
+          "dimensions": [
+            5.1544532429078345,
+            2.0161898161677185,
+            1.809125824169228
+          ],
+          "uuid": "080000000000000036172ac9f20b6ee6",
+          "orientation_availability": 1,
+          "is_stationary": false,
+          "velocity": [
+            8.251508891837169,
+            0.004927603782018515,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -132.22942969416872,
+            17.408222842779466,
+            0.7973998349493427
+          ],
+          "dimensions": [
+            4.272176103794098,
+            1.8629158899667146,
+            1.5203386065358269
+          ],
+          "uuid": "220000000000000036172ac9f20b6ee6",
+          "orientation_availability": 1,
+          "is_stationary": false,
+          "velocity": [
+            -0.0,
+            0.005158107615781137,
+            0.0
+          ]
+        }
+      ]
+    },
+    "predicted": {
+      "topic": "/perception/object_recognition/objects",
+      "received": 100,
+      "frame": "map",
+      "stamp_first": 9.700000144,
+      "stamp_last": 19.600000292,
+      "age_wall_s": 0.020840821001911536,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": 2,
+      "object_count_max": 2,
+      "latest_class_counts": {
+        "1": 2
+      },
+      "latest_objects": [
+        {
+          "label": 1,
+          "position": [
+            -121.61416715210834,
+            3.3782924122091527,
+            1.0458202417063331
+          ],
+          "dimensions": [
+            5.1544532429078345,
+            2.0161898161677185,
+            1.809125824169228
+          ],
+          "uuid": "080000000000000036172ac9f20b6ee6"
+        },
+        {
+          "label": 1,
+          "position": [
+            -132.22942969416872,
+            17.408222842779466,
+            0.7973998349493427
+          ],
+          "dimensions": [
+            4.272176103794098,
+            1.8629158899667146,
+            1.5203386065358269
+          ],
+          "uuid": "220000000000000036172ac9f20b6ee6"
+        }
+      ]
+    },
+    "centerpoint": {
+      "topic": "/perception/object_recognition/detection/centerpoint/objects",
+      "received": 100,
+      "frame": "base_link",
+      "stamp_first": 9.650000143,
+      "stamp_last": 19.550000291,
+      "age_wall_s": 0.05447321999963606,
+      "age_sim_s": 0.05000000100000079,
+      "stamp_monotonic": true,
+      "object_count_min": 1,
+      "object_count_max": 2,
+      "latest_class_counts": {
+        "1": 2
+      },
+      "latest_objects": [
+        {
+          "label": 1,
+          "position": [
+            -11.8956298828125,
+            -16.432191848754883,
+            0.8076171875
+          ],
+          "dimensions": [
+            4.2390360832214355,
+            1.8473819494247437,
+            1.5096309185028076
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -22.520004272460938,
+            -1.6839109659194946,
+            1.068359375
+          ],
+          "dimensions": [
+            4.8886399269104,
+            1.986796259880066,
+            1.751630187034607
+          ]
+        }
+      ]
+    },
+    "detected": {
+      "topic": "/perception/object_recognition/detection/objects",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "mode": {
+      "topic": "/api/operation_mode/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 10.0050394960017,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route_state": {
+      "topic": "/api/routing/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 10.004985342999134,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route": {
+      "topic": "/planning/mission_planning/route",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    }
+  },
+  "checks": [
+    {
+      "name": "bridge mode",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "sensor",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "bridge sole tick configuration",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "sensor",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "one clock publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "rosgraph_msgs/msg/Clock",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "clock advancing",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 200,
+        "frame": null,
+        "stamp_first": 9.650000143,
+        "stamp_last": 19.600000292,
+        "age_wall_s": 0.033982042001298396,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null,
+        "latest_objects": null
+      }
+    },
+    {
+      "name": "clock fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 200,
+        "frame": null,
+        "stamp_first": 9.650000143,
+        "stamp_last": 19.600000292,
+        "age_wall_s": 0.033982042001298396,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "odom fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/localization/kinematic_state",
+        "received": 600,
+        "frame": "map",
+        "stamp_first": 9.650000143,
+        "stamp_last": 19.600000292,
+        "age_wall_s": 0.02034663100130274,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "tracked fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/tracking/objects",
+        "received": 100,
+        "frame": "map",
+        "stamp_first": 9.700000144,
+        "stamp_last": 19.600000292,
+        "age_wall_s": 0.03319700300198747,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": 2,
+        "object_count_max": 2,
+        "latest_class_counts": {
+          "1": 2
+        }
+      }
+    },
+    {
+      "name": "predicted fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/objects",
+        "received": 100,
+        "frame": "map",
+        "stamp_first": 9.700000144,
+        "stamp_last": 19.600000292,
+        "age_wall_s": 0.020840821001911536,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": 2,
+        "object_count_max": 2,
+        "latest_class_counts": {
+          "1": 2
+        }
+      }
+    },
+    {
+      "name": "tracked map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "predicted map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "odom map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "one tracking publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/perception/object_recognition/tracking/multi_object_tracker",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "one map prediction publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/perception/object_recognition/prediction/map_based_prediction",
+          "type": "autoware_perception_msgs/msg/PredictedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "sensor tracking source",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/perception/object_recognition/tracking/multi_object_tracker",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "CenterPoint source present",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/perception/object_recognition/detection/centerpoint/lidar_centerpoint",
+          "type": "autoware_perception_msgs/msg/DetectedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "AEB predicted input mode",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": false,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "AEB LiDAR retained",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": false,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "operation mode state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 0,
+          "nanosec": 100000001
+        },
+        "mode": 1,
+        "is_autoware_control_enabled": true,
+        "is_in_transition": false,
+        "is_stop_mode_available": true,
+        "is_autonomous_mode_available": false,
+        "is_local_mode_available": true,
+        "is_remote_mode_available": true
+      }
+    },
+    {
+      "name": "route state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 0,
+          "nanosec": 100000001
+        },
+        "state": 1
+      }
+    }
+  ],
+  "mode": {
+    "stamp": {
+      "sec": 0,
+      "nanosec": 100000001
+    },
+    "mode": 1,
+    "is_autoware_control_enabled": true,
+    "is_in_transition": false,
+    "is_stop_mode_available": true,
+    "is_autonomous_mode_available": false,
+    "is_local_mode_available": true,
+    "is_remote_mode_available": true
+  },
+  "route_state": {
+    "stamp": {
+      "sec": 0,
+      "nanosec": 100000001
+    },
+    "state": 1
+  },
+  "odometry": {
+    "frame_id": "map",
+    "child_frame_id": "base_link",
+    "position": {
+      "x": -144.1007537841797,
+      "y": 0.9974544048309326,
+      "z": -0.001450723735615611
+    },
+    "linear_velocity": {
+      "x": 0.0,
+      "y": -0.0,
+      "z": 0.0
+    }
+  },
+  "success": true
+}

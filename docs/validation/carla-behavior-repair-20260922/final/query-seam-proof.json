@@ -1,0 +1,372 @@
+{
+  "xodr_sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851",
+  "method": "Offline carla.Map; nearest waypoint plus same-road Driving adjacent lanes; refine native s by signed forward projection and test lateral lane-width bounds. No simulator client/ticks.",
+  "records": [
+    {
+      "case": "vehicle_stop_preliminary",
+      "frame": 383394,
+      "xyz": [
+        208.74429321289062,
+        61.494632720947266,
+        0.0360981747508049
+      ],
+      "nonprojecting_query_is_none": true,
+      "candidates": [
+        {
+          "road_id": 38,
+          "lane_id": -3,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": -1.742414345108493,
+          "initial_longitudinal_offset_m": -0.23258774377563896,
+          "refined_lateral_m": -1.7424115904048278,
+          "refined_longitudinal_residual_m": 6.211667511024643e-06,
+          "inside_driving_lane_width": true,
+          "margin_inside_m": 0.007588409595172152
+        },
+        {
+          "road_id": 38,
+          "lane_id": -2,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": 1.7575769541143131,
+          "initial_longitudinal_offset_m": -0.23258825064408484,
+          "refined_lateral_m": 1.7575797088179783,
+          "refined_longitudinal_residual_m": 5.704799065142652e-06,
+          "inside_driving_lane_width": false,
+          "margin_inside_m": -0.0075797088179783145
+        }
+      ],
+      "inside_legal_same_direction_driving_lane": true,
+      "final_helper_result": {
+        "road_id": 38,
+        "lane_id": -3,
+        "evidence": {
+          "reason": "verified_native_internal_lane_seam",
+          "xyz": [
+            208.74429321289062,
+            61.494632720947266,
+            0.0360981747508049
+          ],
+          "projected": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -3,
+            "s": 252.81976699829096,
+            "half_width_m": 1.75,
+            "across_m": -1.742414345108493,
+            "along_m": -0.23258774377563896,
+            "height_above_center_m": 0.0360981747508049
+          },
+          "neighbor": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 252.81976699829096,
+            "half_width_m": 1.75,
+            "across_m": 1.7575769541143131,
+            "along_m": -0.23258825064408484,
+            "height_above_center_m": 0.0360981747508049
+          },
+          "selected_before_refinement": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -3,
+            "s": 252.81976699829096,
+            "half_width_m": 1.75,
+            "across_m": -1.742414345108493,
+            "along_m": -0.23258774377563896,
+            "height_above_center_m": 0.0360981747508049
+          },
+          "selected": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -3,
+            "s": 252.58717346191406,
+            "half_width_m": 1.75,
+            "across_m": -1.7424115904048278,
+            "along_m": 6.211667511024643e-06,
+            "height_above_center_m": 0.0360981747508049
+          },
+          "shared_edge_gap_m": 3.814697265625e-06,
+          "lane_width_tolerance_m": 1e-06
+        }
+      }
+    },
+    {
+      "case": "vehicle_stop_final_run1",
+      "frame": 409308,
+      "xyz": [
+        208.83665466308594,
+        52.69392395019531,
+        0.036086346954107285
+      ],
+      "nonprojecting_query_is_none": true,
+      "candidates": [
+        {
+          "road_id": 38,
+          "lane_id": -3,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": -1.7521501691649206,
+          "initial_longitudinal_offset_m": -0.23258242174000543,
+          "refined_lateral_m": -1.7521472817117,
+          "refined_longitudinal_residual_m": 9.03814623143262e-08,
+          "inside_driving_lane_width": false,
+          "margin_inside_m": -0.0021472817117000886
+        },
+        {
+          "road_id": 38,
+          "lane_id": -2,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": 1.7478411300578856,
+          "initial_longitudinal_offset_m": -0.2325829286084513,
+          "refined_lateral_m": 1.747844017511106,
+          "refined_longitudinal_residual_m": -4.1648698356766545e-07,
+          "inside_driving_lane_width": true,
+          "margin_inside_m": 0.002155982488893926
+        }
+      ],
+      "inside_legal_same_direction_driving_lane": true,
+      "final_helper_result": {
+        "road_id": 38,
+        "lane_id": -2,
+        "evidence": {
+          "reason": "verified_native_internal_lane_seam",
+          "xyz": [
+            208.83665466308594,
+            52.69392395019531,
+            0.036086346954107285
+          ],
+          "projected": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -3,
+            "s": 261.62094879150385,
+            "half_width_m": 1.75,
+            "across_m": -1.7521501691649206,
+            "along_m": -0.23258242174000543,
+            "height_above_center_m": 0.036086346954107285
+          },
+          "neighbor": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 261.62094879150385,
+            "half_width_m": 1.75,
+            "across_m": 1.7478411300578856,
+            "along_m": -0.2325829286084513,
+            "height_above_center_m": 0.036086346954107285
+          },
+          "selected_before_refinement": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 261.62094879150385,
+            "half_width_m": 1.75,
+            "across_m": 1.7478411300578856,
+            "along_m": -0.2325829286084513,
+            "height_above_center_m": 0.036086346954107285
+          },
+          "selected": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 261.38836669921875,
+            "half_width_m": 1.75,
+            "across_m": 1.747844017511106,
+            "along_m": -4.1648698356766545e-07,
+            "height_above_center_m": 0.036086346954107285
+          },
+          "shared_edge_gap_m": 3.814697265625e-06,
+          "lane_width_tolerance_m": 1e-06
+        }
+      }
+    },
+    {
+      "case": "vehicle_avoidance_final_run2",
+      "frame": 412709,
+      "xyz": [
+        208.733642578125,
+        60.77069854736328,
+        0.0360982
+      ],
+      "nonprojecting_query_is_none": true,
+      "candidates": [
+        {
+          "road_id": 38,
+          "lane_id": -3,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": -1.761458731628693,
+          "initial_longitudinal_offset_m": -0.23257595816153298,
+          "refined_lateral_m": -1.7614557556757688,
+          "refined_longitudinal_residual_m": -1.0749211867278063e-06,
+          "inside_driving_lane_width": false,
+          "margin_inside_m": -0.011455755675768842
+        },
+        {
+          "road_id": 38,
+          "lane_id": -2,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": 1.7385325675941132,
+          "initial_longitudinal_offset_m": -0.23257646502997886,
+          "refined_lateral_m": 1.7385355435470373,
+          "refined_longitudinal_residual_m": -1.581789632609798e-06,
+          "inside_driving_lane_width": true,
+          "margin_inside_m": 0.011464456452962679
+        }
+      ],
+      "inside_legal_same_direction_driving_lane": true,
+      "final_helper_result": {
+        "road_id": 38,
+        "lane_id": -2,
+        "evidence": {
+          "reason": "verified_native_internal_lane_seam",
+          "xyz": [
+            208.733642578125,
+            60.77069854736328,
+            0.03609820082783699
+          ],
+          "projected": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -3,
+            "s": 253.5435180664062,
+            "half_width_m": 1.75,
+            "across_m": -1.761458731628693,
+            "along_m": -0.23257595816153298,
+            "height_above_center_m": 0.03609820082783699
+          },
+          "neighbor": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 253.5435180664062,
+            "half_width_m": 1.75,
+            "across_m": 1.7385325675941132,
+            "along_m": -0.23257646502997886,
+            "height_above_center_m": 0.03609820082783699
+          },
+          "selected_before_refinement": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 253.5435180664062,
+            "half_width_m": 1.75,
+            "across_m": 1.7385325675941132,
+            "along_m": -0.23257646502997886,
+            "height_above_center_m": 0.03609820082783699
+          },
+          "selected": {
+            "road_id": 38,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 253.31094360351562,
+            "half_width_m": 1.75,
+            "across_m": 1.7385355435470373,
+            "along_m": -1.581789632609798e-06,
+            "height_above_center_m": 0.03609820082783699
+          },
+          "shared_edge_gap_m": 3.814697265625e-06,
+          "lane_width_tolerance_m": 1e-06
+        }
+      }
+    },
+    {
+      "case": "vehicle_avoidance_final_run2",
+      "frame": 413263,
+      "xyz": [
+        209.27171325683594,
+        4.973637104034424,
+        0.0361125
+      ],
+      "nonprojecting_query_is_none": true,
+      "candidates": [
+        {
+          "road_id": 12,
+          "lane_id": -3,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": -1.7605584178596914,
+          "initial_longitudinal_offset_m": -0.20513779732377202,
+          "refined_lateral_m": -1.760506607328995,
+          "refined_longitudinal_residual_m": 0.004099385265874389,
+          "inside_driving_lane_width": false,
+          "margin_inside_m": -0.010506607328994999
+        },
+        {
+          "road_id": 12,
+          "lane_id": -2,
+          "is_junction": false,
+          "half_width_m": 1.75,
+          "initial_lateral_m": 1.7394406776010278,
+          "initial_longitudinal_offset_m": -0.20513758599625476,
+          "refined_lateral_m": 1.7394951691661364,
+          "refined_longitudinal_residual_m": 0.004098896683728981,
+          "inside_driving_lane_width": true,
+          "margin_inside_m": 0.010504830833863554
+        }
+      ],
+      "inside_legal_same_direction_driving_lane": true,
+      "final_helper_result": {
+        "road_id": 12,
+        "lane_id": -2,
+        "evidence": {
+          "reason": "verified_native_internal_lane_seam",
+          "xyz": [
+            209.27171325683594,
+            4.973637104034424,
+            0.03611249849200249
+          ],
+          "projected": {
+            "road_id": 12,
+            "section_id": 0,
+            "lane_id": -3,
+            "s": 8.895066261291523,
+            "half_width_m": 1.75,
+            "across_m": -1.7605584178596914,
+            "along_m": -0.20513779732377202,
+            "height_above_center_m": 0.03611249849200249
+          },
+          "neighbor": {
+            "road_id": 12,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 8.895066261291523,
+            "half_width_m": 1.75,
+            "across_m": 1.7394406776010278,
+            "along_m": -0.20513758599625476,
+            "height_above_center_m": 0.03611249849200249
+          },
+          "selected_before_refinement": {
+            "road_id": 12,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 8.895066261291523,
+            "half_width_m": 1.75,
+            "across_m": 1.7394406776010278,
+            "along_m": -0.20513758599625476,
+            "height_above_center_m": 0.03611249849200249
+          },
+          "selected": {
+            "road_id": 12,
+            "section_id": 0,
+            "lane_id": -2,
+            "s": 8.689929008483887,
+            "half_width_m": 1.75,
+            "across_m": 1.7394951691661364,
+            "along_m": 0.004098896683728981,
+            "height_above_center_m": 0.03611249849200249
+          },
+          "shared_edge_gap_m": 0.0,
+          "lane_width_tolerance_m": 1e-06
+        }
+      }
+    }
+  ],
+  "helper_sha256": "e9d6584b93127ced58c58fad382229a87d46d94af3bf411d25554d7b3b878645",
+  "offline_tests_passed": 8
+}

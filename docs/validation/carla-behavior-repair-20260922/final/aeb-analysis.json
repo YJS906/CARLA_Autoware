@@ -1,0 +1,639 @@
+{
+  "scope": "Actual AEB diagnostics and source inputs during main trial only; no simulator changes.",
+  "time_alignment": "Observer reception ros_s restricted to harness first/last sample ros_time; excludes preparation and cleanup.",
+  "pointcloud_estimate_limit": "Fixed forward corridor reproduces z crop, voxel centroids and 3D connected components; not the exact MPC-footprint crop or actor-specific ROI.",
+  "historical_causality": "Old collision lacks internal AEB evidence; sparse LiDAR candidates and proven empty-vector defect are verified constraints, not proof of unique historical cause.",
+  "trials": {
+    "baseline_run1": {
+      "state": "trial_complete",
+      "trial_sha256": "c0a9e7e3e1c8e3804bbe85ec3df639999c9d4f1fc7186d4768168da5ba5a3644",
+      "success": true,
+      "result": "baseline_drive_pass",
+      "actual_peak_kmh": 18.694830437600572,
+      "stopped_clearance_m": null,
+      "collision_records": 0,
+      "fixture_detection_samples": 0,
+      "trial_samples": 118,
+      "planning_factor_message_counts": {},
+      "aeb_evidence": "not_collected_for_baseline"
+    },
+    "vehicle_stop_run1": {
+      "state": "trial_complete",
+      "trial_sha256": "f1311c1e64c0abbe8a33badec0d262b733992767b985199841ffe52a47f8383a",
+      "success": true,
+      "result": "stopped_before_hazard",
+      "actual_peak_kmh": 6.988923467614222,
+      "stopped_clearance_m": 4.7699277170420435,
+      "collision_records": 0,
+      "fixture_detection_samples": 472,
+      "trial_samples": 472,
+      "planning_factor_message_counts": {
+        "obstacle_stop": 510,
+        "avoidance_by_lane_change": 400
+      },
+      "first_moving_brake": {
+        "ros_time": 94.350001405,
+        "speed_mps": 1.6679323651648674,
+        "clearance_m": 30.88632383002713,
+        "brake": 0.20153681933879852,
+        "objects_by_class": {
+          "1": 3
+        }
+      },
+      "aeb_evidence": "available",
+      "observer_sha256": "d4256703635a8816f8a869c84ea7394661a184ba4d10f454ec4673bb81190847",
+      "observer_errors": {},
+      "trial_ros_time_window": [
+        85.90000128,
+        136.550002034
+      ],
+      "aeb_parameters": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true,
+        "use_object_velocity_calculation": true,
+        "use_predicted_trajectory": true,
+        "use_imu_path": false,
+        "check_autoware_state": true,
+        "detection_range_min_height": 0.0,
+        "detection_range_max_height_margin": 0.0,
+        "vehicle_height": 1.52483344078,
+        "voxel_grid_x": 0.1,
+        "voxel_grid_y": 0.1,
+        "voxel_grid_z": 0.5,
+        "cluster_tolerance": 0.15,
+        "minimum_cluster_size": 10,
+        "maximum_cluster_size": 10000,
+        "cluster_minimum_height": 0.1,
+        "expand_width": -0.2,
+        "path_footprint_extra_margin": 1.0,
+        "mpc_prediction_time_horizon": 4.5,
+        "mpc_prediction_time_interval": 0.1,
+        "a_ego_min": -6.0,
+        "a_obj_min": -1.0,
+        "t_response": 1.0,
+        "longitudinal_offset_margin": 1.0,
+        "publish_debug_markers": true,
+        "publish_debug_pointcloud": false
+      },
+      "aeb_diagnostic_samples": 258,
+      "aeb_diagnostic_messages": {
+        "[AEB]: No Collision": 258
+      },
+      "aeb_error_diagnostics": 0,
+      "aeb_brake_decisions": 0,
+      "aeb_rss_samples": 0,
+      "aeb_marker_counts": {
+        "mpc_path": 448,
+        "mpc_polygon": 448,
+        "mpc_objects": 448
+      },
+      "aeb_nonempty_marker_counts": {
+        "mpc_path": 448,
+        "mpc_polygon": 448
+      },
+      "mpc_trajectory_messages": 506,
+      "mpc_trajectory_max_length_m": 17.14549101133832,
+      "predicted_object_messages": 506,
+      "predicted_object_nonempty_messages": 506,
+      "predicted_object_labels": {
+        "1": 1518
+      },
+      "pointcloud_corridor_estimates": 252,
+      "pointcloud_corridor_max_component_size": 12,
+      "pointcloud_corridor_size_height_accepted_components": 1,
+      "aeb_log_messages": [],
+      "attribution": "planning_stop_no_aeb_intervention_observed"
+    },
+    "pedestrian_stop_run1": {
+      "state": "trial_complete",
+      "trial_sha256": "ea5e5585c8b52e27686c7c94ae10331faf241b79f51dc4503e70d660a6e6d953",
+      "success": true,
+      "result": "stopped_before_hazard",
+      "actual_peak_kmh": 18.23307548733032,
+      "stopped_clearance_m": 5.161856783286697,
+      "collision_records": 0,
+      "fixture_detection_samples": 226,
+      "trial_samples": 226,
+      "planning_factor_message_counts": {
+        "run_out": 137,
+        "obstacle_stop": 133,
+        "road_user_stop": 130,
+        "obstacle_slow_down": 7
+      },
+      "first_moving_brake": {
+        "ros_time": 160.100002385,
+        "speed_mps": 4.960787486399276,
+        "clearance_m": 12.58178463000105,
+        "brake": 0.11761680245399475,
+        "objects_by_class": {
+          "7": 1
+        }
+      },
+      "aeb_evidence": "available",
+      "observer_sha256": "bac2d2570f6f8728ec4e0cdf58105fbdbd5e223a1e4c4318c36a4768a4f3fc40",
+      "observer_errors": {},
+      "trial_ros_time_window": [
+        147.950002204,
+        172.000002562
+      ],
+      "aeb_parameters": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true,
+        "use_object_velocity_calculation": true,
+        "use_predicted_trajectory": true,
+        "use_imu_path": false,
+        "check_autoware_state": true,
+        "detection_range_min_height": 0.0,
+        "detection_range_max_height_margin": 0.0,
+        "vehicle_height": 1.52483344078,
+        "voxel_grid_x": 0.1,
+        "voxel_grid_y": 0.1,
+        "voxel_grid_z": 0.5,
+        "cluster_tolerance": 0.15,
+        "minimum_cluster_size": 10,
+        "maximum_cluster_size": 10000,
+        "cluster_minimum_height": 0.1,
+        "expand_width": -0.2,
+        "path_footprint_extra_margin": 1.0,
+        "mpc_prediction_time_horizon": 4.5,
+        "mpc_prediction_time_interval": 0.1,
+        "a_ego_min": -6.0,
+        "a_obj_min": -1.0,
+        "t_response": 1.0,
+        "longitudinal_offset_margin": 1.0,
+        "publish_debug_markers": true,
+        "publish_debug_pointcloud": false
+      },
+      "aeb_diagnostic_samples": 68,
+      "aeb_diagnostic_messages": {
+        "[AEB]: No Collision": 68
+      },
+      "aeb_error_diagnostics": 0,
+      "aeb_brake_decisions": 0,
+      "aeb_rss_samples": 0,
+      "aeb_marker_counts": {
+        "mpc_path": 156,
+        "mpc_polygon": 156,
+        "mpc_objects": 156
+      },
+      "aeb_nonempty_marker_counts": {
+        "mpc_path": 156,
+        "mpc_polygon": 156
+      },
+      "mpc_trajectory_messages": 240,
+      "mpc_trajectory_max_length_m": 26.54825298949357,
+      "predicted_object_messages": 240,
+      "predicted_object_nonempty_messages": 240,
+      "predicted_object_labels": {
+        "7": 240
+      },
+      "pointcloud_corridor_estimates": 120,
+      "pointcloud_corridor_max_component_size": 3,
+      "pointcloud_corridor_size_height_accepted_components": 0,
+      "aeb_log_messages": [],
+      "attribution": "planning_stop_no_aeb_intervention_observed"
+    },
+    "vehicle_avoidance_run1": {
+      "state": "trial_complete",
+      "trial_sha256": "f3af60fcedebbf221f8452f072e7a3d393cb07dc91ed8732151b2e265a9ce4ba",
+      "success": true,
+      "result": "obstacle_passed_and_continued",
+      "actual_peak_kmh": 18.332408615433568,
+      "stopped_clearance_m": null,
+      "collision_records": 0,
+      "fixture_detection_samples": 518,
+      "trial_samples": 518,
+      "planning_factor_message_counts": {
+        "obstacle_stop": 125,
+        "avoidance_by_lane_change": 163
+      },
+      "first_moving_brake": {
+        "ros_time": 188.300002805,
+        "speed_mps": 1.8404752593052,
+        "clearance_m": 35.65093857602347,
+        "brake": 0.15646004676818848,
+        "objects_by_class": {
+          "1": 1
+        }
+      },
+      "aeb_evidence": "available",
+      "observer_sha256": "a9c559b464081c58db417a5df5021ed13111ad7ea71e6f20d3792477a1089acb",
+      "observer_errors": {},
+      "trial_ros_time_window": [
+        182.500002719,
+        237.800003543
+      ],
+      "aeb_parameters": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true,
+        "use_object_velocity_calculation": true,
+        "use_predicted_trajectory": true,
+        "use_imu_path": false,
+        "check_autoware_state": true,
+        "detection_range_min_height": 0.0,
+        "detection_range_max_height_margin": 0.0,
+        "vehicle_height": 1.52483344078,
+        "voxel_grid_x": 0.1,
+        "voxel_grid_y": 0.1,
+        "voxel_grid_z": 0.5,
+        "cluster_tolerance": 0.15,
+        "minimum_cluster_size": 10,
+        "maximum_cluster_size": 10000,
+        "cluster_minimum_height": 0.1,
+        "expand_width": -0.2,
+        "path_footprint_extra_margin": 1.0,
+        "mpc_prediction_time_horizon": 4.5,
+        "mpc_prediction_time_interval": 0.1,
+        "a_ego_min": -6.0,
+        "a_obj_min": -1.0,
+        "t_response": 1.0,
+        "longitudinal_offset_margin": 1.0,
+        "publish_debug_markers": true,
+        "publish_debug_pointcloud": false
+      },
+      "aeb_diagnostic_samples": 142,
+      "aeb_diagnostic_messages": {
+        "[AEB]: No Collision": 142
+      },
+      "aeb_error_diagnostics": 0,
+      "aeb_brake_decisions": 0,
+      "aeb_rss_samples": 0,
+      "aeb_marker_counts": {
+        "mpc_path": 481,
+        "mpc_polygon": 481,
+        "mpc_objects": 481
+      },
+      "aeb_nonempty_marker_counts": {
+        "mpc_path": 481,
+        "mpc_polygon": 481
+      },
+      "mpc_trajectory_messages": 553,
+      "mpc_trajectory_max_length_m": 26.884902777216936,
+      "predicted_object_messages": 553,
+      "predicted_object_nonempty_messages": 553,
+      "predicted_object_labels": {
+        "1": 553
+      },
+      "pointcloud_corridor_estimates": 275,
+      "pointcloud_corridor_max_component_size": 198,
+      "pointcloud_corridor_size_height_accepted_components": 26,
+      "aeb_log_messages": [],
+      "attribution": "planning_avoidance_no_aeb_intervention_observed"
+    },
+    "pedestrian_stop_run2": {
+      "state": "trial_complete",
+      "trial_sha256": "c4ace28c69089a23b38502847402782bce50a96da28ca21afffc68a7ab4af19d",
+      "success": true,
+      "result": "stopped_before_hazard",
+      "actual_peak_kmh": 18.53950456985522,
+      "stopped_clearance_m": 5.392845497057403,
+      "collision_records": 0,
+      "fixture_detection_samples": 244,
+      "trial_samples": 244,
+      "planning_factor_message_counts": {
+        "run_out": 18,
+        "obstacle_stop": 153,
+        "road_user_stop": 149,
+        "obstacle_slow_down": 7
+      },
+      "first_moving_brake": {
+        "ros_time": 262.950003918,
+        "speed_mps": 4.553879946920213,
+        "clearance_m": 12.75667909888676,
+        "brake": 0.1003079041838646,
+        "objects_by_class": {
+          "7": 1
+        }
+      },
+      "aeb_evidence": "available",
+      "observer_sha256": "f3b57e7a627c3f6772c99b3c3e4a2d6d232b78929c274c0eb2adefec79317f27",
+      "observer_errors": {},
+      "trial_ros_time_window": [
+        250.850003737,
+        276.800004124
+      ],
+      "aeb_parameters": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true,
+        "use_object_velocity_calculation": true,
+        "use_predicted_trajectory": true,
+        "use_imu_path": false,
+        "check_autoware_state": true,
+        "detection_range_min_height": 0.0,
+        "detection_range_max_height_margin": 0.0,
+        "vehicle_height": 1.52483344078,
+        "voxel_grid_x": 0.1,
+        "voxel_grid_y": 0.1,
+        "voxel_grid_z": 0.5,
+        "cluster_tolerance": 0.15,
+        "minimum_cluster_size": 10,
+        "maximum_cluster_size": 10000,
+        "cluster_minimum_height": 0.1,
+        "expand_width": -0.2,
+        "path_footprint_extra_margin": 1.0,
+        "mpc_prediction_time_horizon": 4.5,
+        "mpc_prediction_time_interval": 0.1,
+        "a_ego_min": -6.0,
+        "a_obj_min": -1.0,
+        "t_response": 1.0,
+        "longitudinal_offset_margin": 1.0,
+        "publish_debug_markers": true,
+        "publish_debug_pointcloud": false
+      },
+      "aeb_diagnostic_samples": 82,
+      "aeb_diagnostic_messages": {
+        "[AEB]: No Collision": 82
+      },
+      "aeb_error_diagnostics": 0,
+      "aeb_brake_decisions": 0,
+      "aeb_rss_samples": 0,
+      "aeb_marker_counts": {
+        "mpc_path": 172,
+        "mpc_polygon": 172,
+        "mpc_objects": 172
+      },
+      "aeb_nonempty_marker_counts": {
+        "mpc_path": 172,
+        "mpc_polygon": 172
+      },
+      "mpc_trajectory_messages": 259,
+      "mpc_trajectory_max_length_m": 26.551970656838666,
+      "predicted_object_messages": 259,
+      "predicted_object_nonempty_messages": 259,
+      "predicted_object_labels": {
+        "7": 259
+      },
+      "pointcloud_corridor_estimates": 130,
+      "pointcloud_corridor_max_component_size": 3,
+      "pointcloud_corridor_size_height_accepted_components": 0,
+      "aeb_log_messages": [],
+      "attribution": "planning_stop_no_aeb_intervention_observed"
+    },
+    "vehicle_avoidance_run2": {
+      "state": "trial_complete",
+      "trial_sha256": "cf0a48da96c67cb4cf8658a232aa79ab509d4f382e67d3cf0234c2280c9d06e4",
+      "success": true,
+      "result": "obstacle_passed_and_continued",
+      "actual_peak_kmh": 18.376422072824617,
+      "stopped_clearance_m": null,
+      "collision_records": 0,
+      "fixture_detection_samples": 405,
+      "trial_samples": 405,
+      "planning_factor_message_counts": {
+        "obstacle_stop": 105,
+        "avoidance_by_lane_change": 129
+      },
+      "first_moving_brake": {
+        "ros_time": 295.850004408,
+        "speed_mps": 1.7191578929413922,
+        "clearance_m": 30.92164413398033,
+        "brake": 0.12425193190574646,
+        "objects_by_class": {
+          "1": 1
+        }
+      },
+      "aeb_evidence": "available",
+      "observer_sha256": "e767e6911fd87385d4677a906fad741c7a4eef29e09ccf3edbe69cf87dc66d7c",
+      "observer_errors": {},
+      "trial_ros_time_window": [
+        287.400004282,
+        330.650004927
+      ],
+      "aeb_parameters": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true,
+        "use_object_velocity_calculation": true,
+        "use_predicted_trajectory": true,
+        "use_imu_path": false,
+        "check_autoware_state": true,
+        "detection_range_min_height": 0.0,
+        "detection_range_max_height_margin": 0.0,
+        "vehicle_height": 1.52483344078,
+        "voxel_grid_x": 0.1,
+        "voxel_grid_y": 0.1,
+        "voxel_grid_z": 0.5,
+        "cluster_tolerance": 0.15,
+        "minimum_cluster_size": 10,
+        "maximum_cluster_size": 10000,
+        "cluster_minimum_height": 0.1,
+        "expand_width": -0.2,
+        "path_footprint_extra_margin": 1.0,
+        "mpc_prediction_time_horizon": 4.5,
+        "mpc_prediction_time_interval": 0.1,
+        "a_ego_min": -6.0,
+        "a_obj_min": -1.0,
+        "t_response": 1.0,
+        "longitudinal_offset_margin": 1.0,
+        "publish_debug_markers": true,
+        "publish_debug_pointcloud": false
+      },
+      "aeb_diagnostic_samples": 78,
+      "aeb_diagnostic_messages": {
+        "[AEB]: No Collision": 78
+      },
+      "aeb_error_diagnostics": 0,
+      "aeb_brake_decisions": 0,
+      "aeb_rss_samples": 0,
+      "aeb_marker_counts": {
+        "mpc_path": 383,
+        "mpc_polygon": 383,
+        "mpc_objects": 383
+      },
+      "aeb_nonempty_marker_counts": {
+        "mpc_path": 383,
+        "mpc_polygon": 383
+      },
+      "mpc_trajectory_messages": 433,
+      "mpc_trajectory_max_length_m": 27.158753426739096,
+      "predicted_object_messages": 433,
+      "predicted_object_nonempty_messages": 433,
+      "predicted_object_labels": {
+        "1": 433
+      },
+      "pointcloud_corridor_estimates": 216,
+      "pointcloud_corridor_max_component_size": 200,
+      "pointcloud_corridor_size_height_accepted_components": 42,
+      "aeb_log_messages": [],
+      "attribution": "planning_avoidance_no_aeb_intervention_observed"
+    },
+    "pedestrian_stop_run3": {
+      "state": "trial_complete",
+      "trial_sha256": "05fe5f0dfa9befbb735a241a7e8f1a17fb239ea7c473a7bd65d3552e28e9b0c3",
+      "success": true,
+      "result": "stopped_before_hazard",
+      "actual_peak_kmh": 18.487804483135143,
+      "stopped_clearance_m": 5.395559515942072,
+      "collision_records": 0,
+      "fixture_detection_samples": 246,
+      "trial_samples": 246,
+      "planning_factor_message_counts": {
+        "run_out": 18,
+        "obstacle_stop": 154,
+        "road_user_stop": 151,
+        "obstacle_slow_down": 7
+      },
+      "first_moving_brake": {
+        "ros_time": 355.400005295,
+        "speed_mps": 4.374732880850313,
+        "clearance_m": 12.591372263571268,
+        "brake": 0.14450109004974365,
+        "objects_by_class": {
+          "7": 1
+        }
+      },
+      "aeb_evidence": "available",
+      "observer_sha256": "6214ed2970bab8e92a492f37a591cbb96425939024c63e2dc48606ebb5f4c84b",
+      "observer_errors": {},
+      "trial_ros_time_window": [
+        343.200005114,
+        369.350005503
+      ],
+      "aeb_parameters": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true,
+        "use_object_velocity_calculation": true,
+        "use_predicted_trajectory": true,
+        "use_imu_path": false,
+        "check_autoware_state": true,
+        "detection_range_min_height": 0.0,
+        "detection_range_max_height_margin": 0.0,
+        "vehicle_height": 1.52483344078,
+        "voxel_grid_x": 0.1,
+        "voxel_grid_y": 0.1,
+        "voxel_grid_z": 0.5,
+        "cluster_tolerance": 0.15,
+        "minimum_cluster_size": 10,
+        "maximum_cluster_size": 10000,
+        "cluster_minimum_height": 0.1,
+        "expand_width": -0.2,
+        "path_footprint_extra_margin": 1.0,
+        "mpc_prediction_time_horizon": 4.5,
+        "mpc_prediction_time_interval": 0.1,
+        "a_ego_min": -6.0,
+        "a_obj_min": -1.0,
+        "t_response": 1.0,
+        "longitudinal_offset_margin": 1.0,
+        "publish_debug_markers": true,
+        "publish_debug_pointcloud": false
+      },
+      "aeb_diagnostic_samples": 73,
+      "aeb_diagnostic_messages": {
+        "[AEB]: No Collision": 73
+      },
+      "aeb_error_diagnostics": 0,
+      "aeb_brake_decisions": 0,
+      "aeb_rss_samples": 0,
+      "aeb_marker_counts": {
+        "mpc_path": 172,
+        "mpc_polygon": 172,
+        "mpc_objects": 172
+      },
+      "aeb_nonempty_marker_counts": {
+        "mpc_path": 172,
+        "mpc_polygon": 172
+      },
+      "mpc_trajectory_messages": 261,
+      "mpc_trajectory_max_length_m": 26.534587255933996,
+      "predicted_object_messages": 261,
+      "predicted_object_nonempty_messages": 261,
+      "predicted_object_labels": {
+        "7": 261
+      },
+      "pointcloud_corridor_estimates": 130,
+      "pointcloud_corridor_max_component_size": 2,
+      "pointcloud_corridor_size_height_accepted_components": 0,
+      "aeb_log_messages": [],
+      "attribution": "planning_stop_no_aeb_intervention_observed"
+    },
+    "vehicle_avoidance_run3": {
+      "state": "trial_complete",
+      "trial_sha256": "b8b4f622595f2137f0ad491530e62d4e9c0ea44f7d2eedac8d19125b6348d058",
+      "success": true,
+      "result": "obstacle_passed_and_continued",
+      "actual_peak_kmh": 18.45664169063017,
+      "stopped_clearance_m": null,
+      "collision_records": 0,
+      "fixture_detection_samples": 421,
+      "trial_samples": 421,
+      "planning_factor_message_counts": {
+        "obstacle_stop": 94,
+        "avoidance_by_lane_change": 141
+      },
+      "first_moving_brake": {
+        "ros_time": 388.200005784,
+        "speed_mps": 1.6591479165015641,
+        "clearance_m": 31.088718544966895,
+        "brake": 0.2021588236093521,
+        "objects_by_class": {
+          "1": 1
+        }
+      },
+      "aeb_evidence": "available",
+      "observer_sha256": "fc79a23dd464da581fd2d5dfc422cb8f2c37a24bb73d115817f05ba04731defa",
+      "observer_errors": {},
+      "trial_ros_time_window": [
+        379.90000566,
+        424.700006328
+      ],
+      "aeb_parameters": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true,
+        "use_object_velocity_calculation": true,
+        "use_predicted_trajectory": true,
+        "use_imu_path": false,
+        "check_autoware_state": true,
+        "detection_range_min_height": 0.0,
+        "detection_range_max_height_margin": 0.0,
+        "vehicle_height": 1.52483344078,
+        "voxel_grid_x": 0.1,
+        "voxel_grid_y": 0.1,
+        "voxel_grid_z": 0.5,
+        "cluster_tolerance": 0.15,
+        "minimum_cluster_size": 10,
+        "maximum_cluster_size": 10000,
+        "cluster_minimum_height": 0.1,
+        "expand_width": -0.2,
+        "path_footprint_extra_margin": 1.0,
+        "mpc_prediction_time_horizon": 4.5,
+        "mpc_prediction_time_interval": 0.1,
+        "a_ego_min": -6.0,
+        "a_obj_min": -1.0,
+        "t_response": 1.0,
+        "longitudinal_offset_margin": 1.0,
+        "publish_debug_markers": true,
+        "publish_debug_pointcloud": false
+      },
+      "aeb_diagnostic_samples": 99,
+      "aeb_diagnostic_messages": {
+        "[AEB]: No Collision": 99
+      },
+      "aeb_error_diagnostics": 0,
+      "aeb_brake_decisions": 0,
+      "aeb_rss_samples": 0,
+      "aeb_marker_counts": {
+        "mpc_path": 402,
+        "mpc_polygon": 402,
+        "mpc_objects": 402
+      },
+      "aeb_nonempty_marker_counts": {
+        "mpc_path": 402,
+        "mpc_polygon": 402
+      },
+      "mpc_trajectory_messages": 448,
+      "mpc_trajectory_max_length_m": 26.872721612396973,
+      "predicted_object_messages": 448,
+      "predicted_object_nonempty_messages": 448,
+      "predicted_object_labels": {
+        "1": 448
+      },
+      "pointcloud_corridor_estimates": 224,
+      "pointcloud_corridor_max_component_size": 173,
+      "pointcloud_corridor_size_height_accepted_components": 23,
+      "aeb_log_messages": [],
+      "attribution": "planning_avoidance_no_aeb_intervention_observed"
+    }
+  },
+  "completed_trials": 8,
+  "observer_trials": 7,
+  "all_expected_trials_available": true
+}

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+  <arg name="carla_perception_mode" default="sensor" description="sensor for LiDAR detection/tracking; ground_truth for CARLA actor states with native prediction">
+    <choice value="sensor"/>
+    <choice value="ground_truth"/>
+  </arg>
   <!-- Essential parameters -->
   <arg name="use_sim_time" default="true" description="use simulation time"/>
   <arg name="map_path" description="point cloud and lanelet2 map directory path"/>
@@ -68,6 +72,7 @@
         <arg name="carla_map" value="$(var carla_map)"/>
         <arg name="spawn_point" value="$(var spawn_point)"/>
         <arg name="use_traffic_manager" value="$(var use_carla_traffic_manager)"/>
+        <arg name="carla_perception_mode" value="$(var carla_perception_mode)"/>
         <arg name="use_light_weight_sensor_mapping" value="$(var use_light_weight_sensor_mapping)"/>
       </include>
     </group>
@@ -137,6 +142,7 @@
       <!-- Sensing -->
       <arg name="launch_sensing_driver" value="$(var launch_sensing_driver)"/>
       <!-- Perception-->
+      <arg name="carla_perception_mode" value="$(var carla_perception_mode)"/>
       <arg name="traffic_light_recognition/use_high_accuracy_detection" value="false"/>
       <arg name="traffic_light_recognition/camera_namespaces" value="$(var traffic_light_namespace)"/>
       <arg name="use_traffic_light_recognition" value="$(var use_traffic_light_recognition)"/>

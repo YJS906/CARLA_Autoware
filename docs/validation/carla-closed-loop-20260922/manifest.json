@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-22",
+  "git_head": "cb2aa2c6883d08227b70e796370a9bbc16124447",
+  "runtime_image": "sha256:1d44cf81b364baca1f1db296a8735135a81a2a696f798483f3ddb907bfd45caf",
+  "lanelet_map_sha256": "413bf0a9e9c08357d284364d8a70d9a1e94fed64c1a8b8854df65b2a214468a8",
+  "files_sha256": {
+    "analysis.json": "fd09750b20afbdf7f120287c5be6f49e2255401e656fe9a1cdccd7bc285fa467",
+    "avoidance_diagnosis.json": "8a421199d86f7df45a700c4b8167765acfdf562c65c2cdea9cc871cff8ad67da",
+    "baseline.json": "5112ca9563e7fc3f8c929863e5307847e850e70f75ee9c98ff41d97984e1ee74",
+    "map_adjacency.json": "33024f4e51583ff830de0abb814e3ce94dbc42fce6ab32be1a400c1cb8090d16",
+    "pedestrian_perception.json": "26640db8af630a7ee4e9b013a8b3471c82c3520587375369a506595198761b35",
+    "pedestrian_perception_summary.json": "63213aeca1fff3e9d4e3d092fb551a23a6760276d3b3721160e60c567f04ca75",
+    "pedestrian_runtime_params.json": "750aaaaffada9a283a0483f1289b7d0bc0549b22dc7608cae3da1f532d878792",
+    "pedestrian_stop.json": "9b45e4fd3bc1263a5e05054a0b80bd77a6100088feb0c55efe07e1f29dce7eb8",
+    "route_graph.log": "24a3541140048ecc4c3e497b8a5ccb2a248c8f99c30dc7e7e8a7ed160258e610",
+    "route_graph_probe.cpp": "c8594dbc79e2948e52f16a7dfe2b1dbf8b757eb5b88407eda786c8c88daf5a01",
+    "rtc_modes.json": "fb8c226882af299cabf48998afb8f11507e0f4d3498ff39ea60152d474c765d0",
+    "scene_restore.json": "956ffc68e0c6cc623b2422453ff25adf7e6feede75d4b069cd8612d0984b12a8",
+    "summary.png": "362c11174bee325dd63dbd60b08b315ec15c598906edce825dba65ccc0e12a3a",
+    "vehicle_avoidance.json": "daa4a527beab5ecd67a850529598fe3757267c8c1b564cb860d68cbeecb4ba73",
+    "vehicle_avoidance_repeat.json": "4b3d7d41d638a3fcd8583224c7895a0e76102dbf36e7933d4f36dfec51701e86",
+    "vehicle_stop.json": "5b86f2a9c04c42557086b12bba559baec9b7c6a4db7ef2a31a115a0c32342212"
+  },
+  "tools_sha256": {
+    "carla_closed_loop_validation.py": "cf11304f2cf8336a709fbbf13388626b56d63be370ff32f33214d57bdc6fc0e2",
+    "carla_validation_actors.py": "de13ede18b629e43035f655b29bf5be10279c504c188f39af4cc17d44ab52a93",
+    "carla_avoidance_observer.py": "ca29038759fd56c826c996127ca3c38eb487d31abc2b4e004e208396b3ee5d15",
+    "carla_pedestrian_perception_probe.py": "af2c70392463db6abeeec913b3ca4de8adbdb85ca56bcc5b6fa093ed07894872",
+    "plot_carla_closed_loop_validation.py": "3173ef4fe0a7df7b566e4fe14c06f76c47e31f9c658db2efc2c7e1fda8165f03"
+  }
+}

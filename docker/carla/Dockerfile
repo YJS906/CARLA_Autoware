@@ -19,6 +19,7 @@ RUN source /opt/ros/jazzy/setup.bash && \
       --packages-select autoware_mission_planner_universe \
         autoware_behavior_path_static_obstacle_avoidance_module \
         autoware_drivable_corridor_recovery autoware_carla_interface \
+        autoware_autonomous_emergency_braking \
       --executor sequential --merge-install \
       --install-base /opt/carla_overlay --build-base /opt/carla-build/build \
       --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF && \

@@ -1,0 +1,3 @@
+{"success": true, "output": "/tmp/carla-validation/runtime-final-gt.json", "checks": 21, "failed": []}
+Boolean value is: False
+Boolean value is: True

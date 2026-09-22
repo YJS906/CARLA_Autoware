@@ -1,0 +1,188 @@
+[
+  {
+    "file": "final/vehicle_stop_run1_aeb.json.gz",
+    "raw_bytes": 44287720,
+    "raw_sha256": "d4256703635a8816f8a869c84ea7394661a184ba4d10f454ec4673bb81190847",
+    "compressed_bytes": 4288645
+  },
+  {
+    "file": "final/vehicle_avoidance_run1_aeb.json.gz",
+    "raw_bytes": 42572920,
+    "raw_sha256": "a9c559b464081c58db417a5df5021ed13111ad7ea71e6f20d3792477a1089acb",
+    "compressed_bytes": 4053142
+  },
+  {
+    "file": "final/pedestrian_stop_run3_aeb.json.gz",
+    "raw_bytes": 13646224,
+    "raw_sha256": "6214ed2970bab8e92a492f37a591cbb96425939024c63e2dc48606ebb5f4c84b",
+    "compressed_bytes": 1223530
+  },
+  {
+    "file": "final/pedestrian_stop_run2_aeb.json.gz",
+    "raw_bytes": 13709010,
+    "raw_sha256": "f3b57e7a627c3f6772c99b3c3e4a2d6d232b78929c274c0eb2adefec79317f27",
+    "compressed_bytes": 1229078
+  },
+  {
+    "file": "final/vehicle_avoidance_run3_aeb.json.gz",
+    "raw_bytes": 38493618,
+    "raw_sha256": "fc79a23dd464da581fd2d5dfc422cb8f2c37a24bb73d115817f05ba04731defa",
+    "compressed_bytes": 3675226
+  },
+  {
+    "file": "final/vehicle_avoidance_run2_aeb.json.gz",
+    "raw_bytes": 37185814,
+    "raw_sha256": "e767e6911fd87385d4677a906fad741c7a4eef29e09ccf3edbe69cf87dc66d7c",
+    "compressed_bytes": 3548939
+  },
+  {
+    "file": "final/pedestrian_stop_run1_aeb.json.gz",
+    "raw_bytes": 11519446,
+    "raw_sha256": "bac2d2570f6f8728ec4e0cdf58105fbdbd5e223a1e4c4318c36a4768a4f3fc40",
+    "compressed_bytes": 1032604
+  },
+  {
+    "file": "attempts/baseline_setup_attempt1.json.gz",
+    "raw_bytes": 25172,
+    "raw_sha256": "c59eaba87fdb7fd553720b4704cc8902065740f47a4bebe02e1f3de8107479d9",
+    "compressed_bytes": 3579
+  },
+  {
+    "file": "attempts/vehicle_stop_setup_run1.json.gz",
+    "raw_bytes": 5209568,
+    "raw_sha256": "afa0e9f4571fa34c759a1dbff055a7c007b5893c5d26a1a1fcadb8e50560c512",
+    "compressed_bytes": 396730
+  },
+  {
+    "file": "attempts/version.json.gz",
+    "raw_bytes": 383,
+    "raw_sha256": "8cc01206a62987627f4f5aaa4ec676ae24527dd93e5601f4e3e1cc025560d9c6",
+    "compressed_bytes": 296
+  },
+  {
+    "file": "attempts/vehicle_avoidance_run1_aeb.json.gz",
+    "raw_bytes": 43803,
+    "raw_sha256": "f8d33e7e7396e6f367cec57b1eb28a2c119a9f272510646b4ade0741bc8f9642",
+    "compressed_bytes": 7394
+  },
+  {
+    "file": "attempts/runtime-final-gt-startup.json.gz",
+    "raw_bytes": 16802,
+    "raw_sha256": "c724e2ee2d21ddf8bdb48119758a5709059cb21ab13882e3bd458c1fcc3d49b6",
+    "compressed_bytes": 2501
+  },
+  {
+    "file": "attempts/baseline_run1.json.gz",
+    "raw_bytes": 1077907,
+    "raw_sha256": "7c6d2bb361934c5111e196ba8b6977779907afa5c885c4781bc61536ec71f044",
+    "compressed_bytes": 95875
+  },
+  {
+    "file": "attempts/pedestrian_stop_attempt1_aeb_partial.json.gz",
+    "raw_bytes": 26056,
+    "raw_sha256": "b4190997e83e2c92ee268064fa99eb279221fcb97394e65d3aa89efd508ba916",
+    "compressed_bytes": 4840
+  },
+  {
+    "file": "attempts/vehicle_avoidance_run1.json.gz",
+    "raw_bytes": 3640801,
+    "raw_sha256": "48ba55036c94e5234f40e32e76ae607b50e1990a7b67a5e3af6ad6c84688ca5c",
+    "compressed_bytes": 328720
+  },
+  {
+    "file": "attempts/pedestrian_stop_attempt1.json.gz",
+    "raw_bytes": 2821035,
+    "raw_sha256": "b15d512c6f94a2c3d17e5b9be1ded2be2cf3c5ee36887729ebb696f1abd3957f",
+    "compressed_bytes": 249123
+  },
+  {
+    "file": "attempts/vehicle_stop_preliminary.json.gz",
+    "raw_bytes": 5209568,
+    "raw_sha256": "afa0e9f4571fa34c759a1dbff055a7c007b5893c5d26a1a1fcadb8e50560c512",
+    "compressed_bytes": 396730
+  },
+  {
+    "file": "attempts/final-suite-attempt1/vehicle_stop_run1_aeb.json.gz",
+    "raw_bytes": 32145713,
+    "raw_sha256": "849aa8d0e39813fdde8ae12a6b05c5c7076c6d0f90bf74460f87a502e028d678",
+    "compressed_bytes": 3082004
+  },
+  {
+    "file": "attempts/final-suite-attempt1/environment.json.gz",
+    "raw_bytes": 1377,
+    "raw_sha256": "98da038c01c4e483b5ad5544253490707a1d90ad27a0734906d5441f19d92296",
+    "compressed_bytes": 531
+  },
+  {
+    "file": "attempts/final-suite-attempt1/query-seam-proof.json.gz",
+    "raw_bytes": 12426,
+    "raw_sha256": "6ef970f9085abf2a907c8c39d41836de5b3f0d6060bf07a54ffb5db6b2bad00b",
+    "compressed_bytes": 1816
+  },
+  {
+    "file": "attempts/final-suite-attempt1/vehicle_avoidance_run1_aeb.json.gz",
+    "raw_bytes": 37687764,
+    "raw_sha256": "a8e78bee269cb6d87c3b56f00aae7fdeb512d1a20cf1883f2e68c550cb9c435d",
+    "compressed_bytes": 3593665
+  },
+  {
+    "file": "attempts/final-suite-attempt1/vehicle_avoidance_run2.json.gz",
+    "raw_bytes": 3931395,
+    "raw_sha256": "453fb30e02685e657191daeb51a51189aebc458fb9968210ad66baaded2a563e",
+    "compressed_bytes": 357802
+  },
+  {
+    "file": "attempts/final-suite-attempt1/pedestrian_stop_run2_aeb.json.gz",
+    "raw_bytes": 11492959,
+    "raw_sha256": "515c8bf9e9dbabd717a08cb98526ecd5d0851fadd28907381b670639cef55d4a",
+    "compressed_bytes": 1019432
+  },
+  {
+    "file": "attempts/final-suite-attempt1/vehicle_stop_run1.json.gz",
+    "raw_bytes": 3655321,
+    "raw_sha256": "465b6e7c922edf2e98461c882d0130af3880f70d2d040dd7d68b6c30c6ba0886",
+    "compressed_bytes": 304983
+  },
+  {
+    "file": "attempts/final-suite-attempt1/vehicle_avoidance_run2_aeb.json.gz",
+    "raw_bytes": 40860035,
+    "raw_sha256": "d7fce8977fa39e9048678ca78482813a99679a2f36362e0f4bf44295451fc002",
+    "compressed_bytes": 3884053
+  },
+  {
+    "file": "attempts/final-suite-attempt1/baseline_run1.json.gz",
+    "raw_bytes": 1109278,
+    "raw_sha256": "1d6d2381ce2b498ddd7d274558aafeeaa4583c8ff5d3ae2371bdee5ec8df7711",
+    "compressed_bytes": 99029
+  },
+  {
+    "file": "attempts/final-suite-attempt1/vehicle_avoidance_run1.json.gz",
+    "raw_bytes": 3610145,
+    "raw_sha256": "5c347723e31bac22cfb989c795faa612adf2cd02f8c57bc452ac532a76e066a1",
+    "compressed_bytes": 327977
+  },
+  {
+    "file": "attempts/final-suite-attempt1/pedestrian_stop_run1.json.gz",
+    "raw_bytes": 2133888,
+    "raw_sha256": "088222122194b48bd4e0198729d6a2eb9e0f752b351753021b5a258e1b5ce5a3",
+    "compressed_bytes": 170634
+  },
+  {
+    "file": "attempts/final-suite-attempt1/pedestrian_stop_run2.json.gz",
+    "raw_bytes": 2120024,
+    "raw_sha256": "3500cc6238792db66cdd690a37ef2bd54559dc4ebe61616ce4df992c73d22da6",
+    "compressed_bytes": 170778
+  },
+  {
+    "file": "attempts/final-suite-attempt1/aeb-analysis.json.gz",
+    "raw_bytes": 16271,
+    "raw_sha256": "676951a7578ed093159ac8f85edb2935ad34c696987345035a9282d6f02d1377",
+    "compressed_bytes": 2878
+  },
+  {
+    "file": "attempts/final-suite-attempt1/pedestrian_stop_run1_aeb.json.gz",
+    "raw_bytes": 11461844,
+    "raw_sha256": "9b27283dc7e502ce212f57ba52dde2917a1a453b868cb7e4db8c84d6fecadb86",
+    "compressed_bytes": 1024641
+  }
+]

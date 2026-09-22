@@ -1,0 +1,1005 @@
+{
+  "requested_mode": "ground_truth",
+  "duration_wall_s": 8.000858872001118,
+  "parameters": {
+    "/autoware_carla_interface": {
+      "carla_perception_mode": "ground_truth",
+      "ground_truth_range_m": 150.0,
+      "sync_mode": true,
+      "fixed_delta_seconds": 0.05
+    },
+    "/control/autonomous_emergency_braking": {
+      "use_predicted_object_data": true,
+      "use_pointcloud_data": true
+    }
+  },
+  "publishers": {
+    "clock": [
+      {
+        "node": "/autoware_carla_interface",
+        "type": "rosgraph_msgs/msg/Clock",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "odom": [
+      {
+        "node": "/carla_state_publisher",
+        "type": "nav_msgs/msg/Odometry",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "tracked": [
+      {
+        "node": "/autoware_carla_interface",
+        "type": "autoware_perception_msgs/msg/TrackedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "predicted": [
+      {
+        "node": "/perception/object_recognition/prediction/map_based_prediction",
+        "type": "autoware_perception_msgs/msg/PredictedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "centerpoint": [],
+    "detected": [],
+    "mode": [
+      {
+        "node": "/adapi/node/operation_mode",
+        "type": "autoware_adapi_v1_msgs/msg/OperationModeState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route_state": [
+      {
+        "node": "/adapi/node/routing",
+        "type": "autoware_adapi_v1_msgs/msg/RouteState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route": [
+      {
+        "node": "/planning/mission_planning/mission_planner",
+        "type": "autoware_planning_msgs/msg/LaneletRoute",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ]
+  },
+  "active_nodes": [
+    "/adapi/container",
+    "/adapi/node/autoware_state",
+    "/adapi/node/diagnostics",
+    "/adapi/node/fail_safe",
+    "/adapi/node/heartbeat",
+    "/adapi/node/interface",
+    "/adapi/node/localization",
+    "/adapi/node/manual/local",
+    "/adapi/node/manual/remote",
+    "/adapi/node/motion",
+    "/adapi/node/mrm_request",
+    "/adapi/node/operation_mode",
+    "/adapi/node/perception",
+    "/adapi/node/planning",
+    "/adapi/node/routing",
+    "/adapi/node/vehicle_command",
+    "/adapi/node/vehicle_door",
+    "/adapi/node/vehicle_info",
+    "/adapi/node/vehicle_metrics",
+    "/adapi/node/vehicle_status",
+    "/autoware_carla_interface",
+    "/autoware_raw_vehicle_cmd_converter",
+    "/carla_behavior_runtime_check",
+    "/carla_localization_ready",
+    "/carla_state_publisher",
+    "/carla_traffic_signal_bridge",
+    "/carla_twist2accel",
+    "/control/autonomous_emergency_braking",
+    "/control/autoware_operation_mode_transition_manager",
+    "/control/autoware_shift_decider",
+    "/control/collision_detector",
+    "/control/control_check_container",
+    "/control/control_container",
+    "/control/control_evaluator",
+    "/control/control_validator",
+    "/control/external_cmd_converter",
+    "/control/external_cmd_selector",
+    "/control/trajectory_follower/controller_node_exe",
+    "/control/trajectory_follower/lane_departure_checker_node",
+    "/control/transform_listener_impl_5b3f3a1d0410",
+    "/control/transform_listener_impl_7b9f7003d9e0",
+    "/control/vehicle_cmd_gate",
+    "/default_adapi/helpers/autoware_initial_pose_adaptor",
+    "/default_adapi/helpers/autoware_routing_adaptor",
+    "/default_adapi/helpers/transform_listener_impl_5dc3ff4672a8",
+    "/launch_ros_1",
+    "/logging_diag_graph",
+    "/managed_tf_listener_impl_fa2dd18abf12",
+    "/map/lanelet2_map_loader",
+    "/map/lanelet2_map_visualization",
+    "/map/map_container",
+    "/map/map_hash_generator",
+    "/map/map_projection_loader",
+    "/map/pointcloud_map_loader",
+    "/map/vector_map_tf_generator",
+    "/perception/object_recognition/prediction/map_based_prediction",
+    "/perception/object_recognition/prediction/transform_listener_impl_56e857e24370",
+    "/perception/obstacle_segmentation/common_ground_filter",
+    "/perception/obstacle_segmentation/crop_box_filter",
+    "/perception/obstacle_segmentation/occupancy_grid_based_outlier_filter",
+    "/perception/occupancy_grid_map/occupancy_grid_map_node",
+    "/perception_analytics_publisher",
+    "/planning/mission_planning/goal_pose_visualizer",
+    "/planning/mission_planning/manual_lane_change_handler",
+    "/planning/mission_planning/mission_planner",
+    "/planning/mission_planning/mission_planner_container",
+    "/planning/mission_planning/route_selector",
+    "/planning/mission_planning/transform_listener_impl_7cbf7802dab8",
+    "/planning/planning_evaluator",
+    "/planning/planning_validator",
+    "/planning/planning_validator_container",
+    "/planning/scenario_planning/autoware_hazard_lights_selector",
+    "/planning/scenario_planning/external_velocity_limit_selector",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_planning_container",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/transform_listener_impl_78f0b404ea90",
+    "/planning/scenario_planning/lane_driving/motion_planning/elastic_band_smoother",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_planning_container",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner",
+    "/planning/scenario_planning/lane_driving/motion_planning/path_optimizer",
+    "/planning/scenario_planning/lane_driving/motion_planning/transform_listener_impl_70d22c082f40",
+    "/planning/scenario_planning/scenario_selector",
+    "/planning/scenario_planning/velocity_smoother",
+    "/planning/scenario_planning/velocity_smoother_container",
+    "/planning/transform_listener_impl_62971d726460",
+    "/planning/transform_listener_impl_7b2004143560",
+    "/pointcloud_container",
+    "/robot_state_publisher",
+    "/rviz2",
+    "/sensing/imu/gyro_bias_scale_validator",
+    "/sensing/imu/imu_corrector",
+    "/sensing/imu/transform_listener_impl_5922d0ee2df0",
+    "/sensing/imu/transform_listener_impl_5e092c81d0f0",
+    "/sensing/lidar/crop_box_filter_mirror",
+    "/sensing/lidar/crop_box_filter_self",
+    "/sensing/lidar/pointcloud_relay",
+    "/sensing/vehicle_velocity_converter",
+    "/system/aggregator",
+    "/system/component_state_monitor/component",
+    "/system/component_state_monitor/container",
+    "/system/converter",
+    "/system/duplicated_node_checker",
+    "/system/hazard_status_converter",
+    "/system/mrm_comfortable_stop_operator",
+    "/system/mrm_comfortable_stop_operator/mrm_comfortable_stop_operator_container",
+    "/system/mrm_emergency_stop_operator",
+    "/system/mrm_emergency_stop_operator/mrm_emergency_stop_operator_container",
+    "/system/mrm_handler",
+    "/system/pipeline_latency_monitor",
+    "/system/processing_time_checker",
+    "/system/service_log_checker",
+    "/system/topic_state_monitor_control_command_control_cmd",
+    "/system/topic_state_monitor_mission_planning_route",
+    "/system/topic_state_monitor_object_recognition_objects",
+    "/system/topic_state_monitor_obstacle_segmentation_pointcloud",
+    "/system/topic_state_monitor_pointcloud_map",
+    "/system/topic_state_monitor_pose_twist_fusion_filter_pose",
+    "/system/topic_state_monitor_scenario_planning_trajectory",
+    "/system/topic_state_monitor_system_emergency_control_cmd",
+    "/system/topic_state_monitor_traffic_light_recognition_traffic_signals",
+    "/system/topic_state_monitor_trajectory_follower_control_cmd",
+    "/system/topic_state_monitor_transform_map_to_base_link",
+    "/system/topic_state_monitor_vector_map",
+    "/system/topic_state_monitor_vehicle_status_steering_status",
+    "/system/topic_state_monitor_vehicle_status_velocity_status",
+    "/transform_listener_impl_55cce8420540",
+    "/transform_listener_impl_5c29217789e0",
+    "/transform_listener_impl_736c1c051bf0",
+    "/transform_listener_impl_736c7c04bb50",
+    "/vehicle_velocity_converter"
+  ],
+  "streams": {
+    "clock": {
+      "topic": "/clock",
+      "received": 160,
+      "frame": null,
+      "stamp_first": 533.450007949,
+      "stamp_last": 541.400008067,
+      "age_wall_s": 0.049356390998582356,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "odom": {
+      "topic": "/localization/kinematic_state",
+      "received": 480,
+      "frame": "map",
+      "stamp_first": 533.450007949,
+      "stamp_last": 541.400008067,
+      "age_wall_s": 0.04400273200008087,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "tracked": {
+      "topic": "/perception/object_recognition/tracking/objects",
+      "received": 160,
+      "frame": "map",
+      "stamp_first": 533.450007949,
+      "stamp_last": 541.400008067,
+      "age_wall_s": 0.045431709000695264,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": 8,
+      "object_count_max": 8,
+      "latest_class_counts": {
+        "1": 8
+      },
+      "latest_objects": [
+        {
+          "label": 1,
+          "position": [
+            -67.14569457959053,
+            84.494508220808,
+            0.7441457551871541
+          ],
+          "dimensions": [
+            4.89238166809082,
+            1.8367133140563965,
+            1.490277647972107
+          ],
+          "uuid": "f22148b9f34655d2aeeed2f443b54e5c",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            4.560872709812916e-10,
+            -3.1608059642702415e-09,
+            -5.9127502000535e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -44.383957914028144,
+            72.45831982263819,
+            0.8178922101005852
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "91ac682863255f95b84c09efc477e502",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            2.215101658573157e-08,
+            -1.1368682769586346e-08,
+            1.231041393695022e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -146.5541854477445,
+            -94.90665403429207,
+            0.7740185791812629
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "865cea7598455946be3748efc056c9f2",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            5.6458371678147175e-09,
+            -9.975061502667265e-09,
+            -6.008193631584179e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            35.04800886126617,
+            -107.7088177215655,
+            0.7624570849253024
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "81a738477c9855239f1dba72552de764",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -2.2184384944223465e-08,
+            -1.8907953201968135e-08,
+            -1.3267245473138592e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -172.82273571447095,
+            4.030584428526997,
+            0.7740187463037309
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "ead207dd68d45ff1baf73f19626d5e73",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -9.434087230860881e-08,
+            2.5161591530585934e-07,
+            -2.1923313053394965e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -47.856179501467196,
+            -110.86029322896319,
+            0.8080674460279089
+          ],
+          "dimensions": [
+            4.901683330535889,
+            2.128324270248413,
+            1.5107464790344238
+          ],
+          "uuid": "5983226b69865b4d92f6fecbffaa8503",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            5.5834611588486596e-09,
+            -1.5133195952862784e-09,
+            3.5283108837704686e-07
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -63.748028334396,
+            -142.81518011636751,
+            0.8176391129140173
+          ],
+          "dimensions": [
+            3.633375883102417,
+            1.845113754272461,
+            1.5012825727462769
+          ],
+          "uuid": "1b680bb9ae375fdd91922d3e4a5d1141",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            7.911950519339323,
+            0.09713920727689114,
+            -0.0005870680669696791
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -31.183486066500468,
+            -84.54135716679376,
+            0.7602804093529029
+          ],
+          "dimensions": [
+            4.513522624969482,
+            2.006814479827881,
+            1.5248334407806396
+          ],
+          "uuid": "643a2433e6a651a4b0b42ab5905788d4",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -6.5084134526330215e-09,
+            1.53130819029204e-08,
+            -1.0490332070439023e-06
+          ]
+        }
+      ]
+    },
+    "predicted": {
+      "topic": "/perception/object_recognition/objects",
+      "received": 160,
+      "frame": "map",
+      "stamp_first": 533.450007949,
+      "stamp_last": 541.400008067,
+      "age_wall_s": 0.04051296800025739,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": 8,
+      "object_count_max": 8,
+      "latest_class_counts": {
+        "1": 8
+      },
+      "latest_objects": [
+        {
+          "label": 1,
+          "position": [
+            -67.14569457959053,
+            84.494508220808,
+            0.7441457551871541
+          ],
+          "dimensions": [
+            4.89238166809082,
+            1.8367133140563965,
+            1.490277647972107
+          ],
+          "uuid": "f22148b9f34655d2aeeed2f443b54e5c"
+        },
+        {
+          "label": 1,
+          "position": [
+            -44.383957914028144,
+            72.45831982263819,
+            0.8178922101005852
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "91ac682863255f95b84c09efc477e502"
+        },
+        {
+          "label": 1,
+          "position": [
+            -146.5541854477445,
+            -94.90665403429207,
+            0.7740185791812629
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "865cea7598455946be3748efc056c9f2"
+        },
+        {
+          "label": 1,
+          "position": [
+            35.04800886126617,
+            -107.7088177215655,
+            0.7624570849253024
+          ],
+          "dimensions": [
+            4.974244117736816,
+            2.0384011268615723,
+            1.5421181917190552
+          ],
+          "uuid": "81a738477c9855239f1dba72552de764"
+        },
+        {
+          "label": 1,
+          "position": [
+            -172.82273571447095,
+            4.030584428526997,
+            0.7740187463037309
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "ead207dd68d45ff1baf73f19626d5e73"
+        },
+        {
+          "label": 1,
+          "position": [
+            -47.856179501467196,
+            -110.86029322896319,
+            0.8080674460279089
+          ],
+          "dimensions": [
+            4.901683330535889,
+            2.128324270248413,
+            1.5107464790344238
+          ],
+          "uuid": "5983226b69865b4d92f6fecbffaa8503"
+        },
+        {
+          "label": 1,
+          "position": [
+            -63.748028334396,
+            -142.81518011636751,
+            0.8176391129140173
+          ],
+          "dimensions": [
+            3.633375883102417,
+            1.845113754272461,
+            1.5012825727462769
+          ],
+          "uuid": "1b680bb9ae375fdd91922d3e4a5d1141"
+        },
+        {
+          "label": 1,
+          "position": [
+            -31.183486066500468,
+            -84.54135716679376,
+            0.7602804093529029
+          ],
+          "dimensions": [
+            4.513522624969482,
+            2.006814479827881,
+            1.5248334407806396
+          ],
+          "uuid": "643a2433e6a651a4b0b42ab5905788d4"
+        }
+      ]
+    },
+    "centerpoint": {
+      "topic": "/perception/object_recognition/detection/centerpoint/objects",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "detected": {
+      "topic": "/perception/object_recognition/detection/objects",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "mode": {
+      "topic": "/api/operation_mode/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 7.994863550000446,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route_state": {
+      "topic": "/api/routing/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 7.994828555001732,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route": {
+      "topic": "/planning/mission_planning/route",
+      "received": 1,
+      "frame": "map",
+      "stamp_first": 379.450005654,
+      "stamp_last": 379.450005654,
+      "age_wall_s": 7.994723714000429,
+      "age_sim_s": 161.95000241300005,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    }
+  },
+  "checks": [
+    {
+      "name": "bridge mode",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "ground_truth",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "bridge sole tick configuration",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "ground_truth",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "one clock publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "rosgraph_msgs/msg/Clock",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "clock advancing",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 160,
+        "frame": null,
+        "stamp_first": 533.450007949,
+        "stamp_last": 541.400008067,
+        "age_wall_s": 0.049356390998582356,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null,
+        "latest_objects": null
+      }
+    },
+    {
+      "name": "clock fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 160,
+        "frame": null,
+        "stamp_first": 533.450007949,
+        "stamp_last": 541.400008067,
+        "age_wall_s": 0.049356390998582356,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "odom fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/localization/kinematic_state",
+        "received": 480,
+        "frame": "map",
+        "stamp_first": 533.450007949,
+        "stamp_last": 541.400008067,
+        "age_wall_s": 0.04400273200008087,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "tracked fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/tracking/objects",
+        "received": 160,
+        "frame": "map",
+        "stamp_first": 533.450007949,
+        "stamp_last": 541.400008067,
+        "age_wall_s": 0.045431709000695264,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": 8,
+        "object_count_max": 8,
+        "latest_class_counts": {
+          "1": 8
+        }
+      }
+    },
+    {
+      "name": "predicted fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/objects",
+        "received": 160,
+        "frame": "map",
+        "stamp_first": 533.450007949,
+        "stamp_last": 541.400008067,
+        "age_wall_s": 0.04051296800025739,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": 8,
+        "object_count_max": 8,
+        "latest_class_counts": {
+          "1": 8
+        }
+      }
+    },
+    {
+      "name": "tracked map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "predicted map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "odom map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "one tracking publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "one map prediction publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/perception/object_recognition/prediction/map_based_prediction",
+          "type": "autoware_perception_msgs/msg/PredictedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "GT tracking source",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "sensor detection publishers disabled",
+      "passed": true,
+      "detail": {
+        "centerpoint": [],
+        "detected": []
+      }
+    },
+    {
+      "name": "sensor detection and tracking nodes disabled",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "GT range positive",
+      "passed": true,
+      "detail": 150.0
+    },
+    {
+      "name": "AEB predicted input mode",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "AEB LiDAR retained",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "operation mode state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 426,
+          "nanosec": 700006358
+        },
+        "mode": 1,
+        "is_autoware_control_enabled": true,
+        "is_in_transition": false,
+        "is_stop_mode_available": true,
+        "is_autonomous_mode_available": true,
+        "is_local_mode_available": true,
+        "is_remote_mode_available": true
+      }
+    },
+    {
+      "name": "route state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 427,
+          "nanosec": 6362
+        },
+        "state": 1
+      }
+    }
+  ],
+  "mode": {
+    "stamp": {
+      "sec": 426,
+      "nanosec": 700006358
+    },
+    "mode": 1,
+    "is_autoware_control_enabled": true,
+    "is_in_transition": false,
+    "is_stop_mode_available": true,
+    "is_autonomous_mode_available": true,
+    "is_local_mode_available": true,
+    "is_remote_mode_available": true
+  },
+  "route_state": {
+    "stamp": {
+      "sec": 427,
+      "nanosec": 6362
+    },
+    "state": 1
+  },
+  "route": {
+    "header": {
+      "stamp": {
+        "sec": 379,
+        "nanosec": 450005654
+      },
+      "frame_id": "map"
+    },
+    "start_pose": {
+      "position": {
+        "x": 210.32394409179688,
+        "y": -75.50032043457031,
+        "z": -0.002139220479875803
+      },
+      "orientation": {
+        "x": 6.285253262846256e-07,
+        "y": -6.358587926332131e-07,
+        "z": 0.7029937159683849,
+        "w": 0.7111960596826746
+      }
+    },
+    "goal_pose": {
+      "position": {
+        "x": 210.09645080566406,
+        "y": 66.32601165771484,
+        "z": 0.0
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.7112234866593978,
+        "w": 0.7029659678989086
+      }
+    },
+    "segments": [
+      {
+        "preferred_primitive": {
+          "id": 18052,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 18658,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 18355,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 18052,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 2900,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 2954,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 2927,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 2900,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 8924,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 8924,
+            "primitive_type": "lane"
+          }
+        ]
+      }
+    ],
+    "uuid": {
+      "uuid": [
+        104,
+        30,
+        190,
+        44,
+        171,
+        35,
+        230,
+        27,
+        50,
+        58,
+        248,
+        156,
+        159,
+        232,
+        143,
+        5
+      ]
+    },
+    "allow_modification": false
+  },
+  "odometry": {
+    "frame_id": "map",
+    "child_frame_id": "base_link",
+    "position": {
+      "x": -46.70257568359375,
+      "y": -49.77180862426758,
+      "z": 0.05330934375524521
+    },
+    "linear_velocity": {
+      "x": -6.377668393398039e-10,
+      "y": -7.345765107302782e-10,
+      "z": 0.0
+    }
+  },
+  "success": true
+}

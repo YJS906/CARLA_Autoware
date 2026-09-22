@@ -1,0 +1,61 @@
+{
+  "image": "sha256:8bb3d0e11efdab30363636d1bddbeeae8334bb86f3699b18ef2deaf125bf5f1a",
+  "map_sha256": "44628aefb80c91e64d8d65c318f257b96182e8365406483f7747a343ea8b1ef8",
+  "mode": "ground_truth",
+  "tools_sha256": {
+    "carla_closed_loop_validation.py": "d460b7919baafb527a7db2b4ad70e52e22b1dc62080422e6f71830023fd38fe1",
+    "carla_validation_actors.py": "de13ede18b629e43035f655b29bf5be10279c504c188f39af4cc17d44ab52a93",
+    "carla_aeb_observer.py": "ebd926a8fd67ba4dee1e78b53617f63298eb269c70b837b4b3d0ea146acc908c",
+    "carla_native_lane_check.py": "e9d6584b93127ced58c58fad382229a87d46d94af3bf411d25554d7b3b878645"
+  },
+  "completed": [
+    {
+      "name": "baseline_run1",
+      "exit_code": 0,
+      "success": true,
+      "result": "baseline_drive_pass"
+    },
+    {
+      "name": "vehicle_stop_run1",
+      "exit_code": 0,
+      "success": true,
+      "result": "stopped_before_hazard"
+    },
+    {
+      "name": "pedestrian_stop_run1",
+      "exit_code": 0,
+      "success": true,
+      "result": "stopped_before_hazard"
+    },
+    {
+      "name": "vehicle_avoidance_run1",
+      "exit_code": 0,
+      "success": true,
+      "result": "obstacle_passed_and_continued"
+    },
+    {
+      "name": "pedestrian_stop_run2",
+      "exit_code": 0,
+      "success": true,
+      "result": "stopped_before_hazard"
+    },
+    {
+      "name": "vehicle_avoidance_run2",
+      "exit_code": 0,
+      "success": true,
+      "result": "obstacle_passed_and_continued"
+    },
+    {
+      "name": "pedestrian_stop_run3",
+      "exit_code": 0,
+      "success": true,
+      "result": "stopped_before_hazard"
+    },
+    {
+      "name": "vehicle_avoidance_run3",
+      "exit_code": 0,
+      "success": true,
+      "result": "obstacle_passed_and_continued"
+    }
+  ]
+}

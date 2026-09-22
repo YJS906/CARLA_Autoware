@@ -1,0 +1,17 @@
+cleared 5 stale dynamic actors
+ Container selfcar-carla-autoware Creating 
+ Container selfcar-carla-autoware Created 
+ Container selfcar-carla-spectator Creating 
+ Container selfcar-carla-signals Creating 
+ Container selfcar-carla-spectator Created 
+ Container selfcar-carla-signals Created 
+ Container selfcar-carla-autoware Starting 
+ Container selfcar-carla-autoware Started 
+ Container selfcar-carla-spectator Starting 
+ Container selfcar-carla-signals Starting 
+ Container selfcar-carla-signals Started 
+ Container selfcar-carla-spectator Started 
+ego_vehicle ready: id=332, map=Carla/Maps/Town05_Opt
+Autoware + CARLA Town05_Opt started.
+Object input mode: sensor
+Direct CARLA localization is active. Set Goal Pose, then Engage in RViz.

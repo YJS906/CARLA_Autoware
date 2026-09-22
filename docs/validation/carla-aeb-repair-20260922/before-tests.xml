@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="14" failures="2" disabled="0" errors="0" time="1.529" timestamp="2026-09-22T09:16:11.037" name="AllTests">
+  <testsuite name="TestAEB" tests="14" failures="2" disabled="0" skipped="0" errors="0" time="1.529" timestamp="2026-09-22T09:16:11.037">
+    <testcase name="checkCollision" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="116" status="run" result="completed" time="0.043" timestamp="2026-09-22T09:16:11.037" classname="TestAEB" />
+    <testcase name="predictedPathEmpty" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="132" status="run" result="completed" time="0.017" timestamp="2026-09-22T09:16:11.080" classname="TestAEB" />
+    <testcase name="predictedPathRetainsFirstPoint" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="139" status="run" result="completed" time="0.011" timestamp="2026-09-22T09:16:11.097" classname="TestAEB">
+      <failure message="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp:148&#x0A;Value of: path.has_value()&#x0A;  Actual: false&#x0A;Expected: true&#x0A;" type=""><![CDATA[/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp:148
+Value of: path.has_value()
+  Actual: false
+Expected: true
+]]></failure>
+    </testcase>
+    <testcase name="predictedPathFiltersDuplicatesAfterFirstPoint" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="154" status="run" result="completed" time="0.012" timestamp="2026-09-22T09:16:11.109" classname="TestAEB">
+      <failure message="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp:166&#x0A;Expected equality of these values:&#x0A;  path-&gt;size()&#x0A;    Which is: 2&#x0A;  3U&#x0A;    Which is: 3&#x0A;" type=""><![CDATA[/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp:166
+Expected equality of these values:
+  path->size()
+    Which is: 2
+  3U
+    Which is: 3
+]]></failure>
+    </testcase>
+    <testcase name="getObjectOnPathData" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="172" status="run" result="completed" time="0.013" timestamp="2026-09-22T09:16:11.121" classname="TestAEB" />
+    <testcase name="checkImuPathGeneration" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="242" status="run" result="completed" time="0.022" timestamp="2026-09-22T09:16:11.135" classname="TestAEB" />
+    <testcase name="checkIncompleteImuPathGeneration" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="284" status="run" result="completed" time="0.019" timestamp="2026-09-22T09:16:11.157" classname="TestAEB" />
+    <testcase name="checkImuPathGenerationIsCut" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="302" status="run" result="completed" time="0.013" timestamp="2026-09-22T09:16:11.176" classname="TestAEB" />
+    <testcase name="checkEmptyPathAtZeroSpeed" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="322" status="run" result="completed" time="0.011" timestamp="2026-09-22T09:16:11.190" classname="TestAEB" />
+    <testcase name="checkParamUpdate" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="330" status="run" result="completed" time="0.011" timestamp="2026-09-22T09:16:11.201" classname="TestAEB" />
+    <testcase name="checkEmptyFetchData" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="337" status="run" result="completed" time="0.012" timestamp="2026-09-22T09:16:11.212" classname="TestAEB" />
+    <testcase name="checkConvertObjectToPolygon" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="342" status="run" result="completed" time="0.014" timestamp="2026-09-22T09:16:11.225" classname="TestAEB" />
+    <testcase name="CollisionDataKeeper" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="389" status="run" result="completed" time="1.31" timestamp="2026-09-22T09:16:11.240" classname="TestAEB" />
+    <testcase name="TestCropPointCloud" file="/work/carla_overlay/src/autoware_autonomous_emergency_braking/test/test.cpp" line="428" status="run" result="completed" time="0.015" timestamp="2026-09-22T09:16:12.550" classname="TestAEB" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,280 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.19kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+#2 DONE 4.9s
+
+#3 docker-image://docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
+#3 resolve docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e 0.0s done
+#3 CACHED
+
+#4 [internal] load metadata for docker.io/library/selfcar-2026-vtd:local
+#4 DONE 1.7s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 286B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 1.71MB 0.0s done
+#6 DONE 0.0s
+
+#7 [ 1/11] FROM docker.io/library/selfcar-2026-vtd:local@sha256:ef00a3b3baa134b4ba5eddac52e0e27abc50f1e2edbff62fb0649b21e77e88ec
+#7 resolve docker.io/library/selfcar-2026-vtd:local@sha256:ef00a3b3baa134b4ba5eddac52e0e27abc50f1e2edbff62fb0649b21e77e88ec 0.0s done
+#7 DONE 0.0s
+
+#8 [ 2/11] RUN env -u PIP_CONSTRAINT python3 -m pip install --no-cache-dir --break-system-packages carla==0.9.16
+#8 CACHED
+
+#9 [ 3/11] COPY vtd_overlay/src /opt/carla-build/src/vtd
+#9 CACHED
+
+#10 [ 4/11] COPY carla_overlay/src /opt/carla-build/src/carla
+#10 DONE 0.0s
+
+#11 [ 5/11] RUN source /opt/ros/jazzy/setup.bash &&     source /opt/autoware/setup.bash &&     source /opt/selfcar_overlay/setup.bash &&     export CMAKE_BUILD_PARALLEL_LEVEL=1 MAKEFLAGS=-j1 &&     colcon --log-base /opt/carla-build/log build       --base-paths /opt/carla-build/src       --packages-select autoware_mission_planner_universe         autoware_behavior_path_static_obstacle_avoidance_module         autoware_drivable_corridor_recovery autoware_carla_interface         autoware_autonomous_emergency_braking       --executor sequential --merge-install       --install-base /opt/carla_overlay --build-base /opt/carla-build/build       --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF &&     find /opt/carla-build/src -type f -not -path '*/__pycache__/*' -print0 |       sort -z | xargs -0 sha256sum > /opt/carla-build/source-manifest.sha256 &&     rm -rf /opt/carla-build/build
+#11 1.176 Starting >>> autoware_autonomous_emergency_braking
+#11 72.62 --- stderr: autoware_autonomous_emergency_braking
+#11 72.62 CMake Warning (dev) at /opt/ros/jazzy/share/mrt_cmake_modules/cmake/Modules/FindFLANN.cmake:45 (find_package):
+#11 72.62   Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT
+#11 72.62   variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the
+#11 72.62   cmake_policy command to set the policy and suppress this warning.
+#11 72.62 
+#11 72.62   CMake variable FLANN_ROOT is set to:
+#11 72.62 
+#11 72.62     /usr
+#11 72.62 
+#11 72.62   For compatibility, find_package is ignoring the variable, but code in a
+#11 72.62   .cmake module might still use it.
+#11 72.62 Call Stack (most recent call first):
+#11 72.62   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)
+#11 72.62   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)
+#11 72.62   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)
+#11 72.62   /opt/ros/jazzy/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 72.62   /opt/ros/jazzy/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake:41 (include)
+#11 72.62   /opt/autoware/autoware_utils_pcl/share/autoware_utils_pcl/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 72.62   /opt/autoware/autoware_utils_pcl/share/autoware_utils_pcl/cmake/autoware_utils_pclConfig.cmake:41 (include)
+#11 72.62   /opt/autoware/autoware_utils/share/autoware_utils/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 72.62   /opt/autoware/autoware_utils/share/autoware_utils/cmake/autoware_utilsConfig.cmake:41 (include)
+#11 72.62   /opt/ros/jazzy/share/ament_cmake_auto/cmake/ament_auto_find_build_dependencies.cmake:67 (find_package)
+#11 72.62   /opt/autoware/autoware_cmake/share/autoware_cmake/cmake/autoware_package.cmake:63 (ament_auto_find_build_dependencies)
+#11 72.62   CMakeLists.txt:5 (autoware_package)
+#11 72.62 This warning is for project developers.  Use -Wno-dev to suppress it.
+#11 72.62 
+#11 72.62 In this package, headers install destination is set to `include` by ament_auto_package. It is recommended to install `include/autoware_autonomous_emergency_braking` instead and will be the default behavior of ament_auto_package from ROS 2 Kilted Kaiju. On distributions before Kilted, ament_auto_package behaves the same way when you use USE_SCOPED_HEADER_INSTALL_DIR option.
+#11 72.62 ---
+#11 72.62 Finished <<< autoware_autonomous_emergency_braking [1min 11s]
+#11 72.62 Starting >>> autoware_carla_interface
+#11 96.48 Finished <<< autoware_carla_interface [23.9s]
+#11 96.48 Starting >>> autoware_mission_planner_universe
+#11 206.2 --- stderr: autoware_mission_planner_universe
+#11 206.2 CMake Deprecation Warning at /opt/ros/jazzy/share/tl_expected/cmake/tl_expectedConfig.cmake:37 (message):
+#11 206.2   Package 'tl_expected' is deprecated (This package will be removed in ROS 2
+#11 206.2   Lyrical Luth.
+#11 206.2 
+#11 206.2         Use tl/expected.hpp from libexpected-dev,
+#11 206.2         or rcpputils/tl_expected/expected.hpp if the system header is not available)
+#11 206.2 Call Stack (most recent call first):
+#11 206.2   /opt/autoware/autoware_trajectory/share/autoware_trajectory/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 206.2   /opt/autoware/autoware_trajectory/share/autoware_trajectory/cmake/autoware_trajectoryConfig.cmake:41 (include)
+#11 206.2   /opt/autoware/autoware_route_handler/share/autoware_route_handler/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 206.2   /opt/autoware/autoware_route_handler/share/autoware_route_handler/cmake/autoware_route_handlerConfig.cmake:41 (include)
+#11 206.2   /opt/ros/jazzy/share/ament_cmake_auto/cmake/ament_auto_find_build_dependencies.cmake:67 (find_package)
+#11 206.2   /opt/autoware/autoware_cmake/share/autoware_cmake/cmake/autoware_package.cmake:63 (ament_auto_find_build_dependencies)
+#11 206.2   CMakeLists.txt:5 (autoware_package)
+#11 206.2 
+#11 206.2 
+#11 206.2 CMake Warning (dev) at /opt/ros/jazzy/share/mrt_cmake_modules/cmake/Modules/FindFLANN.cmake:45 (find_package):
+#11 206.2   Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT
+#11 206.2   variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the
+#11 206.2   cmake_policy command to set the policy and suppress this warning.
+#11 206.2 
+#11 206.2   CMake variable FLANN_ROOT is set to:
+#11 206.2 
+#11 206.2     /usr
+#11 206.2 
+#11 206.2   For compatibility, find_package is ignoring the variable, but code in a
+#11 206.2   .cmake module might still use it.
+#11 206.2 Call Stack (most recent call first):
+#11 206.2   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)
+#11 206.2   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)
+#11 206.2   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)
+#11 206.2   /opt/ros/jazzy/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 206.2   /opt/ros/jazzy/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake:41 (include)
+#11 206.2   /opt/autoware/autoware_utils_pcl/share/autoware_utils_pcl/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 206.2   /opt/autoware/autoware_utils_pcl/share/autoware_utils_pcl/cmake/autoware_utils_pclConfig.cmake:41 (include)
+#11 206.2   /opt/autoware/autoware_utils/share/autoware_utils/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 206.2   /opt/autoware/autoware_utils/share/autoware_utils/cmake/autoware_utilsConfig.cmake:41 (include)
+#11 206.2   /opt/ros/jazzy/share/ament_cmake_auto/cmake/ament_auto_find_build_dependencies.cmake:67 (find_package)
+#11 206.2   /opt/autoware/autoware_cmake/share/autoware_cmake/cmake/autoware_package.cmake:63 (ament_auto_find_build_dependencies)
+#11 206.2   CMakeLists.txt:5 (autoware_package)
+#11 206.2 This warning is for project developers.  Use -Wno-dev to suppress it.
+#11 206.2 
+#11 206.2 In this package, headers install destination is set to `include` by ament_auto_package. It is recommended to install `include/autoware_mission_planner_universe` instead and will be the default behavior of ament_auto_package from ROS 2 Kilted Kaiju. On distributions before Kilted, ament_auto_package behaves the same way when you use USE_SCOPED_HEADER_INSTALL_DIR option.
+#11 206.2 ---
+#11 206.2 Finished <<< autoware_mission_planner_universe [1min 50s]
+#11 206.2 Starting >>> autoware_drivable_corridor_recovery
+#11 206.2 [205.268s] WARNING:colcon.colcon_core.shell:The following packages are in the workspace but haven't been built:
+#11 206.2 - selfcar_trajectory_safety
+#11 206.2 - autoware_behavior_path_planner_common
+#11 206.2 They are being used from the following locations instead:
+#11 206.2 - /opt/selfcar_overlay
+#11 206.2 - /opt/selfcar_overlay
+#11 206.2 To suppress this warning ignore these packages in the workspace:
+#11 206.2 --packages-ignore selfcar_trajectory_safety autoware_behavior_path_planner_common
+#11 310.3 --- stderr: autoware_drivable_corridor_recovery
+#11 310.3 CMake Deprecation Warning at /opt/ros/jazzy/share/tl_expected/cmake/tl_expectedConfig.cmake:37 (message):
+#11 310.3   Package 'tl_expected' is deprecated (This package will be removed in ROS 2
+#11 310.3   Lyrical Luth.
+#11 310.3 
+#11 310.3         Use tl/expected.hpp from libexpected-dev,
+#11 310.3         or rcpputils/tl_expected/expected.hpp if the system header is not available)
+#11 310.3 Call Stack (most recent call first):
+#11 310.3   /opt/autoware/autoware_trajectory/share/autoware_trajectory/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/autoware/autoware_trajectory/share/autoware_trajectory/cmake/autoware_trajectoryConfig.cmake:41 (include)
+#11 310.3   /opt/autoware/autoware_deprecated_boundary_departure_checker/share/autoware_deprecated_boundary_departure_checker/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/autoware/autoware_deprecated_boundary_departure_checker/share/autoware_deprecated_boundary_departure_checker/cmake/autoware_deprecated_boundary_departure_checkerConfig.cmake:41 (include)
+#11 310.3   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/autoware_behavior_path_planner_commonConfig.cmake:41 (include)
+#11 310.3   /opt/ros/jazzy/share/ament_cmake_auto/cmake/ament_auto_find_build_dependencies.cmake:67 (find_package)
+#11 310.3   /opt/autoware/autoware_cmake/share/autoware_cmake/cmake/autoware_package.cmake:63 (ament_auto_find_build_dependencies)
+#11 310.3   CMakeLists.txt:4 (autoware_package)
+#11 310.3 
+#11 310.3 
+#11 310.3 CMake Warning (dev) at /opt/ros/jazzy/share/mrt_cmake_modules/cmake/Modules/FindFLANN.cmake:45 (find_package):
+#11 310.3   Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT
+#11 310.3   variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the
+#11 310.3   cmake_policy command to set the policy and suppress this warning.
+#11 310.3 
+#11 310.3   CMake variable FLANN_ROOT is set to:
+#11 310.3 
+#11 310.3     /usr
+#11 310.3 
+#11 310.3   For compatibility, find_package is ignoring the variable, but code in a
+#11 310.3   .cmake module might still use it.
+#11 310.3 Call Stack (most recent call first):
+#11 310.3   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)
+#11 310.3   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)
+#11 310.3   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)
+#11 310.3   /opt/ros/jazzy/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/ros/jazzy/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake:41 (include)
+#11 310.3   /opt/autoware/autoware_behavior_velocity_planner_common/share/autoware_behavior_velocity_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/autoware/autoware_behavior_velocity_planner_common/share/autoware_behavior_velocity_planner_common/cmake/autoware_behavior_velocity_planner_commonConfig.cmake:41 (include)
+#11 310.3   /opt/autoware/autoware_motion_velocity_planner_common/share/autoware_motion_velocity_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/autoware/autoware_motion_velocity_planner_common/share/autoware_motion_velocity_planner_common/cmake/autoware_motion_velocity_planner_commonConfig.cmake:41 (include)
+#11 310.3   /opt/selfcar_overlay/share/selfcar_trajectory_safety/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/selfcar_overlay/share/selfcar_trajectory_safety/cmake/selfcar_trajectory_safetyConfig.cmake:41 (include)
+#11 310.3   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 310.3   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/autoware_behavior_path_planner_commonConfig.cmake:41 (include)
+#11 310.3   /opt/ros/jazzy/share/ament_cmake_auto/cmake/ament_auto_find_build_dependencies.cmake:67 (find_package)
+#11 310.3   /opt/autoware/autoware_cmake/share/autoware_cmake/cmake/autoware_package.cmake:63 (ament_auto_find_build_dependencies)
+#11 310.3   CMakeLists.txt:4 (autoware_package)
+#11 310.3 This warning is for project developers.  Use -Wno-dev to suppress it.
+#11 310.3 
+#11 310.3 In this package, headers install destination is set to `include` by ament_auto_package. It is recommended to install `include/autoware_drivable_corridor_recovery` instead and will be the default behavior of ament_auto_package from ROS 2 Kilted Kaiju. On distributions before Kilted, ament_auto_package behaves the same way when you use USE_SCOPED_HEADER_INSTALL_DIR option.
+#11 310.3 ---
+#11 310.3 Finished <<< autoware_drivable_corridor_recovery [1min 44s]
+#11 310.3 Starting >>> autoware_behavior_path_static_obstacle_avoidance_module
+#11 310.3 [309.300s] WARNING:colcon.colcon_core.shell:The following packages are in the workspace but haven't been built:
+#11 310.3 - selfcar_trajectory_safety
+#11 310.3 - autoware_behavior_path_planner_common
+#11 310.3 - autoware_behavior_path_planner
+#11 310.3 They are being used from the following locations instead:
+#11 310.3 - /opt/selfcar_overlay
+#11 310.3 - /opt/selfcar_overlay
+#11 310.3 - /opt/selfcar_overlay
+#11 310.3 To suppress this warning ignore these packages in the workspace:
+#11 310.3 --packages-ignore selfcar_trajectory_safety autoware_behavior_path_planner_common autoware_behavior_path_planner
+#11 463.8 --- stderr: autoware_behavior_path_static_obstacle_avoidance_module
+#11 463.8 CMake Deprecation Warning at /opt/ros/jazzy/share/tl_expected/cmake/tl_expectedConfig.cmake:37 (message):
+#11 463.8   Package 'tl_expected' is deprecated (This package will be removed in ROS 2
+#11 463.8   Lyrical Luth.
+#11 463.8 
+#11 463.8         Use tl/expected.hpp from libexpected-dev,
+#11 463.8         or rcpputils/tl_expected/expected.hpp if the system header is not available)
+#11 463.8 Call Stack (most recent call first):
+#11 463.8   /opt/autoware/autoware_trajectory/share/autoware_trajectory/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/autoware/autoware_trajectory/share/autoware_trajectory/cmake/autoware_trajectoryConfig.cmake:41 (include)
+#11 463.8   /opt/autoware/autoware_deprecated_boundary_departure_checker/share/autoware_deprecated_boundary_departure_checker/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/autoware/autoware_deprecated_boundary_departure_checker/share/autoware_deprecated_boundary_departure_checker/cmake/autoware_deprecated_boundary_departure_checkerConfig.cmake:41 (include)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/autoware_behavior_path_planner_commonConfig.cmake:41 (include)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner/cmake/autoware_behavior_path_plannerConfig.cmake:41 (include)
+#11 463.8   /opt/ros/jazzy/share/ament_cmake_auto/cmake/ament_auto_find_build_dependencies.cmake:67 (find_package)
+#11 463.8   /opt/autoware/autoware_cmake/share/autoware_cmake/cmake/autoware_package.cmake:63 (ament_auto_find_build_dependencies)
+#11 463.8   CMakeLists.txt:5 (autoware_package)
+#11 463.8 
+#11 463.8 
+#11 463.8 CMake Warning (dev) at /opt/ros/jazzy/share/mrt_cmake_modules/cmake/Modules/FindFLANN.cmake:45 (find_package):
+#11 463.8   Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT
+#11 463.8   variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the
+#11 463.8   cmake_policy command to set the policy and suppress this warning.
+#11 463.8 
+#11 463.8   CMake variable FLANN_ROOT is set to:
+#11 463.8 
+#11 463.8     /usr
+#11 463.8 
+#11 463.8   For compatibility, find_package is ignoring the variable, but code in a
+#11 463.8   .cmake module might still use it.
+#11 463.8 Call Stack (most recent call first):
+#11 463.8   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)
+#11 463.8   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)
+#11 463.8   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)
+#11 463.8   /opt/ros/jazzy/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/ros/jazzy/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake:41 (include)
+#11 463.8   /opt/autoware/autoware_behavior_velocity_planner_common/share/autoware_behavior_velocity_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/autoware/autoware_behavior_velocity_planner_common/share/autoware_behavior_velocity_planner_common/cmake/autoware_behavior_velocity_planner_commonConfig.cmake:41 (include)
+#11 463.8   /opt/autoware/autoware_motion_velocity_planner_common/share/autoware_motion_velocity_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/autoware/autoware_motion_velocity_planner_common/share/autoware_motion_velocity_planner_common/cmake/autoware_motion_velocity_planner_commonConfig.cmake:41 (include)
+#11 463.8   /opt/selfcar_overlay/share/selfcar_trajectory_safety/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/selfcar_overlay/share/selfcar_trajectory_safety/cmake/selfcar_trajectory_safetyConfig.cmake:41 (include)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner_common/cmake/autoware_behavior_path_planner_commonConfig.cmake:41 (include)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+#11 463.8   /opt/selfcar_overlay/share/autoware_behavior_path_planner/cmake/autoware_behavior_path_plannerConfig.cmake:41 (include)
+#11 463.8   /opt/ros/jazzy/share/ament_cmake_auto/cmake/ament_auto_find_build_dependencies.cmake:67 (find_package)
+#11 463.8   /opt/autoware/autoware_cmake/share/autoware_cmake/cmake/autoware_package.cmake:63 (ament_auto_find_build_dependencies)
+#11 463.8   CMakeLists.txt:5 (autoware_package)
+#11 463.8 This warning is for project developers.  Use -Wno-dev to suppress it.
+#11 463.8 
+#11 463.8 In this package, headers install destination is set to `include` by ament_auto_package. It is recommended to install `include/autoware_behavior_path_static_obstacle_avoidance_module` instead and will be the default behavior of ament_auto_package from ROS 2 Kilted Kaiju. On distributions before Kilted, ament_auto_package behaves the same way when you use USE_SCOPED_HEADER_INSTALL_DIR option.
+#11 463.8 ---
+#11 463.8 Finished <<< autoware_behavior_path_static_obstacle_avoidance_module [2min 34s]
+#11 463.9 
+#11 463.9 Summary: 5 packages finished [7min 43s]
+#11 463.9   4 packages had stderr output: autoware_autonomous_emergency_braking autoware_behavior_path_static_obstacle_avoidance_module autoware_drivable_corridor_recovery autoware_mission_planner_universe
+#11 DONE 464.1s
+
+#12 [ 6/11] COPY config/carla /opt/carla-config
+#12 DONE 0.0s
+
+#13 [ 7/11] COPY docker/files/install_carla_runtime.py /opt/carla-build/install_carla_runtime.py
+#13 DONE 0.0s
+
+#14 [ 8/11] RUN python3 /opt/carla-build/install_carla_runtime.py
+#14 DONE 0.2s
+
+#15 [ 9/11] COPY --chmod=0755 tools/carla_localization_ready.py   /opt/carla_overlay/lib/autoware_carla_interface/carla_localization_ready
+#15 DONE 0.0s
+
+#16 [10/11] COPY --chmod=0755 tools/carla_spectator_follow.py   /opt/carla_overlay/lib/autoware_carla_interface/spectator_follow
+#16 DONE 0.0s
+
+#17 [11/11] COPY --chmod=0755 tools/carla_traffic_signal_bridge.py /opt/selfcar-tools/carla_traffic_signal_bridge.py
+#17 DONE 0.0s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 0.6s done
+#18 exporting manifest sha256:27da2f39410421baf110822d89f3e63c9cb4b246a1a58bb2b0915960d817cb9c done
+#18 exporting config sha256:5979d13bc1e71274f93885647662e225ef36a420182881b5f732a1a2d3492032 done
+#18 exporting attestation manifest sha256:03e17a4f30d4e4449dad12eeaae0f87ed06554ad1bcec1315de7570c083732b7 done
+#18 exporting manifest list sha256:c64fb92ffbaa288d93ef5fa36bda757519e2b2bbd8a8af8e1eb2dd66541e1252 0.0s done
+#18 naming to docker.io/library/selfcar-2026-carla:behavior-repair-20260922 done
+#18 unpacking to docker.io/library/selfcar-2026-carla:behavior-repair-20260922
+#18 unpacking to docker.io/library/selfcar-2026-carla:behavior-repair-20260922 0.3s done
+#18 DONE 1.1s

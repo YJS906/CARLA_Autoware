@@ -103,13 +103,22 @@ self-hosted NVIDIA runner.
 
 ## CARLA 0.9.16 integration
 
-The current city setup is Town05. See the [Town05 repair and validation record](docs/carla-repair-20260922.md)
+The current city setup is Town05. The latest [behavior repair and AUTO validation report](docs/carla-behavior-repair-20260922.md)
+records three parked-car avoidance runs, three pedestrian-stop runs, and two
+regression runs with no collisions. These results use the separate CARLA
+`ground_truth` object mode; they do not demonstrate improved LiDAR detection.
+Temporary stops and stronger-than-commanded braking remain documented limitations.
+See the [object input mode guide](docs/carla-ground-truth.md),
+[lane-change map repair](docs/carla-town05-lane-changes.md), and
+[raw validation evidence](docs/validation/carla-behavior-repair-20260922/README.md).
+
+See the earlier [Town05 repair and validation record](docs/carla-repair-20260922.md)
 for the Prius calibration, CARLA planning preset, native traffic signals/crosswalks,
 map preparation and runtime commands. Custom CARLA bridge changes are maintained
 in `carla_overlay/src/` and rebuilt with `./scripts/carla/build_carla_image`.
 
 This repository also contains the CARLA runtime layer developed from the final
-VTD-tested image. It runs Autoware against Town01, starts bridge-managed NPC
+VTD-tested image. The earlier Town01 setup starts bridge-managed NPC
 vehicles, adds continuously roaming pedestrians, and follows the ego vehicle
 with the CARLA spectator.
 
@@ -122,19 +131,23 @@ docker build \
   -f docker/carla/Dockerfile .
 ```
 
-CARLA itself, the Town01 point-cloud/Lanelet2 map, ML models, and generated
+CARLA itself, point-cloud/Lanelet2 map assets, ML models, and generated
 TensorRT engines are external runtime assets and are intentionally not stored
 in Git. With CARLA 0.9.16 installed under `/home/a/CARLA/0.9.16` and the map
-and models under `/home/a/autoware_data`, run:
+and models under `/home/a/autoware_data`, prepare the Town05 map as described
+above and run:
 
 ```bash
 ./scripts/carla/carla_run -quality-level=Low
-./scripts/carla/carla_autoware start
+CARLA_PERCEPTION_MODE=ground_truth ./scripts/carla/carla_autoware start-town05
 ./scripts/carla/carla_autoware status
 ```
 
+The default object mode is `sensor`. Stop the existing runtime before switching
+object modes; the launcher does not engage AUTO on startup.
+
 The original VTD scenario adapter and matching OpenDRIVE are retained under
-`tools/carla_vtd_scenario.py` and `config/carla/`. The active Town01 setup does
+`tools/carla_vtd_scenario.py` and `config/carla/`. The native Town05 setup does
 not use that converted scenario. See
 [docs/carla-autoware-town01.md](docs/carla-autoware-town01.md) and
 [docs/carla-vtd-scenario.md](docs/carla-vtd-scenario.md).

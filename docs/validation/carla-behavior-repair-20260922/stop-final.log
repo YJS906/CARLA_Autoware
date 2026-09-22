@@ -1,0 +1,13 @@
+ Container selfcar-carla-signals Stopping 
+ Container selfcar-carla-spectator Stopping 
+ Container selfcar-carla-signals Stopped 
+ Container selfcar-carla-signals Removing 
+ Container selfcar-carla-signals Removed 
+ Container selfcar-carla-spectator Stopped 
+ Container selfcar-carla-spectator Removing 
+ Container selfcar-carla-spectator Removed 
+ Container selfcar-carla-autoware Stopping 
+ Container selfcar-carla-autoware Stopped 
+ Container selfcar-carla-autoware Removing 
+ Container selfcar-carla-autoware Removed 
+cleared 0 stale dynamic actors

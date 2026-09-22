@@ -48,6 +48,9 @@ from .modules import SensorKitLoader
 from .modules import SensorPublishWorker
 from .modules import SensorRegistry
 from .modules.carla_data_provider import GameTime
+from .modules.carla_data_provider import CarlaDataProvider
+from .modules.ground_truth_objects import GroundTruthObjects
+from autoware_perception_msgs.msg import TrackedObjects
 from .modules.carla_utils import carla_location_to_ros_point
 from .modules.carla_utils import carla_rotation_to_ros_quaternion
 from .modules.carla_utils import create_cloud
@@ -78,6 +81,8 @@ class carla_ros2_interface(object):
             "use_traffic_manager": (rclpy.Parameter.Type.BOOL, None),
             "max_real_delta_seconds": (rclpy.Parameter.Type.DOUBLE, None),
             "command_timeout_sec": (rclpy.Parameter.Type.DOUBLE, 0.5),
+            "carla_perception_mode": (rclpy.Parameter.Type.STRING, "sensor"),
+            "ground_truth_range_m": (rclpy.Parameter.Type.DOUBLE, 150.0),
             # Sensor configuration parameters
             "sensor_kit_name": (rclpy.Parameter.Type.STRING, ""),  # Empty = use YAML default
             "sensor_mapping_file": (rclpy.Parameter.Type.STRING, ""),
@@ -277,6 +282,7 @@ class carla_ros2_interface(object):
         # Initialize publishers and subscriptions
         self._initialize_subscriptions()
         self._initialize_status_publishers()
+        self._initialize_ground_truth()
 
         # Start ROS 2 spin thread (Thread Safety: Shared state protected by self._state_lock)
         self.spin_thread = threading.Thread(target=rclpy.spin, args=(self.ros2_node,))
@@ -296,6 +302,37 @@ class carla_ros2_interface(object):
             f"CARLA {actor.type_id}: rear axle={geometry.base_offset}, "
             f"wheelbase={geometry.wheelbase:.6f}m, max steer={geometry.max_steer_rad:.6f}rad"
         )
+
+    def _initialize_ground_truth(self):
+        mode = self.param_values["carla_perception_mode"]
+        if mode not in ("sensor", "ground_truth"):
+            raise ValueError("carla_perception_mode must be sensor or ground_truth")
+        self.ground_truth_publisher = None
+        if mode == "ground_truth":
+            self.ground_truth = GroundTruthObjects(self.param_values["ground_truth_range_m"])
+            self.ground_truth_publisher = self.ros2_node.create_publisher(
+                TrackedObjects, "/perception/object_recognition/tracking/objects", 1
+            )
+            self.logger.warning(
+                "CARLA GROUND TRUTH perception: actor states replace detection/tracking; "
+                "map-based prediction and real LiDAR remain active. This is not sensor validation."
+            )
+
+    def publish_ground_truth(self):
+        if self.ground_truth_publisher is None:
+            return
+        header = self.get_msg_header(frame_id="map")
+        try:
+            world = CarlaDataProvider.get_world()
+            snapshot = world.get_snapshot()
+            message = self.ground_truth.build(
+                world.get_actors(), snapshot, self.ego_actor.id, header
+            )
+        except (RuntimeError, AttributeError) as exc:
+            # Do not carry forward stale actors on a failed CARLA query.
+            message = TrackedObjects(header=header)
+            self.logger.error(f"Ground-truth frame unavailable: {exc}", throttle_duration_sec=2.0)
+        self.ground_truth_publisher.publish(message)
 
     def _initialize_instance_variables(self):
         """Initialize baseline state before the ROS node is created."""
@@ -936,6 +973,9 @@ class carla_ros2_interface(object):
         obj_clock = Clock()
         obj_clock.clock = Time(sec=seconds, nanosec=nanoseconds)
         self.clock_publisher.publish(obj_clock)
+
+        # Truth objects share this exact frame and /clock; no additional ticker.
+        self.publish_ground_truth()
 
         # publish data of all sensors
         for key, data in input_data.items():

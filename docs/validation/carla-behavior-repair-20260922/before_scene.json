@@ -1,0 +1,677 @@
+{
+  "map": "Carla/Maps/Town05_Opt",
+  "world_id": 16568732170033816192,
+  "frame": 255460,
+  "settings": {
+    "synchronous_mode": true,
+    "fixed_delta_seconds": 0.05
+  },
+  "actors": [
+    {
+      "id": 238,
+      "type": "vehicle.nissan.micra",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "243,243,243",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -78.8448257446289,
+        -186.55471801757812,
+        9.154739379882812
+      ],
+      "rpy": [
+        -0.0018310546875,
+        -4.984282493591309,
+        0.09689922630786896
+      ],
+      "velocity": [
+        11.469205856323242,
+        0.019358361139893532,
+        -0.9935581088066101
+      ]
+    },
+    {
+      "id": 237,
+      "type": "vehicle.lincoln.mkz_2017",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "16,16,16",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -47.85645294189453,
+        110.86432647705078,
+        0.0892082005739212
+      ],
+      "rpy": [
+        9.424716722605808e-07,
+        -3.415094397496432e-05,
+        -86.15560150146484
+      ],
+      "velocity": [
+        7.016415004557075e-09,
+        1.324092391286058e-09,
+        -9.53674295089968e-09
+      ]
+    },
+    {
+      "id": 236,
+      "type": "vehicle.chevrolet.impala",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "61,86,143",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        50.7083625793457,
+        88.46018981933594,
+        -0.007478418294340372
+      ],
+      "rpy": [
+        0.0,
+        0.0,
+        178.95277404785156
+      ],
+      "velocity": [
+        -2.660575926238806e-10,
+        -3.590855612856103e-08,
+        -1.8978118987433845e-06
+      ]
+    },
+    {
+      "id": 235,
+      "type": "vehicle.nissan.micra",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "243,243,243",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        78.83882141113281,
+        -186.7869873046875,
+        -0.0200225617736578
+      ],
+      "rpy": [
+        0.0005157756386324763,
+        0.1457698941230774,
+        -0.242156982421875
+      ],
+      "velocity": [
+        15.349261283874512,
+        -0.06401100754737854,
+        -3.890991138177924e-06
+      ]
+    },
+    {
+      "id": 234,
+      "type": "vehicle.audi.a2",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "168,0,27",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -54.556541442871094,
+        -16.0214786529541,
+        0.04766273498535156
+      ],
+      "rpy": [
+        0.0,
+        0.06399887055158615,
+        89.62442016601562
+      ],
+      "velocity": [
+        2.689508171727084e-09,
+        -2.5107964596315924e-09,
+        -5.7220457705398076e-08
+      ]
+    },
+    {
+      "id": 233,
+      "type": "vehicle.dodge.charger_police",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "emergency",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "0,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        35.04593276977539,
+        107.73292541503906,
+        -0.030193977057933807
+      ],
+      "rpy": [
+        -0.00021362357074394822,
+        -0.047975245863199234,
+        -87.21755981445312
+      ],
+      "velocity": [
+        -3.430999839793003e-08,
+        5.388101520509281e-09,
+        -7.629394360719743e-08
+      ]
+    },
+    {
+      "id": 232,
+      "type": "vehicle.audi.a2",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "168,0,27",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -130.55325317382812,
+        131.20887756347656,
+        -0.004739122465252876
+      ],
+      "rpy": [
+        0.0,
+        -0.2965121567249298,
+        89.4558334350586
+      ],
+      "velocity": [
+        0.03521086275577545,
+        3.93503475189209,
+        -0.00043307302985340357
+      ]
+    },
+    {
+      "id": 231,
+      "type": "vehicle.nissan.patrol_2021",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "217,217,217",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        41.672943115234375,
+        -190.12939453125,
+        0.002408256521448493
+      ],
+      "rpy": [
+        8.79198414622806e-05,
+        0.19263865053653717,
+        -0.2469176948070526
+      ],
+      "velocity": [
+        9.174666404724121,
+        -0.039519838988780975,
+        -2.2583008103538305e-05
+      ]
+    },
+    {
+      "id": 230,
+      "type": "vehicle.dodge.charger_police",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "emergency",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "0,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        47.56005859375,
+        -5.21616268157959,
+        -0.030209064483642578
+      ],
+      "rpy": [
+        -0.00018310542509425431,
+        -0.047947924584150314,
+        -178.6070098876953
+      ],
+      "velocity": [
+        -8.455322664246978e-09,
+        1.8964554371336817e-08,
+        3.337860050578456e-07
+      ]
+    },
+    {
+      "id": 229,
+      "type": "vehicle.lincoln.mkz_2020",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "special_type": "",
+        "driver_id": "0",
+        "color": "0,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -92.55215454101562,
+        -84.53121948242188,
+        -0.004551219753921032
+      ],
+      "rpy": [
+        0.0,
+        0.002773056738078594,
+        0.08746419847011566
+      ],
+      "velocity": [
+        8.036725997924805,
+        0.012268071994185448,
+        5.912780807193485e-07
+      ]
+    },
+    {
+      "id": 228,
+      "type": "vehicle.mini.cooper_s_2021",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "73,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -25.41593360900879,
+        194.57220458984375,
+        0.8219032287597656
+      ],
+      "rpy": [
+        -0.00036621076287701726,
+        4.490350723266602,
+        179.9703369140625
+      ],
+      "velocity": [
+        -17.712120056152344,
+        0.009230883792042732,
+        1.4389313459396362
+      ]
+    },
+    {
+      "id": 227,
+      "type": "vehicle.mini.cooper_s",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "217,217,217",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        210.26104736328125,
+        84.78147888183594,
+        0.04256782308220863
+      ],
+      "rpy": [
+        0.004970529116690159,
+        0.0014753207797184587,
+        -89.71316528320312
+      ],
+      "velocity": [
+        0.1219346895813942,
+        -24.219221115112305,
+        1.077651972991589e-06
+      ]
+    },
+    {
+      "id": 226,
+      "type": "vehicle.tesla.model3",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "17,37,103",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -242.92494201660156,
+        -0.5681555867195129,
+        10.001837730407715
+      ],
+      "rpy": [
+        -0.01843261532485485,
+        0.0009972075931727886,
+        89.68783569335938
+      ],
+      "velocity": [
+        0.17272846400737762,
+        24.18614387512207,
+        -3.528594970703125e-05
+      ]
+    },
+    {
+      "id": 224,
+      "type": "vehicle.nissan.patrol_2021",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "217,217,217",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        207.33392333984375,
+        35.29804992675781,
+        0.003907212987542152
+      ],
+      "rpy": [
+        0.058582134544849396,
+        0.006864339578896761,
+        -89.64080810546875
+      ],
+      "velocity": [
+        0.21203342080116272,
+        -24.489288330078125,
+        2.1266937437758315e-06
+      ]
+    },
+    {
+      "id": 223,
+      "type": "vehicle.nissan.patrol",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "183,187,162",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -246.508056640625,
+        -8.361686706542969,
+        10.001264572143555
+      ],
+      "rpy": [
+        -0.05615234375,
+        0.0227650199085474,
+        89.25724029541016
+      ],
+      "velocity": [
+        0.33727747201919556,
+        24.467737197875977,
+        -5.553245500777848e-05
+      ]
+    },
+    {
+      "id": 222,
+      "type": "vehicle.lincoln.mkz_2017",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "16,16,16",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -16.276966094970703,
+        191.067626953125,
+        0.28326690196990967
+      ],
+      "rpy": [
+        0.0010755868861451745,
+        2.654259204864502,
+        179.9678192138672
+      ],
+      "velocity": [
+        -17.874292373657227,
+        0.009749190881848335,
+        0.8184794187545776
+      ]
+    },
+    {
+      "id": 221,
+      "type": "vehicle.toyota.prius",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "255,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        24.491222381591797,
+        -18.55712127685547,
+        0.036126576364040375
+      ],
+      "rpy": [
+        0.0,
+        0.0,
+        90.77909088134766
+      ],
+      "velocity": [
+        -1.6970869154420143e-11,
+        1.2955205797027247e-09,
+        -4.863738922722405e-07
+      ]
+    },
+    {
+      "id": 220,
+      "type": "vehicle.nissan.micra",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "243,243,243",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -102.3800048828125,
+        87.94918823242188,
+        -0.01919080689549446
+      ],
+      "rpy": [
+        1.2722218027325094e-14,
+        -0.00027320755179971457,
+        -179.91773986816406
+      ],
+      "velocity": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": 173,
+      "type": "vehicle.toyota.prius",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "23,51,236",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "ego_vehicle"
+      },
+      "xyz": [
+        -46.73564529418945,
+        48.37295150756836,
+        0.0915616974234581
+      ],
+      "rpy": [
+        0.0,
+        5.464151035994291e-05,
+        -91.3704833984375
+      ],
+      "velocity": [
+        1.3644299579063102e-10,
+        1.2107268521077685e-09,
+        -4.76837158203125e-07
+      ]
+    }
+  ]
+}

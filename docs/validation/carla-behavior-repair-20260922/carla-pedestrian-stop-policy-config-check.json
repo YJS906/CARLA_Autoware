@@ -1,0 +1,11 @@
+{
+  "file": "/home/a/carla_pp/config/carla/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/autoware_behavior_path_static_obstacle_avoidance_module/static_obstacle_avoidance.param.yaml",
+  "success": true,
+  "changed_only": "avoidance.target_filtering.target_type.pedestrian",
+  "from": true,
+  "to": false,
+  "safety_check_pedestrian": true,
+  "car_target": true,
+  "check_unavoidable_object": true,
+  "installed_source_sha256": "7201c1f4fc0e2201ba8b7b7b17e69d8a35529ab430c356754aab3f6a41aeaa9d"
+}

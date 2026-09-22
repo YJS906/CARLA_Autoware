@@ -1,4 +1,9 @@
 <launch>
+  <arg name="carla_perception_mode" default="sensor" description="sensor for LiDAR detection/tracking; ground_truth for CARLA actor states with native prediction">
+    <choice value="sensor"/>
+    <choice value="ground_truth"/>
+  </arg>
+  <arg name="ground_truth_range_m" default="150.0"/>
   <!-- E2E Planning support -->
   <arg name="use_e2e_planning" default="false"/>
   <arg name="vehicle_model" default="sample_vehicle"/>
@@ -35,6 +40,8 @@
 
     <!-- CARLA Interface -->
     <node pkg="autoware_carla_interface" exec="autoware_carla_interface" name="autoware_carla_interface" output="screen">
+      <param name="carla_perception_mode" value="$(var carla_perception_mode)"/>
+      <param name="ground_truth_range_m" value="$(var ground_truth_range_m)"/>
       <param name="host" value="$(var host)"/>
       <param name="port" value="$(var port)"/>
       <param name="timeout" value="$(var timeout)"/>

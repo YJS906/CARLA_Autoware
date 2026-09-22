@@ -1,0 +1,1 @@
+{"success": false, "output": "/tmp/runtime-sensor.json", "checks": 19, "failed": ["clock advancing", "clock fresh", "odom fresh", "tracked fresh", "predicted fresh", "tracked map frame", "predicted map frame", "odom map frame", "operation mode state present", "route state present"]}

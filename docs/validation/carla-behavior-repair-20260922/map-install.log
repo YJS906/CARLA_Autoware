@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "source": "carla_town05_lane_change_v1",
+  "input_map_sha256": "413bf0a9e9c08357d284364d8a70d9a1e94fed64c1a8b8854df65b2a214468a8",
+  "output_map_sha256": "44628aefb80c91e64d8d65c318f257b96182e8365406483f7747a343ea8b1ef8",
+  "xodr_sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851",
+  "road_lanelets": 486,
+  "road_boundaries": 798,
+  "allowed_boundaries": 77,
+  "added_boundaries": 77,
+  "reasons": {
+    "native_constant_broken_both": 77,
+    "not_shared_same_direction_boundary": 624,
+    "not_uniform_broken_both_in_native_section": 9,
+    "multiple_native_lanes": 26,
+    "junction": 62
+  },
+  "conservative_policy": "Unsplit mixed/ambiguous native sections remain forbidden; existing user tags are never overwritten.",
+  "input_manifest_map_sha256": "413bf0a9e9c08357d284364d8a70d9a1e94fed64c1a8b8854df65b2a214468a8"
+}
+Installed native Town05 map, lane-change tags and signal manifest.
+Original backup: /home/a/autoware_data/maps/Town05/lanelet2_map.before-carla-repair.osm
+Previous bundle backup: /home/a/autoware_data/maps/Town05/backups/carla-map-20260922T091558Z-4ae46812
+Reload the map/restart Autoware to apply the map change.

@@ -1,0 +1,96 @@
+{
+  "figure": "/tmp/carla-behavior-repair-20260922/final/summary.png",
+  "counts": {
+    "PASS": 8
+  },
+  "trials": [
+    {
+      "run": "baseline_run1",
+      "verdict": "PASS",
+      "observed_peak_kmh": 18.694830437600572,
+      "min_clearance_m": null,
+      "final_clearance_m": null,
+      "max_lateral_m": 0.004785594325085185,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 0,
+      "continued_after_pass_s": null
+    },
+    {
+      "run": "vehicle_stop_run1",
+      "verdict": "PASS",
+      "observed_peak_kmh": 6.988923467614222,
+      "min_clearance_m": 4.768769914891459,
+      "final_clearance_m": 4.7699277170420435,
+      "max_lateral_m": 5.51033828873782,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 2.0000000298023224,
+      "continued_after_pass_s": null
+    },
+    {
+      "run": "vehicle_avoidance_run1",
+      "verdict": "PASS",
+      "observed_peak_kmh": 18.332408615433568,
+      "min_clearance_m": 1.4854684664946345,
+      "final_clearance_m": 28.926584406039844,
+      "max_lateral_m": 3.7699487969198486,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 2.450000036507845,
+      "continued_after_pass_s": 3.0500000454485416
+    },
+    {
+      "run": "vehicle_avoidance_run2",
+      "verdict": "PASS",
+      "observed_peak_kmh": 18.376422072824617,
+      "min_clearance_m": 1.4831552169743158,
+      "final_clearance_m": 22.675783631557362,
+      "max_lateral_m": 4.017830445929086,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 2.1000000312924385,
+      "continued_after_pass_s": 3.0000000447034836
+    },
+    {
+      "run": "vehicle_avoidance_run3",
+      "verdict": "PASS",
+      "observed_peak_kmh": 18.45664169063017,
+      "min_clearance_m": 1.4839635378582796,
+      "final_clearance_m": 23.4170686948683,
+      "max_lateral_m": 3.7203388646411852,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 1.9000000283122063,
+      "continued_after_pass_s": 3.0500000454485416
+    },
+    {
+      "run": "pedestrian_stop_run1",
+      "verdict": "PASS",
+      "observed_peak_kmh": 18.23307548733032,
+      "min_clearance_m": 5.161116597428586,
+      "final_clearance_m": 5.161856783286697,
+      "max_lateral_m": 0.0012726222824142042,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 5.000000074505806,
+      "continued_after_pass_s": null
+    },
+    {
+      "run": "pedestrian_stop_run2",
+      "verdict": "PASS",
+      "observed_peak_kmh": 18.53950456985522,
+      "min_clearance_m": 5.391586728592205,
+      "final_clearance_m": 5.392845497057403,
+      "max_lateral_m": 0.0010284538366747142,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 5.000000074505806,
+      "continued_after_pass_s": null
+    },
+    {
+      "run": "pedestrian_stop_run3",
+      "verdict": "PASS",
+      "observed_peak_kmh": 18.487804483135143,
+      "min_clearance_m": 5.394306195057315,
+      "final_clearance_m": 5.395559515942072,
+      "max_lateral_m": 0.0017946304269429447,
+      "collision_callback_count": 0,
+      "longest_stop_before_cleanup_s": 5.000000074505806,
+      "continued_after_pass_s": null
+    }
+  ]
+}

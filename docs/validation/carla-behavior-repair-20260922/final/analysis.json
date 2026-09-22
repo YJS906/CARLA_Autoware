@@ -1,0 +1,848 @@
+{
+  "stop_threshold_mps": 0.15,
+  "timing_note": "All intervals use CARLA sample/frame time. ROS object age uses ROS time only. Raw files are unchanged.",
+  "pass_label_note": "Requires reported harness success, independently observed physical criteria and verified cleanup. Collision callbacks are contacts within one trial, not independent trials.",
+  "trials": {
+    "baseline_run1": {
+      "file": "baseline_run1.json",
+      "case": "baseline",
+      "run": "baseline_run1",
+      "raw_sha256": "c0a9e7e3e1c8e3804bbe85ec3df639999c9d4f1fc7186d4768168da5ba5a3644",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "baseline_drive_pass",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 18.694830437600572,
+      "observed_pre_hazard_peak_kmh": null,
+      "hazard_forward_progress_m": null,
+      "minimum_motion_mps": 2.0,
+      "required_stop_hold_s": null,
+      "min_clearance_m": null,
+      "final_clearance_m": null,
+      "max_lateral_m": 0.004785594325085185,
+      "max_progress_m": 30.48591573681641,
+      "final_lateral_m": 0.004785594325085185,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 12.200000181794167,
+      "sample_count": 118,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [],
+      "longest_stop_before_cleanup_s": 0,
+      "first_moving_brake": null,
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": null,
+      "fixture_prediction_match_samples": 0,
+      "prediction_class_sample_counts": {},
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {},
+      "avoidance_reasons": {},
+      "rtc_observed_states": {},
+      "continued_after_pass_s": null,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 0,
+      "pedestrian_evidence": [],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    },
+    "vehicle_stop_run1": {
+      "file": "vehicle_stop_run1.json",
+      "case": "vehicle_stop",
+      "run": "vehicle_stop_run1",
+      "raw_sha256": "f1311c1e64c0abbe8a33badec0d262b733992767b985199841ffe52a47f8383a",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "stopped_before_hazard",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 6.988923467614222,
+      "observed_pre_hazard_peak_kmh": 6.988923467614222,
+      "hazard_forward_progress_m": 45.23031234741211,
+      "minimum_motion_mps": 1.0,
+      "required_stop_hold_s": 2.0,
+      "min_clearance_m": 4.768769914891459,
+      "final_clearance_m": 4.7699277170420435,
+      "max_lateral_m": 5.51033828873782,
+      "max_progress_m": 35.77729375805664,
+      "final_lateral_m": 0.36917654200494354,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 50.650000754743814,
+      "sample_count": 472,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [
+        {
+          "start_s": 8.800000131130219,
+          "end_s": 9.850000146776438,
+          "duration_s": 1.0500000156462193,
+          "start_frame": 437976,
+          "end_frame": 437997,
+          "start_clearance_m": 30.748987613044758,
+          "end_clearance_m": 30.70037971678389,
+          "min_clearance_m": 30.70037971678389
+        },
+        {
+          "start_s": 46.10000068694353,
+          "end_s": 47.20000070333481,
+          "duration_s": 1.1000000163912773,
+          "start_frame": 438722,
+          "end_frame": 438744,
+          "start_clearance_m": 5.4303165275325425,
+          "end_clearance_m": 5.381946118195629,
+          "min_clearance_m": 5.381946118195629
+        },
+        {
+          "start_s": 48.75000072643161,
+          "end_s": 50.75000075623393,
+          "duration_s": 2.0000000298023224,
+          "start_frame": 438775,
+          "end_frame": 438815,
+          "start_clearance_m": 4.768769914891459,
+          "end_clearance_m": 4.7699277170420435,
+          "min_clearance_m": 4.768769914891459
+        }
+      ],
+      "longest_stop_before_cleanup_s": 2.0000000298023224,
+      "first_moving_brake": {
+        "sim_s": 8.600000128149986,
+        "frame": 437972,
+        "progress_m": 9.832343654296878,
+        "clearance_m": 30.88632383002713,
+        "brake": 0.20153681933879852,
+        "speed_kmh": 6.0045565145935225
+      },
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": {
+        "sim_s": 0.10000000149011612,
+        "frame": 437802,
+        "progress_m": -4.0087890340601007e-07,
+        "clearance_m": 40.71982253524932,
+        "brake": 0.0,
+        "speed_kmh": 1.8196153896584317e-06
+      },
+      "fixture_prediction_match_samples": 472,
+      "prediction_class_sample_counts": {
+        "1": 1416
+      },
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {
+        "obstacle_stop": 510,
+        "avoidance_by_lane_change": 400
+      },
+      "avoidance_reasons": {},
+      "rtc_observed_states": {
+        "avoidance_by_lane_change_left": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "avoidance_by_lane_change_right": [
+          1,
+          3
+        ]
+      },
+      "continued_after_pass_s": null,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 2,
+      "pedestrian_evidence": [],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    },
+    "vehicle_avoidance_run1": {
+      "file": "vehicle_avoidance_run1.json",
+      "case": "vehicle_avoidance",
+      "run": "vehicle_avoidance_run1",
+      "raw_sha256": "f3af60fcedebbf221f8452f072e7a3d393cb07dc91ed8732151b2e265a9ce4ba",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "obstacle_passed_and_continued",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 18.332408615433568,
+      "observed_pre_hazard_peak_kmh": 17.145001753641676,
+      "hazard_forward_progress_m": 45.23031234741211,
+      "minimum_motion_mps": 2.0,
+      "required_stop_hold_s": null,
+      "min_clearance_m": 1.4854684664946345,
+      "final_clearance_m": 28.926584406039844,
+      "max_lateral_m": 3.7699487969198486,
+      "max_progress_m": 78.72264345135498,
+      "final_lateral_m": 0.10609916713951328,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 55.35000082477927,
+      "sample_count": 518,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [
+        {
+          "start_s": 25.100000374019146,
+          "end_s": 27.55000041052699,
+          "duration_s": 2.450000036507845,
+          "start_frame": 440234,
+          "end_frame": 440283,
+          "start_clearance_m": 17.80480880485966,
+          "end_clearance_m": 17.742477208838636,
+          "min_clearance_m": 17.742477208838636
+        },
+        {
+          "start_s": 39.15000058338046,
+          "end_s": 40.40000060200691,
+          "duration_s": 1.2500000186264515,
+          "start_frame": 440515,
+          "end_frame": 440540,
+          "start_clearance_m": 2.7968242016941476,
+          "end_clearance_m": 2.8027106142767133,
+          "min_clearance_m": 2.7950926864875107
+        }
+      ],
+      "longest_stop_before_cleanup_s": 2.450000036507845,
+      "first_moving_brake": {
+        "sim_s": 5.950000088661909,
+        "frame": 439851,
+        "progress_m": 5.068221645019534,
+        "clearance_m": 35.65093857602347,
+        "brake": 0.15646004676818848,
+        "speed_kmh": 6.625710933498721
+      },
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": {
+        "sim_s": 0.10000000149011612,
+        "frame": 439734,
+        "progress_m": -4.0087890340601007e-07,
+        "clearance_m": 40.71982253524932,
+        "brake": 0.0,
+        "speed_kmh": 1.9226093705108175e-06
+      },
+      "fixture_prediction_match_samples": 518,
+      "prediction_class_sample_counts": {
+        "1": 518
+      },
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {
+        "obstacle_stop": 125,
+        "avoidance_by_lane_change": 163
+      },
+      "avoidance_reasons": {},
+      "rtc_observed_states": {
+        "avoidance_by_lane_change_left": [
+          0,
+          1,
+          3
+        ]
+      },
+      "continued_after_pass_s": 3.0500000454485416,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 1,
+      "pedestrian_evidence": [],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    },
+    "vehicle_avoidance_run2": {
+      "file": "vehicle_avoidance_run2.json",
+      "case": "vehicle_avoidance",
+      "run": "vehicle_avoidance_run2",
+      "raw_sha256": "cf0a48da96c67cb4cf8658a232aa79ab509d4f382e67d3cf0234c2280c9d06e4",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "obstacle_passed_and_continued",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 18.376422072824617,
+      "observed_pre_hazard_peak_kmh": 18.376422072824617,
+      "hazard_forward_progress_m": 45.23031234741211,
+      "minimum_motion_mps": 2.0,
+      "required_stop_hold_s": null,
+      "min_clearance_m": 1.4831552169743158,
+      "final_clearance_m": 22.675783631557362,
+      "max_lateral_m": 4.017830445929086,
+      "max_progress_m": 72.47028441872406,
+      "final_lateral_m": 0.09119590435303238,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 43.25000064447522,
+      "sample_count": 405,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [
+        {
+          "start_s": 28.250000420957804,
+          "end_s": 30.350000452250242,
+          "duration_s": 2.1000000312924385,
+          "start_frame": 442395,
+          "end_frame": 442437,
+          "start_clearance_m": 1.5116448696192992,
+          "end_clearance_m": 1.5118854279775074,
+          "min_clearance_m": 1.511456640530278
+        }
+      ],
+      "longest_stop_before_cleanup_s": 2.1000000312924385,
+      "first_moving_brake": {
+        "sim_s": 8.600000128149986,
+        "frame": 442002,
+        "progress_m": 9.797347621582034,
+        "clearance_m": 30.92164413398033,
+        "brake": 0.12425193190574646,
+        "speed_kmh": 6.188968414589012
+      },
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": {
+        "sim_s": 0.15000000223517418,
+        "frame": 441833,
+        "progress_m": -4.0087890340601007e-07,
+        "clearance_m": 40.71982253524932,
+        "brake": 0.0,
+        "speed_kmh": 1.8539604648603937e-06
+      },
+      "fixture_prediction_match_samples": 405,
+      "prediction_class_sample_counts": {
+        "1": 405
+      },
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {
+        "obstacle_stop": 105,
+        "avoidance_by_lane_change": 129
+      },
+      "avoidance_reasons": {},
+      "rtc_observed_states": {
+        "avoidance_by_lane_change_left": [
+          0,
+          1,
+          3,
+          4
+        ]
+      },
+      "continued_after_pass_s": 3.0000000447034836,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 1,
+      "pedestrian_evidence": [],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    },
+    "vehicle_avoidance_run3": {
+      "file": "vehicle_avoidance_run3.json",
+      "case": "vehicle_avoidance",
+      "run": "vehicle_avoidance_run3",
+      "raw_sha256": "b8b4f622595f2137f0ad491530e62d4e9c0ea44f7d2eedac8d19125b6348d058",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "obstacle_passed_and_continued",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 18.45664169063017,
+      "observed_pre_hazard_peak_kmh": 17.281902281923994,
+      "hazard_forward_progress_m": 45.23031234741211,
+      "minimum_motion_mps": 2.0,
+      "required_stop_hold_s": null,
+      "min_clearance_m": 1.4839635378582796,
+      "final_clearance_m": 23.4170686948683,
+      "max_lateral_m": 3.7203388646411852,
+      "max_progress_m": 73.20211680378723,
+      "final_lateral_m": 0.007346651362439172,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 44.85000066831708,
+      "sample_count": 421,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [
+        {
+          "start_s": 31.550000470131636,
+          "end_s": 33.45000049844384,
+          "duration_s": 1.9000000283122063,
+          "start_frame": 444311,
+          "end_frame": 444349,
+          "start_clearance_m": 5.210598886813035,
+          "end_clearance_m": 5.216737728943344,
+          "min_clearance_m": 5.2061072962338075
+        }
+      ],
+      "longest_stop_before_cleanup_s": 1.9000000283122063,
+      "first_moving_brake": {
+        "sim_s": 8.450000125914812,
+        "frame": 443849,
+        "progress_m": 9.630347804687503,
+        "clearance_m": 31.088718544966895,
+        "brake": 0.2021588236093521,
+        "speed_kmh": 5.972932499405631
+      },
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": {
+        "sim_s": 0.10000000149011612,
+        "frame": 443682,
+        "progress_m": -4.0087890340601007e-07,
+        "clearance_m": 40.71982253524932,
+        "brake": 0.0,
+        "speed_kmh": 1.5793096946467781e-06
+      },
+      "fixture_prediction_match_samples": 421,
+      "prediction_class_sample_counts": {
+        "1": 421
+      },
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {
+        "obstacle_stop": 94,
+        "avoidance_by_lane_change": 141
+      },
+      "avoidance_reasons": {},
+      "rtc_observed_states": {
+        "avoidance_by_lane_change_left": [
+          0,
+          1,
+          3
+        ]
+      },
+      "continued_after_pass_s": 3.0500000454485416,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 1,
+      "pedestrian_evidence": [],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    },
+    "pedestrian_stop_run1": {
+      "file": "pedestrian_stop_run1.json",
+      "case": "pedestrian_stop",
+      "run": "pedestrian_stop_run1",
+      "raw_sha256": "ea5e5585c8b52e27686c7c94ae10331faf241b79f51dc4503e70d660a6e6d953",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "stopped_before_hazard",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 18.23307548733032,
+      "observed_pre_hazard_peak_kmh": 18.23307548733032,
+      "hazard_forward_progress_m": 45.19841194152832,
+      "minimum_motion_mps": 1.0,
+      "required_stop_hold_s": 5.0,
+      "min_clearance_m": 5.161116597428586,
+      "final_clearance_m": 5.161856783286697,
+      "max_lateral_m": 0.0012726222824142042,
+      "max_progress_m": 37.62224920239258,
+      "final_lateral_m": 0.0012725337827106387,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 24.100000359117985,
+      "sample_count": 226,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [
+        {
+          "start_s": 14.200000211596489,
+          "end_s": 15.250000227242708,
+          "duration_s": 1.0500000156462193,
+          "start_frame": 439325,
+          "end_frame": 439346,
+          "start_clearance_m": 6.696012365477534,
+          "end_clearance_m": 6.668945738417679,
+          "min_clearance_m": 6.668945738417679
+        },
+        {
+          "start_s": 17.200000256299973,
+          "end_s": 18.0000002682209,
+          "duration_s": 0.800000011920929,
+          "start_frame": 439385,
+          "end_frame": 439401,
+          "start_clearance_m": 5.550768951747715,
+          "end_clearance_m": 5.527793336941069,
+          "min_clearance_m": 5.527793336941069
+        },
+        {
+          "start_s": 19.200000286102295,
+          "end_s": 24.2000003606081,
+          "duration_s": 5.000000074505806,
+          "start_frame": 439425,
+          "end_frame": 439525,
+          "start_clearance_m": 5.161116597428586,
+          "end_clearance_m": 5.161856783286697,
+          "min_clearance_m": 5.161116597428586
+        }
+      ],
+      "longest_stop_before_cleanup_s": 5.000000074505806,
+      "first_moving_brake": {
+        "sim_s": 12.250000182539225,
+        "frame": 439286,
+        "progress_m": 30.20297201123047,
+        "clearance_m": 12.58178463000105,
+        "brake": 0.11761680245399475,
+        "speed_kmh": 17.858834951037394
+      },
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": {
+        "sim_s": 0.10000000149011612,
+        "frame": 439043,
+        "progress_m": -4.0087890340601007e-07,
+        "clearance_m": 42.81532854374728,
+        "brake": 0.0,
+        "speed_kmh": 1.8539654246920976e-06
+      },
+      "fixture_prediction_match_samples": 226,
+      "prediction_class_sample_counts": {
+        "7": 226
+      },
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {
+        "run_out": 137,
+        "obstacle_stop": 133,
+        "road_user_stop": 130,
+        "obstacle_slow_down": 7
+      },
+      "avoidance_reasons": {},
+      "rtc_observed_states": {},
+      "continued_after_pass_s": null,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 0,
+      "pedestrian_evidence": [
+        {
+          "actor_id": "408",
+          "state": "stopped",
+          "distance": 2.7644837397038557,
+          "trigger_frame": 439247,
+          "trigger_time": 12510.522190262447,
+          "stop_frame": 439284,
+          "stop_time": 12512.372190290014,
+          "longest_continuous_ego_stop_after_pedestrian_hold_s": 5.000000074505806,
+          "trigger_to_first_collision_s": null
+        }
+      ],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    },
+    "pedestrian_stop_run2": {
+      "file": "pedestrian_stop_run2.json",
+      "case": "pedestrian_stop",
+      "run": "pedestrian_stop_run2",
+      "raw_sha256": "c4ace28c69089a23b38502847402782bce50a96da28ca21afffc68a7ab4af19d",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "stopped_before_hazard",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 18.53950456985522,
+      "observed_pre_hazard_peak_kmh": 18.53950456985522,
+      "hazard_forward_progress_m": 45.19841194152832,
+      "minimum_motion_mps": 1.0,
+      "required_stop_hold_s": 5.0,
+      "min_clearance_m": 5.391586728592205,
+      "final_clearance_m": 5.392845497057403,
+      "max_lateral_m": 0.0010284538366747142,
+      "max_progress_m": 37.39155157055664,
+      "final_lateral_m": 0.0007383351047991482,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 26.00000038743019,
+      "sample_count": 244,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [
+        {
+          "start_s": 12.450000185519457,
+          "end_s": 13.500000201165676,
+          "duration_s": 1.0500000156462193,
+          "start_frame": 441348,
+          "end_frame": 441369,
+          "start_clearance_m": 12.214817251061596,
+          "end_clearance_m": 12.179319669374145,
+          "min_clearance_m": 12.179319669374145
+        },
+        {
+          "start_s": 18.150000270456076,
+          "end_s": 19.500000290572643,
+          "duration_s": 1.3500000201165676,
+          "start_frame": 441462,
+          "end_frame": 441489,
+          "start_clearance_m": 6.251774293123775,
+          "end_clearance_m": 6.228036310718904,
+          "min_clearance_m": 6.228036310718904
+        },
+        {
+          "start_s": 21.1000003144145,
+          "end_s": 26.100000388920307,
+          "duration_s": 5.000000074505806,
+          "start_frame": 441521,
+          "end_frame": 441621,
+          "start_clearance_m": 5.392023806958425,
+          "end_clearance_m": 5.392845497057403,
+          "min_clearance_m": 5.391586728592205
+        }
+      ],
+      "longest_stop_before_cleanup_s": 5.000000074505806,
+      "first_moving_brake": {
+        "sim_s": 12.200000181794167,
+        "frame": 441343,
+        "progress_m": 30.027789668701175,
+        "clearance_m": 12.75667909888676,
+        "brake": 0.1003079041838646,
+        "speed_kmh": 16.393967808912766
+      },
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": {
+        "sim_s": 0.10000000149011612,
+        "frame": 441101,
+        "progress_m": -4.0087890340601007e-07,
+        "clearance_m": 42.81532854374728,
+        "brake": 0.0,
+        "speed_kmh": 2.8495796553722864e-06
+      },
+      "fixture_prediction_match_samples": 244,
+      "prediction_class_sample_counts": {
+        "7": 244
+      },
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {
+        "run_out": 18,
+        "obstacle_stop": 153,
+        "road_user_stop": 149,
+        "obstacle_slow_down": 7
+      },
+      "avoidance_reasons": {},
+      "rtc_observed_states": {},
+      "continued_after_pass_s": null,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 0,
+      "pedestrian_evidence": [
+        {
+          "actor_id": "412",
+          "state": "stopped",
+          "distance": 2.7644837397038557,
+          "trigger_frame": 441305,
+          "trigger_time": 12613.422191795777,
+          "stop_frame": 441342,
+          "stop_time": 12615.272191823344,
+          "longest_continuous_ego_stop_after_pedestrian_hold_s": 5.000000074505806,
+          "trigger_to_first_collision_s": null
+        }
+      ],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    },
+    "pedestrian_stop_run3": {
+      "file": "pedestrian_stop_run3.json",
+      "case": "pedestrian_stop",
+      "run": "pedestrian_stop_run3",
+      "raw_sha256": "05fe5f0dfa9befbb735a241a7e8f1a17fb239ea7c473a7bd65d3552e28e9b0c3",
+      "reported_success": true,
+      "observed_criteria_satisfied": true,
+      "verdict": "PASS",
+      "result": "stopped_before_hazard",
+      "error": null,
+      "input_mode": "ground_truth",
+      "speed_cap_kmh": 20.0,
+      "observed_peak_kmh": 18.487804483135143,
+      "observed_pre_hazard_peak_kmh": 18.487804483135143,
+      "hazard_forward_progress_m": 45.19841194152832,
+      "minimum_motion_mps": 1.0,
+      "required_stop_hold_s": 5.0,
+      "min_clearance_m": 5.394306195057315,
+      "final_clearance_m": 5.395559515942072,
+      "max_lateral_m": 0.0017946304269429447,
+      "max_progress_m": 37.38864095654297,
+      "final_lateral_m": 0.0007994989033264233,
+      "final_native_lane_id": -3,
+      "sample_duration_s": 26.150000389665365,
+      "sample_count": 246,
+      "collision_callback_count": 0,
+      "first_collision_frame": null,
+      "last_pre_collision_sample": null,
+      "stop_intervals_before_cleanup": [
+        {
+          "start_s": 12.550000187009573,
+          "end_s": 13.450000200420618,
+          "duration_s": 0.9000000134110451,
+          "start_frame": 443197,
+          "end_frame": 443215,
+          "start_clearance_m": 12.096524734766339,
+          "end_clearance_m": 12.081049840829461,
+          "min_clearance_m": 12.081049840829461
+        },
+        {
+          "start_s": 18.200000271201134,
+          "end_s": 19.450000289827585,
+          "duration_s": 1.2500000186264515,
+          "start_frame": 443310,
+          "end_frame": 443335,
+          "start_clearance_m": 6.214270690093476,
+          "end_clearance_m": 6.212252407594225,
+          "min_clearance_m": 6.212252407594225
+        },
+        {
+          "start_s": 19.700000293552876,
+          "end_s": 19.700000293552876,
+          "duration_s": 0.0,
+          "start_frame": 443340,
+          "end_frame": 443340,
+          "start_clearance_m": 6.177661987963258,
+          "end_clearance_m": 6.177661987963258,
+          "min_clearance_m": 6.177661987963258
+        },
+        {
+          "start_s": 21.250000316649675,
+          "end_s": 26.25000039115548,
+          "duration_s": 5.000000074505806,
+          "start_frame": 443371,
+          "end_frame": 443471,
+          "start_clearance_m": 5.394306195057315,
+          "end_clearance_m": 5.395559515942072,
+          "min_clearance_m": 5.394306195057315
+        }
+      ],
+      "longest_stop_before_cleanup_s": 5.000000074505806,
+      "first_moving_brake": {
+        "sim_s": 12.300000183284283,
+        "frame": 443192,
+        "progress_m": 30.19279058422852,
+        "clearance_m": 12.591372263571268,
+        "brake": 0.14450109004974365,
+        "speed_kmh": 15.749038371061129
+      },
+      "first_moving_brake_definition": "brake > 0.01 and speed > 0.5 m/s",
+      "first_fixture_prediction_match": {
+        "sim_s": 0.10000000149011612,
+        "frame": 442948,
+        "progress_m": -4.0087890340601007e-07,
+        "clearance_m": 42.81532854374728,
+        "brake": 0.0,
+        "speed_kmh": 2.952577641356209e-06
+      },
+      "fixture_prediction_match_samples": 246,
+      "prediction_class_sample_counts": {
+        "7": 246
+      },
+      "object_age_ros_s_range": [
+        0.0,
+        0.05000000100000079
+      ],
+      "factor_message_counts": {
+        "run_out": 18,
+        "obstacle_stop": 154,
+        "road_user_stop": 151,
+        "obstacle_slow_down": 7
+      },
+      "avoidance_reasons": {},
+      "rtc_observed_states": {},
+      "continued_after_pass_s": null,
+      "drivable_violation_count": 0,
+      "native_lane_query_seam_count": 0,
+      "pedestrian_evidence": [
+        {
+          "actor_id": "416",
+          "state": "stopped",
+          "distance": 2.7644837397038557,
+          "trigger_frame": 443153,
+          "trigger_time": 12705.822193172644,
+          "stop_frame": 443190,
+          "stop_time": 12707.672193200211,
+          "longest_continuous_ego_stop_after_pedestrian_hold_s": 5.000000074505806,
+          "trigger_to_first_collision_s": null
+        }
+      ],
+      "cleanup": {
+        "stop_verified": true,
+        "test_speed_limit_clear_sent": true,
+        "route_cleared": true,
+        "errors": []
+      },
+      "cleanup_ok": true,
+      "frame_step_s": 0.05,
+      "sample_frame_time_consistent": true,
+      "notes": []
+    }
+  },
+  "counts": {
+    "PASS": 8
+  }
+}

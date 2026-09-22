@@ -27,7 +27,8 @@ import xml.etree.ElementTree as ET
 repo, maps, carla = map(Path, sys.argv[1:])
 target = maps / "lanelet2_map.osm"
 original = maps / "lanelet2_map.before-carla-repair.osm"
-bundle_names = ("lanelet2_map.osm", "carla_traffic_signals.json", "carla_map_report.json")
+bundle_names = ("lanelet2_map.osm", "carla_traffic_signals.json", "carla_map_report.json",
+                "carla_lane_change_report.json")
 
 def file_hash(path):
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
@@ -69,15 +70,17 @@ def validate_bundle(osm, manifest):
 if not target.is_file():
     raise SystemExit("Install the Town05 map assets first.")
 initial_hashes = {name: file_hash(maps/name) for name in bundle_names}
-if b"carla_town05_native_v1" in target.read_bytes():
+augmented = b"carla_town05_native_v1" in target.read_bytes()
+if augmented:
     manifest = maps / "carla_traffic_signals.json"
     if not manifest.is_file():
         raise SystemExit("The map is already augmented but its signal manifest is missing. "
                          "Existing edits were preserved; restore/review the matching bundle.")
     validate_bundle(target, manifest)
-    print("Town05 map and signal manifest already match and passed validation; no files changed.")
-    sys.exit(0)
-if original.exists() and file_hash(target) != file_hash(original):
+    if b"carla_town05_lane_change_v1" in target.read_bytes():
+        print("Town05 map, native lane changes and signal manifest already match; no files changed.")
+        sys.exit(0)
+if not augmented and original.exists() and file_hash(target) != file_hash(original):
     raise SystemExit("The current unaugmented map differs from the saved original. "
                      "Existing edits were preserved; review this map before preparing a replacement.")
 
@@ -90,18 +93,40 @@ for container in ("selfcar-carla-autoware", "selfcar-carla-signals"):
     if status.returncode == 0 and status.stdout.strip() == "true":
         raise SystemExit("Stop the CARLA Autoware runtime before replacing its map bundle. "
                          "No map files were changed.")
-if not original.exists():
+if not augmented and not original.exists():
     shutil.copy2(target, original)
 
 with tempfile.TemporaryDirectory(prefix=".town05-build-", dir=maps) as directory:
     work = Path(directory)
-    osm, manifest, report = (work / name for name in bundle_names)
+    osm, manifest, report, lane_report = (work / name for name in bundle_names)
+    native_osm, native_manifest = work / "native.osm", work / "native-signals.json"
+    xodr = carla / "CarlaUE4/Content/Carla/Maps/OpenDrive/Town05_Opt.xodr"
+    if augmented:
+        # Upgrade the CURRENT map; rebuilding from the original here would
+        # silently discard user speed tags and other accepted map edits.
+        shutil.copy2(target, native_osm)
+        shutil.copy2(maps / "carla_traffic_signals.json", native_manifest)
+        if (maps / "carla_map_report.json").exists():
+            shutil.copy2(maps / "carla_map_report.json", report)
+        else:
+            report.write_text(json.dumps({"note": "Existing augmented map retained"})+"\n")
+    else:
+        subprocess.run([
+            sys.executable, str(repo / "tools/map/augment_town05_map.py"),
+            "--map", str(original), "--xodr", str(xodr),
+            "--source", str(repo / "config/carla/maps/Town05_regulatory_source.json"),
+            "--output", str(native_osm), "--manifest", str(native_manifest), "--report", str(report)
+        ], check=True)
     subprocess.run([
-        sys.executable, str(repo / "tools/map/augment_town05_map.py"),
-        "--map", str(original), "--xodr", str(carla / "CarlaUE4/Content/Carla/Maps/OpenDrive/Town05_Opt.xodr"),
-        "--source", str(repo / "config/carla/maps/Town05_regulatory_source.json"),
-        "--output", str(osm), "--manifest", str(manifest), "--report", str(report)
+        sys.executable, str(repo / "tools/map/repair_town05_lane_changes.py"),
+        "--map", str(native_osm), "--xodr", str(xodr), "--output", str(osm),
+        "--manifest", str(native_manifest), "--output-manifest", str(manifest),
+        "--report", str(lane_report)
     ], check=True)
+    native_report = json.loads(report.read_text())
+    native_report["map_sha256"] = file_hash(osm)
+    native_report["lane_change_source"] = "carla_town05_lane_change_v1"
+    report.write_text(json.dumps(native_report, indent=2)+"\n")
     validate_bundle(osm, manifest)
     if initial_hashes != {name: file_hash(maps/name) for name in bundle_names}:
         raise SystemExit("Map bundle changed during preparation; current edits were preserved.")
@@ -116,7 +141,7 @@ with tempfile.TemporaryDirectory(prefix=".town05-build-", dir=maps) as directory
     try:
         # Each rename is atomic; the multi-file bundle is NOT an atomic transaction.
         # On a Python exception restore every file already promoted from this backup.
-        for file in (osm, manifest, report):
+        for file in (osm, manifest, report, lane_report):
             os.replace(file, maps/file.name)
             promoted.append(file.name)
     except BaseException:
@@ -137,7 +162,9 @@ with tempfile.TemporaryDirectory(prefix=".town05-build-", dir=maps) as directory
         else:
             print("Promotion failed; restored previous files from", backup, file=sys.stderr)
         raise
-print("Installed native Town05 map and signal manifest. Original backup:", original)
+print("Installed native Town05 map, lane-change tags and signal manifest.")
+if original.exists():
+    print("Original backup:", original)
 print("Previous bundle backup:", backup)
 print("Reload the map/restart Autoware to apply the map change.")
 PY

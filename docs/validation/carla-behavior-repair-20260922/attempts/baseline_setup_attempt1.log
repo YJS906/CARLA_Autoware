@@ -1,0 +1,6 @@
+{"event": "stop", "sim_time": 79.20000118, "status": {"success": true, "code": 60001, "message": "The mode is the same as the current."}}
+{"event": "clear_previous_route", "sim_time": 79.25000118, "status": {"success": true, "code": 0, "message": ""}}
+{"event": "traffic_isolated", "sim_time": 79.25000118, "removed_vehicle_ids": [273, 272, 271, 270, 269, 268, 267, 266, 265, 264, 263, 262, 261, 260, 259, 258, 257, 256, 255, 254, 253, 252, 251, 250, 249, 248, 247, 246, 245, 244]}
+{"event": "error", "sim_time": 90.800001353, "message": "Timeout: selected test speed limit"}
+{"event": "stop", "sim_time": 90.850001353, "status": {"success": true, "code": 60001, "message": "The mode is the same as the current."}}
+{"case": "baseline", "speed_cap_kmh": 20.0, "success": false, "result": "error", "cleanup": {"stop_verified": true, "test_speed_limit_clear_sent": true, "errors": []}, "ego_id": 239, "map_name": "Carla/Maps/Town05_Opt", "world_id": 16568732170033816192, "fixed_delta_seconds": 0.05, "requested_input_mode": "ground_truth", "error": "Timeout: selected test speed limit", "collisions": [], "pedestrian_states": {}, "fixture_actor_ids": [274], "factor_message_counts": {}, "avoidance_reasons": {}, "rtc_observed_states": {}, "fixture_detection_samples": 0}

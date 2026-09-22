@@ -1,0 +1,13 @@
+Loaded 552 lanelets, errors=0
+[WARN] [1790065281.647938637] [route_handler]: setMap() for invalid version map: 
+LANE_OK=1 size=3 AREA_OK=1 size=3
+[INFO] [1790065281.649061583] [mission_repro]: Planned lanelet id: 18052
+[INFO] [1790065281.649091738] [mission_repro]: Planned lanelet id: 2900
+[INFO] [1790065281.649095450] [mission_repro]: Planned lanelet id: 8924
+[INFO] [1790065281.649185798] [route_handler]: getMainLanelets: lanelet_sequence = [ids: 18052 2900 8924 ]
+[INFO] [1790065281.649211086] [mission_repro]: [DefaultPlanner] Route segments for message: total=3 (lane_segments=3, area_segments=0)
+ROUTE_SEGMENTS=3
+CORRIDOR=18052,
+CORRIDOR=2900,
+CORRIDOR=8924,
+CHANGEABLE=18052,

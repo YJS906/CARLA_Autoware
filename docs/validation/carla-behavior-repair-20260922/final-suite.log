@@ -1,0 +1,17 @@
+{"starting": "baseline_run1"}
+{"name": "baseline_run1", "exit_code": 0, "success": true, "result": "baseline_drive_pass"}
+{"starting": "vehicle_stop_run1"}
+{"name": "vehicle_stop_run1", "exit_code": 0, "success": true, "result": "stopped_before_hazard"}
+{"starting": "pedestrian_stop_run1"}
+{"name": "pedestrian_stop_run1", "exit_code": 0, "success": true, "result": "stopped_before_hazard"}
+{"starting": "vehicle_avoidance_run1"}
+{"name": "vehicle_avoidance_run1", "exit_code": 0, "success": true, "result": "obstacle_passed_and_continued"}
+{"starting": "pedestrian_stop_run2"}
+{"name": "pedestrian_stop_run2", "exit_code": 0, "success": true, "result": "stopped_before_hazard"}
+{"starting": "vehicle_avoidance_run2"}
+{"name": "vehicle_avoidance_run2", "exit_code": 0, "success": true, "result": "obstacle_passed_and_continued"}
+{"starting": "pedestrian_stop_run3"}
+{"name": "pedestrian_stop_run3", "exit_code": 0, "success": true, "result": "stopped_before_hazard"}
+{"starting": "vehicle_avoidance_run3"}
+{"name": "vehicle_avoidance_run3", "exit_code": 0, "success": true, "result": "obstacle_passed_and_continued"}
+All eight trials completed successfully

@@ -1,0 +1,480 @@
+
+/opt/autoware/autoware_autonomous_emergency_braking/lib/libautoware_autonomous_emergency_braking_node.so:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000193280 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)>:
+  193280:	f3 0f 1e fa          	endbr64
+  193284:	41 57                	push   %r15
+  193286:	41 56                	push   %r14
+  193288:	41 55                	push   %r13
+  19328a:	41 54                	push   %r12
+  19328c:	49 89 f4             	mov    %rsi,%r12
+  19328f:	55                   	push   %rbp
+  193290:	53                   	push   %rbx
+  193291:	48 89 d3             	mov    %rdx,%rbx
+  193294:	48 81 ec 98 03 00 00 	sub    $0x398,%rsp
+  19329b:	48 8b ae d8 05 00 00 	mov    0x5d8(%rsi),%rbp
+  1932a2:	48 8d 35 e1 c0 0c 00 	lea    0xcc0e1(%rip),%rsi        # 25f38a <_fini+0x100a>
+  1932a9:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  1932ae:	4c 8d b4 24 a0 02 00 	lea    0x2a0(%rsp),%r14
+  1932b5:	00 
+  1932b6:	4c 89 f7             	mov    %r14,%rdi
+  1932b9:	64 48 8b 04 25 28 00 	mov    %fs:0x28,%rax
+  1932c0:	00 00 
+  1932c2:	48 89 84 24 88 03 00 	mov    %rax,0x388(%rsp)
+  1932c9:	00 
+  1932ca:	31 c0                	xor    %eax,%eax
+  1932cc:	e8 6f b9 ff ff       	call   18ec40 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]>
+  1932d1:	48 8d 35 c2 c0 0c 00 	lea    0xcc0c2(%rip),%rsi        # 25f39a <_fini+0x101a>
+  1932d8:	4c 89 f7             	mov    %r14,%rdi
+  1932db:	e8 e0 eb fe ff       	call   181ec0 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::append(char const*)@plt>
+  1932e0:	4c 8d bc 24 00 03 00 	lea    0x300(%rsp),%r15
+  1932e7:	00 
+  1932e8:	48 89 c6             	mov    %rax,%rsi
+  1932eb:	4c 89 ff             	mov    %r15,%rdi
+  1932ee:	4c 89 7c 24 38       	mov    %r15,0x38(%rsp)
+  1932f3:	e8 e8 f6 fe ff       	call   1829e0 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&)@plt>
+  1932f8:	48 8d 84 24 10 01 00 	lea    0x110(%rsp),%rax
+  1932ff:	00 
+  193300:	48 89 ea             	mov    %rbp,%rdx
+  193303:	4c 89 fe             	mov    %r15,%rsi
+  193306:	48 89 c7             	mov    %rax,%rdi
+  193309:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+  19330e:	e8 5d e4 fe ff       	call   181770 <autoware_utils_debug::ScopedTimeTrack::ScopedTimeTrack(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, autoware_utils_debug::TimeKeeper&)@plt>
+  193313:	48 8b bc 24 00 03 00 	mov    0x300(%rsp),%rdi
+  19331a:	00 
+  19331b:	48 8d 84 24 10 03 00 	lea    0x310(%rsp),%rax
+  193322:	00 
+  193323:	48 39 c7             	cmp    %rax,%rdi
+  193326:	74 11                	je     193339 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0xb9>
+  193328:	48 8b 84 24 10 03 00 	mov    0x310(%rsp),%rax
+  19332f:	00 
+  193330:	48 8d 70 01          	lea    0x1(%rax),%rsi
+  193334:	e8 57 d5 fe ff       	call   180890 <operator delete(void*, unsigned long)@plt>
+  193339:	48 8b bc 24 a0 02 00 	mov    0x2a0(%rsp),%rdi
+  193340:	00 
+  193341:	48 8d 84 24 b0 02 00 	lea    0x2b0(%rsp),%rax
+  193348:	00 
+  193349:	48 39 c7             	cmp    %rax,%rdi
+  19334c:	74 11                	je     19335f <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0xdf>
+  19334e:	48 8b 84 24 b0 02 00 	mov    0x2b0(%rsp),%rax
+  193355:	00 
+  193356:	48 8d 70 01          	lea    0x1(%rax),%rsi
+  19335a:	e8 31 d5 fe ff       	call   180890 <operator delete(void*, unsigned long)@plt>
+  19335f:	48 8b 43 28          	mov    0x28(%rbx),%rax
+  193363:	48 39 43 30          	cmp    %rax,0x30(%rbx)
+  193367:	0f 84 b3 00 00 00    	je     193420 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x1a0>
+  19336d:	48 8d 84 24 b0 00 00 	lea    0xb0(%rsp),%rax
+  193374:	00 
+  193375:	4c 89 e6             	mov    %r12,%rsi
+  193378:	48 89 c7             	mov    %rax,%rdi
+  19337b:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+  193380:	49 89 c7             	mov    %rax,%r15
+  193383:	e8 98 fe fe ff       	call   183220 <rclcpp::Node::get_logger() const@plt>
+  193388:	48 8d 35 f1 bf 0c 00 	lea    0xcbff1(%rip),%rsi        # 25f380 <_fini+0x1000>
+  19338f:	4c 89 f7             	mov    %r14,%rdi
+  193392:	4d 8d ac 24 48 06 00 	lea    0x648(%r12),%r13
+  193399:	00 
+  19339a:	48 8d 6b 08          	lea    0x8(%rbx),%rbp
+  19339e:	e8 9d b8 ff ff       	call   18ec40 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]>
+  1933a3:	48 8b 7c 24 38       	mov    0x38(%rsp),%rdi
+  1933a8:	4d 89 f8             	mov    %r15,%r8
+  1933ab:	4c 89 e9             	mov    %r13,%rcx
+  1933ae:	48 89 ea             	mov    %rbp,%rdx
+  1933b1:	4c 89 f6             	mov    %r14,%rsi
+  1933b4:	e8 77 fb fe ff       	call   182f30 <autoware::motion::control::autonomous_emergency_braking::utils::getTransform(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, tf2_ros::Buffer const&, rclcpp::Logger const&)@plt>
+  1933b9:	4c 89 f7             	mov    %r14,%rdi
+  1933bc:	e8 4f f1 fe ff       	call   182510 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()@plt>
+  1933c1:	80 bc 24 80 03 00 00 	cmpb   $0x0,0x380(%rsp)
+  1933c8:	00 
+  1933c9:	75 60                	jne    19342b <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x1ab>
+  1933cb:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  1933d0:	c6 40 18 00          	movb   $0x0,0x18(%rax)
+  1933d4:	48 8b 7c 24 40       	mov    0x40(%rsp),%rdi
+  1933d9:	e8 42 ea fe ff       	call   181e20 <rclcpp::Logger::~Logger()@plt>
+  1933de:	48 8b 7c 24 30       	mov    0x30(%rsp),%rdi
+  1933e3:	e8 58 e5 fe ff       	call   181940 <autoware_utils_debug::ScopedTimeTrack::~ScopedTimeTrack()@plt>
+  1933e8:	48 8b 84 24 88 03 00 	mov    0x388(%rsp),%rax
+  1933ef:	00 
+  1933f0:	64 48 2b 04 25 28 00 	sub    %fs:0x28,%rax
+  1933f7:	00 00 
+  1933f9:	0f 85 00 06 00 00    	jne    1939ff <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x77f>
+  1933ff:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  193404:	48 81 c4 98 03 00 00 	add    $0x398,%rsp
+  19340b:	5b                   	pop    %rbx
+  19340c:	5d                   	pop    %rbp
+  19340d:	41 5c                	pop    %r12
+  19340f:	41 5d                	pop    %r13
+  193411:	41 5e                	pop    %r14
+  193413:	41 5f                	pop    %r15
+  193415:	c3                   	ret
+  193416:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  19341d:	00 00 00 
+  193420:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  193425:	c6 40 18 00          	movb   $0x0,0x18(%rax)
+  193429:	eb b3                	jmp    1933de <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x15e>
+  19342b:	48 8d 35 6e bf 0c 00 	lea    0xcbf6e(%rip),%rsi        # 25f3a0 <_fini+0x1020>
+  193432:	4c 89 f7             	mov    %r14,%rdi
+  193435:	49 8b ac 24 d8 05 00 	mov    0x5d8(%r12),%rbp
+  19343c:	00 
+  19343d:	e8 fe b7 ff ff       	call   18ec40 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]>
+  193442:	4c 89 f6             	mov    %r14,%rsi
+  193445:	48 89 ef             	mov    %rbp,%rdi
+  193448:	e8 33 d9 fe ff       	call   180d80 <autoware_utils_debug::TimeKeeper::start_track(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@plt>
+  19344d:	4c 89 f7             	mov    %r14,%rdi
+  193450:	e8 bb f0 fe ff       	call   182510 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()@plt>
+  193455:	48 8b 73 30          	mov    0x30(%rbx),%rsi
+  193459:	48 2b 73 28          	sub    0x28(%rbx),%rsi
+  19345d:	48 b8 a3 8b 2e ba e8 	movabs $0x2e8ba2e8ba2e8ba3,%rax
+  193464:	a2 8b 2e 
+  193467:	48 c1 fe 03          	sar    $0x3,%rsi
+  19346b:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  19346f:	48 8d 7c 24 50       	lea    0x50(%rsp),%rdi
+  193474:	48 c7 44 24 60 00 00 	movq   $0x0,0x60(%rsp)
+  19347b:	00 00 
+  19347d:	48 0f af f0          	imul   %rax,%rsi
+  193481:	48 89 7c 24 48       	mov    %rdi,0x48(%rsp)
+  193486:	0f 29 44 24 50       	movaps %xmm0,0x50(%rsp)
+  19348b:	e8 d0 e0 fe ff       	call   181560 <std::vector<geometry_msgs::msg::Pose_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Pose_<std::allocator<void> > > >::reserve(unsigned long)@plt>
+  193490:	48 8b 43 28          	mov    0x28(%rbx),%rax
+  193494:	48 3b 43 30          	cmp    0x30(%rbx),%rax
+  193498:	0f 84 cb 04 00 00    	je     193969 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x6e9>
+  19349e:	48 8d 8c 24 40 01 00 	lea    0x140(%rsp),%rcx
+  1934a5:	00 
+  1934a6:	45 31 ed             	xor    %r13d,%r13d
+  1934a9:	31 ed                	xor    %ebp,%ebp
+  1934ab:	48 89 4c 24 28       	mov    %rcx,0x28(%rsp)
+  1934b0:	eb 57                	jmp    193509 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x289>
+  1934b2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  1934b8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  1934bc:	f2 48 0f 2a c5       	cvtsi2sd %rbp,%xmm0
+  1934c1:	f2 41 0f 59 84 24 88 	mulsd  0xb88(%r12),%xmm0
+  1934c8:	0b 00 00 
+  1934cb:	66 41 0f 2f 84 24 80 	comisd 0xb80(%r12),%xmm0
+  1934d2:	0b 00 00 
+  1934d5:	0f 87 8e 04 00 00    	ja     193969 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x6e9>
+  1934db:	48 8b 43 28          	mov    0x28(%rbx),%rax
+  1934df:	48 8b 53 30          	mov    0x30(%rbx),%rdx
+  1934e3:	48 83 c5 01          	add    $0x1,%rbp
+  1934e7:	49 83 c5 58          	add    $0x58,%r13
+  1934eb:	48 b9 a3 8b 2e ba e8 	movabs $0x2e8ba2e8ba2e8ba3,%rcx
+  1934f2:	a2 8b 2e 
+  1934f5:	48 29 c2             	sub    %rax,%rdx
+  1934f8:	48 c1 fa 03          	sar    $0x3,%rdx
+  1934fc:	48 0f af d1          	imul   %rcx,%rdx
+  193500:	48 39 d5             	cmp    %rdx,%rbp
+  193503:	0f 83 60 04 00 00    	jae    193969 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x6e9>
+  193509:	48 8b 0d a8 1f 0e 00 	mov    0xe1fa8(%rip),%rcx        # 2754b8 <std::_Sp_make_shared_tag::_S_ti()::__tag+0x120>
+  193510:	66 0f ef f6          	pxor   %xmm6,%xmm6
+  193514:	80 bc 24 80 03 00 00 	cmpb   $0x0,0x380(%rsp)
+  19351b:	00 
+  19351c:	0f 29 b4 24 d0 00 00 	movaps %xmm6,0xd0(%rsp)
+  193523:	00 
+  193524:	48 89 8c 24 00 01 00 	mov    %rcx,0x100(%rsp)
+  19352b:	00 
+  19352c:	0f 29 b4 24 e0 00 00 	movaps %xmm6,0xe0(%rsp)
+  193533:	00 
+  193534:	0f 29 b4 24 f0 00 00 	movaps %xmm6,0xf0(%rsp)
+  19353b:	00 
+  19353c:	0f 84 68 10 ff ff    	je     1845aa <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]>
+  193542:	4c 01 e8             	add    %r13,%rax
+  193545:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  19354a:	f2 0f 10 58 08       	movsd  0x8(%rax),%xmm3
+  19354f:	f2 0f 10 78 18       	movsd  0x18(%rax),%xmm7
+  193554:	f2 0f 10 70 10       	movsd  0x10(%rax),%xmm6
+  193559:	f2 0f 10 40 20       	movsd  0x20(%rax),%xmm0
+  19355e:	f2 0f 11 5c 24 18    	movsd  %xmm3,0x18(%rsp)
+  193564:	f2 0f 10 50 30       	movsd  0x30(%rax),%xmm2
+  193569:	f2 0f 10 58 38       	movsd  0x38(%rax),%xmm3
+  19356e:	f2 0f 10 48 28       	movsd  0x28(%rax),%xmm1
+  193573:	f2 0f 11 7c 24 08    	movsd  %xmm7,0x8(%rsp)
+  193579:	f2 0f 11 74 24 10    	movsd  %xmm6,0x10(%rsp)
+  19357f:	e8 bc ee fe ff       	call   182440 <KDL::Rotation::Quaternion(double, double, double, double)@plt>
+  193584:	66 0f 10 84 24 78 01 	movupd 0x178(%rsp),%xmm0
+  19358b:	00 00 
+  19358d:	f2 0f 10 64 24 08    	movsd  0x8(%rsp),%xmm4
+  193593:	48 8d bc 24 e0 01 00 	lea    0x1e0(%rsp),%rdi
+  19359a:	00 
+  19359b:	66 0f 10 8c 24 68 01 	movupd 0x168(%rsp),%xmm1
+  1935a2:	00 00 
+  1935a4:	f2 0f 10 6c 24 18    	movsd  0x18(%rsp),%xmm5
+  1935aa:	66 0f 10 94 24 58 01 	movupd 0x158(%rsp),%xmm2
+  1935b1:	00 00 
+  1935b3:	66 0f 10 9c 24 48 01 	movupd 0x148(%rsp),%xmm3
+  1935ba:	00 00 
+  1935bc:	0f 29 84 24 f0 02 00 	movaps %xmm0,0x2f0(%rsp)
+  1935c3:	00 
+  1935c4:	66 0f 16 a4 24 40 01 	movhpd 0x140(%rsp),%xmm4
+  1935cb:	00 00 
+  1935cd:	f2 44 0f 10 a4 24 58 	movsd  0x358(%rsp),%xmm12
+  1935d4:	03 00 00 
+  1935d7:	0f 29 8c 24 e0 02 00 	movaps %xmm1,0x2e0(%rsp)
+  1935de:	00 
+  1935df:	f2 44 0f 10 ac 24 50 	movsd  0x350(%rsp),%xmm13
+  1935e6:	03 00 00 
+  1935e9:	66 0f 16 6c 24 10    	movhpd 0x10(%rsp),%xmm5
+  1935ef:	f2 44 0f 10 b4 24 48 	movsd  0x348(%rsp),%xmm14
+  1935f6:	03 00 00 
+  1935f9:	0f 29 9c 24 c0 02 00 	movaps %xmm3,0x2c0(%rsp)
+  193600:	00 
+  193601:	f2 0f 10 8c 24 68 03 	movsd  0x368(%rsp),%xmm1
+  193608:	00 00 
+  19360a:	f2 0f 10 9c 24 78 03 	movsd  0x378(%rsp),%xmm3
+  193611:	00 00 
+  193613:	0f 29 94 24 d0 02 00 	movaps %xmm2,0x2d0(%rsp)
+  19361a:	00 
+  19361b:	f2 0f 10 84 24 60 03 	movsd  0x360(%rsp),%xmm0
+  193622:	00 00 
+  193624:	f2 0f 10 94 24 70 03 	movsd  0x370(%rsp),%xmm2
+  19362b:	00 00 
+  19362d:	0f 29 ac 24 a0 02 00 	movaps %xmm5,0x2a0(%rsp)
+  193634:	00 
+  193635:	0f 29 a4 24 b0 02 00 	movaps %xmm4,0x2b0(%rsp)
+  19363c:	00 
+  19363d:	f2 44 0f 11 64 24 08 	movsd  %xmm12,0x8(%rsp)
+  193644:	f2 44 0f 11 6c 24 10 	movsd  %xmm13,0x10(%rsp)
+  19364b:	f2 44 0f 11 74 24 18 	movsd  %xmm14,0x18(%rsp)
+  193652:	e8 e9 ed fe ff       	call   182440 <KDL::Rotation::Quaternion(double, double, double, double)@plt>
+  193657:	f2 44 0f 10 74 24 18 	movsd  0x18(%rsp),%xmm14
+  19365e:	f2 44 0f 10 6c 24 10 	movsd  0x10(%rsp),%xmm13
+  193665:	48 8d bc 24 90 01 00 	lea    0x190(%rsp),%rdi
+  19366c:	00 
+  19366d:	48 8d 94 24 b8 02 00 	lea    0x2b8(%rsp),%rdx
+  193674:	00 
+  193675:	f2 44 0f 10 64 24 08 	movsd  0x8(%rsp),%xmm12
+  19367c:	f2 0f 10 94 24 e0 01 	movsd  0x1e0(%rsp),%xmm2
+  193683:	00 00 
+  193685:	48 8d b4 24 58 02 00 	lea    0x258(%rsp),%rsi
+  19368c:	00 
+  19368d:	f2 44 0f 10 9c 24 e8 	movsd  0x1e8(%rsp),%xmm11
+  193694:	01 00 00 
+  193697:	66 41 0f 28 c6       	movapd %xmm14,%xmm0
+  19369c:	f2 44 0f 10 94 24 f0 	movsd  0x1f0(%rsp),%xmm10
+  1936a3:	01 00 00 
+  1936a6:	f2 0f 10 8c 24 f8 01 	movsd  0x1f8(%rsp),%xmm1
+  1936ad:	00 00 
+  1936af:	66 41 0f 14 c5       	unpcklpd %xmm13,%xmm0
+  1936b4:	f2 44 0f 10 8c 24 00 	movsd  0x200(%rsp),%xmm9
+  1936bb:	02 00 00 
+  1936be:	0f 29 84 24 40 02 00 	movaps %xmm0,0x240(%rsp)
+  1936c5:	00 
+  1936c6:	66 41 0f 28 c4       	movapd %xmm12,%xmm0
+  1936cb:	f2 0f 10 ac 24 08 02 	movsd  0x208(%rsp),%xmm5
+  1936d2:	00 00 
+  1936d4:	f2 44 0f 10 84 24 10 	movsd  0x210(%rsp),%xmm8
+  1936db:	02 00 00 
+  1936de:	f2 0f 10 bc 24 18 02 	movsd  0x218(%rsp),%xmm7
+  1936e5:	00 00 
+  1936e7:	66 0f 14 c2          	unpcklpd %xmm2,%xmm0
+  1936eb:	f2 0f 10 b4 24 20 02 	movsd  0x220(%rsp),%xmm6
+  1936f2:	00 00 
+  1936f4:	0f 29 84 24 50 02 00 	movaps %xmm0,0x250(%rsp)
+  1936fb:	00 
+  1936fc:	66 41 0f 28 c3       	movapd %xmm11,%xmm0
+  193701:	f2 0f 10 a4 24 a8 02 	movsd  0x2a8(%rsp),%xmm4
+  193708:	00 00 
+  19370a:	f2 0f 10 9c 24 b0 02 	movsd  0x2b0(%rsp),%xmm3
+  193711:	00 00 
+  193713:	66 41 0f 14 c2       	unpcklpd %xmm10,%xmm0
+  193718:	0f 29 84 24 60 02 00 	movaps %xmm0,0x260(%rsp)
+  19371f:	00 
+  193720:	f2 44 0f 59 dc       	mulsd  %xmm4,%xmm11
+  193725:	66 0f 28 c1          	movapd %xmm1,%xmm0
+  193729:	f2 44 0f 59 d3       	mulsd  %xmm3,%xmm10
+  19372e:	66 41 0f 14 c1       	unpcklpd %xmm9,%xmm0
+  193733:	0f 29 84 24 70 02 00 	movaps %xmm0,0x270(%rsp)
+  19373a:	00 
+  19373b:	66 0f 28 c5          	movapd %xmm5,%xmm0
+  19373f:	f2 44 0f 59 cc       	mulsd  %xmm4,%xmm9
+  193744:	66 41 0f 14 c0       	unpcklpd %xmm8,%xmm0
+  193749:	0f 29 84 24 80 02 00 	movaps %xmm0,0x280(%rsp)
+  193750:	00 
+  193751:	f2 0f 59 e7          	mulsd  %xmm7,%xmm4
+  193755:	66 0f 28 c7          	movapd %xmm7,%xmm0
+  193759:	f2 0f 59 eb          	mulsd  %xmm3,%xmm5
+  19375d:	66 0f 14 c6          	unpcklpd %xmm6,%xmm0
+  193761:	0f 29 84 24 90 02 00 	movaps %xmm0,0x290(%rsp)
+  193768:	00 
+  193769:	f2 0f 59 de          	mulsd  %xmm6,%xmm3
+  19376d:	f2 0f 10 84 24 a0 02 	movsd  0x2a0(%rsp),%xmm0
+  193774:	00 00 
+  193776:	f2 0f 59 d0          	mulsd  %xmm0,%xmm2
+  19377a:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+  19377e:	f2 41 0f 59 c0       	mulsd  %xmm8,%xmm0
+  193783:	f2 41 0f 58 d3       	addsd  %xmm11,%xmm2
+  193788:	f2 41 0f 58 c9       	addsd  %xmm9,%xmm1
+  19378d:	f2 0f 58 c4          	addsd  %xmm4,%xmm0
+  193791:	f2 41 0f 58 d2       	addsd  %xmm10,%xmm2
+  193796:	f2 0f 58 cd          	addsd  %xmm5,%xmm1
+  19379a:	f2 0f 58 c3          	addsd  %xmm3,%xmm0
+  19379e:	f2 41 0f 58 d6       	addsd  %xmm14,%xmm2
+  1937a3:	f2 41 0f 58 cd       	addsd  %xmm13,%xmm1
+  1937a8:	f2 41 0f 58 c4       	addsd  %xmm12,%xmm0
+  1937ad:	f2 0f 11 54 24 10    	movsd  %xmm2,0x10(%rsp)
+  1937b3:	f2 0f 11 4c 24 18    	movsd  %xmm1,0x18(%rsp)
+  1937b9:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
+  1937bf:	e8 fc de fe ff       	call   1816c0 <KDL::operator*(KDL::Rotation const&, KDL::Rotation const&)@plt>
+  1937c4:	f2 0f 10 6c 24 08    	movsd  0x8(%rsp),%xmm5
+  1937ca:	66 0f 10 44 24 10    	movupd 0x10(%rsp),%xmm0
+  1937d0:	48 8d 8c 24 f8 00 00 	lea    0xf8(%rsp),%rcx
+  1937d7:	00 
+  1937d8:	48 8d 94 24 f0 00 00 	lea    0xf0(%rsp),%rdx
+  1937df:	00 
+  1937e0:	66 0f 10 8c 24 c8 01 	movupd 0x1c8(%rsp),%xmm1
+  1937e7:	00 00 
+  1937e9:	f2 0f 10 7c 24 08    	movsd  0x8(%rsp),%xmm7
+  1937ef:	48 8d b4 24 e8 00 00 	lea    0xe8(%rsp),%rsi
+  1937f6:	00 
+  1937f7:	48 8d bc 24 f8 01 00 	lea    0x1f8(%rsp),%rdi
+  1937fe:	00 
+  1937ff:	66 0f 10 94 24 b8 01 	movupd 0x1b8(%rsp),%xmm2
+  193806:	00 00 
+  193808:	66 0f 10 9c 24 a8 01 	movupd 0x1a8(%rsp),%xmm3
+  19380f:	00 00 
+  193811:	66 0f 16 ac 24 90 01 	movhpd 0x190(%rsp),%xmm5
+  193818:	00 00 
+  19381a:	4c 8d 84 24 00 01 00 	lea    0x100(%rsp),%r8
+  193821:	00 
+  193822:	66 0f 10 a4 24 98 01 	movupd 0x198(%rsp),%xmm4
+  193829:	00 00 
+  19382b:	0f 29 84 24 e0 01 00 	movaps %xmm0,0x1e0(%rsp)
+  193832:	00 
+  193833:	0f 29 ac 24 f0 01 00 	movaps %xmm5,0x1f0(%rsp)
+  19383a:	00 
+  19383b:	0f 29 a4 24 00 02 00 	movaps %xmm4,0x200(%rsp)
+  193842:	00 
+  193843:	0f 29 9c 24 10 02 00 	movaps %xmm3,0x210(%rsp)
+  19384a:	00 
+  19384b:	0f 29 94 24 20 02 00 	movaps %xmm2,0x220(%rsp)
+  193852:	00 
+  193853:	0f 29 8c 24 30 02 00 	movaps %xmm1,0x230(%rsp)
+  19385a:	00 
+  19385b:	0f 29 84 24 d0 00 00 	movaps %xmm0,0xd0(%rsp)
+  193862:	00 
+  193863:	f2 0f 11 bc 24 e0 00 	movsd  %xmm7,0xe0(%rsp)
+  19386a:	00 00 
+  19386c:	e8 3f e5 fe ff       	call   181db0 <KDL::Rotation::GetQuaternion(double&, double&, double&, double&) const@plt>
+  193871:	4c 8b 7c 24 58       	mov    0x58(%rsp),%r15
+  193876:	f3 41 0f 6f 7f c8    	movdqu -0x38(%r15),%xmm7
+  19387c:	49 8b 47 d8          	mov    -0x28(%r15),%rax
+  193880:	0f 29 7c 24 70       	movaps %xmm7,0x70(%rsp)
+  193885:	f2 0f 10 44 24 70    	movsd  0x70(%rsp),%xmm0
+  19388b:	66 0f 6f bc 24 d0 00 	movdqa 0xd0(%rsp),%xmm7
+  193892:	00 00 
+  193894:	f2 0f 10 4c 24 78    	movsd  0x78(%rsp),%xmm1
+  19389a:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+  1938a1:	00 
+  1938a2:	0f 29 bc 24 90 00 00 	movaps %xmm7,0x90(%rsp)
+  1938a9:	00 
+  1938aa:	48 8b 84 24 e0 00 00 	mov    0xe0(%rsp),%rax
+  1938b1:	00 
+  1938b2:	f2 0f 5c 84 24 90 00 	subsd  0x90(%rsp),%xmm0
+  1938b9:	00 00 
+  1938bb:	f2 0f 5c 8c 24 98 00 	subsd  0x98(%rsp),%xmm1
+  1938c2:	00 00 
+  1938c4:	48 89 84 24 a0 00 00 	mov    %rax,0xa0(%rsp)
+  1938cb:	00 
+  1938cc:	e8 df cf fe ff       	call   1808b0 <hypot@plt>
+  1938d1:	f2 0f 10 3d 0f 1b 0e 	movsd  0xe1b0f(%rip),%xmm7        # 2753e8 <std::_Sp_make_shared_tag::_S_ti()::__tag+0x50>
+  1938d8:	00 
+  1938d9:	66 0f 2f f8          	comisd %xmm0,%xmm7
+  1938dd:	0f 87 f8 fb ff ff    	ja     1934db <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x25b>
+  1938e3:	4c 3b 7c 24 60       	cmp    0x60(%rsp),%r15
+  1938e8:	74 68                	je     193952 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x6d2>
+  1938ea:	66 0f 6f bc 24 d0 00 	movdqa 0xd0(%rsp),%xmm7
+  1938f1:	00 00 
+  1938f3:	49 8d 77 38          	lea    0x38(%r15),%rsi
+  1938f7:	48 89 74 24 58       	mov    %rsi,0x58(%rsp)
+  1938fc:	41 0f 11 3f          	movups %xmm7,(%r15)
+  193900:	66 0f 6f bc 24 e0 00 	movdqa 0xe0(%rsp),%xmm7
+  193907:	00 00 
+  193909:	41 0f 11 7f 10       	movups %xmm7,0x10(%r15)
+  19390e:	66 0f 6f bc 24 f0 00 	movdqa 0xf0(%rsp),%xmm7
+  193915:	00 00 
+  193917:	41 0f 11 7f 20       	movups %xmm7,0x20(%r15)
+  19391c:	48 8b 84 24 00 01 00 	mov    0x100(%rsp),%rax
+  193923:	00 
+  193924:	49 89 47 30          	mov    %rax,0x30(%r15)
+  193928:	48 85 ed             	test   %rbp,%rbp
+  19392b:	0f 89 87 fb ff ff    	jns    1934b8 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x238>
+  193931:	48 89 e8             	mov    %rbp,%rax
+  193934:	48 89 ea             	mov    %rbp,%rdx
+  193937:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  19393b:	48 d1 e8             	shr    $1,%rax
+  19393e:	83 e2 01             	and    $0x1,%edx
+  193941:	48 09 d0             	or     %rdx,%rax
+  193944:	f2 48 0f 2a c0       	cvtsi2sd %rax,%xmm0
+  193949:	f2 0f 58 c0          	addsd  %xmm0,%xmm0
+  19394d:	e9 6f fb ff ff       	jmp    1934c1 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x241>
+  193952:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
+  193957:	48 8d 94 24 d0 00 00 	lea    0xd0(%rsp),%rdx
+  19395e:	00 
+  19395f:	4c 89 fe             	mov    %r15,%rsi
+  193962:	e8 39 e2 fe ff       	call   181ba0 <void std::vector<geometry_msgs::msg::Pose_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Pose_<std::allocator<void> > > >::_M_realloc_insert<geometry_msgs::msg::Pose_<std::allocator<void> > const&>(__gnu_cxx::__normal_iterator<geometry_msgs::msg::Pose_<std::allocator<void> >*, std::vector<geometry_msgs::msg::Pose_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Pose_<std::allocator<void> > > > >, geometry_msgs::msg::Pose_<std::allocator<void> > const&)@plt>
+  193967:	eb bf                	jmp    193928 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x6a8>
+  193969:	48 8d 35 30 ba 0c 00 	lea    0xcba30(%rip),%rsi        # 25f3a0 <_fini+0x1020>
+  193970:	4c 89 f7             	mov    %r14,%rdi
+  193973:	49 8b 9c 24 d8 05 00 	mov    0x5d8(%r12),%rbx
+  19397a:	00 
+  19397b:	e8 c0 b2 ff ff       	call   18ec40 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [clone .constprop.0]>
+  193980:	4c 89 f6             	mov    %r14,%rsi
+  193983:	48 89 df             	mov    %rbx,%rdi
+  193986:	e8 15 f3 fe ff       	call   182ca0 <autoware_utils_debug::TimeKeeper::end_track(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@plt>
+  19398b:	4c 89 f7             	mov    %r14,%rdi
+  19398e:	e8 7d eb fe ff       	call   182510 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()@plt>
+  193993:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+  193998:	48 39 44 24 58       	cmp    %rax,0x58(%rsp)
+  19399d:	74 55                	je     1939f4 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x774>
+  19399f:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  1939a4:	48 8b 74 24 48       	mov    0x48(%rsp),%rsi
+  1939a9:	48 89 df             	mov    %rbx,%rdi
+  1939ac:	e8 9f d4 fe ff       	call   180e50 <std::vector<geometry_msgs::msg::Pose_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Pose_<std::allocator<void> > > >::vector(std::vector<geometry_msgs::msg::Pose_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Pose_<std::allocator<void> > > > const&)@plt>
+  1939b1:	c6 43 18 01          	movb   $0x1,0x18(%rbx)
+  1939b5:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
+  1939ba:	e8 31 d2 fe ff       	call   180bf0 <std::vector<geometry_msgs::msg::Pose_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Pose_<std::allocator<void> > > >::~vector()@plt>
+  1939bf:	80 bc 24 80 03 00 00 	cmpb   $0x0,0x380(%rsp)
+  1939c6:	00 
+  1939c7:	0f 84 07 fa ff ff    	je     1933d4 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x154>
+  1939cd:	48 8d bc 24 28 03 00 	lea    0x328(%rsp),%rdi
+  1939d4:	00 
+  1939d5:	c6 84 24 80 03 00 00 	movb   $0x0,0x380(%rsp)
+  1939dc:	00 
+  1939dd:	e8 2e eb fe ff       	call   182510 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()@plt>
+  1939e2:	48 8d bc 24 08 03 00 	lea    0x308(%rsp),%rdi
+  1939e9:	00 
+  1939ea:	e8 21 eb fe ff       	call   182510 <std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()@plt>
+  1939ef:	e9 e0 f9 ff ff       	jmp    1933d4 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x154>
+  1939f4:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  1939f9:	c6 40 18 00          	movb   $0x0,0x18(%rax)
+  1939fd:	eb b6                	jmp    1939b5 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&)+0x735>
+  1939ff:	e8 ec d5 fe ff       	call   180ff0 <__stack_chk_fail@plt>
+  193a04:	f3 0f 1e fa          	endbr64
+  193a08:	48 89 c3             	mov    %rax,%rbx
+  193a0b:	e9 b2 0b ff ff       	jmp    1845c2 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x18>
+  193a10:	f3 0f 1e fa          	endbr64
+  193a14:	e9 02 0c ff ff       	jmp    18461b <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x71>
+  193a19:	f3 0f 1e fa          	endbr64
+  193a1d:	48 89 c3             	mov    %rax,%rbx
+  193a20:	e9 b9 0b ff ff       	jmp    1845de <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x34>
+  193a25:	f3 0f 1e fa          	endbr64
+  193a29:	48 89 c3             	mov    %rax,%rbx
+  193a2c:	e9 b7 0b ff ff       	jmp    1845e8 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x3e>
+  193a31:	f3 0f 1e fa          	endbr64
+  193a35:	48 89 c3             	mov    %rax,%rbx
+  193a38:	e9 e3 0b ff ff       	jmp    184620 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x76>
+  193a3d:	f3 0f 1e fa          	endbr64
+  193a41:	48 89 c3             	mov    %rax,%rbx
+  193a44:	e9 eb 0b ff ff       	jmp    184634 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x8a>
+  193a49:	f3 0f 1e fa          	endbr64
+  193a4d:	48 89 c3             	mov    %rax,%rbx
+  193a50:	e9 7f 0b ff ff       	jmp    1845d4 <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x2a>
+  193a55:	f3 0f 1e fa          	endbr64
+  193a59:	48 89 c3             	mov    %rax,%rbx
+  193a5c:	e9 c9 0b ff ff       	jmp    18462a <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0x80>
+  193a61:	f3 0f 1e fa          	endbr64
+  193a65:	48 89 c3             	mov    %rax,%rbx
+  193a68:	e9 ef 0b ff ff       	jmp    18465c <autoware::motion::control::autonomous_emergency_braking::AEB::generateEgoPath(autoware_planning_msgs::msg::Trajectory_<std::allocator<void> > const&) [clone .cold]+0xb2>
+  193a6d:	90                   	nop
+  193a6e:	66 90                	xchg   %ax,%ax

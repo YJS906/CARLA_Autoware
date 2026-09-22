@@ -1,0 +1,9170 @@
+{
+  "added_boundaries": 77,
+  "allowed_boundaries": 77,
+  "boundaries": [
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        111,
+        167
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.858571573814177e-06,
+      "native_lanes": [
+        [
+          0,
+          0,
+          -2
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 109
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        111
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 110
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        167
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 166
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        224
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 222
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        224,
+        281
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 9.87277728802402e-06,
+      "native_lanes": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 223
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        281
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 280
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        384,
+        436
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.0376540841739336e-05,
+      "native_lanes": [
+        [
+          1,
+          0,
+          -2
+        ],
+        [
+          1,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 382
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        384
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 383
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        436
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 435
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        489
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 487
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        489,
+        542
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.1292540980313546e-05,
+      "native_lanes": [
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 488
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        542
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 541
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        615,
+        652
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 6.788293118127643e-06,
+      "native_lanes": [
+        [
+          2,
+          0,
+          -2
+        ],
+        [
+          2,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 613
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        615
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 614
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        652
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 651
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        690
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 688
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        690,
+        728
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 6.788221648538338e-06,
+      "native_lanes": [
+        [
+          2,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 689
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        728
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 727
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        843,
+        901
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.859233092212867e-06,
+      "native_lanes": [
+        [
+          3,
+          0,
+          -2
+        ],
+        [
+          3,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 841
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        843
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 842
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        901
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 900
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        960
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 958
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        960,
+        1019
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 3.9379151721881285e-05,
+      "native_lanes": [
+        [
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 959
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1019
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1018
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1072,
+        1099
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.894378734866428e-06,
+      "native_lanes": [
+        [
+          4,
+          0,
+          -2
+        ],
+        [
+          4,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1070
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1072
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1071
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1099
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1098
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1127
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1125
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1127,
+        1155
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 7.965917981380215e-06,
+      "native_lanes": [
+        [
+          4,
+          0,
+          1
+        ],
+        [
+          4,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1126
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1155
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1154
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1260,
+        1313
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.294619160438599e-05,
+      "native_lanes": [
+        [
+          5,
+          0,
+          -2
+        ],
+        [
+          5,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1258
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1260
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1259
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1313
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1312
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1367
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1365
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1367,
+        1421
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.2053188720259832e-05,
+      "native_lanes": [
+        [
+          5,
+          0,
+          1
+        ],
+        [
+          5,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1366
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1421
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1420
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1534,
+        1591
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.087551563532873e-05,
+      "native_lanes": [
+        [
+          6,
+          0,
+          -2
+        ],
+        [
+          6,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1532
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1534
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1533
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1591
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1590
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1649
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1647
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1649,
+        1707
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.070783836580686e-05,
+      "native_lanes": [
+        [
+          6,
+          0,
+          1
+        ],
+        [
+          6,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1648
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1707
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1706
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1802,
+        1850
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.0501326610950416e-05,
+      "native_lanes": [
+        [
+          7,
+          0,
+          -2
+        ],
+        [
+          7,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1800
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1802
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1801
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1850
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1849
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1899
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1897
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        1899,
+        1948
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.0259041312074592e-05,
+      "native_lanes": [
+        [
+          7,
+          0,
+          1
+        ],
+        [
+          7,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 1898
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        1948
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 1947
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2017,
+        2052
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "none"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "1.3841272397161219e-1",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.1388282930246455e-05,
+      "native_lanes": [
+        [
+          8,
+          0,
+          -2
+        ],
+        [
+          8,
+          0,
+          -1
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 2015
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2017
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2016
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2052
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2051
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2088
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2086
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2088,
+        2124
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "none"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "1.3841272397161219e-1",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 9.263538619215272e-06,
+      "native_lanes": [
+        [
+          8,
+          0,
+          1
+        ],
+        [
+          8,
+          0,
+          2
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 2087
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2124
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2123
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        2371,
+        2495
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.3011881224549882,
+      "native_lanes": [
+        [
+          9,
+          0,
+          -2
+        ],
+        [
+          9,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 2369
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2371
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2370
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2495
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2494
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2620
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2618
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        2620,
+        2745
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.24997876042526213,
+      "native_lanes": [
+        [
+          9,
+          0,
+          1
+        ],
+        [
+          9,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 2619
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2745
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2744
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2768,
+        2780
+      ],
+      "max_center_match_error_m": 0.01712914568605265,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 2766
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2768
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2767
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2780
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2779
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2793
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2791
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2793,
+        2806
+      ],
+      "max_center_match_error_m": 0.028332768784147755,
+      "native_lanes": [
+        null,
+        [
+          10,
+          0,
+          2
+        ]
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 2792
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2806
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2805
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2821,
+        2829
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "none"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "2.4100000000000037e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.02917098663236504,
+      "native_lanes": [
+        [
+          11,
+          0,
+          -2
+        ],
+        [
+          11,
+          0,
+          -1
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 2819
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2821
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2820
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2829
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2828
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2838
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2836
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2838,
+        2847
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "none"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "2.8700000000000045e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.020934300574189373,
+      "native_lanes": [
+        [
+          11,
+          0,
+          1
+        ],
+        [
+          11,
+          0,
+          2
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 2837
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2847
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2846
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        2900,
+        2927
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.2325656305466756,
+      "native_lanes": [
+        [
+          12,
+          0,
+          -3
+        ],
+        [
+          12,
+          0,
+          -2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 2898
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2900
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2899
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        2927,
+        2954
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.13894966436340883,
+      "native_lanes": [
+        [
+          12,
+          0,
+          -2
+        ],
+        [
+          12,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 2926
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        2954
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 2953
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3007
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3005
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3007,
+        3035
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.17433144993291502,
+      "native_lanes": [
+        [
+          12,
+          0,
+          2
+        ],
+        [
+          12,
+          0,
+          3
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3006
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3035,
+        3063
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.24113508916586823,
+      "native_lanes": [
+        [
+          12,
+          0,
+          3
+        ],
+        [
+          12,
+          0,
+          4
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3034
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3063
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3062
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3098,
+        3116
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 7.864105846815714e-06,
+      "native_lanes": [
+        [
+          13,
+          0,
+          -2
+        ],
+        [
+          13,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3096
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3098
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3097
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3116
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3115
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3135
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3133
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3135,
+        3154
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.323611399628794e-06,
+      "native_lanes": [
+        [
+          13,
+          0,
+          1
+        ],
+        [
+          13,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3134
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3154
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3153
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3221,
+        3255
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.6011996740427363e-05,
+      "native_lanes": [
+        [
+          14,
+          0,
+          -2
+        ],
+        [
+          14,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3219
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3221
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3220
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3255
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3254
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3290
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3288
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3290,
+        3325
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 2.1755459577939724e-05,
+      "native_lanes": [
+        [
+          14,
+          0,
+          1
+        ],
+        [
+          14,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3289
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3325
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3324
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3334,
+        3339
+      ],
+      "max_center_match_error_m": 7.79488724402287e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 3332
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3334
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3333
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3339
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3338
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3345
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3343
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3345,
+        3351
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 5.2161163110187375e-06,
+      "native_lanes": [
+        [
+          15,
+          0,
+          1
+        ],
+        [
+          15,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3344
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3351
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3350
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3448,
+        3497
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 9.215096619498745e-06,
+      "native_lanes": [
+        [
+          16,
+          0,
+          -2
+        ],
+        [
+          16,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3446
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3448
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3447
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3497
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3496
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3547
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3545
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3547,
+        3597
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.083497972387294e-05,
+      "native_lanes": [
+        [
+          16,
+          0,
+          1
+        ],
+        [
+          16,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3546
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3597
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3596
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3624,
+        3638
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 2.6710958609055358e-06,
+      "native_lanes": [
+        [
+          17,
+          0,
+          -2
+        ],
+        [
+          17,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3622
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3624
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3623
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3638
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3637
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3653
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3651
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3653,
+        3668
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.0006198436765087594,
+      "native_lanes": [
+        [
+          17,
+          0,
+          1
+        ],
+        [
+          17,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3652
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3668
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3667
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3715,
+        3739
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.13561741616712705,
+      "native_lanes": [
+        [
+          18,
+          0,
+          -2
+        ],
+        [
+          18,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3713
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3715
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3714
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3739
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3738
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3764
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3762
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        3764,
+        3789
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.13404003953546403,
+      "native_lanes": [
+        [
+          18,
+          0,
+          1
+        ],
+        [
+          18,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 3763
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        3789
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 3788
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        4224
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 4222
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        4224
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 4223
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        4443
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 4441
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        4443
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 4442
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        4876
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 4874
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        4876
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 4875
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5094
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5092
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5094
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5093
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        5205,
+        5261
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 6.865896461800487e-06,
+      "native_lanes": [
+        [
+          21,
+          0,
+          -2
+        ],
+        [
+          21,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 5203
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5205
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5204
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5261
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5260
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5318
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5316
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        5318,
+        5375
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 7.832291937130082e-06,
+      "native_lanes": [
+        [
+          21,
+          0,
+          1
+        ],
+        [
+          21,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 5317
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5375
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5374
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        5472,
+        5521
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.2062408956805902e-05,
+      "native_lanes": [
+        [
+          22,
+          0,
+          -2
+        ],
+        [
+          22,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 5470
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5472
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5471
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5521
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5520
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5571
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5569
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        5571,
+        5621
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.1903398356552339e-05,
+      "native_lanes": [
+        [
+          22,
+          0,
+          1
+        ],
+        [
+          22,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 5570
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5621
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5620
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        5690,
+        5725
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.249050697189995e-06,
+      "native_lanes": [
+        [
+          23,
+          0,
+          -2
+        ],
+        [
+          23,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 5688
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5690
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5689
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5725
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5724
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5761
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5759
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        5761,
+        5797
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.348034790387704e-06,
+      "native_lanes": [
+        [
+          23,
+          0,
+          1
+        ],
+        [
+          23,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 5760
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        5797
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 5796
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6054,
+        6183
+      ],
+      "max_center_match_error_m": 0.17922771821404473,
+      "native_lanes": [
+        [
+          24,
+          0,
+          -2
+        ],
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 6052
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6054
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6053
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6183
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6182
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6313
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6311
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6313,
+        6443
+      ],
+      "max_center_match_error_m": 0.25426226766167004,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 6312
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6443
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6442
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6482,
+        6502
+      ],
+      "max_center_match_error_m": 0.11345982020852242,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 6480
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6482
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6481
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6502
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6501
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6523
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6521
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6523,
+        6544
+      ],
+      "max_center_match_error_m": 0.12034434341980363,
+      "native_lanes": [
+        null,
+        [
+          25,
+          0,
+          2
+        ]
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 6522
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6544
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6543
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        6583,
+        6603
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.044820439777179075,
+      "native_lanes": [
+        [
+          26,
+          0,
+          -2
+        ],
+        [
+          26,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 6581
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6583
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6582
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6603
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6602
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6624
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6622
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        6624,
+        6645
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.04378976339476352,
+      "native_lanes": [
+        [
+          26,
+          0,
+          1
+        ],
+        [
+          26,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 6623
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6645
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6644
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        6692,
+        6716
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 7.073762750419773e-06,
+      "native_lanes": [
+        [
+          27,
+          0,
+          -2
+        ],
+        [
+          27,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 6690
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6692
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6691
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6716
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6715
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6741
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6739
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        6741,
+        6766
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 6.2638931612975054e-06,
+      "native_lanes": [
+        [
+          27,
+          0,
+          1
+        ],
+        [
+          27,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 6740
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6766
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6765
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        6825,
+        6855
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.160154537859558e-05,
+      "native_lanes": [
+        [
+          28,
+          0,
+          -2
+        ],
+        [
+          28,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 6823
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6825
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6824
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6855
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6854
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6886
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6884
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        6886,
+        6917
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.6763283990906802e-05,
+      "native_lanes": [
+        [
+          28,
+          0,
+          1
+        ],
+        [
+          28,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 6885
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        6917
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 6916
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        7012,
+        7060
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 6.148132749241945e-06,
+      "native_lanes": [
+        [
+          29,
+          0,
+          -2
+        ],
+        [
+          29,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 7010
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7012
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7011
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7060
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7059
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7109
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7107
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        7109,
+        7158
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 5.370293900754213e-06,
+      "native_lanes": [
+        [
+          29,
+          0,
+          1
+        ],
+        [
+          29,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 7108
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7158
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7157
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        7389,
+        7505
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.2096180625349323,
+      "native_lanes": [
+        [
+          30,
+          0,
+          -2
+        ],
+        [
+          30,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 7387
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7389
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7388
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7505
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7504
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7622
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7620
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        7622,
+        7739
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.20177326140855217,
+      "native_lanes": [
+        [
+          30,
+          0,
+          1
+        ],
+        [
+          30,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 7621
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7739
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7738
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7746,
+        7750
+      ],
+      "max_center_match_error_m": 0.10001514656622001,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 7744
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7746
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7745
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7750
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7749
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7755
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7753
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7755,
+        7760
+      ],
+      "max_center_match_error_m": 3.4325600736863265e-06,
+      "native_lanes": [
+        null,
+        [
+          31,
+          0,
+          2
+        ]
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 7754
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7760
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7759
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        7767,
+        7771
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 3.814933592146328e-06,
+      "native_lanes": [
+        [
+          32,
+          0,
+          -2
+        ],
+        [
+          32,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 7765
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7767
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7766
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7771
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7770
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7776
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7774
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        7776,
+        7781
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 3.822117736225765e-06,
+      "native_lanes": [
+        [
+          32,
+          0,
+          1
+        ],
+        [
+          32,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 7775
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        7781
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 7780
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8014,
+        8131
+      ],
+      "max_center_match_error_m": 0.23447347455140607,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 8012
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8014
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 8013
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8131
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 8130
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8249
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 8247
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8249,
+        8367
+      ],
+      "max_center_match_error_m": 0.20278341333296035,
+      "native_lanes": [
+        null,
+        [
+          33,
+          0,
+          2
+        ]
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 8248
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8367
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 8366
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8924,
+        9203
+      ],
+      "max_center_match_error_m": 0.33641652485759854,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 8922
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        8924
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 8923
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        9203,
+        9482
+      ],
+      "max_center_match_error_m": 0.2021264310922352,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 9202
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        9482
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 9481
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10039
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10037
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10039,
+        10319
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.3144361349667274,
+      "native_lanes": [
+        [
+          34,
+          0,
+          2
+        ],
+        [
+          34,
+          0,
+          3
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10038
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10319,
+        10599
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.4110001366552512,
+      "native_lanes": [
+        [
+          34,
+          0,
+          3
+        ],
+        [
+          34,
+          0,
+          4
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10318
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10599
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10598
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10646,
+        10670
+      ],
+      "max_center_match_error_m": 0.1000064209491974,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 10644
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10646
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10645
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10670,
+        10694
+      ],
+      "max_center_match_error_m": 0.10000258832692682,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 10669
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10694
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10693
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10741
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10739
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10741,
+        10766
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.4759564923148534e-05,
+      "native_lanes": [
+        [
+          35,
+          0,
+          2
+        ],
+        [
+          35,
+          0,
+          3
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10740
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10766,
+        10791
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.4759564923148534e-05,
+      "native_lanes": [
+        [
+          35,
+          0,
+          3
+        ],
+        [
+          35,
+          0,
+          4
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10765
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10791
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10790
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10820,
+        10835
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 3.1151908462108933e-06,
+      "native_lanes": [
+        [
+          36,
+          0,
+          -3
+        ],
+        [
+          36,
+          0,
+          -2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10818
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10820
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10819
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10835,
+        10850
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.739937794514582e-06,
+      "native_lanes": [
+        [
+          36,
+          0,
+          -2
+        ],
+        [
+          36,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10834
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10850
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10849
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10879
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10877
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10879,
+        10895
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.096686439429497e-05,
+      "native_lanes": [
+        [
+          36,
+          0,
+          2
+        ],
+        [
+          36,
+          0,
+          3
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10878
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        10895,
+        10911
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.096686439429497e-05,
+      "native_lanes": [
+        [
+          36,
+          0,
+          3
+        ],
+        [
+          36,
+          0,
+          4
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 10894
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        10911
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 10910
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        12544,
+        13361
+      ],
+      "max_center_match_error_m": 0.3575268985900309,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 12542
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        12544
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 12543
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        13361,
+        14178
+      ],
+      "max_center_match_error_m": 0.21551067067447602,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 13360
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        14178
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 14177
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        15811
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 15809
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        15811,
+        16629
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.3184360838243352,
+      "native_lanes": [
+        [
+          37,
+          0,
+          2
+        ],
+        [
+          37,
+          0,
+          3
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 15810
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        16629,
+        17447
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.4376909334614764,
+      "native_lanes": [
+        [
+          37,
+          0,
+          3
+        ],
+        [
+          37,
+          0,
+          4
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 16628
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        17447
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 17446
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        18052,
+        18355
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.3344328876745785,
+      "native_lanes": [
+        [
+          38,
+          0,
+          -3
+        ],
+        [
+          38,
+          0,
+          -2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 18050
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        18052
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 18051
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        18355,
+        18658
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.20693983589512424,
+      "native_lanes": [
+        [
+          38,
+          0,
+          -2
+        ],
+        [
+          38,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 18354
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        18658
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 18657
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        19263
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 19261
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        19263,
+        19567
+      ],
+      "max_center_match_error_m": 0.31324055372711,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 19262
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        19567,
+        19871
+      ],
+      "max_center_match_error_m": 0.4190205684406084,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 19566
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        19871
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 19870
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        19968,
+        20017
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 8.903061056835483e-06,
+      "native_lanes": [
+        [
+          39,
+          0,
+          -2
+        ],
+        [
+          39,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 19966
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        19968
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 19967
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20017
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20016
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20067
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20065
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        20067,
+        20117
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.0615213626103636e-05,
+      "native_lanes": [
+        [
+          39,
+          0,
+          1
+        ],
+        [
+          39,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 20066
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20117
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20116
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20200,
+        20242
+      ],
+      "max_center_match_error_m": 0.13562623310587957,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 20198
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20200
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20199
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20242
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20241
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20285
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20283
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20285,
+        20328
+      ],
+      "max_center_match_error_m": 1.0333969048529468e-05,
+      "native_lanes": [
+        null,
+        [
+          40,
+          0,
+          2
+        ]
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 20284
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20328
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20327
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20507,
+        20597
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "8.6730000000000004e+1",
+          "type": "none"
+        }
+      ],
+      "max_center_match_error_m": 0.21400232774232741,
+      "native_lanes": [
+        [
+          41,
+          0,
+          -2
+        ],
+        [
+          41,
+          0,
+          -1
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 20505
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20507
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20506
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20597
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20596
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20688
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20686
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20688,
+        20779
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "8.7200000000000003e+1",
+          "type": "none"
+        }
+      ],
+      "max_center_match_error_m": 0.27008690010450026,
+      "native_lanes": [
+        [
+          41,
+          0,
+          1
+        ],
+        [
+          41,
+          0,
+          2
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 20687
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20779
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20778
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20942,
+        21024
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "none"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "3.8999999999995794e-1",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.1888775480166558,
+      "native_lanes": [
+        [
+          42,
+          0,
+          -2
+        ],
+        [
+          42,
+          0,
+          -1
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 20940
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        20942
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 20941
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21024
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21023
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21107
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21105
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21107,
+        21190
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "none"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "3.8999999999995794e-1",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.16460524588598002,
+      "native_lanes": [
+        [
+          42,
+          0,
+          1
+        ],
+        [
+          42,
+          0,
+          2
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 21106
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21190
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21189
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        21311,
+        21372
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 7.565269130860603e-06,
+      "native_lanes": [
+        [
+          43,
+          0,
+          -2
+        ],
+        [
+          43,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 21309
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21311
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21310
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21372
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21371
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21434
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21432
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        21434,
+        21496
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.2421312586291714e-05,
+      "native_lanes": [
+        [
+          43,
+          0,
+          1
+        ],
+        [
+          43,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 21433
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21496
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21495
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        21623,
+        21687
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.5204857389133809e-05,
+      "native_lanes": [
+        [
+          44,
+          0,
+          -2
+        ],
+        [
+          44,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 21621
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21623
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21622
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21687
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21686
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21752
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21750
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        21752,
+        21817
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.1492394258669981e-05,
+      "native_lanes": [
+        [
+          44,
+          0,
+          1
+        ],
+        [
+          44,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 21751
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21817
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21816
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21960,
+        22032
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        },
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "6.8980000000000075e+1",
+          "type": "none"
+        }
+      ],
+      "max_center_match_error_m": 0.14325703204243118,
+      "native_lanes": [
+        [
+          45,
+          0,
+          -2
+        ],
+        [
+          45,
+          0,
+          -1
+        ]
+      ],
+      "reason": "not_uniform_broken_both_in_native_section",
+      "way_id": 21958
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        21960
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 21959
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22032
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22031
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22105
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22103
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        22105,
+        22178
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.1700340163481348,
+      "native_lanes": [
+        [
+          45,
+          0,
+          1
+        ],
+        [
+          45,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 22104
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22178
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22177
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        22329,
+        22405
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.21305789502787023,
+      "native_lanes": [
+        [
+          46,
+          0,
+          -2
+        ],
+        [
+          46,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 22327
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22329
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22328
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22405
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22404
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22482
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22480
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        22482,
+        22559
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.2554815519689318,
+      "native_lanes": [
+        [
+          46,
+          0,
+          1
+        ],
+        [
+          46,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 22481
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22559
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22558
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        22666,
+        22720
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 5.7013168084903126e-06,
+      "native_lanes": [
+        [
+          47,
+          0,
+          -2
+        ],
+        [
+          47,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 22664
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22666
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22665
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22720
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22719
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22775
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22773
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22775,
+        22830
+      ],
+      "max_center_match_error_m": 0.000618745719118447,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 22774
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22830
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22829
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22891
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22889
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22891
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22890
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22923
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22921
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22923
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22922
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22954,
+        22970
+      ],
+      "max_center_match_error_m": 0.06375802407670665,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 22952
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22954
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22953
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22970
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22969
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22987
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 22985
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        22987,
+        23004
+      ],
+      "max_center_match_error_m": 0.06675263752709824,
+      "native_lanes": [
+        null,
+        [
+          49,
+          0,
+          2
+        ]
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 22986
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23004
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23003
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        23035,
+        23051
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.028525871382117058,
+      "native_lanes": [
+        [
+          50,
+          0,
+          -2
+        ],
+        [
+          50,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 23033
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23035
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23034
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23051
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23050
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23068
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23066
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        23068,
+        23085
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 0.021871699361783736,
+      "native_lanes": [
+        [
+          50,
+          0,
+          1
+        ],
+        [
+          50,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 23067
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23085
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23084
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        23156,
+        23192
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.3913931055823348e-05,
+      "native_lanes": [
+        [
+          51,
+          0,
+          -2
+        ],
+        [
+          51,
+          0,
+          -1
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 23154
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23156
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23155
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23192
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23191
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23229
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23227
+    },
+    {
+      "allowed": true,
+      "already_tagged": false,
+      "lanelets": [
+        23229,
+        23266
+      ],
+      "markings": [
+        {
+          "color": "white",
+          "laneChange": "both",
+          "material": "standard",
+          "sOffset": "0.0000000000000000e+0",
+          "type": "broken",
+          "width": "1.2500000000000000e-1"
+        }
+      ],
+      "max_center_match_error_m": 1.3693756984556069e-05,
+      "native_lanes": [
+        [
+          51,
+          0,
+          1
+        ],
+        [
+          51,
+          0,
+          2
+        ]
+      ],
+      "reason": "native_constant_broken_both",
+      "way_id": 23228
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23266
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23265
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23367,
+        23418
+      ],
+      "max_center_match_error_m": 9.214873434458167e-06,
+      "native_lanes": [
+        [
+          52,
+          0,
+          -2
+        ],
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 23365
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23367
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23366
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23418
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23417
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23470
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23468
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23470,
+        23522
+      ],
+      "max_center_match_error_m": 0.02852495517130583,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "multiple_native_lanes",
+      "way_id": 23469
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23522
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23521
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23587
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23585
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23587
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23586
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23628
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23626
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23628
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23627
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23683,
+        23711
+      ],
+      "max_center_match_error_m": 0.018335527924315677,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 23681
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23683
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23682
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23711
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23710
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23766
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23764
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23766,
+        23795
+      ],
+      "max_center_match_error_m": 0.13401064858369666,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 23765
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23795
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23794
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23836
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23834
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23836
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23835
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23893,
+        23922
+      ],
+      "max_center_match_error_m": 0.06584810448835762,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 23891
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23893
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23892
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23922
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23921
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23979
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 23977
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        23979,
+        24009
+      ],
+      "max_center_match_error_m": 0.023968469613343216,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 23978
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24009
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24008
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24062
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24060
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24062
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24061
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24117
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24115
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24117,
+        24146
+      ],
+      "max_center_match_error_m": 1.3740583042702602e-05,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 24116
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24146
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24145
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24201,
+        24229
+      ],
+      "max_center_match_error_m": 6.345649403848523e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 24199
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24201
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24200
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24229
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24228
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24284,
+        24312
+      ],
+      "max_center_match_error_m": 1.6139434910563781e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 24282
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24284
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24283
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24312
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24311
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24357
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24355
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24357
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24356
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24426,
+        24461
+      ],
+      "max_center_match_error_m": 8.725290652025495e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 24424
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24426
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24425
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24461
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24460
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24530
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24528
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24530,
+        24566
+      ],
+      "max_center_match_error_m": 0.14759293793551403,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 24529
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24566
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24565
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24601
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24599
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24601
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24600
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24668
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24666
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24668,
+        24703
+      ],
+      "max_center_match_error_m": 6.413946010015706e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 24667
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24703
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24702
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24764
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24762
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24764
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24763
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24811
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24809
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24811
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24810
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24872
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24870
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24872
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24871
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24937
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24935
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24937,
+        24971
+      ],
+      "max_center_match_error_m": 0.08213665213793214,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 24936
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        24971
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 24970
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25028
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25026
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25028
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25027
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25073
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25071
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25073
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25072
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25128
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25126
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25128,
+        25157
+      ],
+      "max_center_match_error_m": 5.0738867311517325e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 25127
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25157
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25156
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25212,
+        25240
+      ],
+      "max_center_match_error_m": 7.08684978353153e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 25210
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25212
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25211
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25240
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25239
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25301
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25299
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25301
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25300
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25352
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25350
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25352
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25351
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25411,
+        25441
+      ],
+      "max_center_match_error_m": 9.39797178430004e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 25409
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25411
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25410
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25441
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25440
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25480
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25478
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25480
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25479
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25535
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25533
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25535
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25534
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25594
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25592
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25594,
+        25625
+      ],
+      "max_center_match_error_m": 3.378966555901586e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 25593
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25625
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25624
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25672
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25670
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25672
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25671
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25727
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25725
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25727
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25726
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25776
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25774
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25776
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25775
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25813
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25811
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25813
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25812
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25868
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25866
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25868
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25867
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25933,
+        25966
+      ],
+      "max_center_match_error_m": 7.478398548046194e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 25931
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25933
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25932
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        25966
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 25965
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26009
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26007
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26009
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26008
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26042
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26040
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26042
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26041
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26097
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26095
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26097
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26096
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26142
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26140
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26142
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26141
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26197
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26195
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26197,
+        26226
+      ],
+      "max_center_match_error_m": 1.0411963471748332e-05,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 26196
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26226
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26225
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26269
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26267
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26269
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26268
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26308
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26306
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26308
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26307
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26361
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26359
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26361
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26360
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26410
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26408
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26410
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26409
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26475,
+        26508
+      ],
+      "max_center_match_error_m": 6.532778282149855e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 26473
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26475
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26474
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26508
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26507
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26545
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26543
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26545
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26544
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26596
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26594
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26596
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26595
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26651
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26649
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26651
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26650
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26694
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26692
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26694
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26693
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26743
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26741
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26743
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26742
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26794
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26792
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26794
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26793
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26849
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26847
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26849
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26848
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26904
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26902
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26904,
+        26933
+      ],
+      "max_center_match_error_m": 0.02303245989758922,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 26903
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26933
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26932
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26970
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26968
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        26970
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 26969
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27025
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27023
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27025,
+        27054
+      ],
+      "max_center_match_error_m": 0.0006806649842316316,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 27024
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27054
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27053
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27093
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27091
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27093
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27092
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27132
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27130
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27132
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27131
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27181
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27179
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27181
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27180
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27230
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27228
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27230
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27229
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27271
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27269
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27271
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27270
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27304
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27302
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27304
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27303
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27357
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27355
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27357
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27356
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27402
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27400
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27402
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27401
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27461
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27459
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27461
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27460
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27496
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27494
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27496
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27495
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27547
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27545
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27547
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27546
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27598
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27596
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27598
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27597
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27643
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27641
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27643
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27642
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27704,
+        27735
+      ],
+      "max_center_match_error_m": 6.270975272878841e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 27702
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27704
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27703
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27735
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27734
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27800,
+        27833
+      ],
+      "max_center_match_error_m": 2.7546768589572046e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 27798
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27800
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27799
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27833
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27832
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27898
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27896
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27898,
+        27932
+      ],
+      "max_center_match_error_m": 6.9702159982498624e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 27897
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27932
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27931
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27997
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 27995
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        27997,
+        28031
+      ],
+      "max_center_match_error_m": 4.343070322009277e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 27996
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28031
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28030
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28096,
+        28129
+      ],
+      "max_center_match_error_m": 8.896639626986228e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 28094
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28096
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28095
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28129
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28128
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28194
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28192
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28194,
+        28228
+      ],
+      "max_center_match_error_m": 5.637251992625953e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 28193
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28228
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28227
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28273
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28271
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28273
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28272
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28318
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28316
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28318
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28317
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28359
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28357
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28359
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28358
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28412
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28410
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28412
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28411
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28467
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28465
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28467
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28466
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28518
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28516
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28518
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28517
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28569
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28567
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28569
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28568
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28612
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28610
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28612
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28611
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28675
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28673
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28675
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28674
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28714
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28712
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28714
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28713
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28773
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28771
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28773,
+        28804
+      ],
+      "max_center_match_error_m": 9.61642425062967e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 28772
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28804
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28803
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28863,
+        28893
+      ],
+      "max_center_match_error_m": 9.07973901668854e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 28861
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28863
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28862
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28893
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28892
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28934
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28932
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28934
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28933
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28997
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 28995
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        28997,
+        29030
+      ],
+      "max_center_match_error_m": 0.24510724893052874,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 28996
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29030,
+        29063
+      ],
+      "max_center_match_error_m": 0.3430088553286997,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 29029
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29063
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29062
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29130,
+        29164
+      ],
+      "max_center_match_error_m": 2.5976307089977535e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 29128
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29130
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29129
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29164
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29163
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29197
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29195
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29197
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29196
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29242
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29240
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29242
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29241
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29315
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29313
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29315,
+        29353
+      ],
+      "max_center_match_error_m": 7.236273968711085e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 29314
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29353
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29352
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29426,
+        29463
+      ],
+      "max_center_match_error_m": 9.66334896306255e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 29424
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29426
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29425
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29463
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29462
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29516
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29514
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29516
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29515
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29577
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29575
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29577
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29576
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29628
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29626
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29628
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29627
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29691,
+        29723
+      ],
+      "max_center_match_error_m": 0.048382673151127646,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 29689
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29691
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29690
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29723,
+        29755
+      ],
+      "max_center_match_error_m": 0.02904469925900982,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 29722
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29755
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29754
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29794
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29792
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29794
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29793
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29853,
+        29883
+      ],
+      "max_center_match_error_m": 2.3728829072178117e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 29851
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29853
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29852
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29883
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29882
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29932
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29930
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29932
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29931
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29973
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29971
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        29973
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 29972
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30010
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30008
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30010
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30009
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30055
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30053
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30055
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30054
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30110
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30108
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30110,
+        30139
+      ],
+      "max_center_match_error_m": 7.157069214948202e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 30109
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30139
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30138
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30194,
+        30222
+      ],
+      "max_center_match_error_m": 5.687006561420617e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 30192
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30194
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30193
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30222
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30221
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30263
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30261
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30263
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30262
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30336,
+        30373
+      ],
+      "max_center_match_error_m": 0.2125383299827515,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 30334
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30336
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30335
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30373
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30372
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30446
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30444
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30446,
+        30484
+      ],
+      "max_center_match_error_m": 1.1631805429238921e-05,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 30445
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30484
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30483
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30541
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30539
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30541
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30540
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30582
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30580
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30582
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30581
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30637
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30635
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30637
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30636
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30678
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30676
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30678
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30677
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30733,
+        30761
+      ],
+      "max_center_match_error_m": 3.8775598949247105e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 30731
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30733
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30732
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30761
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30760
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30816
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30814
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30816,
+        30845
+      ],
+      "max_center_match_error_m": 1.882822902570932e-05,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 30815
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30845
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30844
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30900
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30898
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30900
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30899
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30939
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30937
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30939
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30938
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30990
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30988
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        30990
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 30989
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31045
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31043
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31045
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31044
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31100
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31098
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31100
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31099
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31141
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31139
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31141
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31140
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31196
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31194
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31196
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31195
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31235
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31233
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31235
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31234
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31270
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31268
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31270
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31269
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31323
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31321
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31323
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31322
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31368
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31366
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31368
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31367
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31409
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31407
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31409
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31408
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31450
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31448
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31450
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31449
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31491
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31489
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31491
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31490
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31556
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31554
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31556
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31555
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31601
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31599
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31601
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31600
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31646
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31644
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31646
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31645
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31679
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31677
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31679
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31678
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31724
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31722
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31724
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31723
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31765
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31763
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31765
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31764
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31820,
+        31848
+      ],
+      "max_center_match_error_m": 0.11553368685173113,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 31818
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31820
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31819
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31848
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31847
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31917,
+        31952
+      ],
+      "max_center_match_error_m": 2.3842383374535493e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 31915
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31917
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31916
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        31952
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 31951
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32021
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32019
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32021,
+        32057
+      ],
+      "max_center_match_error_m": 7.5988309158541036e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32020
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32057
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32056
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32092
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32090
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32092
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32091
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32147
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32145
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32147,
+        32176
+      ],
+      "max_center_match_error_m": 1.2477593704643165e-05,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32146
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32176
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32175
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32221
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32219
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32221
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32220
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32256
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32254
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32256
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32255
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32319,
+        32351
+      ],
+      "max_center_match_error_m": 3.5255565156375165e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32317
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32319
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32318
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32351
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32350
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32414
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32412
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32414,
+        32447
+      ],
+      "max_center_match_error_m": 0.11966652059912312,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32413
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32447
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32446
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32492
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32490
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32492
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32491
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32557
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32555
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32557
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32556
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32612
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32610
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32612,
+        32641
+      ],
+      "max_center_match_error_m": 3.4967164151999406e-05,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32611
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32641
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32640
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32696,
+        32724
+      ],
+      "max_center_match_error_m": 6.4007081351648605e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32694
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32696
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32695
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32724
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32723
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32797
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32795
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32797,
+        32835
+      ],
+      "max_center_match_error_m": 0.056487292574647276,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32796
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32835
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32834
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32908,
+        32945
+      ],
+      "max_center_match_error_m": 0.07994937081055224,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 32906
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32908
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32907
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        32945
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32944
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33000
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32998
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33000
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 32999
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33055
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33053
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33055
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33054
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33096
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33094
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33096
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33095
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33137
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33135
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33137
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33136
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33170
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33168
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33170
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33169
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33221
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33219
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33221
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33220
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33262
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33260
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33262
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33261
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33307
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33305
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33307
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33306
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33352
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33350
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33352
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33351
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33393
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33391
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33393
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33392
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33434
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33432
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33434
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33433
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33487
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33485
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33487
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33486
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33530
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33528
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33530
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33529
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33563
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33561
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33563
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33562
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33598
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33596
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33598
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33597
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33653,
+        33681
+      ],
+      "max_center_match_error_m": 3.724936512090992e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 33651
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33653
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33652
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33681
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33680
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33726
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33724
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33726
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33725
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33773
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33771
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33773
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33772
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33818
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33816
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33818
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33817
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33867
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33865
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33867
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33866
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33922
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33920
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33922,
+        33951
+      ],
+      "max_center_match_error_m": 7.632478816823104e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 33921
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33951
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33950
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33984
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33982
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        33984
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 33983
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34045
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34043
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34045,
+        34077
+      ],
+      "max_center_match_error_m": 1.7805159663673707e-05,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 34044
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34077
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34076
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34114
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34112
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34114
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34113
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34147
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34145
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34147
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34146
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34180
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34178
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34180
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34179
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34213
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34211
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34213
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34212
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34258
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34256
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34258
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34257
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34317
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34315
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34317,
+        34348
+      ],
+      "max_center_match_error_m": 2.8004134359727793e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 34316
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34348
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34347
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34393
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34391
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34393
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34392
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34434
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34432
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34434
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34433
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34467
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34465
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34467
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34466
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34506
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34504
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34506
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34505
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34539
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34537
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34539
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34538
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34594,
+        34622
+      ],
+      "max_center_match_error_m": 0.019227035156025453,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 34592
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34594
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34593
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34622
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34621
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34673
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34671
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34673
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34672
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34728,
+        34756
+      ],
+      "max_center_match_error_m": 3.129003550136319e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 34726
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34728
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34727
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34756
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34755
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34789
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34787
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34789
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34788
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34840
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34838
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34840
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34839
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34893
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34891
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34893
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34892
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34930
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34928
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34930
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34929
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34979
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34977
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        34979
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 34978
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35022
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35020
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35022
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35021
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35059
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35057
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35059
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35058
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35092
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35090
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35092
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35091
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35149
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35147
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35149
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35148
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35200
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35198
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35200
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35199
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35259
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35257
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35259
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35258
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35308
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35306
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35308
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35307
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35349
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35347
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35349
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35348
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35396
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35394
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35396
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35395
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35439
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35437
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35439
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35438
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35502
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35500
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35502,
+        35535
+      ],
+      "max_center_match_error_m": 9.469425852035576e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 35501
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35535,
+        35568
+      ],
+      "max_center_match_error_m": 9.532754661939068e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 35534
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35568
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35567
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35631,
+        35663
+      ],
+      "max_center_match_error_m": 5.227668510657249e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 35629
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35631
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35630
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35663,
+        35695
+      ],
+      "max_center_match_error_m": 5.227741173056497e-06,
+      "native_lanes": [
+        null,
+        null
+      ],
+      "reason": "junction",
+      "way_id": 35662
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35695
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35694
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35760
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35758
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35760
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35759
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35801
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35799
+    },
+    {
+      "allowed": false,
+      "lanelets": [
+        35801
+      ],
+      "reason": "not_shared_same_direction_boundary",
+      "way_id": 35800
+    }
+  ],
+  "conservative_policy": "Unsplit mixed/ambiguous native sections remain forbidden; existing user tags are never overwritten.",
+  "input_manifest_map_sha256": "413bf0a9e9c08357d284364d8a70d9a1e94fed64c1a8b8854df65b2a214468a8",
+  "input_map_sha256": "413bf0a9e9c08357d284364d8a70d9a1e94fed64c1a8b8854df65b2a214468a8",
+  "output_map_sha256": "44628aefb80c91e64d8d65c318f257b96182e8365406483f7747a343ea8b1ef8",
+  "reasons": {
+    "junction": 62,
+    "multiple_native_lanes": 26,
+    "native_constant_broken_both": 77,
+    "not_shared_same_direction_boundary": 624,
+    "not_uniform_broken_both_in_native_section": 9
+  },
+  "road_boundaries": 798,
+  "road_lanelets": 486,
+  "schema": 1,
+  "source": "carla_town05_lane_change_v1",
+  "xodr_sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851"
+}

@@ -1,0 +1,3332 @@
+{
+  "case": "baseline",
+  "speed_cap_kmh": 20,
+  "samples": [
+    {
+      "sim_s": 0.10000000149011612,
+      "frame": 211856,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 2.479554596248135e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.0,
+      "brake": 1.0,
+      "steer": -0.14614449441432953,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.20000000298023224,
+      "frame": 211858,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 3.2426934531108104e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.12585940957069397,
+      "brake": 0.0,
+      "steer": -0.21982936561107635,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.30000000447034836,
+      "frame": 211860,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 4.015132639246701e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.12912116944789886,
+      "brake": 0.0,
+      "steer": -0.2199116349220276,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.45000000670552254,
+      "frame": 211863,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 1.716719667599126e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.132889524102211,
+      "brake": 0.0,
+      "steer": -0.16821672022342682,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.5500000081956387,
+      "frame": 211865,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 3.3378605203303397e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.13481557369232178,
+      "brake": 0.0,
+      "steer": -0.11321352422237396,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.6500000096857548,
+      "frame": 211867,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 4.768392481820409e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.13637566566467285,
+      "brake": 0.0,
+      "steer": -0.061921291053295135,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.7500000111758709,
+      "frame": 211869,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 8.344159842256429e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.13763932883739471,
+      "brake": 0.0,
+      "steer": -0.034743793308734894,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.850000012665987,
+      "frame": 211871,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 2.0981952713327197e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1386629045009613,
+      "brake": 0.0,
+      "steer": -0.020965341478586197,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 0.9500000141561031,
+      "frame": 211873,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 2.861091616618519e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.139492005109787,
+      "brake": 0.0,
+      "steer": -0.013782133348286152,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.0500000156462193,
+      "frame": 211875,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 3.6240665679443074e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1401635706424713,
+      "brake": 0.0,
+      "steer": -0.00957460142672062,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.1500000171363354,
+      "frame": 211877,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 4.404858460373941e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.14070755243301392,
+      "brake": 0.0,
+      "steer": -0.0067221918143332005,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.2500000186264515,
+      "frame": 211879,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 2.0982147766878783e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1411481648683548,
+      "brake": 0.0,
+      "steer": -0.004616240039467812,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.3500000201165676,
+      "frame": 211881,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 2.8610331656486733e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.14150506258010864,
+      "brake": 0.0,
+      "steer": -0.0030519389547407627,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.4500000216066837,
+      "frame": 211883,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 3.8147544179644394e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1417941451072693,
+      "brake": 0.0,
+      "steer": -0.0019354315008968115,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.5500000230967999,
+      "frame": 211885,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 0.0,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1420283019542694,
+      "brake": 0.0,
+      "steer": -0.0011816626647487283,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.650000024586916,
+      "frame": 211887,
+      "xyz": [
+        210.340576171875,
+        74.1011734008789,
+        0.036110688000917435
+      ],
+      "speed_mps": 1.5260671404356355e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_from_original_lane_m": 0.23613068461418152,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1422179788351059,
+      "brake": 0.0,
+      "steer": -0.0007000419427640736,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.750000026077032,
+      "frame": 211889,
+      "xyz": [
+        210.340576171875,
+        74.10116577148438,
+        0.03611079975962639
+      ],
+      "speed_mps": 0.0007842523545151816,
+      "progress_m": 7.22851562784399e-06,
+      "lateral_from_original_lane_m": 0.2361382395029068,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.14237160980701447,
+      "brake": 0.0,
+      "steer": -0.00040591758443042636,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.8500000275671482,
+      "frame": 211891,
+      "xyz": [
+        210.34083557128906,
+        74.08031463623047,
+        0.035943105816841125
+      ],
+      "speed_mps": 0.35254757591160174,
+      "progress_m": 0.020858363769534094,
+      "lateral_from_original_lane_m": 0.23610495030879974,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1424960494041443,
+      "brake": 0.0,
+      "steer": -0.00023124516883399338,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 1.9500000290572643,
+      "frame": 211893,
+      "xyz": [
+        210.34132385253906,
+        74.0428466796875,
+        0.035890843719244
+      ],
+      "speed_mps": 0.3930133508857236,
+      "progress_m": 0.058326320312502844,
+      "lateral_from_original_lane_m": 0.2361038476228714,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1566961109638214,
+      "brake": 0.0,
+      "steer": -0.00012892937229480594,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.0500000305473804,
+      "frame": 211895,
+      "xyz": [
+        210.34185791015625,
+        73.9974594116211,
+        0.03592498600482941
+      ],
+      "speed_mps": 0.4973130742221292,
+      "progress_m": 0.1037135883789091,
+      "lateral_from_original_lane_m": 0.23610149323940277,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1854235678911209,
+      "brake": 0.0,
+      "steer": -6.444827158702537e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.1500000320374966,
+      "frame": 211897,
+      "xyz": [
+        210.34243774414062,
+        73.94717407226562,
+        0.0359782800078392
+      ],
+      "speed_mps": 0.5129972246568393,
+      "progress_m": 0.15399892773437784,
+      "lateral_from_original_lane_m": 0.2361171543598175,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.19903309643268585,
+      "brake": 0.0,
+      "steer": -1.2628828699234873e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.2500000335276127,
+      "frame": 211899,
+      "xyz": [
+        210.343017578125,
+        73.89234924316406,
+        0.03600742295384407
+      ],
+      "speed_mps": 0.6098830497878641,
+      "progress_m": 0.20882375683594034,
+      "lateral_from_original_lane_m": 0.2361222803592682,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.2103864848613739,
+      "brake": 0.0,
+      "steer": 3.552750058588572e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.400000035762787,
+      "frame": 211902,
+      "xyz": [
+        210.34384155273438,
+        73.80220031738281,
+        0.036036908626556396
+      ],
+      "speed_mps": 0.5891009476435777,
+      "progress_m": 0.29897268261719034,
+      "lateral_from_original_lane_m": 0.2361217886209488,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.20351862907409668,
+      "brake": 0.0,
+      "steer": 0.0001005847443593666,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.500000037252903,
+      "frame": 211904,
+      "xyz": [
+        210.3446502685547,
+        73.73625946044922,
+        0.036041028797626495
+      ],
+      "speed_mps": 0.6382541948797544,
+      "progress_m": 0.3649135395507841,
+      "lateral_from_original_lane_m": 0.23612184822559357,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.20133189857006073,
+      "brake": 0.0,
+      "steer": 0.00013833514822181314,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.600000038743019,
+      "frame": 211906,
+      "xyz": [
+        210.34544372558594,
+        73.66637420654297,
+        0.036046791821718216
+      ],
+      "speed_mps": 0.6726150403676152,
+      "progress_m": 0.4347987934570341,
+      "lateral_from_original_lane_m": 0.23612292110919952,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.17355164885520935,
+      "brake": 0.0,
+      "steer": 0.00016850445535965264,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.7000000402331352,
+      "frame": 211908,
+      "xyz": [
+        210.34634399414062,
+        73.59294891357422,
+        0.03605258837342262
+      ],
+      "speed_mps": 0.7068525723572594,
+      "progress_m": 0.5082240864257841,
+      "lateral_from_original_lane_m": 0.2361232340335846,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.17572550475597382,
+      "brake": 0.0,
+      "steer": 0.00018772644398268312,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.8000000417232513,
+      "frame": 211910,
+      "xyz": [
+        210.34718322753906,
+        73.51615142822266,
+        0.036057014018297195
+      ],
+      "speed_mps": 0.7408068273439747,
+      "progress_m": 0.5850215717773466,
+      "lateral_from_original_lane_m": 0.2361246645450592,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.18408505618572235,
+      "brake": 0.0,
+      "steer": 0.0001968520082300529,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 2.9000000432133675,
+      "frame": 211912,
+      "xyz": [
+        210.34811401367188,
+        73.43608856201172,
+        0.03605964407324791
+      ],
+      "speed_mps": 0.7704692889021197,
+      "progress_m": 0.6650844379882841,
+      "lateral_from_original_lane_m": 0.23612506687641144,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.19125953316688538,
+      "brake": 0.0,
+      "steer": 0.00019789882935583591,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.0000000447034836,
+      "frame": 211914,
+      "xyz": [
+        210.3490753173828,
+        73.35252380371094,
+        0.03605895861983299
+      ],
+      "speed_mps": 0.8112663532155621,
+      "progress_m": 0.7486491962890653,
+      "lateral_from_original_lane_m": 0.23612496256828308,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.19626931846141815,
+      "brake": 0.0,
+      "steer": 0.0001906116376630962,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.1500000469386578,
+      "frame": 211917,
+      "xyz": [
+        210.35067749023438,
+        73.21979522705078,
+        0.03604869917035103
+      ],
+      "speed_mps": 0.9498253330634302,
+      "progress_m": 0.8813777729492216,
+      "lateral_from_original_lane_m": 0.23612265288829803,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.189096599817276,
+      "brake": 0.0,
+      "steer": 0.00016646466974634677,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.250000048428774,
+      "frame": 211919,
+      "xyz": [
+        210.3517303466797,
+        73.12686157226562,
+        0.03604724630713463
+      ],
+      "speed_mps": 0.9888258434972632,
+      "progress_m": 0.9743114277343778,
+      "lateral_from_original_lane_m": 0.23612280189990997,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.1886010318994522,
+      "brake": 0.0,
+      "steer": 0.00014477210061158985,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.35000004991889,
+      "frame": 211921,
+      "xyz": [
+        210.3529052734375,
+        73.0301742553711,
+        0.03604652360081673
+      ],
+      "speed_mps": 1.025897372079697,
+      "progress_m": 1.070998744628909,
+      "lateral_from_original_lane_m": 0.23612195253372192,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.20137709379196167,
+      "brake": 0.0,
+      "steer": 0.00011903386621270329,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.450000051409006,
+      "frame": 211923,
+      "xyz": [
+        210.3540802001953,
+        72.92955780029297,
+        0.03604511171579361
+      ],
+      "speed_mps": 1.0651570608758578,
+      "progress_m": 1.171615199707034,
+      "lateral_from_original_lane_m": 0.2361217439174652,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.20487654209136963,
+      "brake": 0.0,
+      "steer": 9.159159526461735e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.5500000528991222,
+      "frame": 211925,
+      "xyz": [
+        210.3553466796875,
+        72.82496643066406,
+        0.036044083535671234
+      ],
+      "speed_mps": 1.1045621831657437,
+      "progress_m": 1.2762065693359403,
+      "lateral_from_original_lane_m": 0.23612086474895477,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.20565080642700195,
+      "brake": 0.0,
+      "steer": 6.42690429231152e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.6500000543892384,
+      "frame": 211927,
+      "xyz": [
+        210.3566131591797,
+        72.71636199951172,
+        0.03604286164045334
+      ],
+      "speed_mps": 1.1452539311696497,
+      "progress_m": 1.384811000488284,
+      "lateral_from_original_lane_m": 0.23612067103385925,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.20983168482780457,
+      "brake": 0.0,
+      "steer": 3.914156695827842e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.7500000558793545,
+      "frame": 211929,
+      "xyz": [
+        210.35797119140625,
+        72.6038589477539,
+        0.036043431609869
+      ],
+      "speed_mps": 1.1831052258718477,
+      "progress_m": 1.4973140522460966,
+      "lateral_from_original_lane_m": 0.2361200600862503,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.20927949249744415,
+      "brake": 0.0,
+      "steer": 1.721741136861965e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.8500000573694706,
+      "frame": 211931,
+      "xyz": [
+        210.3593292236328,
+        72.48733520507812,
+        0.036043088883161545
+      ],
+      "speed_mps": 1.2234812747704704,
+      "progress_m": 1.6138377949218778,
+      "lateral_from_original_lane_m": 0.2361275553703308,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.21852277219295502,
+      "brake": 0.0,
+      "steer": -1.7782746226657764e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 3.9500000588595867,
+      "frame": 211933,
+      "xyz": [
+        210.3607635498047,
+        72.36674499511719,
+        0.03604240342974663
+      ],
+      "speed_mps": 1.2641378748239278,
+      "progress_m": 1.7344280048828153,
+      "lateral_from_original_lane_m": 0.23612692952156067,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.21844817698001862,
+      "brake": 0.0,
+      "steer": -1.8190485207014717e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.050000060349703,
+      "frame": 211935,
+      "xyz": [
+        210.3622283935547,
+        72.2420654296875,
+        0.03604194521903992
+      ],
+      "speed_mps": 1.3047963870186254,
+      "progress_m": 1.8591075703125028,
+      "lateral_from_original_lane_m": 0.23611915111541748,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.22147460281848907,
+      "brake": 0.0,
+      "steer": -3.194664168404415e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.150000061839819,
+      "frame": 211937,
+      "xyz": [
+        210.36373901367188,
+        72.11325073242188,
+        0.03604141250252724
+      ],
+      "speed_mps": 1.3461589231121878,
+      "progress_m": 1.9879222675781278,
+      "lateral_from_original_lane_m": 0.23612643778324127,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.22463452816009521,
+      "brake": 0.0,
+      "steer": -3.778563404921442e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.250000063329935,
+      "frame": 211939,
+      "xyz": [
+        210.3653106689453,
+        71.98023986816406,
+        0.03604061156511307
+      ],
+      "speed_mps": 1.3882895989959572,
+      "progress_m": 2.1209331318359403,
+      "lateral_from_original_lane_m": 0.23612599074840546,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.2269342988729477,
+      "brake": 0.0,
+      "steer": -5.28607597516384e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.350000064820051,
+      "frame": 211941,
+      "xyz": [
+        210.36692810058594,
+        71.8429183959961,
+        0.03603946790099144
+      ],
+      "speed_mps": 1.4314616904968733,
+      "progress_m": 2.258254604003909,
+      "lateral_from_original_lane_m": 0.2361181080341339,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.23316983878612518,
+      "brake": 0.0,
+      "steer": -6.121792102931067e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.450000066310167,
+      "frame": 211943,
+      "xyz": [
+        210.36859130859375,
+        71.7011947631836,
+        0.03603782504796982
+      ],
+      "speed_mps": 1.4758177269328705,
+      "progress_m": 2.399978236816409,
+      "lateral_from_original_lane_m": 0.23611752688884735,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.23671336472034454,
+      "brake": 0.0,
+      "steer": -6.874348764540628e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.6000000685453415,
+      "frame": 211946,
+      "xyz": [
+        210.37118530273438,
+        71.48046875,
+        0.03604217618703842
+      ],
+      "speed_mps": 1.468664457028806,
+      "progress_m": 2.620704250000003,
+      "lateral_from_original_lane_m": 0.2361253947019577,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.24401909112930298,
+      "brake": 0.0,
+      "steer": -7.881221972638741e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.700000070035458,
+      "frame": 211948,
+      "xyz": [
+        210.3729705810547,
+        71.3272476196289,
+        0.03604061156511307
+      ],
+      "speed_mps": 1.5159511112538744,
+      "progress_m": 2.7739253803710966,
+      "lateral_from_original_lane_m": 0.2361176311969757,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.2426675707101822,
+      "brake": 0.0,
+      "steer": -8.190615335479379e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.800000071525574,
+      "frame": 211950,
+      "xyz": [
+        210.37481689453125,
+        71.16930389404297,
+        0.03603938966989517
+      ],
+      "speed_mps": 1.5636543858749834,
+      "progress_m": 2.931869105957034,
+      "lateral_from_original_lane_m": 0.23612481355667114,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.24612438678741455,
+      "brake": 0.0,
+      "steer": -8.723488281248137e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 4.90000007301569,
+      "frame": 211952,
+      "xyz": [
+        210.37673950195312,
+        71.00658416748047,
+        0.036038320511579514
+      ],
+      "speed_mps": 1.612004264912354,
+      "progress_m": 3.094588832519534,
+      "lateral_from_original_lane_m": 0.23611678183078766,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.25147563219070435,
+      "brake": 0.0,
+      "steer": -9.437310654902831e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.000000074505806,
+      "frame": 211954,
+      "xyz": [
+        210.37869262695312,
+        70.83901977539062,
+        0.03603729233145714
+      ],
+      "speed_mps": 1.6611348181918473,
+      "progress_m": 3.262153224609378,
+      "lateral_from_original_lane_m": 0.23612400889396667,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.25459060072898865,
+      "brake": 0.0,
+      "steer": -9.60105680860579e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.100000075995922,
+      "frame": 211956,
+      "xyz": [
+        210.38072204589844,
+        70.66653442382812,
+        0.03603622317314148
+      ],
+      "speed_mps": 1.7108322599555943,
+      "progress_m": 3.434638576171878,
+      "lateral_from_original_lane_m": 0.23612354695796967,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.25459060072898865,
+      "brake": 0.0,
+      "steer": -9.60105680860579e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.200000077486038,
+      "frame": 211958,
+      "xyz": [
+        210.38278198242188,
+        70.48906707763672,
+        0.0360349640250206
+      ],
+      "speed_mps": 1.7617001694856425,
+      "progress_m": 3.612105922363284,
+      "lateral_from_original_lane_m": 0.23611579835414886,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.2652585506439209,
+      "brake": 0.0,
+      "steer": -9.641210635891184e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.300000078976154,
+      "frame": 211960,
+      "xyz": [
+        210.3849334716797,
+        70.30646514892578,
+        0.036033209413290024
+      ],
+      "speed_mps": 1.8139165668983392,
+      "progress_m": 3.7947078510742216,
+      "lateral_from_original_lane_m": 0.23612277209758759,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.2702345848083496,
+      "brake": 0.0,
+      "steer": -9.543149644741789e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.4000000804662704,
+      "frame": 211962,
+      "xyz": [
+        210.38710021972656,
+        70.11862182617188,
+        0.036031339317560196
+      ],
+      "speed_mps": 1.8673453920907104,
+      "progress_m": 3.982551173828128,
+      "lateral_from_original_lane_m": 0.23612263798713684,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.271638959646225,
+      "brake": 0.0,
+      "steer": -9.448090713704005e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.500000081956387,
+      "frame": 211964,
+      "xyz": [
+        210.38934326171875,
+        69.9254150390625,
+        0.036029547452926636
+      ],
+      "speed_mps": 1.9216679883474541,
+      "progress_m": 4.175757960937503,
+      "lateral_from_original_lane_m": 0.23612236976623535,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.27232587337493896,
+      "brake": 0.0,
+      "steer": -9.329256863566115e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.600000083446503,
+      "frame": 211966,
+      "xyz": [
+        210.39169311523438,
+        69.72681427001953,
+        0.03602844104170799
+      ],
+      "speed_mps": 1.9758126963345464,
+      "progress_m": 4.374358729980472,
+      "lateral_from_original_lane_m": 0.23612158000469208,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.27495113015174866,
+      "brake": 0.0,
+      "steer": -9.254462929675356e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.700000084936619,
+      "frame": 211968,
+      "xyz": [
+        210.39404296875,
+        69.52281951904297,
+        0.036027487367391586
+      ],
+      "speed_mps": 2.0309147471276416,
+      "progress_m": 4.578353480957034,
+      "lateral_from_original_lane_m": 0.2361217439174652,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.2850468158721924,
+      "brake": 0.0,
+      "steer": -8.985757449408993e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.850000087171793,
+      "frame": 211971,
+      "xyz": [
+        210.39776611328125,
+        69.20601654052734,
+        0.03601909428834915
+      ],
+      "speed_mps": 2.1829294016584435,
+      "progress_m": 4.895156459472659,
+      "lateral_from_original_lane_m": 0.23611986637115479,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.28694674372673035,
+      "brake": 0.0,
+      "steer": -8.436606731265783e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 5.950000088661909,
+      "frame": 211973,
+      "xyz": [
+        210.4003143310547,
+        68.98793029785156,
+        0.03601764515042305
+      ],
+      "speed_mps": 2.239810778152378,
+      "progress_m": 5.11324270214844,
+      "lateral_from_original_lane_m": 0.23611193895339966,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.29440197348594666,
+      "brake": 0.0,
+      "steer": -8.075182267930359e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.050000090152025,
+      "frame": 211975,
+      "xyz": [
+        210.4029083251953,
+        68.76405334472656,
+        0.03601604327559471
+      ],
+      "speed_mps": 2.297753170200679,
+      "progress_m": 5.33711965527344,
+      "lateral_from_original_lane_m": 0.23611925542354584,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.2990668714046478,
+      "brake": 0.0,
+      "steer": -7.772627577651292e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.150000091642141,
+      "frame": 211977,
+      "xyz": [
+        210.40557861328125,
+        68.5342788696289,
+        0.036014556884765625
+      ],
+      "speed_mps": 2.35670962680984,
+      "progress_m": 5.566894130371097,
+      "lateral_from_original_lane_m": 0.23612655699253082,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.30441299080848694,
+      "brake": 0.0,
+      "steer": -7.432373968185857e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.2500000931322575,
+      "frame": 211979,
+      "xyz": [
+        210.40830993652344,
+        68.29849243164062,
+        0.03601306676864624
+      ],
+      "speed_mps": 2.41645167153157,
+      "progress_m": 5.802680568359378,
+      "lateral_from_original_lane_m": 0.23611879348754883,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.30233508348464966,
+      "brake": 0.0,
+      "steer": -7.313442620215937e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.350000094622374,
+      "frame": 211981,
+      "xyz": [
+        210.4111328125,
+        68.05669403076172,
+        0.03601207584142685
+      ],
+      "speed_mps": 2.4762290289182984,
+      "progress_m": 6.044478969238284,
+      "lateral_from_original_lane_m": 0.23611095547676086,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3055347204208374,
+      "brake": 0.0,
+      "steer": -7.014490256551653e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.45000009611249,
+      "frame": 211983,
+      "xyz": [
+        210.41403198242188,
+        67.80887603759766,
+        0.03601165860891342
+      ],
+      "speed_mps": 2.5358185264236472,
+      "progress_m": 6.292296962402347,
+      "lateral_from_original_lane_m": 0.23611828684806824,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3050108551979065,
+      "brake": 0.0,
+      "steer": -6.608228432014585e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.550000097602606,
+      "frame": 211985,
+      "xyz": [
+        210.41696166992188,
+        67.5550537109375,
+        0.03601161763072014
+      ],
+      "speed_mps": 2.595171270643701,
+      "progress_m": 6.546119289062503,
+      "lateral_from_original_lane_m": 0.23611843585968018,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3070942163467407,
+      "brake": 0.0,
+      "steer": -6.133046554168686e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.650000099092722,
+      "frame": 211987,
+      "xyz": [
+        210.4199981689453,
+        67.29524230957031,
+        0.036011695861816406
+      ],
+      "speed_mps": 2.6548077303974167,
+      "progress_m": 6.80593069042969,
+      "lateral_from_original_lane_m": 0.2361181378364563,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3122393786907196,
+      "brake": 0.0,
+      "steer": -5.6885386584326625e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.750000100582838,
+      "frame": 211989,
+      "xyz": [
+        210.423095703125,
+        67.0293960571289,
+        0.03601142764091492
+      ],
+      "speed_mps": 2.7146969613890777,
+      "progress_m": 7.071776942871097,
+      "lateral_from_original_lane_m": 0.23611041903495789,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3119069039821625,
+      "brake": 0.0,
+      "steer": -5.3296265832614154e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.850000102072954,
+      "frame": 211991,
+      "xyz": [
+        210.4262237548828,
+        66.75749969482422,
+        0.03601135313510895
+      ],
+      "speed_mps": 2.7745313349648213,
+      "progress_m": 7.343673305175784,
+      "lateral_from_original_lane_m": 0.23611824214458466,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3152962923049927,
+      "brake": 0.0,
+      "steer": -5.019141099182889e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 6.95000010356307,
+      "frame": 211993,
+      "xyz": [
+        210.429443359375,
+        66.47956085205078,
+        0.03601127490401268
+      ],
+      "speed_mps": 2.8343816491328524,
+      "progress_m": 7.621612147949222,
+      "lateral_from_original_lane_m": 0.23611068725585938,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.31504344940185547,
+      "brake": 0.0,
+      "steer": -4.879760672338307e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.050000105053186,
+      "frame": 211995,
+      "xyz": [
+        210.43276977539062,
+        66.19558715820312,
+        0.03601115942001343
+      ],
+      "speed_mps": 2.8942153243717015,
+      "progress_m": 7.905585841796878,
+      "lateral_from_original_lane_m": 0.2361179143190384,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3178519308567047,
+      "brake": 0.0,
+      "steer": -4.487190381041728e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.1500001065433025,
+      "frame": 211997,
+      "xyz": [
+        210.4361114501953,
+        65.90556335449219,
+        0.03601115942001343
+      ],
+      "speed_mps": 2.953964097021993,
+      "progress_m": 8.195609645507815,
+      "lateral_from_original_lane_m": 0.23611821234226227,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3182424008846283,
+      "brake": 0.0,
+      "steer": -4.164451820543036e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.250000108033419,
+      "frame": 211999,
+      "xyz": [
+        210.43954467773438,
+        65.60951232910156,
+        0.03601142764091492
+      ],
+      "speed_mps": 3.0134296043909456,
+      "progress_m": 8.49166067089844,
+      "lateral_from_original_lane_m": 0.23611824214458466,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.31851276755332947,
+      "brake": 0.0,
+      "steer": -3.804478910751641e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.350000109523535,
+      "frame": 212001,
+      "xyz": [
+        210.44308471679688,
+        65.30746459960938,
+        0.03601188585162163
+      ],
+      "speed_mps": 3.072434502957014,
+      "progress_m": 8.793708400390628,
+      "lateral_from_original_lane_m": 0.236117884516716,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.31909069418907166,
+      "brake": 0.0,
+      "steer": -3.435694452491589e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.450000111013651,
+      "frame": 212003,
+      "xyz": [
+        210.44664001464844,
+        64.99948120117188,
+        0.03601245954632759
+      ],
+      "speed_mps": 3.13094465814003,
+      "progress_m": 9.101691798828128,
+      "lateral_from_original_lane_m": 0.2361181080341339,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.31980034708976746,
+      "brake": 0.0,
+      "steer": -3.028252103831619e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.550000112503767,
+      "frame": 212005,
+      "xyz": [
+        210.45028686523438,
+        64.68560028076172,
+        0.03601321950554848
+      ],
+      "speed_mps": 3.18907143015441,
+      "progress_m": 9.415572719238284,
+      "lateral_from_original_lane_m": 0.23611822724342346,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32026755809783936,
+      "brake": 0.0,
+      "steer": -2.693013084353879e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.650000113993883,
+      "frame": 212007,
+      "xyz": [
+        210.45399475097656,
+        64.36585998535156,
+        0.03601386770606041
+      ],
+      "speed_mps": 3.2467954379975406,
+      "progress_m": 9.73531301464844,
+      "lateral_from_original_lane_m": 0.23611833155155182,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3202933073043823,
+      "brake": 0.0,
+      "steer": -2.4461018256261013e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.750000115483999,
+      "frame": 212009,
+      "xyz": [
+        210.45774841308594,
+        64.04032135009766,
+        0.03601447865366936
+      ],
+      "speed_mps": 3.303995367022084,
+      "progress_m": 10.060851649902347,
+      "lateral_from_original_lane_m": 0.23611116409301758,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3222949504852295,
+      "brake": 0.0,
+      "steer": -2.2301608623820357e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 7.900000117719173,
+      "frame": 212012,
+      "xyz": [
+        210.46356201171875,
+        63.54137420654297,
+        0.03601928800344467
+      ],
+      "speed_mps": 3.347196211711043,
+      "progress_m": 10.559798793457034,
+      "lateral_from_original_lane_m": 0.23611538112163544,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.323050320148468,
+      "brake": 0.0,
+      "steer": -2.1703323000110686e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.00000011920929,
+      "frame": 212014,
+      "xyz": [
+        210.46746826171875,
+        63.20142364501953,
+        0.036019742488861084
+      ],
+      "speed_mps": 3.4050427568234864,
+      "progress_m": 10.899749354980472,
+      "lateral_from_original_lane_m": 0.23611952364444733,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3223591148853302,
+      "brake": 0.0,
+      "steer": -2.056278390227817e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.100000120699406,
+      "frame": 212016,
+      "xyz": [
+        210.4714813232422,
+        62.85578918457031,
+        0.036020394414663315
+      ],
+      "speed_mps": 3.462344053088363,
+      "progress_m": 11.24538381542969,
+      "lateral_from_original_lane_m": 0.23611584305763245,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3231661319732666,
+      "brake": 0.0,
+      "steer": -1.7879852748592384e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.200000122189522,
+      "frame": 212018,
+      "xyz": [
+        210.4755859375,
+        62.50452423095703,
+        0.036021001636981964
+      ],
+      "speed_mps": 3.5192526683794303,
+      "progress_m": 11.596648769042972,
+      "lateral_from_original_lane_m": 0.23611564934253693,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32401037216186523,
+      "brake": 0.0,
+      "steer": -1.5542762412223965e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.300000123679638,
+      "frame": 212020,
+      "xyz": [
+        210.47967529296875,
+        62.14767074584961,
+        0.03602161258459091
+      ],
+      "speed_mps": 3.5758322403340888,
+      "progress_m": 11.953502254150393,
+      "lateral_from_original_lane_m": 0.23611631989479065,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32446563243865967,
+      "brake": 0.0,
+      "steer": -1.3275622222863603e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.400000125169754,
+      "frame": 212022,
+      "xyz": [
+        210.48388671875,
+        61.78525161743164,
+        0.03602210804820061
+      ],
+      "speed_mps": 3.632036965868118,
+      "progress_m": 12.315921382568362,
+      "lateral_from_original_lane_m": 0.23611626029014587,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3250129222869873,
+      "brake": 0.0,
+      "steer": -1.2419680388120469e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.50000012665987,
+      "frame": 212024,
+      "xyz": [
+        210.48817443847656,
+        61.41732406616211,
+        0.036022644490003586
+      ],
+      "speed_mps": 3.6878397087985015,
+      "progress_m": 12.683848933837893,
+      "lateral_from_original_lane_m": 0.23611241579055786,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32485485076904297,
+      "brake": 0.0,
+      "steer": -1.0454289622430224e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.600000128149986,
+      "frame": 212026,
+      "xyz": [
+        210.4924774169922,
+        61.04391098022461,
+        0.036023255437612534
+      ],
+      "speed_mps": 3.743142900606887,
+      "progress_m": 13.057262019775393,
+      "lateral_from_original_lane_m": 0.23611657321453094,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32574811577796936,
+      "brake": 0.0,
+      "steer": -9.64592800301034e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.700000129640102,
+      "frame": 212028,
+      "xyz": [
+        210.49685668945312,
+        60.66507339477539,
+        0.0360238254070282
+      ],
+      "speed_mps": 3.7981351487718,
+      "progress_m": 13.436099605224612,
+      "lateral_from_original_lane_m": 0.23611681163311005,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32753947377204895,
+      "brake": 0.0,
+      "steer": -9.60132365435129e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.800000131130219,
+      "frame": 212030,
+      "xyz": [
+        210.5013427734375,
+        60.28082275390625,
+        0.03602428361773491
+      ],
+      "speed_mps": 3.852983604541837,
+      "progress_m": 13.820350246093753,
+      "lateral_from_original_lane_m": 0.2361128181219101,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3280438184738159,
+      "brake": 0.0,
+      "steer": -9.930950909620151e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 8.900000132620335,
+      "frame": 212032,
+      "xyz": [
+        210.50582885742188,
+        59.89118957519531,
+        0.0360245518386364
+      ],
+      "speed_mps": 3.9075230435408637,
+      "progress_m": 14.20998342480469,
+      "lateral_from_original_lane_m": 0.23611314594745636,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32813844084739685,
+      "brake": 0.0,
+      "steer": -1.0134676813322585e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 9.00000013411045,
+      "frame": 212034,
+      "xyz": [
+        210.51036071777344,
+        59.49620819091797,
+        0.03602501004934311
+      ],
+      "speed_mps": 3.9616092250431247,
+      "progress_m": 14.604964809082034,
+      "lateral_from_original_lane_m": 0.23611366748809814,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3282116949558258,
+      "brake": 0.0,
+      "steer": -1.0237547940050717e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 9.100000135600567,
+      "frame": 212036,
+      "xyz": [
+        210.5150604248047,
+        59.09592819213867,
+        0.036025505512952805
+      ],
+      "speed_mps": 4.015330598348361,
+      "progress_m": 15.005244807861331,
+      "lateral_from_original_lane_m": 0.2361132949590683,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3297653794288635,
+      "brake": 0.0,
+      "steer": -1.0283278243150562e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 9.250000137835741,
+      "frame": 212039,
+      "xyz": [
+        210.52207946777344,
+        58.485511779785156,
+        0.03602409362792969
+      ],
+      "speed_mps": 4.115977554270472,
+      "progress_m": 15.615661220214847,
+      "lateral_from_original_lane_m": 0.23611745238304138,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3311159610748291,
+      "brake": 0.0,
+      "steer": -9.534274795441888e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 9.350000139325857,
+      "frame": 212041,
+      "xyz": [
+        210.52688598632812,
+        58.07209014892578,
+        0.036024510860443115
+      ],
+      "speed_mps": 4.167450306968478,
+      "progress_m": 16.02908285107422,
+      "lateral_from_original_lane_m": 0.23611359298229218,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3313658833503723,
+      "brake": 0.0,
+      "steer": -7.834126336092595e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 9.450000140815973,
+      "frame": 212043,
+      "xyz": [
+        210.53176879882812,
+        57.65345001220703,
+        0.036025162786245346
+      ],
+      "speed_mps": 4.218518160836201,
+      "progress_m": 16.44772298779297,
+      "lateral_from_original_lane_m": 0.2361171692609787,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3327321410179138,
+      "brake": 0.0,
+      "steer": -7.180757165770046e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 9.55000014230609,
+      "frame": 212045,
+      "xyz": [
+        210.53665161132812,
+        57.229618072509766,
+        0.03602565824985504
+      ],
+      "speed_mps": 4.2695045068489845,
+      "progress_m": 16.871554927490237,
+      "lateral_from_original_lane_m": 0.2361101508140564,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.33445510268211365,
+      "brake": 0.0,
+      "steer": -6.356720859912457e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 9.650000143796206,
+      "frame": 212047,
+      "xyz": [
+        210.5415802001953,
+        56.80059814453125,
+        0.03602592274546623
+      ],
+      "speed_mps": 4.320433182416454,
+      "progress_m": 17.300574855468753,
+      "lateral_from_original_lane_m": 0.23611442744731903,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.33534616231918335,
+      "brake": 0.0,
+      "steer": -6.113873496360611e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 9.750000145286322,
+      "frame": 212049,
+      "xyz": [
+        210.54666137695312,
+        56.36641311645508,
+        0.036026228219270706
+      ],
+      "speed_mps": 4.3710585544575595,
+      "progress_m": 17.734759883544925,
+      "lateral_from_original_lane_m": 0.23611778020858765,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3354344069957733,
+      "brake": 0.0,
+      "steer": -6.32065393801895e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 9.850000146776438,
+      "frame": 212051,
+      "xyz": [
+        210.55172729492188,
+        55.92707824707031,
+        0.03602661192417145
+      ],
+      "speed_mps": 4.421463089533548,
+      "progress_m": 18.17409475292969,
+      "lateral_from_original_lane_m": 0.2361106127500534,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.337567538022995,
+      "brake": 0.0,
+      "steer": -7.0859346124052536e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 9.950000148266554,
+      "frame": 212053,
+      "xyz": [
+        210.5568084716797,
+        55.48260498046875,
+        0.036026954650878906
+      ],
+      "speed_mps": 4.471560981082801,
+      "progress_m": 18.618568019531253,
+      "lateral_from_original_lane_m": 0.23611143231391907,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.33946576714515686,
+      "brake": 0.0,
+      "steer": -7.904471203801222e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 10.05000014975667,
+      "frame": 212055,
+      "xyz": [
+        210.56207275390625,
+        55.03300476074219,
+        0.03602718189358711
+      ],
+      "speed_mps": 4.520827655932679,
+      "progress_m": 19.068168239257815,
+      "lateral_from_original_lane_m": 0.2361147701740265,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.34036538004875183,
+      "brake": 0.0,
+      "steer": -9.158647117146757e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 10.150000151246786,
+      "frame": 212057,
+      "xyz": [
+        210.5673370361328,
+        54.57828903198242,
+        0.0360274501144886
+      ],
+      "speed_mps": 4.571495838724028,
+      "progress_m": 19.52288396801758,
+      "lateral_from_original_lane_m": 0.23611858487129211,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.34101831912994385,
+      "brake": 0.0,
+      "steer": -9.931451131706126e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 10.250000152736902,
+      "frame": 212059,
+      "xyz": [
+        210.57261657714844,
+        54.11847686767578,
+        0.036027755588293076
+      ],
+      "speed_mps": 4.622145928877278,
+      "progress_m": 19.98269613232422,
+      "lateral_from_original_lane_m": 0.23611173033714294,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.34182292222976685,
+      "brake": 0.0,
+      "steer": -9.82072924671229e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 10.350000154227018,
+      "frame": 212061,
+      "xyz": [
+        210.5780029296875,
+        53.65358352661133,
+        0.03602806106209755
+      ],
+      "speed_mps": 4.672567600451903,
+      "progress_m": 20.447589473388675,
+      "lateral_from_original_lane_m": 0.23610800504684448,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.34239378571510315,
+      "brake": 0.0,
+      "steer": -9.457286978431512e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555557727813721
+    },
+    {
+      "sim_s": 10.450000155717134,
+      "frame": 212063,
+      "xyz": [
+        210.58346557617188,
+        53.18365478515625,
+        0.036028556525707245
+      ],
+      "speed_mps": 4.7225100249235625,
+      "progress_m": 20.917518214843753,
+      "lateral_from_original_lane_m": 0.23611168563365936,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.34167036414146423,
+      "brake": 0.0,
+      "steer": -8.99082442629151e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555558204650879
+    },
+    {
+      "sim_s": 10.55000015720725,
+      "frame": 212065,
+      "xyz": [
+        210.5889434814453,
+        52.708763122558594,
+        0.036029357463121414
+      ],
+      "speed_mps": 4.771578834399608,
+      "progress_m": 21.39240987744141,
+      "lateral_from_original_lane_m": 0.23611606657505035,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.34002435207366943,
+      "brake": 0.0,
+      "steer": -8.190104381355923e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555557727813721
+    },
+    {
+      "sim_s": 10.650000158697367,
+      "frame": 212067,
+      "xyz": [
+        210.59445190429688,
+        52.22901153564453,
+        0.03603046387434006
+      ],
+      "speed_mps": 4.819640489541214,
+      "progress_m": 21.87216146435547,
+      "lateral_from_original_lane_m": 0.2361091822385788,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.33770447969436646,
+      "brake": 0.0,
+      "steer": -7.495002591895172e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 10.800000160932541,
+      "frame": 212070,
+      "xyz": [
+        210.6029510498047,
+        51.500492095947266,
+        0.036032792180776596
+      ],
+      "speed_mps": 4.88945209122964,
+      "progress_m": 22.600680904052737,
+      "lateral_from_original_lane_m": 0.2361128181219101,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.33097726106643677,
+      "brake": 0.0,
+      "steer": -6.835816748207435e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 10.900000162422657,
+      "frame": 212072,
+      "xyz": [
+        210.60861206054688,
+        51.00912094116211,
+        0.03603504225611687
+      ],
+      "speed_mps": 4.933931976603165,
+      "progress_m": 23.092052058837893,
+      "lateral_from_original_lane_m": 0.236117422580719,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.33139947056770325,
+      "brake": 0.0,
+      "steer": -6.366338311636355e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 11.000000163912773,
+      "frame": 212074,
+      "xyz": [
+        210.61427307128906,
+        50.51338195800781,
+        0.036037445068359375
+      ],
+      "speed_mps": 4.976848296613627,
+      "progress_m": 23.58779104199219,
+      "lateral_from_original_lane_m": 0.23611502349376678,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32552435994148254,
+      "brake": 0.0,
+      "steer": -4.600819920597132e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 11.10000016540289,
+      "frame": 212076,
+      "xyz": [
+        210.6201171875,
+        50.01348114013672,
+        0.03621223196387291
+      ],
+      "speed_mps": 5.017050509077391,
+      "progress_m": 24.087691859863284,
+      "lateral_from_original_lane_m": 0.2361450344324112,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.32159778475761414,
+      "brake": 0.0,
+      "steer": -3.679051815197454e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 11.200000166893005,
+      "frame": 212078,
+      "xyz": [
+        210.62591552734375,
+        49.5123291015625,
+        0.036314696073532104
+      ],
+      "speed_mps": 5.00504413359887,
+      "progress_m": 24.588843898437503,
+      "lateral_from_original_lane_m": 0.23616093397140503,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3175410330295563,
+      "brake": 0.0,
+      "steer": -2.153702325813356e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 11.300000168383121,
+      "frame": 212080,
+      "xyz": [
+        210.63172912597656,
+        49.01002502441406,
+        0.036305733025074005
+      ],
+      "speed_mps": 4.985563399698788,
+      "progress_m": 25.09114797558594,
+      "lateral_from_original_lane_m": 0.23615972697734833,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3138201832771301,
+      "brake": 0.0,
+      "steer": 1.322099052458725e-07,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 11.450000170618296,
+      "frame": 212083,
+      "xyz": [
+        210.64048767089844,
+        48.25373840332031,
+        0.036224402487277985
+      ],
+      "speed_mps": 5.066532070657236,
+      "progress_m": 25.84743459667969,
+      "lateral_from_original_lane_m": 0.2361396998167038,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3096994459629059,
+      "brake": 0.0,
+      "steer": 2.0800810034415917e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555557727813721
+    },
+    {
+      "sim_s": 11.550000172108412,
+      "frame": 212085,
+      "xyz": [
+        210.64634704589844,
+        47.74897766113281,
+        0.03629238158464432
+      ],
+      "speed_mps": 5.061050725439862,
+      "progress_m": 26.35219533886719,
+      "lateral_from_original_lane_m": 0.23615768551826477,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3066568374633789,
+      "brake": 0.0,
+      "steer": 2.865681835828582e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 11.650000173598528,
+      "frame": 212087,
+      "xyz": [
+        210.6522216796875,
+        47.242191314697266,
+        0.03626464679837227
+      ],
+      "speed_mps": 5.091638170936574,
+      "progress_m": 26.858981685302737,
+      "lateral_from_original_lane_m": 0.23615358769893646,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3058949112892151,
+      "brake": 0.0,
+      "steer": 2.561494056863012e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 11.750000175088644,
+      "frame": 212089,
+      "xyz": [
+        210.6580810546875,
+        46.7368049621582,
+        0.036284446716308594
+      ],
+      "speed_mps": 5.082296753607809,
+      "progress_m": 27.3643680378418,
+      "lateral_from_original_lane_m": 0.23615662753582,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3048379421234131,
+      "brake": 0.0,
+      "steer": 8.772517503530253e-07,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 11.85000017657876,
+      "frame": 212091,
+      "xyz": [
+        210.6639404296875,
+        46.2314453125,
+        0.036278534680604935
+      ],
+      "speed_mps": 5.086886046685576,
+      "progress_m": 27.869727687500003,
+      "lateral_from_original_lane_m": 0.23615571856498718,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.30386972427368164,
+      "brake": 0.0,
+      "steer": -6.246015686883766e-07,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556774139404
+    },
+    {
+      "sim_s": 11.950000178068876,
+      "frame": 212093,
+      "xyz": [
+        210.6697998046875,
+        45.72527313232422,
+        0.03626556321978569
+      ],
+      "speed_mps": 5.0970652596588,
+      "progress_m": 28.375899867675784,
+      "lateral_from_original_lane_m": 0.23614636063575745,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3032667338848114,
+      "brake": 0.0,
+      "steer": -1.9851417221161682e-07,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 12.050000179558992,
+      "frame": 212095,
+      "xyz": [
+        210.6756591796875,
+        45.217933654785156,
+        0.036255188286304474
+      ],
+      "speed_mps": 5.109572203379148,
+      "progress_m": 28.883239345214847,
+      "lateral_from_original_lane_m": 0.23614871501922607,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.3027878701686859,
+      "brake": 0.0,
+      "steer": 3.036731413885718e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.5555572509765625
+    },
+    {
+      "sim_s": 12.150000181049109,
+      "frame": 212097,
+      "xyz": [
+        210.6815185546875,
+        44.70928192138672,
+        0.03624912351369858
+      ],
+      "speed_mps": 5.122901914853871,
+      "progress_m": 29.391891078613284,
+      "lateral_from_original_lane_m": 0.23614831268787384,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.30230045318603516,
+      "brake": 0.0,
+      "steer": 9.20476668397896e-06,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 12.250000182539225,
+      "frame": 212099,
+      "xyz": [
+        210.68739318847656,
+        44.199275970458984,
+        0.036246031522750854
+      ],
+      "speed_mps": 5.136406326391245,
+      "progress_m": 29.90189702954102,
+      "lateral_from_original_lane_m": 0.23614458739757538,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.30173352360725403,
+      "brake": 0.0,
+      "steer": 1.7823089365265332e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    },
+    {
+      "sim_s": 12.35000018402934,
+      "frame": 212101,
+      "xyz": [
+        210.693359375,
+        43.687923431396484,
+        0.03624492511153221
+      ],
+      "speed_mps": 5.149813154702455,
+      "progress_m": 30.41324956860352,
+      "lateral_from_original_lane_m": 0.23615160584449768,
+      "clearance_m": null,
+      "mode": 2,
+      "throttle": 0.30111008882522583,
+      "brake": 0.0,
+      "steer": 2.8211874450789765e-05,
+      "objects_by_class": {},
+      "matches": [],
+      "hazard_xyz": [],
+      "trajectory_max_speed": 5.555556297302246
+    }
+  ],
+  "events": [
+    {
+      "event": "stop",
+      "sim_time": 4223.950062941,
+      "status": {
+        "success": true,
+        "code": 60001,
+        "message": "The mode is the same as the current."
+      }
+    },
+    {
+      "event": "clear_previous_route",
+      "sim_time": 4224.000062942,
+      "status": {
+        "success": true,
+        "code": 0,
+        "message": ""
+      }
+    },
+    {
+      "event": "traffic_isolated",
+      "sim_time": 4224.000062942,
+      "removed_vehicle_ids": [
+        207,
+        206,
+        204,
+        203,
+        202,
+        201,
+        199,
+        197,
+        196,
+        194,
+        193,
+        192,
+        188,
+        186,
+        185,
+        184,
+        183,
+        179,
+        178
+      ]
+    },
+    {
+      "event": "set_test_route",
+      "sim_time": 4230.55006304,
+      "status": {
+        "success": true,
+        "code": 0,
+        "message": ""
+      }
+    },
+    {
+      "event": "engage_autonomous",
+      "sim_time": 4230.60006304,
+      "status": {
+        "success": true,
+        "code": 0,
+        "message": ""
+      }
+    },
+    {
+      "event": "progress",
+      "sim_time": 4230.900063045,
+      "speed_mps": 2.479554596248135e-07,
+      "progress_m": -4.0087890340601007e-07,
+      "lateral_m": 0.23613068461418152,
+      "clearance_m": null,
+      "objects": {}
+    },
+    {
+      "event": "progress",
+      "sim_time": 4232.950063075,
+      "speed_mps": 0.5129972246568393,
+      "progress_m": 0.15399892773437784,
+      "lateral_m": 0.2361171543598175,
+      "clearance_m": null,
+      "objects": {}
+    },
+    {
+      "event": "progress",
+      "sim_time": 4234.950063105,
+      "speed_mps": 1.3461589231121878,
+      "progress_m": 1.9879222675781278,
+      "lateral_m": 0.23612643778324127,
+      "clearance_m": null,
+      "objects": {}
+    },
+    {
+      "event": "progress",
+      "sim_time": 4236.900063134,
+      "speed_mps": 2.35670962680984,
+      "progress_m": 5.566894130371097,
+      "lateral_m": 0.23612655699253082,
+      "clearance_m": null,
+      "objects": {}
+    },
+    {
+      "event": "progress",
+      "sim_time": 4239.000063166,
+      "speed_mps": 3.5192526683794303,
+      "progress_m": 11.596648769042972,
+      "lateral_m": 0.23611564934253693,
+      "clearance_m": null,
+      "objects": {}
+    },
+    {
+      "event": "progress",
+      "sim_time": 4241.050063196,
+      "speed_mps": 4.622145928877278,
+      "progress_m": 19.98269613232422,
+      "lateral_m": 0.23611173033714294,
+      "clearance_m": null,
+      "objects": {}
+    },
+    {
+      "event": "progress",
+      "sim_time": 4243.000063225,
+      "speed_mps": 5.136406326391245,
+      "progress_m": 29.90189702954102,
+      "lateral_m": 0.23614458739757538,
+      "clearance_m": null,
+      "objects": {}
+    },
+    {
+      "event": "stop",
+      "sim_time": 4243.150063227,
+      "status": {
+        "success": true,
+        "code": 0,
+        "message": ""
+      }
+    },
+    {
+      "event": "clear_test_route",
+      "sim_time": 4245.950063269,
+      "status": {
+        "success": true,
+        "code": 0,
+        "message": ""
+      }
+    }
+  ],
+  "planning_factors": {},
+  "rtc": {},
+  "success": true,
+  "result": "baseline_drive_pass",
+  "cleanup": {
+    "stop_verified": true,
+    "test_speed_limit_clear_sent": true,
+    "route_cleared": true,
+    "errors": []
+  },
+  "original_scene": [
+    {
+      "id": 207,
+      "type": "vehicle.nissan.micra",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "243,243,243",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -184.15313720703125,
+        -124.8782958984375,
+        0.03645315021276474
+      ],
+      "rpy": [
+        -0.3778991997241974,
+        -0.004576226696372032,
+        -61.33771896362305
+      ]
+    },
+    {
+      "id": 206,
+      "type": "vehicle.toyota.prius",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "255,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -78.13096618652344,
+        153.3057098388672,
+        0.09172361344099045
+      ],
+      "rpy": [
+        0.10046344995498657,
+        -0.0002458867966197431,
+        -12.565937995910645
+      ]
+    },
+    {
+      "id": 204,
+      "type": "vehicle.lincoln.mkz_2017",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "16,16,16",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -50.66915512084961,
+        -190.01625061035156,
+        5.844597816467285
+      ],
+      "rpy": [
+        0.0009337216033600271,
+        -7.265196800231934,
+        0.06625909358263016
+      ]
+    },
+    {
+      "id": 203,
+      "type": "vehicle.nissan.patrol",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "183,187,162",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        51.07402420043945,
+        208.82054138183594,
+        -0.0007382392650470138
+      ],
+      "rpy": [
+        -0.0007019041222520173,
+        0.5361903309822083,
+        0.29033204913139343
+      ]
+    },
+    {
+      "id": 202,
+      "type": "vehicle.nissan.patrol_2021",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "217,217,217",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        44.4555549621582,
+        205.28811645507812,
+        0.0020787238609045744
+      ],
+      "rpy": [
+        0.0004897564649581909,
+        0.2331143468618393,
+        0.29289302229881287
+      ]
+    },
+    {
+      "id": 201,
+      "type": "vehicle.dodge.charger_police",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "emergency",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "0,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -191.5850372314453,
+        -91.53632354736328,
+        0.0035934257321059704
+      ],
+      "rpy": [
+        -0.0650024488568306,
+        -0.2256421148777008,
+        90.1240234375
+      ]
+    },
+    {
+      "id": 199,
+      "type": "vehicle.tesla.model3",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "17,37,103",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -92.04151916503906,
+        -204.0721893310547,
+        9.948078155517578
+      ],
+      "rpy": [
+        -0.00027465802850201726,
+        1.661163330078125,
+        -179.92616271972656
+      ]
+    },
+    {
+      "id": 197,
+      "type": "vehicle.mini.cooper_s",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "217,217,217",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -79.73674011230469,
+        -207.55552673339844,
+        9.307145118713379
+      ],
+      "rpy": [
+        -0.00024414045037701726,
+        4.694798469543457,
+        -179.92724609375
+      ]
+    },
+    {
+      "id": 196,
+      "type": "vehicle.mini.cooper_s_2021",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "73,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -52.66340255737305,
+        -193.5192108154297,
+        6.065864562988281
+      ],
+      "rpy": [
+        0.0022542288061231375,
+        -7.162081241607666,
+        0.06093502417206764
+      ]
+    },
+    {
+      "id": 194,
+      "type": "vehicle.lincoln.mkz_2020",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "special_type": "",
+        "driver_id": "0",
+        "color": "0,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -108.13072204589844,
+        -4.187510967254639,
+        -0.004654941614717245
+      ],
+      "rpy": [
+        -3.051757266803179e-05,
+        -0.012150906026363373,
+        179.86212158203125
+      ]
+    },
+    {
+      "id": 193,
+      "type": "vehicle.dodge.charger_police",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "emergency",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "0,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        28.055089950561523,
+        139.9921417236328,
+        -0.03002147562801838
+      ],
+      "rpy": [
+        1.876134774647653e-05,
+        -0.04950520768761635,
+        90.02511596679688
+      ]
+    },
+    {
+      "id": 192,
+      "type": "vehicle.nissan.patrol_2021",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "217,217,217",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        52.72605895996094,
+        191.32937622070312,
+        0.0028916930314153433
+      ],
+      "rpy": [
+        -3.051759995287284e-05,
+        0.11765000224113464,
+        -179.7135467529297
+      ]
+    },
+    {
+      "id": 188,
+      "type": "vehicle.audi.a2",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "168,0,27",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -130.5677490234375,
+        132.2076873779297,
+        -0.0004016303864773363
+      ],
+      "rpy": [
+        0.046507883816957474,
+        -0.7717567086219788,
+        90.7427749633789
+      ]
+    },
+    {
+      "id": 186,
+      "type": "vehicle.dodge.charger_police",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "emergency",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "0,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        28.332401275634766,
+        -33.62786102294922,
+        -0.03045707568526268
+      ],
+      "rpy": [
+        -0.0009155274019576609,
+        0.004193735774606466,
+        91.53396606445312
+      ]
+    },
+    {
+      "id": 185,
+      "type": "vehicle.audi.a2",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "168,0,27",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -146.49057006835938,
+        94.90530395507812,
+        -0.007787475362420082
+      ],
+      "rpy": [
+        3.8360583857866004e-05,
+        0.06396471709012985,
+        0.41983312368392944
+      ]
+    },
+    {
+      "id": 184,
+      "type": "vehicle.nissan.micra",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "243,243,243",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        10.185871124267578,
+        201.6167755126953,
+        -0.018620546907186508
+      ],
+      "rpy": [
+        -0.000640869140625,
+        -0.09612807631492615,
+        0.2644507586956024
+      ]
+    },
+    {
+      "id": 183,
+      "type": "vehicle.chevrolet.impala",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "61,86,143",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -124.52124786376953,
+        22.773658752441406,
+        -0.0074783130548894405
+      ],
+      "rpy": [
+        6.585231631106581e-07,
+        -9.56226431299001e-05,
+        -90.47005462646484
+      ]
+    },
+    {
+      "id": 179,
+      "type": "vehicle.lincoln.mkz_2017",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "16,16,16",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -31.246307373046875,
+        84.53987121582031,
+        0.03499853238463402
+      ],
+      "rpy": [
+        -0.00396728515625,
+        -0.14495709538459778,
+        -178.66146850585938
+      ]
+    },
+    {
+      "id": 178,
+      "type": "vehicle.nissan.micra",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "243,243,243",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        25.12532615661621,
+        -44.63713836669922,
+        -0.019031580537557602
+      ],
+      "rpy": [
+        0.0011487379670143127,
+        0.0021310187876224518,
+        91.53323364257812
+      ]
+    },
+    {
+      "id": 173,
+      "type": "vehicle.toyota.prius",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "23,51,236",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "ego_vehicle"
+      },
+      "xyz": [
+        -46.73564910888672,
+        48.37295150756836,
+        0.09156123548746109
+      ],
+      "rpy": [
+        0.0,
+        5.464151035994291e-05,
+        -91.3704833984375
+      ]
+    }
+  ],
+  "ego_id": 173,
+  "selected_velocity_limit": {
+    "stamp": {
+      "sec": 4230,
+      "nanosec": 63031
+    },
+    "max_velocity": 5.55555534362793,
+    "use_constraints": true,
+    "constraints": {
+      "max_acceleration": 0.699999988079071,
+      "min_acceleration": -5.0,
+      "max_jerk": 1.399999976158142,
+      "min_jerk": -3.5
+    },
+    "sender": "carla_closed_loop_test"
+  },
+  "hazards": [],
+  "test_start": {
+    "id": 173,
+    "type": "vehicle.toyota.prius",
+    "attributes": {
+      "has_dynamic_doors": "false",
+      "generation": "1",
+      "number_of_wheels": "4",
+      "special_type": "electric",
+      "base_type": "car",
+      "object_type": "",
+      "sticky_control": "true",
+      "color": "23,51,236",
+      "terramechanics": "false",
+      "ros_publish_tf": "true",
+      "ros_frame_id": "",
+      "ros_name": "",
+      "has_lights": "false",
+      "role_name": "ego_vehicle"
+    },
+    "xyz": [
+      210.340576171875,
+      74.1011734008789,
+      0.036110688000917435
+    ],
+    "rpy": [
+      0.0,
+      0.00010245283192489296,
+      -89.3353271484375
+    ]
+  },
+  "goal": {
+    "position": {
+      "x": 210.09645080566406,
+      "y": 66.32601165771484,
+      "z": 0.0
+    },
+    "orientation": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.7112234866593978,
+      "w": 0.7029659678989086
+    }
+  },
+  "max_speed_mps": 5.149813154702455,
+  "max_lateral_m": 0.23616093397140503,
+  "max_progress_m": 30.41324956860352,
+  "min_clearance_m": null,
+  "collisions": [],
+  "pedestrian_states": {},
+  "fixture_actor_ids": [
+    208
+  ],
+  "factor_message_counts": {}
+}

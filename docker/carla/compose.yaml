@@ -37,6 +37,7 @@ services:
         vehicle_model:=sample_vehicle
         sensor_model:=carla_sensor_kit
         simulator_type:=carla
+        carla_perception_mode:=${CARLA_PERCEPTION_MODE:-sensor}
         planning_module_preset:=carla_city
         localization:=${CARLA_AUTOWARE_LOCALIZATION:-true}
         use_carla_direct_localization:=${CARLA_DIRECT_LOCALIZATION:-false}

@@ -1,0 +1,6 @@
+# Additional input for CARLA ground-truth planning/control validation only.
+# Load after the shared AEB parameter file; keep its LiDAR fallback and tuning.
+# This is not a fix or a performance claim for the sensor perception pipeline.
+/**:
+  ros__parameters:
+    use_predicted_object_data: true

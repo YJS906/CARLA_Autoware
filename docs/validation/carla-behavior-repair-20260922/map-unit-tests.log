@@ -1,0 +1,12 @@
+test_changes_only_proven_tags_preserves_geometry_regulations_and_speed (__main__.MapIntegrationTests.test_changes_only_proven_tags_preserves_geometry_regulations_and_speed) ... ok
+test_existing_user_prohibition_preserved (__main__.MapIntegrationTests.test_existing_user_prohibition_preserved) ... ok
+test_asymmetric_unknown_and_missing_permissions_denied (__main__.PermissionTests.test_asymmetric_unknown_and_missing_permissions_denied) ... ok
+test_dashed_does_not_override_explicit_prohibition (__main__.PermissionTests.test_dashed_does_not_override_explicit_prohibition) ... ok
+test_opposite_direction_and_disconnected_lanes_denied (__main__.PermissionTests.test_opposite_direction_and_disconnected_lanes_denied) ... ok
+test_shared_marking_belongs_to_inner_lane_on_both_sides (__main__.PermissionTests.test_shared_marking_belongs_to_inner_lane_on_both_sides) ... ok
+test_short_solid_segment_not_missed_by_sampling (__main__.PermissionTests.test_short_solid_segment_not_missed_by_sampling) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 7.628s
+
+OK

@@ -1,0 +1,164 @@
+{
+  "frame_seconds": 0.05,
+  "stop_threshold_mps": 0.15,
+  "timing_note": "Frame differences use the recorded 0.05 s step. Do not subtract ROS event times from CARLA sensor timestamps.",
+  "raw_time_domains": {
+    "samples[].sim_s": "Elapsed CARLA world snapshot time from trial loop start",
+    "events[].sim_time": "ROS node clock (absolute)",
+    "collisions[].timestamp": "CARLA collision event timestamp (absolute)",
+    "pedestrian_states.*.trigger_time/stop_time": "CARLA snapshot timestamp (absolute)",
+    "ROS message header/stamp fields": "ROS clock"
+  },
+  "cases": {
+    "baseline": {
+      "result": "baseline_drive_pass",
+      "speed_cap_kmh": 20,
+      "observed_peak_kmh": 18.53932735692884,
+      "sample_end_s": 12.35000018402934,
+      "max_progress_m": 30.41324956860352,
+      "min_clearance_m": null,
+      "final_clearance_m": null,
+      "max_lateral_m": 0.23616093397140503,
+      "collision_records": 0,
+      "stop_intervals": []
+    },
+    "vehicle_stop": {
+      "result": "stopped_before_hazard",
+      "speed_cap_kmh": 20,
+      "observed_peak_kmh": 18.298323921976262,
+      "sample_end_s": 21.1000003144145,
+      "max_progress_m": 35.97096975292969,
+      "min_clearance_m": 4.743288762294876,
+      "final_clearance_m": 4.744036392652872,
+      "max_lateral_m": 0.23336329504822592,
+      "collision_records": 0,
+      "stop_intervals": [
+        {
+          "start_s": 13.800000205636024,
+          "end_s": 15.000000223517418,
+          "duration_s": 1.2000000178813934,
+          "start_frame": 214315,
+          "end_frame": 214339,
+          "start_progress_m": 34.360160426757815,
+          "end_progress_m": 34.384749965332034,
+          "start_clearance_m": 6.351279533173902,
+          "end_clearance_m": 6.330841229420201
+        },
+        {
+          "start_s": 16.950000252574682,
+          "end_s": 17.900000266730785,
+          "duration_s": 0.9500000141561031,
+          "start_frame": 214378,
+          "end_frame": 214397,
+          "start_progress_m": 35.53874547924805,
+          "end_progress_m": 35.57955892529297,
+          "start_clearance_m": 5.175535019656678,
+          "end_clearance_m": 5.136595891353835
+        },
+        {
+          "start_s": 19.10000028461218,
+          "end_s": 21.1000003144145,
+          "duration_s": 2.0000000298023224,
+          "start_frame": 214421,
+          "end_frame": 214461,
+          "start_progress_m": 35.97073324169922,
+          "end_progress_m": 35.97096975292969,
+          "start_clearance_m": 4.743288762294876,
+          "end_clearance_m": 4.744036392652872
+        }
+      ],
+      "creep_after_first_pause": {
+        "duration_s": 4.100000061094761,
+        "progress_m": 1.5859832763671875,
+        "peak_kmh": 3.3159287903207892
+      }
+    },
+    "vehicle_avoidance": {
+      "result": "timeout_no_completed_maneuver",
+      "speed_cap_kmh": 20,
+      "observed_peak_kmh": 18.28272393736238,
+      "sample_end_s": 45.000000670552254,
+      "max_progress_m": 35.7490230366211,
+      "min_clearance_m": 4.950767337518237,
+      "final_clearance_m": 4.951785262150907,
+      "max_lateral_m": 0.05173707774638814,
+      "collision_records": 0,
+      "stop_intervals": [
+        {
+          "start_s": 12.35000018402934,
+          "end_s": 13.200000196695328,
+          "duration_s": 0.850000012665987,
+          "start_frame": 215822,
+          "end_frame": 215839,
+          "start_progress_m": 29.633849696777347,
+          "end_progress_m": 29.663699702880862,
+          "start_clearance_m": 11.0179195947572,
+          "end_clearance_m": 10.994481114042141
+        },
+        {
+          "start_s": 17.600000262260437,
+          "end_s": 18.950000282377005,
+          "duration_s": 1.3500000201165676,
+          "start_frame": 215927,
+          "end_frame": 215954,
+          "start_progress_m": 34.9116092487793,
+          "end_progress_m": 34.92469366040039,
+          "start_clearance_m": 5.7920542069998735,
+          "end_clearance_m": 5.7830242844601685
+        },
+        {
+          "start_s": 20.65000030770898,
+          "end_s": 45.000000670552254,
+          "duration_s": 24.350000362843275,
+          "start_frame": 215988,
+          "end_frame": 216475,
+          "start_progress_m": 35.74878271069336,
+          "end_progress_m": 35.7490230366211,
+          "start_clearance_m": 4.950973494313437,
+          "end_clearance_m": 4.951785262150907
+        }
+      ]
+    },
+    "pedestrian_stop": {
+      "result": "collision",
+      "speed_cap_kmh": 20,
+      "observed_peak_kmh": 19.1135392784887,
+      "sample_end_s": 14.70000021904707,
+      "max_progress_m": 43.03229864086914,
+      "min_clearance_m": 0.0,
+      "final_clearance_m": 0.0,
+      "max_lateral_m": 0.004034631247208154,
+      "collision_records": 43,
+      "stop_intervals": [],
+      "pedestrian_evidence": {
+        "trigger_frame": 218319,
+        "stop_frame": 218356,
+        "first_collision_frame": 218406,
+        "trigger_to_collision_s": 4.3500000000000005,
+        "pedestrian_stop_to_collision_s": 2.5,
+        "trigger_elapsed_s": 10.300000001490117,
+        "stop_elapsed_s": 12.150000001490117,
+        "collision_elapsed_s": 14.650000001490117,
+        "first_sample_within_0_5m_of_approach_line_frame": 218352,
+        "stopped_sample_frame": 218356,
+        "stopped_sample_signed_approach_lateral_m": -0.04678698617615634,
+        "stopped_sample_carla_xyz": [
+          210.81849670410156,
+          28.87029266357422,
+          0.9514999389648438
+        ],
+        "last_pre_collision_sample_frame": 218405,
+        "last_pre_collision_speed_kmh": 19.1135392784887,
+        "last_pre_collision_brake": 0.0,
+        "nonempty_predicted_object_samples": 0,
+        "total_samples": 136
+      }
+    }
+  },
+  "raw_sha256": {
+    "baseline.json": "5112ca9563e7fc3f8c929863e5307847e850e70f75ee9c98ff41d97984e1ee74",
+    "vehicle_stop.json": "5b86f2a9c04c42557086b12bba559baec9b7c6a4db7ef2a31a115a0c32342212",
+    "vehicle_avoidance.json": "daa4a527beab5ecd67a850529598fe3757267c8c1b564cb860d68cbeecb4ba73",
+    "pedestrian_stop.json": "9b45e4fd3bc1263a5e05054a0b80bd77a6100088feb0c55efe07e1f29dce7eb8"
+  }
+}
