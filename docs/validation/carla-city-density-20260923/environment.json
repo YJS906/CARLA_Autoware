@@ -1,0 +1,11 @@
+{
+  "image": "sha256:8bb3d0e11efdab30363636d1bddbeeae8334bb86f3699b18ef2deaf125bf5f1a",
+  "map_sha256": "44628aefb80c91e64d8d65c318f257b96182e8365406483f7747a343ea8b1ef8",
+  "source_files_sha256": {
+    "tools/carla_city_traffic.py": "0829843b87b5c9c0b10fe77a85bd61acd9cf80b23cf58cf5dec7d661f0aac3b7",
+    "tools/carla_city_traffic_probe.py": "4ba4ca758b0f41a941d693fd6beeb016537762c99787f4bcc9c0bea1279a1a19",
+    "scripts/carla/carla_city_traffic": "3b2790f8fea002bd6d2fa466e35ba30c8484e426e502d624c8c6c135339c92cc",
+    "config/carla/traffic/city_dense.json": "90162c09665825fbd84751832b6506c78b2bcc9827cf777ec326e447d798c30a"
+  },
+  "note": "Current config targets250NPCvehicles/500walkers; fixed_delta_seconds remains0.05; controller observes existing bridge ticks. Source hashes describe saved files. Ego continued driving and route/pose were not altered by the population tools."
+}

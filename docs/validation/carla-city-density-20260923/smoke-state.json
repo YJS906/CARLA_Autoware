@@ -1,0 +1,113 @@
+{
+  "pid": 352395,
+  "updated_at": 1790127151.2971096,
+  "status": "running",
+  "world_id": 16568732170033816192,
+  "map": "Carla/Maps/Town05_Opt",
+  "frame": 1563151,
+  "config": {
+    "vehicles": 12,
+    "walkers": 20,
+    "vehicle_speed_difference_percent": 30,
+    "following_distance_m": 3.0,
+    "auto_lane_change": false,
+    "crossing_factor": 0.15,
+    "vehicle_batch_size": 16,
+    "walker_batch_size": 24,
+    "update_interval_s": 2.0,
+    "ego_clearance_m": 15.0,
+    "walker_speed_min_mps": 1.0,
+    "walker_speed_max_mps": 1.6
+  },
+  "counts": {
+    "vehicles": 12,
+    "walkers": 20,
+    "all_vehicles": 13,
+    "egos": 1,
+    "controllers": 20
+  },
+  "owned": {
+    "vehicles": [
+      437,
+      438,
+      439,
+      440,
+      441,
+      442
+    ],
+    "walkers": [
+      443,
+      444,
+      445,
+      446,
+      447,
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454,
+      467,
+      468,
+      469,
+      470,
+      471,
+      472,
+      479,
+      480,
+      483
+    ],
+    "controllers": [
+      455,
+      456,
+      457,
+      458,
+      459,
+      460,
+      461,
+      462,
+      463,
+      464,
+      465,
+      466,
+      473,
+      474,
+      475,
+      476,
+      477,
+      478,
+      481,
+      482,
+      484
+    ]
+  },
+  "nonowned": {
+    "vehicles": 6,
+    "walkers": -1
+  },
+  "target_shortfall": {
+    "vehicles": 0,
+    "walkers": 0
+  },
+  "moving": {
+    "vehicles": 8,
+    "walkers": 0
+  },
+  "mean_speed_mps": {
+    "vehicles": 8.572192118349593,
+    "walkers": 0.0
+  },
+  "world_fps": 19.974088671610666,
+  "simulation_speed_ratio": 0.998704448462389,
+  "measurement_window_s": 118.50352919301076,
+  "native_vehicle_spawn_points": 225,
+  "spawn_failures": {
+    "vehicles": 0,
+    "walkers": 10,
+    "controllers": 0,
+    "navigation": 0
+  },
+  "errors": [],
+  "tick_owner": false
+}

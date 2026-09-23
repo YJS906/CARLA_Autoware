@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+"""Manage the city population without restarting CARLA or Autoware."""
+import argparse
+import json
+import os
+from pathlib import Path
+import signal
+import subprocess
+import sys
+import time
+
+ROOT = Path(__file__).resolve().parents[2]
+CONTROLLER = ROOT / 'tools/carla_city_traffic.py'
+STATE_DIR = Path(os.environ.get('XDG_STATE_HOME', str(Path.home()/'.local/state'))) / 'carla_pp/city-traffic'
+PID_FILE = STATE_DIR / 'controller.pid'
+STATE_FILE = STATE_DIR / 'state.json'
+LOG_FILE = STATE_DIR / 'controller.log'
+
+
+def running_pid():
+    try:
+        pid = int(PID_FILE.read_text())
+        args = Path(f'/proc/{pid}/cmdline').read_bytes().split(b'\0')
+        return pid if str(CONTROLLER).encode() in args and str(STATE_FILE).encode() in args else None
+    except (FileNotFoundError, ValueError, ProcessLookupError):
+        return None
+
+
+def show_status():
+    result = {'running': running_pid() is not None, 'pid': running_pid(),
+              'state_file': str(STATE_FILE), 'log_file': str(LOG_FILE)}
+    if STATE_FILE.exists():
+        state = json.loads(STATE_FILE.read_text())
+        # Actor IDs remain available in the state file for ownership/cleanup audit.
+        def compact(value):
+            if isinstance(value, dict):
+                return {k:compact(v) for k,v in value.items() if not k.endswith('_ids')}
+            if isinstance(value, list) and len(value)>10:
+                return {'count':len(value), 'last_items':value[-3:]}
+            return value
+        result['state'] = compact(state)
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('action', choices=('start','stop','status'))
+    parser.add_argument('--config', type=Path, default=ROOT/'config/carla/traffic/city_dense.json')
+    args = parser.parse_args()
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    if args.action == 'status':
+        show_status()
+        return 0
+    pid = running_pid()
+    if args.action == 'stop':
+        if pid is None:
+            print('City traffic controller is not running.')
+            return 0
+        os.kill(pid, signal.SIGTERM)
+        until = time.monotonic()+25
+        while running_pid() is not None and time.monotonic()<until:
+            time.sleep(.2)
+        if running_pid() is not None:
+            print(f'Controller is still cleaning up. Check {LOG_FILE}', file=sys.stderr)
+            return 1
+        PID_FILE.unlink(missing_ok=True)
+        state = json.loads(STATE_FILE.read_text()) if STATE_FILE.exists() else {}
+        if state.get('status') != 'stopped' or any(state.get('owned',{}).values()):
+            print(f'Controller exited, but actor cleanup needs inspection: {STATE_FILE}', file=sys.stderr)
+            return 1
+        print('City traffic stopped; only controller-owned actors were removed.')
+        return 0
+    if pid is not None:
+        print('City traffic is already running. Changes to its JSON config are read automatically.')
+        show_status()
+        return 0
+    config = args.config.resolve(strict=True)
+    json.loads(config.read_text())
+    python = os.environ.get('CARLA_PYTHON','/home/a/CARLA/venv-0.9.16/bin/python')
+    command = ['flock','--nonblock','--no-fork',str(STATE_DIR/'controller.lock'),
+               python,'-u',str(CONTROLLER),'--config',str(config),'--state',str(STATE_FILE)]
+    with LOG_FILE.open('ab', buffering=0) as logfile:
+        process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=logfile,
+                                   stderr=subprocess.STDOUT, start_new_session=True)
+    PID_FILE.write_text(str(process.pid)+'\n')
+    time.sleep(.8)
+    if process.poll() is not None:
+        PID_FILE.unlink(missing_ok=True)
+        print(f'City traffic failed to start. Check {LOG_FILE}', file=sys.stderr)
+        return 1
+    print(f'City traffic started (PID {process.pid}). Config: {config}')
+    print(f'Status: {STATE_FILE}')
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

@@ -112,6 +112,9 @@ See the [object input mode guide](docs/carla-ground-truth.md),
 [lane-change map repair](docs/carla-town05-lane-changes.md), and
 [raw validation evidence](docs/validation/carla-behavior-repair-20260922/README.md).
 
+For dense background vehicles and roaming pedestrians without restarting
+Autoware, see [Town05 city traffic settings](docs/carla-city-traffic.md).
+
 See the earlier [Town05 repair and validation record](docs/carla-repair-20260922.md)
 for the Prius calibration, CARLA planning preset, native traffic signals/crosswalks,
 map preparation and runtime commands. Custom CARLA bridge changes are maintained

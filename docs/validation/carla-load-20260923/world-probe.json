@@ -1,0 +1,7555 @@
+{
+  "utc_epoch": 1790128223.2820451,
+  "world_id": 16568732170033816192,
+  "map": "Carla/Maps/Town05_Opt",
+  "duration_wall_s": 40.07726009299222,
+  "world_fps": 6.961553742761597,
+  "simulation_speed_ratio": 0.3480776923248416,
+  "motion_note": "AI walker reported velocity may be zero; movement is also verified from snapshot position changes.",
+  "median_frame_wall_s": 0.14209423400461674,
+  "p95_frame_wall_s": 0.16253884699835908,
+  "groups": {
+    "vehicles": {
+      "count": 250,
+      "moving_now_reported": 80,
+      "survived_sample": 250,
+      "moved_over_1m": 135,
+      "mean_reported_speed_mps": 2.5290726235785614,
+      "mean_displacement_speed_mps": 2.654433060879132,
+      "within_100m_of_ego": 68
+    },
+    "walkers": {
+      "count": 500,
+      "moving_now_reported": 0,
+      "survived_sample": 496,
+      "moved_over_1m": 259,
+      "mean_reported_speed_mps": 0.0001713649481534958,
+      "mean_displacement_speed_mps": 0.5282958986290335,
+      "within_100m_of_ego": 65
+    }
+  },
+  "ego": [
+    {
+      "type": "vehicle.toyota.prius",
+      "role": "ego_vehicle",
+      "xyz": [
+        -110.6875,
+        -91.56163024902344,
+        0.03606288880109787
+      ],
+      "speed_mps": 0.37795597314834595
+    }
+  ],
+  "actors": {
+    "1793": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        112.6227035522461,
+        -19.52656364440918,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1792": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        116.9853515625,
+        -149.896728515625,
+        1.1357372999191284
+      ],
+      "speed_mps": 0.0
+    },
+    "1791": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        -168.62124633789062,
+        78.12273406982422,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1788": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        41.77341079711914,
+        79.44803619384766,
+        1.1039130687713623
+      ],
+      "speed_mps": 0.0
+    },
+    "1787": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        69.35121154785156,
+        -157.11207580566406,
+        1.1331520080566406
+      ],
+      "speed_mps": 0.0
+    },
+    "1767": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        -276.470458984375,
+        80.69141387939453,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1766": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        -106.38166809082031,
+        -81.78829956054688,
+        0.8238999843597412
+      ],
+      "speed_mps": 0.0
+    },
+    "1765": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        70.01884460449219,
+        76.61209106445312,
+        1.1006219387054443
+      ],
+      "speed_mps": 0.0
+    },
+    "1764": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        -85.5524673461914,
+        -8.746198654174805,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1763": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        -66.73388671875,
+        11.34348201751709,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1762": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        153.88662719726562,
+        204.0960693359375,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1761": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        219.05262756347656,
+        88.01602172851562,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1760": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        -39.92277145385742,
+        75.24004364013672,
+        1.1589149236679077
+      ],
+      "speed_mps": 0.0
+    },
+    "1759": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -214.71932983398438,
+        10.27146053314209,
+        0.8238999247550964
+      ],
+      "speed_mps": 0.0
+    },
+    "1758": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        -114.18760681152344,
+        32.438716888427734,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1757": {
+      "type": "walker.pedestrian.0036",
+      "role": "dense_city_npc",
+      "xyz": [
+        22.48039436340332,
+        -179.50302124023438,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1756": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        -165.63218688964844,
+        -212.55670166015625,
+        11.118408203125
+      ],
+      "speed_mps": 0.0
+    },
+    "1755": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        -111.77863311767578,
+        56.53804016113281,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1754": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -114.172607421875,
+        -61.89988708496094,
+        1.1038846969604492
+      ],
+      "speed_mps": 0.0
+    },
+    "1753": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        -246.73565673828125,
+        -144.3211212158203,
+        11.105793952941895
+      ],
+      "speed_mps": 0.0
+    },
+    "1733": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        73.50709533691406,
+        9.77588939666748,
+        1.1012217998504639
+      ],
+      "speed_mps": 0.0
+    },
+    "1732": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        162.10809326171875,
+        -70.2630615234375,
+        1.1410706043243408
+      ],
+      "speed_mps": 0.0
+    },
+    "1731": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -75.92191314697266,
+        134.56143188476562,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1730": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        218.92384338378906,
+        -28.50971794128418,
+        1.1008068323135376
+      ],
+      "speed_mps": 0.0
+    },
+    "1729": {
+      "type": "walker.pedestrian.0033",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.1677703857422,
+        148.98794555664062,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1728": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        -148.29888916015625,
+        -130.76480102539062,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1727": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -39.94914245605469,
+        42.12348937988281,
+        1.158068299293518
+      ],
+      "speed_mps": 0.0
+    },
+    "1726": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        149.2842559814453,
+        205.94329833984375,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1725": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        145.29147338867188,
+        -207.52333068847656,
+        1.1031969785690308
+      ],
+      "speed_mps": 0.0
+    },
+    "1724": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        91.81299591064453,
+        26.769489288330078,
+        0.8238420486450195
+      ],
+      "speed_mps": 0.0
+    },
+    "1723": {
+      "type": "walker.pedestrian.0020",
+      "role": "dense_city_npc",
+      "xyz": [
+        69.61925506591797,
+        135.548828125,
+        1.137170672416687
+      ],
+      "speed_mps": 0.0
+    },
+    "1722": {
+      "type": "walker.pedestrian.0010",
+      "role": "dense_city_npc",
+      "xyz": [
+        21.121747970581055,
+        12.643841743469238,
+        0.7239152193069458
+      ],
+      "speed_mps": 0.0
+    },
+    "1721": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        198.7908477783203,
+        163.6183624267578,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1720": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        -103.85025024414062,
+        78.69931030273438,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1719": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        20.89897918701172,
+        125.3498306274414,
+        1.1039150953292847
+      ],
+      "speed_mps": 0.0
+    },
+    "1704": {
+      "type": "walker.pedestrian.0024",
+      "role": "dense_city_npc",
+      "xyz": [
+        176.46954345703125,
+        189.0946502685547,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1703": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        -181.05902099609375,
+        39.98232650756836,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1702": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.89987564086914,
+        108.70851135253906,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1701": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        162.2133026123047,
+        -35.0907096862793,
+        1.1419686079025269
+      ],
+      "speed_mps": 0.0
+    },
+    "1700": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        3.4976959228515625,
+        -98.49320983886719,
+        1.1033724546432495
+      ],
+      "speed_mps": 0.0
+    },
+    "1699": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        161.27053833007812,
+        98.36751556396484,
+        1.139687180519104
+      ],
+      "speed_mps": 0.0
+    },
+    "1698": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        114.01263427734375,
+        -214.6610107421875,
+        1.103675365447998
+      ],
+      "speed_mps": 0.0
+    },
+    "1697": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        22.954437255859375,
+        -108.66709899902344,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1696": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        121.1572036743164,
+        -213.26092529296875,
+        1.1036810874938965
+      ],
+      "speed_mps": 0.0
+    },
+    "1695": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -139.2879638671875,
+        45.481815338134766,
+        4.594531059265137
+      ],
+      "speed_mps": 0.0
+    },
+    "1694": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        -240.197998046875,
+        -98.84270477294922,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1693": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        -4.4912428855896,
+        180.30311584472656,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1675": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        -144.92491149902344,
+        -128.7141876220703,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1674": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        -5.249226093292236,
+        -179.54208374023438,
+        1.6128959655761719
+      ],
+      "speed_mps": 0.0
+    },
+    "1673": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -178.4454803466797,
+        -115.4035415649414,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1672": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        86.82170104980469,
+        -137.16049194335938,
+        1.137170672416687
+      ],
+      "speed_mps": 0.0
+    },
+    "1671": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        -158.01541137695312,
+        -100.89873504638672,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1670": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -232.75021362304688,
+        98.4612808227539,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1669": {
+      "type": "walker.pedestrian.0006",
+      "role": "dense_city_npc",
+      "xyz": [
+        0.9092080593109131,
+        -8.621917724609375,
+        1.1020820140838623
+      ],
+      "speed_mps": 0.0
+    },
+    "1668": {
+      "type": "walker.pedestrian.0020",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.38977813720703,
+        -69.91023254394531,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1667": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        2.302427291870117,
+        9.033702850341797,
+        1.1038799285888672
+      ],
+      "speed_mps": 0.0
+    },
+    "1666": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        -254.8093719482422,
+        -59.83319091796875,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "1665": {
+      "type": "walker.pedestrian.0024",
+      "role": "dense_city_npc",
+      "xyz": [
+        218.9276885986328,
+        -36.92939758300781,
+        1.1007887125015259
+      ],
+      "speed_mps": 0.0
+    },
+    "1664": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.802284240722656,
+        18.968463897705078,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1663": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.53158187866211,
+        58.576053619384766,
+        0.8239152431488037
+      ],
+      "speed_mps": 0.0
+    },
+    "1662": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        -177.18466186523438,
+        -103.79246520996094,
+        1.129401683807373
+      ],
+      "speed_mps": 0.0
+    },
+    "1661": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        20.77806282043457,
+        111.86531066894531,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1643": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        204.35214233398438,
+        153.748779296875,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1642": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        -173.0726318359375,
+        -124.1631088256836,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1641": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        -12.715725898742676,
+        -179.32479858398438,
+        2.2177224159240723
+      ],
+      "speed_mps": 0.0
+    },
+    "1640": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        -198.7036895751953,
+        -107.51065826416016,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1639": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        -164.1879425048828,
+        -81.02763366699219,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1638": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        -193.892333984375,
+        136.83917236328125,
+        0.7793503999710083
+      ],
+      "speed_mps": 0.0
+    },
+    "1637": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.68918991088867,
+        105.33956146240234,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1636": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        -148.85867309570312,
+        99.41053771972656,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1635": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        -154.8251953125,
+        98.84635162353516,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1634": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        -218.2021484375,
+        81.03903198242188,
+        1.1038695573806763
+      ],
+      "speed_mps": 0.0
+    },
+    "1633": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -86.64869689941406,
+        9.659677505493164,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1632": {
+      "type": "walker.pedestrian.0036",
+      "role": "dense_city_npc",
+      "xyz": [
+        -178.45684814453125,
+        123.15768432617188,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1631": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        -254.4969940185547,
+        43.249637603759766,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "1630": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        -251.12725830078125,
+        132.97515869140625,
+        10.866808891296387
+      ],
+      "speed_mps": 0.0
+    },
+    "1629": {
+      "type": "walker.pedestrian.0018",
+      "role": "dense_city_npc",
+      "xyz": [
+        8.504161834716797,
+        -8.194021224975586,
+        1.1025453805923462
+      ],
+      "speed_mps": 0.0
+    },
+    "1628": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        68.15547943115234,
+        152.62648010253906,
+        0.7565160393714905
+      ],
+      "speed_mps": 0.0
+    },
+    "1627": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.84862518310547,
+        -11.176179885864258,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1608": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -242.67982482910156,
+        -79.54388427734375,
+        0.8238999247550964
+      ],
+      "speed_mps": 0.0
+    },
+    "1607": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        -60.72699737548828,
+        -104.63612365722656,
+        1.1593501567840576
+      ],
+      "speed_mps": 0.0
+    },
+    "1606": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        -217.96739196777344,
+        18.625146865844727,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "1605": {
+      "type": "walker.pedestrian.0018",
+      "role": "dense_city_npc",
+      "xyz": [
+        177.9846649169922,
+        187.41726684570312,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1604": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -73.09735107421875,
+        -125.75116729736328,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1603": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        -168.46762084960938,
+        99.87163543701172,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1602": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        -165.68116760253906,
+        -9.812762260437012,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1601": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        -113.45083618164062,
+        15.31908130645752,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1600": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        -161.2628936767578,
+        97.76936340332031,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1599": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -177.92919921875,
+        52.17677688598633,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1598": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.65838623046875,
+        -74.94212341308594,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1597": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        111.93726348876953,
+        26.425575256347656,
+        1.1031368970870972
+      ],
+      "speed_mps": 0.0
+    },
+    "1596": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        62.70161437988281,
+        -215.46612548828125,
+        0.7238520383834839
+      ],
+      "speed_mps": 0.0
+    },
+    "1595": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        -160.24490356445312,
+        -81.11341094970703,
+        0.8238999843597412
+      ],
+      "speed_mps": 0.0
+    },
+    "1594": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        60.26768493652344,
+        134.92164611816406,
+        1.137170672416687
+      ],
+      "speed_mps": 0.0
+    },
+    "1593": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        90.00553131103516,
+        -56.25191116333008,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1592": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        -169.7950897216797,
+        -129.58184814453125,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1591": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        -73.6490707397461,
+        -9.573160171508789,
+        0.8238999843597412
+      ],
+      "speed_mps": 0.0
+    },
+    "1590": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -50.78773880004883,
+        69.33075714111328,
+        0.05707899108529091
+      ],
+      "speed_mps": 0.24876132607460022
+    },
+    "1589": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -245.8177032470703,
+        -82.62925720214844,
+        -0.005235576536506414
+      ],
+      "speed_mps": 0.29206523299217224
+    },
+    "1571": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        147.77560424804688,
+        208.173583984375,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1570": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        72.69590759277344,
+        -215.18240356445312,
+        1.1038280725479126
+      ],
+      "speed_mps": 0.0
+    },
+    "1569": {
+      "type": "walker.pedestrian.0019",
+      "role": "dense_city_npc",
+      "xyz": [
+        161.86866760253906,
+        78.52075958251953,
+        1.140912652015686
+      ],
+      "speed_mps": 0.0
+    },
+    "1568": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        -279.0581359863281,
+        59.84284973144531,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1567": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        -62.2956657409668,
+        -140.9052276611328,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1566": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        -99.06268310546875,
+        -131.20973205566406,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1565": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        -141.48321533203125,
+        216.42648315429688,
+        9.660701751708984
+      ],
+      "speed_mps": 0.0
+    },
+    "1564": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -160.8035430908203,
+        215.1337432861328,
+        9.455544471740723
+      ],
+      "speed_mps": 0.0
+    },
+    "1563": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        -157.94883728027344,
+        100.61261749267578,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1562": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        -95.6434555053711,
+        -8.731420516967773,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1561": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        -158.9632110595703,
+        79.62749481201172,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1560": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        175.39846801757812,
+        -188.6072998046875,
+        0.7229615449905396
+      ],
+      "speed_mps": 0.0
+    },
+    "1559": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        -175.39768981933594,
+        -121.65451049804688,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1558": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        218.01885986328125,
+        67.38668823242188,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1557": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        -115.75348663330078,
+        -26.83005142211914,
+        0.7238847017288208
+      ],
+      "speed_mps": 0.0
+    },
+    "1556": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        20.939786911010742,
+        28.98967742919922,
+        0.7239152193069458
+      ],
+      "speed_mps": 0.0
+    },
+    "1555": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        -42.77949142456055,
+        216.0598907470703,
+        3.779228687286377
+      ],
+      "speed_mps": 0.0
+    },
+    "1554": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        31.600820541381836,
+        20.490373611450195,
+        -0.0074630924500525
+      ],
+      "speed_mps": 3.2424929941043956e-07
+    },
+    "1553": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        143.870849609375,
+        -174.95635986328125,
+        0.0018343543633818626
+      ],
+      "speed_mps": 16.17255401611328
+    },
+    "1552": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        -178.59957885742188,
+        -140.1505126953125,
+        0.044130612164735794
+      ],
+      "speed_mps": 1.371491009649617e-07
+    },
+    "1551": {
+      "type": "vehicle.nissan.patrol",
+      "role": "dense_city_npc",
+      "xyz": [
+        -9.599190711975098,
+        -189.96188354492188,
+        0.8382905125617981
+      ],
+      "speed_mps": 0.0
+    },
+    "1550": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.5888671875,
+        -57.80431365966797,
+        0.12284967303276062
+      ],
+      "speed_mps": 1.1779881248230595e-07
+    },
+    "1549": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.583740234375,
+        -44.47598648071289,
+        0.04803987219929695
+      ],
+      "speed_mps": 0.0
+    },
+    "1548": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -261.53765869140625,
+        -68.85490417480469,
+        -0.005202751141041517
+      ],
+      "speed_mps": 1.927400603563001e-07
+    },
+    "1547": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -72.12699890136719,
+        -129.61912536621094,
+        0.09404779225587845
+      ],
+      "speed_mps": 6.675733033034703e-08
+    },
+    "1546": {
+      "type": "vehicle.toyota.prius",
+      "role": "dense_city_npc",
+      "xyz": [
+        -257.80377197265625,
+        -74.41767120361328,
+        0.03611123934388161
+      ],
+      "speed_mps": 1.0620584589560167e-06
+    },
+    "1545": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        12.873332023620605,
+        95.1109619140625,
+        -0.00481351837515831
+      ],
+      "speed_mps": 1.9074265722451855e-08
+    },
+    "1544": {
+      "type": "vehicle.ford.crown",
+      "role": "dense_city_npc",
+      "xyz": [
+        -226.67495727539062,
+        91.19720458984375,
+        9.955114364624023
+      ],
+      "speed_mps": 17.161914825439453
+    },
+    "1831": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        -54.29393005371094,
+        70.31425476074219,
+        0.0507257841527462
+      ],
+      "speed_mps": 0.08820069581270218
+    },
+    "1542": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.1201477050781,
+        -23.200475692749023,
+        0.002645320724695921
+      ],
+      "speed_mps": 0.0
+    },
+    "1541": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "dense_city_npc",
+      "xyz": [
+        -193.8147430419922,
+        -117.73153686523438,
+        0.09786241501569748
+      ],
+      "speed_mps": 5.531324518415204e-07
+    },
+    "1540": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        -43.51884078979492,
+        26.896469116210938,
+        0.04986949637532234
+      ],
+      "speed_mps": 3.3537983894348145
+    },
+    "1539": {
+      "type": "vehicle.jeep.wrangler_rubicon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -229.98800659179688,
+        82.55598449707031,
+        9.970635414123535
+      ],
+      "speed_mps": 17.119319915771484
+    },
+    "1525": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.3077392578125,
+        73.67939758300781,
+        0.8788164854049683
+      ],
+      "speed_mps": 0.0
+    },
+    "1524": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        -179.46514892578125,
+        -118.95784759521484,
+        0.7793503999710083
+      ],
+      "speed_mps": 0.0
+    },
+    "1523": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        -95.04778289794922,
+        140.32814025878906,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1522": {
+      "type": "walker.pedestrian.0010",
+      "role": "dense_city_npc",
+      "xyz": [
+        109.87648010253906,
+        -149.84658813476562,
+        0.7585333585739136
+      ],
+      "speed_mps": 0.0
+    },
+    "1521": {
+      "type": "walker.pedestrian.0030",
+      "role": "dense_city_npc",
+      "xyz": [
+        20.571502685546875,
+        -23.582304000854492,
+        1.101398229598999
+      ],
+      "speed_mps": 0.0
+    },
+    "1520": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        75.75144958496094,
+        73.97947692871094,
+        0.8215938210487366
+      ],
+      "speed_mps": 0.0
+    },
+    "1519": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        124.3323974609375,
+        -212.55535888671875,
+        0.723678469657898
+      ],
+      "speed_mps": 0.0
+    },
+    "1399": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        5.230107307434082,
+        80.58219909667969,
+        0.8221760988235474
+      ],
+      "speed_mps": 0.0
+    },
+    "1398": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -112.13020324707031,
+        108.48107147216797,
+        1.1033321619033813
+      ],
+      "speed_mps": 0.0
+    },
+    "1397": {
+      "type": "walker.pedestrian.0030",
+      "role": "dense_city_npc",
+      "xyz": [
+        -178.58421325683594,
+        106.23882293701172,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1384": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        -106.71590423583984,
+        100.73030090332031,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1383": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -75.34130859375,
+        -215.40419006347656,
+        9.953059196472168
+      ],
+      "speed_mps": 0.0
+    },
+    "1382": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -177.95968627929688,
+        43.42440414428711,
+        4.784533500671387
+      ],
+      "speed_mps": 0.0
+    },
+    "1381": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        -181.1144256591797,
+        21.69903564453125,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1380": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -76.19374084472656,
+        137.04994201660156,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1379": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        -103.36273956298828,
+        -80.39263153076172,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1378": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        162.33644104003906,
+        -80.62078857421875,
+        0.76044762134552
+      ],
+      "speed_mps": 0.0
+    },
+    "1377": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        -218.4755096435547,
+        -21.24709129333496,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "1376": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        -218.44882202148438,
+        24.997323989868164,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "1375": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        -113.96373748779297,
+        74.03691101074219,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1374": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -159.95533752441406,
+        140.20851135253906,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1373": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.84466552734375,
+        44.97930145263672,
+        1.1566790342330933
+      ],
+      "speed_mps": 0.0
+    },
+    "1356": {
+      "type": "walker.pedestrian.0006",
+      "role": "dense_city_npc",
+      "xyz": [
+        -95.68373107910156,
+        -214.84439086914062,
+        11.106201171875
+      ],
+      "speed_mps": 0.0
+    },
+    "1355": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        10.640625,
+        81.43755340576172,
+        1.1038354635238647
+      ],
+      "speed_mps": 0.0
+    },
+    "1354": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        -64.07017517089844,
+        125.1716079711914,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1353": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        134.794921875,
+        113.14875793457031,
+        0.8571707010269165
+      ],
+      "speed_mps": 0.0
+    },
+    "1352": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        -218.35780334472656,
+        -17.9755916595459,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "1351": {
+      "type": "walker.pedestrian.0018",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.35586166381836,
+        -35.54673767089844,
+        1.1581000089645386
+      ],
+      "speed_mps": 0.0
+    },
+    "1350": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        162.64816284179688,
+        73.24275207519531,
+        1.140496015548706
+      ],
+      "speed_mps": 0.0
+    },
+    "1349": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        -114.50401306152344,
+        109.13847351074219,
+        1.103825330734253
+      ],
+      "speed_mps": 0.0
+    },
+    "1348": {
+      "type": "walker.pedestrian.0036",
+      "role": "dense_city_npc",
+      "xyz": [
+        -109.36674499511719,
+        -80.7340087890625,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1347": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        92.00747680664062,
+        -214.62335205078125,
+        1.1038578748703003
+      ],
+      "speed_mps": 0.0
+    },
+    "1346": {
+      "type": "walker.pedestrian.0024",
+      "role": "dense_city_npc",
+      "xyz": [
+        -162.49072265625,
+        176.99989318847656,
+        9.942765235900879
+      ],
+      "speed_mps": 0.0
+    },
+    "1345": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        154.27354431152344,
+        -122.09529876708984,
+        0.8587349653244019
+      ],
+      "speed_mps": 0.0
+    },
+    "1344": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        144.44642639160156,
+        81.46268463134766,
+        1.1371705532073975
+      ],
+      "speed_mps": 0.0
+    },
+    "1343": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        -113.25894927978516,
+        66.24819946289062,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1342": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.05121612548828,
+        70.77591705322266,
+        1.158876657485962
+      ],
+      "speed_mps": 0.0
+    },
+    "1321": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -97.50586700439453,
+        139.84521484375,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1320": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        22.542491912841797,
+        216.49411010742188,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1319": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        47.47067642211914,
+        81.2480697631836,
+        1.1024068593978882
+      ],
+      "speed_mps": 0.0
+    },
+    "1318": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        217.684326171875,
+        76.23397064208984,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1317": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        58.64727020263672,
+        -156.38717651367188,
+        1.1359329223632812
+      ],
+      "speed_mps": 0.0
+    },
+    "1316": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        20.18914031982422,
+        67.8644027709961,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1315": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        92.79474639892578,
+        -21.24575424194336,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1314": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -138.9978485107422,
+        116.43315887451172,
+        1.1027681827545166
+      ],
+      "speed_mps": 0.0
+    },
+    "1313": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        -111.85635375976562,
+        16.506107330322266,
+        0.8238999247550964
+      ],
+      "speed_mps": 0.0
+    },
+    "1312": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        198.8969268798828,
+        -163.593994140625,
+        1.1020015478134155
+      ],
+      "speed_mps": 0.0
+    },
+    "1311": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        112.97705078125,
+        217.41966247558594,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1310": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        -22.352333068847656,
+        -99.04977416992188,
+        1.1036193370819092
+      ],
+      "speed_mps": 0.0
+    },
+    "1309": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -110.33081817626953,
+        -98.69586944580078,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1308": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        -40.56496047973633,
+        20.156131744384766,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1307": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -36.97988510131836,
+        79.92257690429688,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1306": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        -218.66847229003906,
+        49.12708282470703,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "1305": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -107.06989288330078,
+        -179.0092315673828,
+        10.848488807678223
+      ],
+      "speed_mps": 0.0
+    },
+    "1304": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        -112.49662017822266,
+        -178.91213989257812,
+        11.127494812011719
+      ],
+      "speed_mps": 0.0
+    },
+    "1303": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -85.35966491699219,
+        -100.00788116455078,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1286": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        170.93869018554688,
+        192.33615112304688,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1285": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        -119.04685974121094,
+        13.658477783203125,
+        0.9570378661155701
+      ],
+      "speed_mps": 0.0
+    },
+    "1284": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        -130.75546264648438,
+        11.88189697265625,
+        0.9767834544181824
+      ],
+      "speed_mps": 0.0
+    },
+    "1283": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        112.67558288574219,
+        38.80803680419922,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1282": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        -178.93809509277344,
+        -44.54756164550781,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1281": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        -62.648826599121094,
+        53.48609161376953,
+        1.1367794275283813
+      ],
+      "speed_mps": 0.0
+    },
+    "1280": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        171.98008728027344,
+        -190.5687713623047,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1279": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        160.34677124023438,
+        -98.09225463867188,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "1278": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        -11.991411209106445,
+        180.1867218017578,
+        1.208394169807434
+      ],
+      "speed_mps": 0.0
+    },
+    "1842": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        218.9270477294922,
+        -55.34284210205078,
+        1.1007615327835083
+      ],
+      "speed_mps": 0.0
+    },
+    "1276": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.28349304199219,
+        75.38495635986328,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1275": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.9350471496582,
+        -75.84827423095703,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1840": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        121.26026916503906,
+        123.96553802490234,
+        1.1371705532073975
+      ],
+      "speed_mps": 0.0
+    },
+    "1272": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        146.86495971679688,
+        -41.421356201171875,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "1271": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -144.33990478515625,
+        11.197123527526855,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1844": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        104.67857360839844,
+        218.3829803466797,
+        0.7238999009132385
+      ],
+      "speed_mps": 0.0
+    },
+    "1254": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        -175.9286651611328,
+        51.5291748046875,
+        5.726783275604248
+      ],
+      "speed_mps": 0.0
+    },
+    "1252": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        4.34170389175415,
+        216.99313354492188,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1251": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        43.045379638671875,
+        -83.87858581542969,
+        0.9469732642173767
+      ],
+      "speed_mps": 0.0
+    },
+    "1250": {
+      "type": "walker.pedestrian.0033",
+      "role": "dense_city_npc",
+      "xyz": [
+        195.4330596923828,
+        -167.29666137695312,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1849": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.25777053833008,
+        -19.19921875,
+        0.7777359485626221
+      ],
+      "speed_mps": 0.0
+    },
+    "1248": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        -49.77898025512695,
+        180.39279174804688,
+        4.60955286026001
+      ],
+      "speed_mps": 0.0
+    },
+    "1247": {
+      "type": "walker.pedestrian.0010",
+      "role": "dense_city_npc",
+      "xyz": [
+        28.28077507019043,
+        -9.545672416687012,
+        0.5630454421043396
+      ],
+      "speed_mps": 0.0
+    },
+    "1246": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -174.80677795410156,
+        -209.17364501953125,
+        10.817161560058594
+      ],
+      "speed_mps": 0.0
+    },
+    "1244": {
+      "type": "walker.pedestrian.0033",
+      "role": "dense_city_npc",
+      "xyz": [
+        10.355730056762695,
+        216.99703979492188,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1819": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        219.02601623535156,
+        -49.60044479370117,
+        1.1006383895874023
+      ],
+      "speed_mps": 0.0
+    },
+    "1242": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        68.97208404541016,
+        -214.73828125,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1241": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        -178.9411163330078,
+        -109.7538833618164,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1240": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.24739456176758,
+        89.32381439208984,
+        0.9856756329536438
+      ],
+      "speed_mps": 0.0
+    },
+    "1221": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        -103.1703109741211,
+        78.50352478027344,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1853": {
+      "type": "walker.pedestrian.0019",
+      "role": "dense_city_npc",
+      "xyz": [
+        -159.91299438476562,
+        9.918177604675293,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1219": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        -147.04234313964844,
+        11.198823928833008,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1218": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        19.73360824584961,
+        179.79408264160156,
+        1.0899856090545654
+      ],
+      "speed_mps": 0.0
+    },
+    "1217": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        -40.17121124267578,
+        -42.97124099731445,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1216": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -57.47964096069336,
+        77.88068389892578,
+        1.0599089860916138
+      ],
+      "speed_mps": 0.0
+    },
+    "1215": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        -111.17001342773438,
+        30.83062171936035,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1214": {
+      "type": "walker.pedestrian.0036",
+      "role": "dense_city_npc",
+      "xyz": [
+        11.860641479492188,
+        -214.73651123046875,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1213": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -129.21534729003906,
+        -214.4845428466797,
+        11.106781005859375
+      ],
+      "speed_mps": 0.0
+    },
+    "1212": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        146.506591796875,
+        82.4094009399414,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "1210": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        91.50457763671875,
+        -10.724746704101562,
+        0.8067840337753296
+      ],
+      "speed_mps": 0.0
+    },
+    "1209": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        -38.5179328918457,
+        78.81660461425781,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1208": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        217.36776733398438,
+        -82.06548309326172,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1207": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        -232.77108764648438,
+        -168.46885681152344,
+        11.086784362792969
+      ],
+      "speed_mps": 0.0
+    },
+    "1205": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -102.39244842529297,
+        78.59737396240234,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1204": {
+      "type": "vehicle.dodge.charger_police",
+      "role": "dense_city_npc",
+      "xyz": [
+        -76.40226745605469,
+        84.47894287109375,
+        -0.031396083533763885
+      ],
+      "speed_mps": 3.139906644821167
+    },
+    "1203": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -61.78849792480469,
+        -120.02076721191406,
+        0.19680610299110413
+      ],
+      "speed_mps": 4.016234900205973e-09
+    },
+    "1846": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        69.0098648071289,
+        187.9114532470703,
+        0.0005166816408745944
+      ],
+      "speed_mps": 6.574024200439453
+    },
+    "1182": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.93370819091797,
+        116.34246826171875,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1181": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.326053619384766,
+        114.68204498291016,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1180": {
+      "type": "walker.pedestrian.0001",
+      "role": "dense_city_npc",
+      "xyz": [
+        -159.4922637939453,
+        -101.87296295166016,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1838": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        23.92866325378418,
+        -172.02072143554688,
+        1.1029188632965088
+      ],
+      "speed_mps": 0.0
+    },
+    "1178": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        -23.804121017456055,
+        216.99050903320312,
+        1.8039544820785522
+      ],
+      "speed_mps": 0.0
+    },
+    "1177": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -138.36802673339844,
+        45.28452682495117,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1176": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        70.72515106201172,
+        -216.41842651367188,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1175": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        -57.34236145019531,
+        24.27803611755371,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1174": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        211.5168914794922,
+        135.40911865234375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1173": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        42.735984802246094,
+        -98.19068145751953,
+        1.089949607849121
+      ],
+      "speed_mps": 0.0
+    },
+    "1172": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        111.3275146484375,
+        -51.08704376220703,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1171": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.58271026611328,
+        -5.137087821960449,
+        0.6691977381706238
+      ],
+      "speed_mps": 0.0
+    },
+    "1170": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        104.9657974243164,
+        216.243896484375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1169": {
+      "type": "walker.pedestrian.0036",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.761722564697266,
+        -0.11098393052816391,
+        0.9494749903678894
+      ],
+      "speed_mps": 0.0
+    },
+    "1168": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -152.8931427001953,
+        158.7660369873047,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1167": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        -198.7714385986328,
+        -76.48479461669922,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1166": {
+      "type": "vehicle.audi.a2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -2.420964479446411,
+        -186.4602508544922,
+        0.3375830054283142
+      ],
+      "speed_mps": 0.00011608885688474402
+    },
+    "1165": {
+      "type": "vehicle.nissan.micra",
+      "role": "dense_city_npc",
+      "xyz": [
+        -167.10353088378906,
+        -91.64498901367188,
+        -0.01916835829615593
+      ],
+      "speed_mps": 0.0
+    },
+    "1164": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        -95.94507598876953,
+        -135.03355407714844,
+        0.05646562576293945
+      ],
+      "speed_mps": 5.6938712077680975e-05
+    },
+    "1163": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        32.69820785522461,
+        -65.93728637695312,
+        -0.00468027126044035
+      ],
+      "speed_mps": 0.0
+    },
+    "1162": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -156.99522399902344,
+        -4.068422794342041,
+        0.008897228166460991
+      ],
+      "speed_mps": 0.02023688703775406
+    },
+    "1161": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        -190.82888793945312,
+        -126.98906707763672,
+        0.05073118209838867
+      ],
+      "speed_mps": 1.1937969475184218e-06
+    },
+    "1160": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        -120.26246643066406,
+        107.9588851928711,
+        -0.004828929901123047
+      ],
+      "speed_mps": 0.0
+    },
+    "1159": {
+      "type": "vehicle.jeep.wrangler_rubicon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -146.7677764892578,
+        -4.093149662017822,
+        0.010488834232091904
+      ],
+      "speed_mps": 3.2392284870147705
+    },
+    "1158": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        121.78792572021484,
+        199.67201232910156,
+        0.001853141700848937
+      ],
+      "speed_mps": 15.177874565124512
+    },
+    "1157": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        -236.38211059570312,
+        -84.44551849365234,
+        -0.022765254601836205
+      ],
+      "speed_mps": 3.4988460540771484
+    },
+    "1156": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.5821075439453,
+        -36.76344680786133,
+        0.04530147463083267
+      ],
+      "speed_mps": 0.0024800135288387537
+    },
+    "1155": {
+      "type": "vehicle.audi.a2",
+      "role": "dense_city_npc",
+      "xyz": [
+        1.217271327972412,
+        205.08078002929688,
+        -0.0077880858443677425
+      ],
+      "speed_mps": 2.9690947940252954e-06
+    },
+    "1154": {
+      "type": "vehicle.dodge.charger_police_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.38290405273438,
+        115.66071319580078,
+        0.05575380101799965
+      ],
+      "speed_mps": 3.7989084720611572
+    },
+    "1153": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        36.40577697753906,
+        -72.49675750732422,
+        0.0003096961881965399
+      ],
+      "speed_mps": 7.6668200676977e-08
+    },
+    "1152": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        13.322935104370117,
+        -186.5093536376953,
+        0.0004456901515368372
+      ],
+      "speed_mps": 0.0
+    },
+    "1151": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -140.4442138671875,
+        84.40375518798828,
+        0.06739907711744308
+      ],
+      "speed_mps": 3.307174623046194e-08
+    },
+    "1132": {
+      "type": "walker.pedestrian.0030",
+      "role": "dense_city_npc",
+      "xyz": [
+        4.261353492736816,
+        56.61503219604492,
+        1.1367794275283813
+      ],
+      "speed_mps": 0.0
+    },
+    "1131": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        144.16671752929688,
+        127.92140197753906,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "1130": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        217.97613525390625,
+        13.83536148071289,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1129": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        104.39405059814453,
+        216.432373046875,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1128": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        21.26530647277832,
+        216.9989013671875,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1127": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -113.27944946289062,
+        -17.058860778808594,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1126": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        -89.06464385986328,
+        140.31472778320312,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1125": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -60.12031555175781,
+        -78.47032165527344,
+        1.1283347606658936
+      ],
+      "speed_mps": 0.0
+    },
+    "1124": {
+      "type": "walker.pedestrian.0018",
+      "role": "dense_city_npc",
+      "xyz": [
+        -113.18582916259766,
+        73.89228820800781,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1825": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        219.86041259765625,
+        63.45656204223633,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1122": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -208.1470489501953,
+        -192.80458068847656,
+        11.096785545349121
+      ],
+      "speed_mps": 0.0
+    },
+    "1121": {
+      "type": "walker.pedestrian.0010",
+      "role": "dense_city_npc",
+      "xyz": [
+        -254.58497619628906,
+        -84.3844985961914,
+        10.70678424835205
+      ],
+      "speed_mps": 0.0
+    },
+    "1120": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        -221.37538146972656,
+        10.382744789123535,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1119": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        -17.57428741455078,
+        80.24168395996094,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1118": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        -179.9334716796875,
+        -3.7209115028381348,
+        0.97093665599823
+      ],
+      "speed_mps": 0.0
+    },
+    "1813": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        219.0627899169922,
+        104.25238800048828,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1116": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        17.08787727355957,
+        -216.1731414794922,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1115": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        76.22398376464844,
+        -214.40948486328125,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1114": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        -153.88177490234375,
+        -84.62410736083984,
+        -0.021575240418314934
+      ],
+      "speed_mps": 0.0
+    },
+    "1113": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -145.89697265625,
+        -84.6160888671875,
+        0.0002942848077509552
+      ],
+      "speed_mps": 2.4815187771309866e-07
+    },
+    "1112": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.71583557128906,
+        -135.18028259277344,
+        0.05574456974864006
+      ],
+      "speed_mps": 2.4889661176530353e-07
+    },
+    "1111": {
+      "type": "vehicle.toyota.prius",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.4149475097656,
+        26.85822296142578,
+        0.03611093387007713
+      ],
+      "speed_mps": 1.0492205149148504e-07
+    },
+    "1110": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -154.60836791992188,
+        -138.88780212402344,
+        0.05881604924798012
+      ],
+      "speed_mps": 4.948647975921631
+    },
+    "1109": {
+      "type": "vehicle.lincoln.mkz_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -32.28821563720703,
+        84.52964782714844,
+        -0.004664191976189613
+      ],
+      "speed_mps": 0.0
+    },
+    "1108": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -161.30059814453125,
+        -84.64897918701172,
+        0.0016789436340332031
+      ],
+      "speed_mps": 7.438900979650498e-07
+    },
+    "1107": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -195.08914184570312,
+        72.84857177734375,
+        0.12284974753856659
+      ],
+      "speed_mps": 9.603563455584663e-08
+    },
+    "1106": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        -168.379638671875,
+        -0.5405611395835876,
+        -0.005505466368049383
+      ],
+      "speed_mps": 0.0
+    },
+    "1105": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -102.67240905761719,
+        84.44877624511719,
+        -0.005202808417379856
+      ],
+      "speed_mps": 5.341038331607706e-07
+    },
+    "1104": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.1082458496094,
+        -28.55062484741211,
+        -0.007478046230971813
+      ],
+      "speed_mps": 4.291537720746419e-07
+    },
+    "1103": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -120.86410522460938,
+        40.22754669189453,
+        0.06755390018224716
+      ],
+      "speed_mps": 5.589174270629883
+    },
+    "1102": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        31.60089111328125,
+        28.010677337646484,
+        0.0003057288995478302
+      ],
+      "speed_mps": 0.0
+    },
+    "1101": {
+      "type": "vehicle.ford.crown",
+      "role": "dense_city_npc",
+      "xyz": [
+        151.50277709960938,
+        -16.005327224731445,
+        0.057470377534627914
+      ],
+      "speed_mps": 6.974527195779956e-07
+    },
+    "1100": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        99.95964813232422,
+        -24.58461570739746,
+        -0.00555776571854949
+      ],
+      "speed_mps": 1.1444102199220652e-07
+    },
+    "1099": {
+      "type": "vehicle.lincoln.mkz_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -149.1766815185547,
+        187.17739868164062,
+        8.644225120544434
+      ],
+      "speed_mps": 17.09032440185547
+    },
+    "1082": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        -40.10434341430664,
+        -45.26639175415039,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "1081": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        111.5463638305664,
+        215.81727600097656,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1080": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -38.313724517822266,
+        -96.79068756103516,
+        0.9767834544181824
+      ],
+      "speed_mps": 0.0
+    },
+    "1079": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        12.32113265991211,
+        -98.80773162841797,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1861": {
+      "type": "walker.pedestrian.0019",
+      "role": "dense_city_npc",
+      "xyz": [
+        -58.52941131591797,
+        61.887229919433594,
+        1.1589938402175903
+      ],
+      "speed_mps": 0.0
+    },
+    "1821": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -82.54019165039062,
+        11.80781364440918,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1074": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        57.97064208984375,
+        34.62855529785156,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1073": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        -2.1332955360412598,
+        179.17510986328125,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1072": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        -12.594223022460938,
+        -8.059643745422363,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1071": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -254.69512939453125,
+        97.92888641357422,
+        11.006535530090332
+      ],
+      "speed_mps": 0.0
+    },
+    "1070": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -94.27696990966797,
+        9.693937301635742,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1859": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -180.40304565429688,
+        209.45277404785156,
+        10.019654273986816
+      ],
+      "speed_mps": 0.0
+    },
+    "1067": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        21.530189514160156,
+        99.9968032836914,
+        1.0558580160140991
+      ],
+      "speed_mps": 0.0
+    },
+    "1066": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        -165.1123046875,
+        -4.047407627105713,
+        -0.022609194740653038
+      ],
+      "speed_mps": 2.2506000995635986
+    },
+    "1065": {
+      "type": "vehicle.audi.etron",
+      "role": "dense_city_npc",
+      "xyz": [
+        -54.58399963378906,
+        -20.102699279785156,
+        0.0457400307059288
+      ],
+      "speed_mps": 0.0
+    },
+    "1064": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -165.91395568847656,
+        -95.14181518554688,
+        -0.00741031626239419
+      ],
+      "speed_mps": 0.0
+    },
+    "1063": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        35.51799011230469,
+        -88.22710418701172,
+        0.0016905784141272306
+      ],
+      "speed_mps": 6.545804467350536e-07
+    },
+    "1062": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        106.36245727539062,
+        -51.532997131347656,
+        -0.005398349836468697
+      ],
+      "speed_mps": 5.6678242683410645
+    },
+    "1061": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.0283203125,
+        -74.22026824951172,
+        -0.0010272979270666838
+      ],
+      "speed_mps": 1.7187826983899868e-07
+    },
+    "1060": {
+      "type": "vehicle.jeep.wrangler_rubicon",
+      "role": "dense_city_npc",
+      "xyz": [
+        26.862972259521484,
+        -109.55937194824219,
+        0.010435466654598713
+      ],
+      "speed_mps": 0.07884180545806885
+    },
+    "1059": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        -194.40040588378906,
+        -112.56306457519531,
+        0.05810306593775749
+      ],
+      "speed_mps": 0.0
+    },
+    "1058": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -219.4746856689453,
+        163.8026885986328,
+        9.47164249420166
+      ],
+      "speed_mps": 16.420169830322266
+    },
+    "1057": {
+      "type": "vehicle.lincoln.mkz_2017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.412109375,
+        -40.079833984375,
+        0.03387050703167915
+      ],
+      "speed_mps": 0.0
+    },
+    "1056": {
+      "type": "vehicle.lincoln.mkz_2017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.58900451660156,
+        -64.95897674560547,
+        0.0892089456319809
+      ],
+      "speed_mps": 9.60611785671972e-08
+    },
+    "1055": {
+      "type": "vehicle.ford.crown",
+      "role": "dense_city_npc",
+      "xyz": [
+        -2.1252684593200684,
+        95.06356048583984,
+        0.018902834504842758
+      ],
+      "speed_mps": 0.0
+    },
+    "1054": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        -219.18527221679688,
+        138.48236083984375,
+        9.652128219604492
+      ],
+      "speed_mps": 17.08965492248535
+    },
+    "1053": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -44.29676055908203,
+        -57.04835891723633,
+        0.05862363800406456
+      ],
+      "speed_mps": 5.495611667633057
+    },
+    "1052": {
+      "type": "vehicle.dodge.charger_police",
+      "role": "dense_city_npc",
+      "xyz": [
+        -194.8222198486328,
+        -107.65950775146484,
+        0.025241011753678322
+      ],
+      "speed_mps": 1.2204633037526946e-07
+    },
+    "1051": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        59.37135696411133,
+        84.53874969482422,
+        -0.02181810326874256
+      ],
+      "speed_mps": 0.20040977001190186
+    },
+    "1031": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        83.97889709472656,
+        -39.989013671875,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1029": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        -19.713764190673828,
+        80.22100067138672,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1028": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -40.967952728271484,
+        78.88250732421875,
+        1.0738718509674072
+      ],
+      "speed_mps": 0.0
+    },
+    "1027": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        49.95665740966797,
+        9.501882553100586,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1805": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        21.5784854888916,
+        69.83120727539062,
+        1.5455671548843384
+      ],
+      "speed_mps": 0.0
+    },
+    "1024": {
+      "type": "walker.pedestrian.0006",
+      "role": "dense_city_npc",
+      "xyz": [
+        93.12127685546875,
+        13.534533500671387,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1023": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.27389907836914,
+        -100.68628692626953,
+        0.6767867803573608
+      ],
+      "speed_mps": 0.0
+    },
+    "1022": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -73.29032135009766,
+        215.58358764648438,
+        7.309987545013428
+      ],
+      "speed_mps": 0.0
+    },
+    "1021": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -64.1769790649414,
+        34.55129623413086,
+        1.1405408382415771
+      ],
+      "speed_mps": 0.0
+    },
+    "1020": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        -173.9140167236328,
+        11.5586519241333,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1019": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        192.35243225097656,
+        -171.61166381835938,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1018": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        -34.45194625854492,
+        216.956787109375,
+        2.8416099548339844
+      ],
+      "speed_mps": 0.0
+    },
+    "1017": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        69.1390151977539,
+        -155.4492950439453,
+        1.126185417175293
+      ],
+      "speed_mps": 0.0
+    },
+    "1016": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        98.09835815429688,
+        -80.21185302734375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1015": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -66.30416107177734,
+        50.84773635864258,
+        1.1383460760116577
+      ],
+      "speed_mps": 0.0
+    },
+    "1014": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        -214.7885284423828,
+        -84.72297668457031,
+        -0.004799365997314453
+      ],
+      "speed_mps": 0.009267410263419151
+    },
+    "1013": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -48.38148498535156,
+        -116.91466522216797,
+        0.05576127767562866
+      ],
+      "speed_mps": 4.982926368713379
+    },
+    "1012": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        41.90371322631836,
+        -91.06456756591797,
+        -0.005193538498133421
+      ],
+      "speed_mps": 3.5870831993634056e-07
+    },
+    "1011": {
+      "type": "vehicle.toyota.prius",
+      "role": "dense_city_npc",
+      "xyz": [
+        -14.153417587280273,
+        -94.91536712646484,
+        0.03627092391252518
+      ],
+      "speed_mps": 5.668675899505615
+    },
+    "1010": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        -16.898967742919922,
+        84.54838562011719,
+        -0.02245466224849224
+      ],
+      "speed_mps": 0.00018031848594546318
+    },
+    "1009": {
+      "type": "vehicle.jeep.wrangler_rubicon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -166.66275024414062,
+        84.37421417236328,
+        0.01046007126569748
+      ],
+      "speed_mps": 2.7656619749905076e-07
+    },
+    "1008": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        -172.95619201660156,
+        -95.1541976928711,
+        -0.011320056393742561
+      ],
+      "speed_mps": 4.7689884041801633e-08
+    },
+    "1007": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        35.12168884277344,
+        16.980194091796875,
+        0.1413705199956894
+      ],
+      "speed_mps": 1.908432523123338e-07
+    },
+    "1006": {
+      "type": "vehicle.dodge.charger_police_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -2.0344438552856445,
+        -189.9609375,
+        0.3270840644836426
+      ],
+      "speed_mps": 9.239462087862194e-05
+    },
+    "1005": {
+      "type": "vehicle.audi.a2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -139.17706298828125,
+        -95.1046371459961,
+        -0.007790622767060995
+      ],
+      "speed_mps": 5.914074563406757e-07
+    },
+    "1004": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -268.9898681640625,
+        18.807476043701172,
+        0.003018016694113612
+      ],
+      "speed_mps": 1.1444119536463404e-06
+    },
+    "1003": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        -84.68190002441406,
+        -144.85484313964844,
+        0.0338984876871109
+      ],
+      "speed_mps": 5.698982238769531
+    },
+    "1002": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -97.98141479492188,
+        -200.57945251464844,
+        10.036787033081055
+      ],
+      "speed_mps": 17.044635772705078
+    },
+    "1001": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        8.49858570098877,
+        205.10890197753906,
+        -0.004796761088073254
+      ],
+      "speed_mps": 0.02368684858083725
+    },
+    "1000": {
+      "type": "vehicle.nissan.micra",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.46343994140625,
+        106.01394653320312,
+        0.03625861927866936
+      ],
+      "speed_mps": 1.7173876187825954e-07
+    },
+    "1201": {
+      "type": "vehicle.lincoln.mkz_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -253.77528381347656,
+        -0.33340397477149963,
+        -0.004700298421084881
+      ],
+      "speed_mps": 3.829093486729107e-08
+    },
+    "978": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        13.170616149902344,
+        -98.45823669433594,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "977": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        41.570491790771484,
+        -86.52344512939453,
+        0.9535951018333435
+      ],
+      "speed_mps": 0.0
+    },
+    "976": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        7.700671672821045,
+        -97.98494720458984,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1404": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        -67.1848373413086,
+        -9.805377960205078,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "974": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        111.47549438476562,
+        127.29242706298828,
+        1.117636799812317
+      ],
+      "speed_mps": 0.0
+    },
+    "973": {
+      "type": "walker.pedestrian.0001",
+      "role": "dense_city_npc",
+      "xyz": [
+        37.55439376831055,
+        179.8661651611328,
+        0.9508670568466187
+      ],
+      "speed_mps": 0.0
+    },
+    "970": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -47.44783020019531,
+        217.0089569091797,
+        4.211593151092529
+      ],
+      "speed_mps": 0.0
+    },
+    "1836": {
+      "type": "walker.pedestrian.0001",
+      "role": "dense_city_npc",
+      "xyz": [
+        73.4862060546875,
+        -75.01591491699219,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "968": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        140.36123657226562,
+        131.73126220703125,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "967": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -141.17758178710938,
+        -121.06585693359375,
+        1.1352250576019287
+      ],
+      "speed_mps": 0.0
+    },
+    "966": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        118.10618591308594,
+        215.77239990234375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "965": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        -31.315658569335938,
+        -97.74102020263672,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "964": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        41.0618896484375,
+        -51.37942886352539,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "963": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        5.815054416656494,
+        -98.66047668457031,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "962": {
+      "type": "vehicle.dodge.charger_police",
+      "role": "dense_city_npc",
+      "xyz": [
+        -120.59214782714844,
+        66.90718841552734,
+        -0.03136228397488594
+      ],
+      "speed_mps": 5.317356586456299
+    },
+    "961": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -205.11911010742188,
+        -84.62972259521484,
+        -0.0009755325154401362
+      ],
+      "speed_mps": 2.4291808585985564e-05
+    },
+    "960": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -254.1226043701172,
+        89.09336853027344,
+        -0.007315387483686209
+      ],
+      "speed_mps": 5.579617500305176
+    },
+    "959": {
+      "type": "vehicle.nissan.patrol_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        49.28378677368164,
+        84.9493179321289,
+        0.0004176532384008169
+      ],
+      "speed_mps": 4.671450138092041
+    },
+    "958": {
+      "type": "vehicle.lincoln.mkz_2017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.630950927734375,
+        -133.1932830810547,
+        0.08912812918424606
+      ],
+      "speed_mps": 5.8090033531188965
+    },
+    "957": {
+      "type": "vehicle.dodge.charger_police",
+      "role": "dense_city_npc",
+      "xyz": [
+        24.583036422729492,
+        71.79662322998047,
+        -0.03007776103913784
+      ],
+      "speed_mps": 0.08802684396505356
+    },
+    "956": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        -148.44125366210938,
+        -94.91278076171875,
+        -0.004719123709946871
+      ],
+      "speed_mps": 6.484988830379734e-07
+    },
+    "955": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        -5.959593772888184,
+        205.064453125,
+        -0.011858539655804634
+      ],
+      "speed_mps": 0.0
+    },
+    "954": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        27.389638900756836,
+        -129.27691650390625,
+        0.0018014716915786266
+      ],
+      "speed_mps": 0.0
+    },
+    "953": {
+      "type": "vehicle.audi.a2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -190.2717742919922,
+        -118.20296478271484,
+        0.04766236990690231
+      ],
+      "speed_mps": 1.0890153134823777e-06
+    },
+    "952": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        91.51305389404297,
+        -207.82647705078125,
+        -0.005352153442800045
+      ],
+      "speed_mps": 6.538803577423096
+    },
+    "951": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -147.1556854248047,
+        84.3990249633789,
+        -0.005148143507540226
+      ],
+      "speed_mps": 0.0
+    },
+    "1847": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        64.53453826904297,
+        10.10443115234375,
+        0.8205681443214417
+      ],
+      "speed_mps": 0.0
+    },
+    "949": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -270.0895690917969,
+        -66.1642074584961,
+        0.0004651832568924874
+      ],
+      "speed_mps": 5.697238922119141
+    },
+    "948": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -161.58154296875,
+        -0.5522972941398621,
+        0.0016784858889877796
+      ],
+      "speed_mps": 3.815179638877453e-08
+    },
+    "947": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "dense_city_npc",
+      "xyz": [
+        -147.62278747558594,
+        -91.61697387695312,
+        0.04241209104657173
+      ],
+      "speed_mps": 5.912780807193485e-07
+    },
+    "928": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        41.5869026184082,
+        -69.33183288574219,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "927": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        32.13167953491211,
+        217.09390258789062,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "926": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        -212.6893768310547,
+        -189.2487030029297,
+        11.096785545349121
+      ],
+      "speed_mps": 0.0
+    },
+    "925": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        106.86848449707031,
+        216.0302734375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "924": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -154.9650115966797,
+        -213.68507385253906,
+        11.106781005859375
+      ],
+      "speed_mps": 0.0
+    },
+    "923": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.876136779785156,
+        108.25127410888672,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "922": {
+      "type": "walker.pedestrian.0016",
+      "role": "dense_city_npc",
+      "xyz": [
+        43.77747344970703,
+        -142.0081024169922,
+        1.0251914262771606
+      ],
+      "speed_mps": 0.0
+    },
+    "921": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        -180.15997314453125,
+        -9.41450023651123,
+        1.1389235258102417
+      ],
+      "speed_mps": 0.0
+    },
+    "920": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        29.779727935791016,
+        77.06423950195312,
+        0.9554146528244019
+      ],
+      "speed_mps": 0.0
+    },
+    "919": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        -43.587059020996094,
+        215.83447265625,
+        3.8620851039886475
+      ],
+      "speed_mps": 0.0
+    },
+    "918": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        41.52886962890625,
+        105.84202575683594,
+        1.0925862789154053
+      ],
+      "speed_mps": 0.0
+    },
+    "916": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        213.89173889160156,
+        125.92884826660156,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "915": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.8149299621582,
+        129.48831176757812,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "914": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        212.88023376464844,
+        133.1450653076172,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "912": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -91.14649963378906,
+        -134.93304443359375,
+        0.05846782401204109
+      ],
+      "speed_mps": 1.5043360690469854e-06
+    },
+    "911": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        5.078265190124512,
+        -189.97999572753906,
+        0.0652904286980629
+      ],
+      "speed_mps": 3.957042281399481e-05
+    },
+    "910": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        48.87043380737305,
+        -91.16211700439453,
+        0.0002942848077509552
+      ],
+      "speed_mps": 8.066237455750525e-08
+    },
+    "909": {
+      "type": "vehicle.ford.crown",
+      "role": "dense_city_npc",
+      "xyz": [
+        188.78138732910156,
+        104.12715911865234,
+        0.019055021926760674
+      ],
+      "speed_mps": 17.16440200805664
+    },
+    "908": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -84.57473754882812,
+        -134.28134155273438,
+        0.05872398242354393
+      ],
+      "speed_mps": 1.4309650850918842e-06
+    },
+    "907": {
+      "type": "vehicle.dodge.charger_police",
+      "role": "dense_city_npc",
+      "xyz": [
+        -148.28880310058594,
+        2.9100732803344727,
+        -0.03020854853093624
+      ],
+      "speed_mps": 4.5950056914989545e-07
+    },
+    "906": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        103.49569702148438,
+        -16.605499267578125,
+        -0.007322750054299831
+      ],
+      "speed_mps": 5.619051456451416
+    },
+    "905": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -124.53018188476562,
+        21.737300872802734,
+        0.14135552942752838
+      ],
+      "speed_mps": 1.6498090671390742e-09
+    },
+    "904": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -53.155067443847656,
+        -109.8477783203125,
+        0.05707971379160881
+      ],
+      "speed_mps": 0.2533634305000305
+    },
+    "903": {
+      "type": "vehicle.toyota.prius",
+      "role": "dense_city_npc",
+      "xyz": [
+        -154.01397705078125,
+        -91.5820083618164,
+        0.03611043840646744
+      ],
+      "speed_mps": 4.0054320038507285e-07
+    },
+    "902": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -239.7396697998047,
+        -3.86680269241333,
+        -0.0051484680734574795
+      ],
+      "speed_mps": 0.0
+    },
+    "901": {
+      "type": "vehicle.dodge.charger_police_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -62.286956787109375,
+        84.49610137939453,
+        0.010310535319149494
+      ],
+      "speed_mps": 4.165262222290039
+    },
+    "869": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        65.48778533935547,
+        -97.96930694580078,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "868": {
+      "type": "walker.pedestrian.0033",
+      "role": "dense_city_npc",
+      "xyz": [
+        63.836971282958984,
+        -8.735968589782715,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "867": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        207.32151794433594,
+        -145.08056640625,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1803": {
+      "type": "walker.pedestrian.0001",
+      "role": "dense_city_npc",
+      "xyz": [
+        -68.50401306152344,
+        78.41706848144531,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "865": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        43.57828903198242,
+        -129.1516571044922,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "864": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.32541275024414,
+        122.59825897216797,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "863": {
+      "type": "walker.pedestrian.0024",
+      "role": "dense_city_npc",
+      "xyz": [
+        20.692243576049805,
+        -83.01557159423828,
+        0.955016016960144
+      ],
+      "speed_mps": 0.0
+    },
+    "862": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        -120.64144134521484,
+        -129.78073120117188,
+        0.9716289043426514
+      ],
+      "speed_mps": 0.0
+    },
+    "841": {
+      "type": "walker.pedestrian.0019",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.779052734375,
+        76.03309631347656,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "840": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        9.974221229553223,
+        215.8553466796875,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "839": {
+      "type": "walker.pedestrian.0030",
+      "role": "dense_city_npc",
+      "xyz": [
+        161.417724609375,
+        38.14554214477539,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "838": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.7382698059082,
+        -69.31761169433594,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "836": {
+      "type": "walker.pedestrian.0030",
+      "role": "dense_city_npc",
+      "xyz": [
+        -262.019287109375,
+        16.60456657409668,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "834": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -125.65340423583984,
+        -216.1788787841797,
+        11.106781005859375
+      ],
+      "speed_mps": 0.0
+    },
+    "1851": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -240.48912048339844,
+        -81.06082916259766,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "832": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        -107.6842041015625,
+        11.616023063659668,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "831": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        -58.78064727783203,
+        -57.47016143798828,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "830": {
+      "type": "walker.pedestrian.0001",
+      "role": "dense_city_npc",
+      "xyz": [
+        -88.150390625,
+        138.62954711914062,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "828": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        27.230669021606445,
+        216.988037109375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "827": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        205.33384704589844,
+        150.28488159179688,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "826": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -30.78986167907715,
+        -98.98170471191406,
+        0.8067840337753296
+      ],
+      "speed_mps": 0.0
+    },
+    "825": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        208.09494018554688,
+        -142.71083068847656,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "824": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -15.907096862792969,
+        99.08052825927734,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "823": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        -119.43709564208984,
+        179.01425170898438,
+        9.415093421936035
+      ],
+      "speed_mps": 0.0
+    },
+    "900": {
+      "type": "vehicle.toyota.prius",
+      "role": "dense_city_npc",
+      "xyz": [
+        94.5408706665039,
+        -204.3068084716797,
+        0.0364309698343277
+      ],
+      "speed_mps": 6.993844509124756
+    },
+    "806": {
+      "type": "walker.pedestrian.0047",
+      "role": "dense_city_npc",
+      "xyz": [
+        -154.88922119140625,
+        215.15338134765625,
+        9.77234935760498
+      ],
+      "speed_mps": 0.0
+    },
+    "805": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.267765045166016,
+        -34.471092224121094,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1865": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -174.12210083007812,
+        -125.82429504394531,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "803": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        -169.16360473632812,
+        -9.838642120361328,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "802": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -113.25678253173828,
+        -29.5755615234375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1832": {
+      "type": "walker.pedestrian.0030",
+      "role": "dense_city_npc",
+      "xyz": [
+        -254.85137939453125,
+        -103.43120574951172,
+        11.104096412658691
+      ],
+      "speed_mps": 0.0
+    },
+    "800": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -38.371376037597656,
+        10.274389266967773,
+        0.8240060210227966
+      ],
+      "speed_mps": 0.0
+    },
+    "798": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.38618469238281,
+        -35.73748016357422,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "797": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        75.91754913330078,
+        -215.51564025878906,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "796": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        -229.70057678222656,
+        -98.57670593261719,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "898": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        24.56377410888672,
+        61.87124252319336,
+        -0.00470390310510993
+      ],
+      "speed_mps": 0.0
+    },
+    "794": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        -28.498613357543945,
+        80.25496673583984,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "793": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        59.5203742980957,
+        -215.98690795898438,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "792": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        -31.42204475402832,
+        -99.14134216308594,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "791": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        -124.6532974243164,
+        -9.585040092468262,
+        0.626782238483429
+      ],
+      "speed_mps": 0.0
+    },
+    "1692": {
+      "type": "walker.pedestrian.0018",
+      "role": "dense_city_npc",
+      "xyz": [
+        68.80223083496094,
+        217.62774658203125,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "772": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        92.00698852539062,
+        41.14867401123047,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "770": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.26879119873047,
+        177.80783081054688,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "769": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -231.10658264160156,
+        -170.07083129882812,
+        11.086784362792969
+      ],
+      "speed_mps": 0.0
+    },
+    "768": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        -3.256925344467163,
+        99.09432220458984,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "767": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        146.80364990234375,
+        -15.323474884033203,
+        0.847514808177948
+      ],
+      "speed_mps": 0.0
+    },
+    "766": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        -69.34895324707031,
+        -178.40359497070312,
+        8.89918041229248
+      ],
+      "speed_mps": 0.0
+    },
+    "765": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        139.6760711669922,
+        9.09555721282959,
+        0.8167861700057983
+      ],
+      "speed_mps": 0.0
+    },
+    "764": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        -166.95909118652344,
+        213.03880310058594,
+        9.50687026977539
+      ],
+      "speed_mps": 0.0
+    },
+    "889": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        43.01118087768555,
+        -94.32762145996094,
+        0.9473638534545898
+      ],
+      "speed_mps": 0.0
+    },
+    "762": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        -118.03805541992188,
+        13.985692024230957,
+        0.9502957463264465
+      ],
+      "speed_mps": 0.0
+    },
+    "891": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        62.02168273925781,
+        -215.22393798828125,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1863": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        15.344430923461914,
+        216.15020751953125,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "759": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        137.7356719970703,
+        -7.972517967224121,
+        1.1067806482315063
+      ],
+      "speed_mps": 0.0
+    },
+    "758": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        45.22755432128906,
+        66.773681640625,
+        0.8067840337753296
+      ],
+      "speed_mps": 0.0
+    },
+    "757": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        87.18959045410156,
+        -88.85726165771484,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1797": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        132.0175323486328,
+        116.67635345458984,
+        1.137170672416687
+      ],
+      "speed_mps": 0.0
+    },
+    "755": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        89.23023223876953,
+        151.03897094726562,
+        1.1264010667800903
+      ],
+      "speed_mps": 0.0
+    },
+    "754": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.483642578125,
+        19.793203353881836,
+        0.14147253334522247
+      ],
+      "speed_mps": 0.0
+    },
+    "753": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        35.07020950317383,
+        106.43817138671875,
+        -0.005541248247027397
+      ],
+      "speed_mps": 0.0
+    },
+    "752": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        119.19166564941406,
+        -140.7116241455078,
+        0.04127652943134308
+      ],
+      "speed_mps": 5.60441780090332
+    },
+    "751": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -272.1390075683594,
+        -19.809144973754883,
+        0.14135552942752838
+      ],
+      "speed_mps": 4.022124358016299e-07
+    },
+    "750": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        49.741146087646484,
+        -207.66392517089844,
+        0.0025820350274443626
+      ],
+      "speed_mps": 0.14045290648937225
+    },
+    "749": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        151.57308959960938,
+        57.8065185546875,
+        0.017033176496624947
+      ],
+      "speed_mps": 5.706486701965332
+    },
+    "748": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        55.64025115966797,
+        -207.68939208984375,
+        0.0002943611179944128
+      ],
+      "speed_mps": 4.1032825492948177e-07
+    },
+    "747": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.25990295410156,
+        -61.85940170288086,
+        0.06738363206386566
+      ],
+      "speed_mps": 3.821478742338513e-07
+    },
+    "746": {
+      "type": "vehicle.nissan.micra",
+      "role": "dense_city_npc",
+      "xyz": [
+        48.205570220947266,
+        194.8070068359375,
+        -0.01916673593223095
+      ],
+      "speed_mps": 0.0
+    },
+    "745": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        31.568227767944336,
+        110.40255737304688,
+        0.002685489598661661
+      ],
+      "speed_mps": 0.0
+    },
+    "744": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        37.07087707519531,
+        82.20294952392578,
+        0.14121969044208527
+      ],
+      "speed_mps": 3.3817574977874756
+    },
+    "743": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        86.58516693115234,
+        5.583487510681152,
+        -0.0029788778629153967
+      ],
+      "speed_mps": 1.0548990964889526
+    },
+    "742": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        62.1328010559082,
+        -207.71533203125,
+        0.038601815700531006
+      ],
+      "speed_mps": 0.0
+    },
+    "741": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.54576873779297,
+        -14.031681060791016,
+        -0.007492580451071262
+      ],
+      "speed_mps": 1.6212482023547636e-07
+    },
+    "1807": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        -138.17422485351562,
+        36.81415557861328,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1202": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.30806732177734,
+        -55.33576583862305,
+        0.003002643585205078
+      ],
+      "speed_mps": 1.7166775023724767e-07
+    },
+    "899": {
+      "type": "vehicle.audi.etron",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.40081787109375,
+        -17.184673309326172,
+        0.0460326187312603
+      ],
+      "speed_mps": 3.2680814266204834
+    },
+    "719": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        102.91532135009766,
+        -72.0012435913086,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "718": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -53.213436126708984,
+        11.602631568908691,
+        1.004779577255249
+      ],
+      "speed_mps": 0.0
+    },
+    "717": {
+      "type": "walker.pedestrian.0033",
+      "role": "dense_city_npc",
+      "xyz": [
+        217.08583068847656,
+        -100.60816192626953,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "715": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        -105.63187408447266,
+        55.05220031738281,
+        1.10513436794281
+      ],
+      "speed_mps": 0.0
+    },
+    "714": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        13.99954891204834,
+        216.98654174804688,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "713": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -126.40335845947266,
+        13.034250259399414,
+        0.9767834544181824
+      ],
+      "speed_mps": 0.0
+    },
+    "712": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -67.07462310791016,
+        11.913683891296387,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "711": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        -55.433563232421875,
+        11.028464317321777,
+        0.9968183040618896
+      ],
+      "speed_mps": 0.0
+    },
+    "1403": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        1.7895569801330566,
+        -51.39910125732422,
+        1.1062639951705933
+      ],
+      "speed_mps": 0.0
+    },
+    "1829": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        149.3753662109375,
+        -130.69189453125,
+        1.136967420578003
+      ],
+      "speed_mps": 0.0
+    },
+    "708": {
+      "type": "walker.pedestrian.0033",
+      "role": "dense_city_npc",
+      "xyz": [
+        -114.33507537841797,
+        215.82400512695312,
+        9.371217727661133
+      ],
+      "speed_mps": 0.0
+    },
+    "707": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.10133361816406,
+        11.504976272583008,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "706": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        131.57403564453125,
+        -143.50015258789062,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "705": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        43.87504959106445,
+        -144.49034118652344,
+        0.9867855906486511
+      ],
+      "speed_mps": 0.0
+    },
+    "704": {
+      "type": "walker.pedestrian.0019",
+      "role": "dense_city_npc",
+      "xyz": [
+        -168.90257263183594,
+        98.364990234375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "703": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        -70.10893249511719,
+        216.98028564453125,
+        6.951961994171143
+      ],
+      "speed_mps": 0.0
+    },
+    "702": {
+      "type": "walker.pedestrian.0010",
+      "role": "dense_city_npc",
+      "xyz": [
+        11.16138744354248,
+        9.992351531982422,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "701": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        -233.43865966796875,
+        -167.32748413085938,
+        11.086784362792969
+      ],
+      "speed_mps": 0.0
+    },
+    "897": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -51.07342529296875,
+        -18.63336944580078,
+        0.050055235624313354
+      ],
+      "speed_mps": 0.07549772411584854
+    },
+    "698": {
+      "type": "vehicle.nissan.patrol",
+      "role": "dense_city_npc",
+      "xyz": [
+        35.066585540771484,
+        113.68994903564453,
+        0.0012519645970314741
+      ],
+      "speed_mps": 0.0
+    },
+    "697": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        32.45077133178711,
+        -56.64484405517578,
+        0.0032674598041921854
+      ],
+      "speed_mps": 0.0
+    },
+    "696": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -87.00611114501953,
+        84.46758270263672,
+        -0.0008687400841154158
+      ],
+      "speed_mps": 3.047879934310913
+    },
+    "695": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -124.7270736694336,
+        -67.23905944824219,
+        -0.005195674952119589
+      ],
+      "speed_mps": 0.0
+    },
+    "694": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -160.8239288330078,
+        -91.63467407226562,
+        0.06739907711744308
+      ],
+      "speed_mps": 1.7356909438603907e-06
+    },
+    "693": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        53.981815338134766,
+        194.83546447753906,
+        0.0385977178812027
+      ],
+      "speed_mps": 2.002725949523665e-07
+    },
+    "692": {
+      "type": "vehicle.ford.crown",
+      "role": "dense_city_npc",
+      "xyz": [
+        -264.00921630859375,
+        -62.01205825805664,
+        0.01886579394340515
+      ],
+      "speed_mps": 1.9914054405489878e-08
+    },
+    "691": {
+      "type": "vehicle.lincoln.mkz_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        31.565406799316406,
+        117.10176849365234,
+        -0.0046775625087320805
+      ],
+      "speed_mps": 0.0
+    },
+    "690": {
+      "type": "vehicle.dodge.charger_police_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.04429244995117,
+        -171.944580078125,
+        0.00031019208836369216
+      ],
+      "speed_mps": 4.2235231489939906e-07
+    },
+    "689": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -172.9179229736328,
+        84.36608123779297,
+        -0.005202693864703178
+      ],
+      "speed_mps": 3.24818813624006e-07
+    },
+    "688": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "dense_city_npc",
+      "xyz": [
+        -188.02784729003906,
+        105.73616027832031,
+        0.09786256402730942
+      ],
+      "speed_mps": 3.736376186225243e-07
+    },
+    "687": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -147.43333435058594,
+        94.880615234375,
+        -0.007477779407054186
+      ],
+      "speed_mps": 3.8369174149011087e-07
+    },
+    "686": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -241.73800659179688,
+        125.85926818847656,
+        9.787930488586426
+      ],
+      "speed_mps": 17.117292404174805
+    },
+    "685": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -25.0203800201416,
+        84.53761291503906,
+        -0.007477435749024153
+      ],
+      "speed_mps": 0.0
+    },
+    "684": {
+      "type": "vehicle.nissan.micra",
+      "role": "dense_city_npc",
+      "xyz": [
+        29.770353317260742,
+        -87.38943481445312,
+        -0.019182605668902397
+      ],
+      "speed_mps": 0.0
+    },
+    "683": {
+      "type": "vehicle.toyota.prius",
+      "role": "dense_city_npc",
+      "xyz": [
+        -58.23440933227539,
+        -113.6559829711914,
+        0.09156190603971481
+      ],
+      "speed_mps": 6.198889082043024e-07
+    },
+    "663": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        133.08973693847656,
+        115.48546600341797,
+        1.116782784461975
+      ],
+      "speed_mps": 0.0
+    },
+    "662": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        -60.42729949951172,
+        65.21056365966797,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "661": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        192.1688995361328,
+        -172.38290405273438,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "660": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.882999420166016,
+        120.2211685180664,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "659": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        194.130615234375,
+        -169.745849609375,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "658": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        218.2397003173828,
+        9.292842864990234,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "657": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        -181.50645446777344,
+        -98.65458679199219,
+        0.9786785840988159
+      ],
+      "speed_mps": 0.0
+    },
+    "656": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        -118.53955078125,
+        75.6087417602539,
+        0.24998582899570465
+      ],
+      "speed_mps": 0.0856824740767479
+    },
+    "654": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        -251.13836669921875,
+        -130.06260681152344,
+        11.086784362792969
+      ],
+      "speed_mps": 0.0
+    },
+    "653": {
+      "type": "walker.pedestrian.0024",
+      "role": "dense_city_npc",
+      "xyz": [
+        -55.02840042114258,
+        178.92251586914062,
+        5.216263294219971
+      ],
+      "speed_mps": 0.0
+    },
+    "652": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.797340393066406,
+        151.86764526367188,
+        1.0954859256744385
+      ],
+      "speed_mps": 0.0
+    },
+    "651": {
+      "type": "walker.pedestrian.0016",
+      "role": "dense_city_npc",
+      "xyz": [
+        -179.2432403564453,
+        -13.657062530517578,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "650": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        103.89994812011719,
+        216.09197998046875,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "649": {
+      "type": "walker.pedestrian.0013",
+      "role": "dense_city_npc",
+      "xyz": [
+        -177.96270751953125,
+        6.7050395011901855,
+        0.687578558921814
+      ],
+      "speed_mps": 0.0
+    },
+    "648": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        -34.204078674316406,
+        99.0539321899414,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "647": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        -255.07757568359375,
+        -1.293354868888855,
+        10.806784629821777
+      ],
+      "speed_mps": 0.0
+    },
+    "1801": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        36.42073440551758,
+        -215.3056182861328,
+        0.7238969206809998
+      ],
+      "speed_mps": 0.0
+    },
+    "645": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        217.54319763183594,
+        -44.58944320678711,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "644": {
+      "type": "vehicle.mercedes.coupe_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -168.35169982910156,
+        201.60926818847656,
+        8.827780723571777
+      ],
+      "speed_mps": 15.752923011779785
+    },
+    "643": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -56.13331604003906,
+        -107.03829956054688,
+        0.12277644872665405
+      ],
+      "speed_mps": 0.07331070303916931
+    },
+    "642": {
+      "type": "vehicle.nissan.patrol",
+      "role": "dense_city_npc",
+      "xyz": [
+        -96.32478332519531,
+        84.4541015625,
+        0.0012000083224847913
+      ],
+      "speed_mps": 9.941752978193108e-06
+    },
+    "641": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -264.77374267578125,
+        -55.14613723754883,
+        -0.005203304346650839
+      ],
+      "speed_mps": 1.0307342108717421e-06
+    },
+    "640": {
+      "type": "vehicle.lincoln.mkz_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -195.0531005859375,
+        65.74708557128906,
+        0.05075061693787575
+      ],
+      "speed_mps": 5.14989380917541e-07
+    },
+    "639": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.5565948486328,
+        50.43980026245117,
+        0.12299958616495132
+      ],
+      "speed_mps": 5.625519275665283
+    },
+    "638": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        99.94001007080078,
+        -17.6545352935791,
+        0.06739915907382965
+      ],
+      "speed_mps": 6.866512194392271e-07
+    },
+    "637": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        106.55943298339844,
+        27.033843994140625,
+        0.06754544377326965
+      ],
+      "speed_mps": 3.128851890563965
+    },
+    "636": {
+      "type": "vehicle.seat.leon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -127.70468139648438,
+        58.22819519042969,
+        -0.005137233529239893
+      ],
+      "speed_mps": 3.536048412322998
+    },
+    "635": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        35.074954986572266,
+        67.66069793701172,
+        0.00010217666567768902
+      ],
+      "speed_mps": 4.0032172203063965
+    },
+    "634": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -47.87747573852539,
+        -69.85905456542969,
+        0.057128600776195526
+      ],
+      "speed_mps": 1.0209583400921929e-08
+    },
+    "633": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        5.392541885375977,
+        6.03587007522583,
+        -0.0074082943610847
+      ],
+      "speed_mps": 0.0
+    },
+    "632": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -155.00303649902344,
+        2.927147150039673,
+        0.0032451627776026726
+      ],
+      "speed_mps": 0.0
+    },
+    "631": {
+      "type": "vehicle.audi.a2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -275.5622253417969,
+        -29.972257614135742,
+        -0.007640704978257418
+      ],
+      "speed_mps": 5.587369441986084
+    },
+    "630": {
+      "type": "vehicle.nissan.micra",
+      "role": "dense_city_npc",
+      "xyz": [
+        -191.47164916992188,
+        -104.88644409179688,
+        0.03550893813371658
+      ],
+      "speed_mps": 1.3514987230300903
+    },
+    "629": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.435791015625,
+        -33.50904846191406,
+        0.03858253359794617
+      ],
+      "speed_mps": 1.2309902786000748e-07
+    },
+    "885": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        100.13375091552734,
+        148.6259002685547,
+        1.1356180906295776
+      ],
+      "speed_mps": 0.0
+    },
+    "613": {
+      "type": "walker.pedestrian.0014",
+      "role": "dense_city_npc",
+      "xyz": [
+        26.185855865478516,
+        -178.0450897216797,
+        0.7217711210250854
+      ],
+      "speed_mps": 0.0
+    },
+    "612": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.15019989013672,
+        44.28421401977539,
+        1.1441751718521118
+      ],
+      "speed_mps": 0.0
+    },
+    "1809": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        -42.5404052734375,
+        179.89512634277344,
+        3.749408721923828
+      ],
+      "speed_mps": 0.0
+    },
+    "610": {
+      "type": "walker.pedestrian.0019",
+      "role": "dense_city_npc",
+      "xyz": [
+        194.17469787597656,
+        -168.81866455078125,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "609": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        87.63746643066406,
+        -214.85116577148438,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "608": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.538230895996094,
+        176.00048828125,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "607": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        47.52672576904297,
+        -215.18112182617188,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "887": {
+      "type": "walker.pedestrian.0024",
+      "role": "dense_city_npc",
+      "xyz": [
+        211.31321716308594,
+        136.08837890625,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "605": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -186.49417114257812,
+        206.96826171875,
+        10.0767822265625
+      ],
+      "speed_mps": 0.0
+    },
+    "603": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.23499298095703,
+        174.6158905029297,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "602": {
+      "type": "walker.pedestrian.0001",
+      "role": "dense_city_npc",
+      "xyz": [
+        -97.4455337524414,
+        216.98890686035156,
+        9.148507118225098
+      ],
+      "speed_mps": 0.0
+    },
+    "601": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        112.55584716796875,
+        -16.63945198059082,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "600": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        144.7170867919922,
+        50.11787414550781,
+        1.116782784461975
+      ],
+      "speed_mps": 0.0
+    },
+    "599": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.463172912597656,
+        138.36279296875,
+        0.9689069986343384
+      ],
+      "speed_mps": 0.0
+    },
+    "598": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "dense_city_npc",
+      "xyz": [
+        -79.76359558105469,
+        87.97422790527344,
+        0.042578332126140594
+      ],
+      "speed_mps": 6.136734962463379
+    },
+    "597": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        192.40521240234375,
+        -83.29261779785156,
+        0.002991542685776949
+      ],
+      "speed_mps": 16.425413131713867
+    },
+    "596": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        37.95737075805664,
+        -131.78236389160156,
+        -0.011343555524945259
+      ],
+      "speed_mps": 0.10758700221776962
+    },
+    "595": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        196.242431640625,
+        82.7032470703125,
+        -0.004585590213537216
+      ],
+      "speed_mps": 17.046314239501953
+    },
+    "594": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -195.1171417236328,
+        -68.49412536621094,
+        0.0584314726293087
+      ],
+      "speed_mps": 5.558538913726807
+    },
+    "593": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -172.12582397460938,
+        87.86820220947266,
+        0.0002941513084806502
+      ],
+      "speed_mps": 3.814864513174143e-08
+    },
+    "592": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -245.73074340820312,
+        -0.35284462571144104,
+        0.0386386476457119
+      ],
+      "speed_mps": 3.0996651649475098
+    },
+    "591": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "dense_city_npc",
+      "xyz": [
+        -275.6540222167969,
+        -17.779930114746094,
+        0.04252946749329567
+      ],
+      "speed_mps": 4.410470137372613e-05
+    },
+    "590": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "dense_city_npc",
+      "xyz": [
+        -108.28296661376953,
+        -4.222440719604492,
+        0.04250245913863182
+      ],
+      "speed_mps": 2.3940253257751465
+    },
+    "589": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        -67.70930480957031,
+        95.01641082763672,
+        -0.004813117906451225
+      ],
+      "speed_mps": 1.1062691100960365e-06
+    },
+    "588": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -211.51513671875,
+        177.84678649902344,
+        9.329673767089844
+      ],
+      "speed_mps": 17.055185317993164
+    },
+    "587": {
+      "type": "vehicle.dodge.charger_police_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -158.44883728027344,
+        -95.1329574584961,
+        0.00029472348978742957
+      ],
+      "speed_mps": 5.818238832944189e-07
+    },
+    "586": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        -105.78607177734375,
+        201.6121063232422,
+        8.175148963928223
+      ],
+      "speed_mps": 10.047435760498047
+    },
+    "585": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        27.04266357421875,
+        -116.3258285522461,
+        0.14146848022937775
+      ],
+      "speed_mps": 0.0
+    },
+    "584": {
+      "type": "vehicle.lincoln.mkz_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        196.81564331054688,
+        33.08758544921875,
+        -0.00449586845934391
+      ],
+      "speed_mps": 16.68231201171875
+    },
+    "583": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -246.4518280029297,
+        -3.8495867252349854,
+        0.14135530591011047
+      ],
+      "speed_mps": 8.593157474479085e-08
+    },
+    "1855": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -80.32395935058594,
+        100.50677490234375,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1691": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        209.0218048095703,
+        -142.421630859375,
+        1.1023006439208984
+      ],
+      "speed_mps": 0.0
+    },
+    "881": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -254.86534118652344,
+        90.5402603149414,
+        11.02741527557373
+      ],
+      "speed_mps": 0.0
+    },
+    "564": {
+      "type": "walker.pedestrian.0043",
+      "role": "dense_city_npc",
+      "xyz": [
+        22.66900062561035,
+        215.81893920898438,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "563": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.739707946777344,
+        110.58926391601562,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "562": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -255.1278533935547,
+        98.71485900878906,
+        10.997319221496582
+      ],
+      "speed_mps": 0.0
+    },
+    "1857": {
+      "type": "walker.pedestrian.0025",
+      "role": "dense_city_npc",
+      "xyz": [
+        150.65216064453125,
+        -129.118896484375,
+        1.1370807886123657
+      ],
+      "speed_mps": 0.0
+    },
+    "560": {
+      "type": "walker.pedestrian.0052",
+      "role": "dense_city_npc",
+      "xyz": [
+        -108.07172393798828,
+        31.22061538696289,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "559": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -36.00048065185547,
+        215.83517456054688,
+        2.6274144649505615
+      ],
+      "speed_mps": 0.0
+    },
+    "558": {
+      "type": "walker.pedestrian.0030",
+      "role": "dense_city_npc",
+      "xyz": [
+        -260.8581237792969,
+        -18.975297927856445,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "557": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        -220.46490478515625,
+        9.559383392333984,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "556": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        69.2215576171875,
+        -215.43470764160156,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "555": {
+      "type": "walker.pedestrian.0008",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.23527526855469,
+        159.51376342773438,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "554": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        106.25245666503906,
+        216.52584838867188,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1823": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        -211.513427734375,
+        136.8987579345703,
+        10.744690895080566
+      ],
+      "speed_mps": 0.0
+    },
+    "552": {
+      "type": "walker.pedestrian.0029",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.10600662231445,
+        120.80008697509766,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1798": {
+      "type": "walker.pedestrian.0035",
+      "role": "dense_city_npc",
+      "xyz": [
+        162.36289978027344,
+        -8.719646453857422,
+        1.1424793004989624
+      ],
+      "speed_mps": 0.0
+    },
+    "550": {
+      "type": "walker.pedestrian.0042",
+      "role": "dense_city_npc",
+      "xyz": [
+        -213.82080078125,
+        10.599087715148926,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "549": {
+      "type": "walker.pedestrian.0020",
+      "role": "dense_city_npc",
+      "xyz": [
+        112.32656860351562,
+        -33.73180389404297,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "547": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        -179.4099578857422,
+        -48.7724609375,
+        1.14678156375885
+      ],
+      "speed_mps": 0.0
+    },
+    "546": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -205.66720581054688,
+        91.25450897216797,
+        -0.001011924701742828
+      ],
+      "speed_mps": 6.867963406875788e-07
+    },
+    "545": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -179.66818237304688,
+        132.50111389160156,
+        0.19698382914066315
+      ],
+      "speed_mps": 5.6102824211120605
+    },
+    "544": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.33502197265625,
+        34.79962158203125,
+        -0.001973857870325446
+      ],
+      "speed_mps": 3.1030430793762207
+    },
+    "543": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        3.8045122623443604,
+        -186.4766387939453,
+        0.09757664799690247
+      ],
+      "speed_mps": 6.264992407523096e-05
+    },
+    "542": {
+      "type": "vehicle.nissan.patrol_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        10.475042343139648,
+        208.6181182861328,
+        0.0035405540838837624
+      ],
+      "speed_mps": 0.0008667348884046078
+    },
+    "541": {
+      "type": "vehicle.ford.crown",
+      "role": "dense_city_npc",
+      "xyz": [
+        -205.895263671875,
+        -88.20397186279297,
+        0.018928375095129013
+      ],
+      "speed_mps": 0.0
+    },
+    "540": {
+      "type": "vehicle.ford.crown",
+      "role": "dense_city_npc",
+      "xyz": [
+        -252.3261260986328,
+        -79.35689544677734,
+        0.01886623352766037
+      ],
+      "speed_mps": 3.651618669664458e-07
+    },
+    "539": {
+      "type": "vehicle.audi.etron",
+      "role": "dense_city_npc",
+      "xyz": [
+        12.719512939453125,
+        6.040386199951172,
+        -0.009424266405403614
+      ],
+      "speed_mps": 3.719439405358571e-07
+    },
+    "538": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -43.557655334472656,
+        18.055646896362305,
+        0.05713605880737305
+      ],
+      "speed_mps": 4.972908300260315e-06
+    },
+    "537": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        -264.92352294921875,
+        -48.05542755126953,
+        -0.011320438235998154
+      ],
+      "speed_mps": 1.4809043591412774e-07
+    },
+    "536": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.59075927734375,
+        -72.00011444091797,
+        0.19698254764080048
+      ],
+      "speed_mps": 0.0
+    },
+    "535": {
+      "type": "vehicle.lincoln.mkz_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        134.69131469726562,
+        123.06610107421875,
+        0.034001026302576065
+      ],
+      "speed_mps": 5.373757839202881
+    },
+    "534": {
+      "type": "vehicle.audi.etron",
+      "role": "dense_city_npc",
+      "xyz": [
+        58.2365837097168,
+        -200.69985961914062,
+        -0.009737224318087101
+      ],
+      "speed_mps": 0.0
+    },
+    "533": {
+      "type": "vehicle.nissan.patrol",
+      "role": "dense_city_npc",
+      "xyz": [
+        -66.82703399658203,
+        -125.6866455078125,
+        0.056651514023542404
+      ],
+      "speed_mps": 6.979171871535073e-07
+    },
+    "532": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        193.17454528808594,
+        45.2100830078125,
+        -0.0009398841648362577
+      ],
+      "speed_mps": 16.410781860351562
+    },
+    "531": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -191.54830932617188,
+        87.5198974609375,
+        0.041356347501277924
+      ],
+      "speed_mps": 5.499453544616699
+    },
+    "512": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        24.9781436920166,
+        6.3204545974731445,
+        0.9408925175666809
+      ],
+      "speed_mps": 0.0
+    },
+    "1873": {
+      "type": "walker.pedestrian.0006",
+      "role": "dense_city_npc",
+      "xyz": [
+        80.9555892944336,
+        69.84867858886719,
+        1.1020923852920532
+      ],
+      "speed_mps": 0.0
+    },
+    "492": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        24.492963790893555,
+        -18.507627487182617,
+        -0.011343631893396378
+      ],
+      "speed_mps": 0.10796847939491272
+    },
+    "493": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -212.2378692626953,
+        91.32196807861328,
+        0.0026463125832378864
+      ],
+      "speed_mps": 0.0
+    },
+    "515": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.55768966674805,
+        -8.97997760772705,
+        1.1183241605758667
+      ],
+      "speed_mps": 0.0
+    },
+    "1833": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -39.86852264404297,
+        31.75714111328125,
+        1.1593501567840576
+      ],
+      "speed_mps": 0.0
+    },
+    "1875": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        157.26504516601562,
+        108.66885375976562,
+        1.1402186155319214
+      ],
+      "speed_mps": 0.0
+    },
+    "494": {
+      "type": "vehicle.mercedes.sprinter",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.59056091308594,
+        -27.557453155517578,
+        0.03373266011476517
+      ],
+      "speed_mps": 3.229492664337158
+    },
+    "495": {
+      "type": "vehicle.jeep.wrangler_rubicon",
+      "role": "dense_city_npc",
+      "xyz": [
+        9.992414474487305,
+        91.57571411132812,
+        0.01046007126569748
+      ],
+      "speed_mps": 3.0520271820932976e-07
+    },
+    "1877": {
+      "type": "walker.pedestrian.0039",
+      "role": "dense_city_npc",
+      "xyz": [
+        -114.74537658691406,
+        -43.572532653808594,
+        1.1038845777511597
+      ],
+      "speed_mps": 0.0
+    },
+    "496": {
+      "type": "vehicle.tesla.model3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -44.21526336669922,
+        -42.71506118774414,
+        0.05729387328028679
+      ],
+      "speed_mps": 5.66606330871582
+    },
+    "497": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.17938232421875,
+        -17.23272705078125,
+        -0.011320247314870358
+      ],
+      "speed_mps": 3.8158027848567144e-08
+    },
+    "498": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -50.70943069458008,
+        57.51272964477539,
+        0.0943744033575058
+      ],
+      "speed_mps": 5.2342071533203125
+    },
+    "499": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.35771942138672,
+        -47.99820327758789,
+        -0.0046117971651256084
+      ],
+      "speed_mps": 0.0
+    },
+    "999": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        151.51837158203125,
+        -2.3070666790008545,
+        0.023793639615178108
+      ],
+      "speed_mps": 2.8204269409179688
+    },
+    "511": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        -174.54171752929688,
+        -101.21272277832031,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "500": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        193.02430725097656,
+        -29.57107162475586,
+        0.0035251998342573643
+      ],
+      "speed_mps": 16.136381149291992
+    },
+    "1817": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -92.93001556396484,
+        -8.764688491821289,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "502": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.33544921875,
+        151.4278106689453,
+        1.0473828315734863
+      ],
+      "speed_mps": 0.0
+    },
+    "895": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        -59.351585388183594,
+        -16.503673553466797,
+        1.142143964767456
+      ],
+      "speed_mps": 0.0
+    },
+    "504": {
+      "type": "walker.pedestrian.0001",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.18684005737305,
+        -20.730350494384766,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "505": {
+      "type": "walker.pedestrian.0018",
+      "role": "dense_city_npc",
+      "xyz": [
+        -27.65847396850586,
+        -97.99105072021484,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "489": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -191.15696716308594,
+        -111.77981567382812,
+        0.12284919619560242
+      ],
+      "speed_mps": 7.53689960220072e-07
+    },
+    "485": {
+      "type": "vehicle.audi.a2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -150.2754669189453,
+        150.9196014404297,
+        0.04753435030579567
+      ],
+      "speed_mps": 0.0742679163813591
+    },
+    "1815": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        -159.1034393310547,
+        137.87164306640625,
+        0.7793503999710083
+      ],
+      "speed_mps": 0.0
+    },
+    "434": {
+      "type": "vehicle.lincoln.mkz_2017",
+      "role": "autopilot",
+      "xyz": [
+        12.399262428283691,
+        -190.0071258544922,
+        0.04180564731359482
+      ],
+      "speed_mps": 1.7301076695730444e-06
+    },
+    "433": {
+      "type": "vehicle.nissan.patrol",
+      "role": "autopilot",
+      "xyz": [
+        68.93376922607422,
+        -207.7499237060547,
+        0.0012400817358866334
+      ],
+      "speed_mps": 0.0
+    },
+    "487": {
+      "type": "vehicle.jeep.wrangler_rubicon",
+      "role": "dense_city_npc",
+      "xyz": [
+        3.8354270458221436,
+        91.57058715820312,
+        0.010460280813276768
+      ],
+      "speed_mps": 6.294254148997425e-07
+    },
+    "431": {
+      "type": "vehicle.tesla.model3",
+      "role": "autopilot",
+      "xyz": [
+        -243.8920440673828,
+        76.1465835571289,
+        9.9761962890625
+      ],
+      "speed_mps": 17.01640510559082
+    },
+    "430": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "autopilot",
+      "xyz": [
+        -168.75489807128906,
+        205.05929565429688,
+        8.866678237915039
+      ],
+      "speed_mps": 15.646626472473145
+    },
+    "1810": {
+      "type": "walker.pedestrian.0033",
+      "role": "dense_city_npc",
+      "xyz": [
+        -72.29402160644531,
+        79.28716278076172,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "429": {
+      "type": "vehicle.mini.cooper_s_2021",
+      "role": "autopilot",
+      "xyz": [
+        60.259300231933594,
+        194.8668670654297,
+        0.003273277310654521
+      ],
+      "speed_mps": 5.722055718138108e-08
+    },
+    "1827": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        -219.19520568847656,
+        105.58849334716797,
+        10.983966827392578
+      ],
+      "speed_mps": 0.0
+    },
+    "1871": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        83.51570129394531,
+        217.69554138183594,
+        0.8238999843597412
+      ],
+      "speed_mps": 0.0
+    },
+    "490": {
+      "type": "vehicle.chevrolet.impala",
+      "role": "dense_city_npc",
+      "xyz": [
+        -253.67449951171875,
+        -3.8322701454162598,
+        -0.0073695373721420765
+      ],
+      "speed_mps": 0.0
+    },
+    "491": {
+      "type": "vehicle.mini.cooper_s",
+      "role": "dense_city_npc",
+      "xyz": [
+        27.21907615661621,
+        -122.9027328491211,
+        0.04242757707834244
+      ],
+      "speed_mps": 2.290068010779578e-07
+    },
+    "425": {
+      "type": "vehicle.audi.a2",
+      "role": "autopilot",
+      "xyz": [
+        193.51739501953125,
+        5.7577805519104,
+        -0.008180942386388779
+      ],
+      "speed_mps": 15.725675582885742
+    },
+    "1867": {
+      "type": "walker.pedestrian.0016",
+      "role": "dense_city_npc",
+      "xyz": [
+        -66.81486511230469,
+        101.76424407958984,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "486": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        -187.5251922607422,
+        120.66242218017578,
+        0.04989316686987877
+      ],
+      "speed_mps": 0.0
+    },
+    "1341": {
+      "type": "walker.pedestrian.0037",
+      "role": "dense_city_npc",
+      "xyz": [
+        -255.44908142089844,
+        -79.1708755493164,
+        11.103899002075195
+      ],
+      "speed_mps": 0.0
+    },
+    "509": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        146.19662475585938,
+        125.81578063964844,
+        1.1265802383422852
+      ],
+      "speed_mps": 0.0
+    },
+    "1869": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        168.01177978515625,
+        196.79006958007812,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "488": {
+      "type": "vehicle.nissan.patrol",
+      "role": "dense_city_npc",
+      "xyz": [
+        9.410086631774902,
+        2.5277857780456543,
+        0.0012012290535494685
+      ],
+      "speed_mps": 4.1963923536059156e-07
+    },
+    "506": {
+      "type": "walker.pedestrian.0027",
+      "role": "dense_city_npc",
+      "xyz": [
+        38.9806022644043,
+        -41.08659744262695,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1752": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.25222396850586,
+        60.800106048583984,
+        0.7239152193069458
+      ],
+      "speed_mps": 0.0
+    },
+    "1751": {
+      "type": "walker.pedestrian.0046",
+      "role": "dense_city_npc",
+      "xyz": [
+        19.965486526489258,
+        -31.697887420654297,
+        1.1039150953292847
+      ],
+      "speed_mps": 0.0
+    },
+    "1750": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        -81.39205169677734,
+        137.5479278564453,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1749": {
+      "type": "walker.pedestrian.0028",
+      "role": "dense_city_npc",
+      "xyz": [
+        143.68212890625,
+        76.91616821289062,
+        1.137170672416687
+      ],
+      "speed_mps": 0.0
+    },
+    "367": {
+      "type": "vehicle.toyota.prius",
+      "role": "ego_vehicle",
+      "xyz": [
+        -110.6875,
+        -91.56163024902344,
+        0.03606288880109787
+      ],
+      "speed_mps": 0.37795597314834595
+    },
+    "1518": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        -199.10354614257812,
+        -52.61781311035156,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1517": {
+      "type": "walker.pedestrian.0021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -13.23725700378418,
+        -214.75218200683594,
+        2.2726614475250244
+      ],
+      "speed_mps": 0.0
+    },
+    "1516": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        -222.9730987548828,
+        182.31939697265625,
+        10.095965385437012
+      ],
+      "speed_mps": 0.0
+    },
+    "1515": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        150.55340576171875,
+        121.73413848876953,
+        0.7590235471725464
+      ],
+      "speed_mps": 0.0
+    },
+    "1514": {
+      "type": "walker.pedestrian.0007",
+      "role": "dense_city_npc",
+      "xyz": [
+        62.0788688659668,
+        216.43875122070312,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1513": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -178.9861602783203,
+        25.944711685180664,
+        1.1593503952026367
+      ],
+      "speed_mps": 0.0
+    },
+    "1512": {
+      "type": "vehicle.jeep.wrangler_rubicon",
+      "role": "dense_city_npc",
+      "xyz": [
+        -127.6163330078125,
+        68.05992889404297,
+        0.01042032241821289
+      ],
+      "speed_mps": 0.07884839922189713
+    },
+    "1511": {
+      "type": "vehicle.dodge.charger_police_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        27.585269927978516,
+        -136.59165954589844,
+        0.00032651901710778475
+      ],
+      "speed_mps": 0.0
+    },
+    "1510": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        79.7685546875,
+        5.412736892700195,
+        0.0030172918923199177
+      ],
+      "speed_mps": 2.670303445029276e-07
+    },
+    "1509": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        5.128973960876465,
+        95.07252502441406,
+        0.06739947944879532
+      ],
+      "speed_mps": 1.2876732853328576e-06
+    },
+    "1508": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -173.0281982421875,
+        -91.65505981445312,
+        0.003017215756699443
+      ],
+      "speed_mps": 0.0
+    },
+    "1507": {
+      "type": "vehicle.bmw.grandtourer",
+      "role": "dense_city_npc",
+      "xyz": [
+        -133.4332733154297,
+        84.41087341308594,
+        0.06875688582658768
+      ],
+      "speed_mps": 0.004626719281077385
+    },
+    "1506": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        86.21072387695312,
+        187.98977661132812,
+        0.03908845782279968
+      ],
+      "speed_mps": 5.529628276824951
+    },
+    "1505": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        -187.9329071044922,
+        112.72330474853516,
+        0.050637032836675644
+      ],
+      "speed_mps": 5.91771595281898e-07
+    },
+    "1504": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        -13.793119430541992,
+        205.06411743164062,
+        0.15241022408008575
+      ],
+      "speed_mps": 7.10058884578757e-05
+    },
+    "1503": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        106.6605453491211,
+        19.300724029541016,
+        -0.005557880271226168
+      ],
+      "speed_mps": 0.0
+    },
+    "1502": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        -54.5430793762207,
+        -14.398820877075195,
+        0.05790780857205391
+      ],
+      "speed_mps": 0.1495198756456375
+    },
+    "1501": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -153.88609313964844,
+        84.38066101074219,
+        0.14135609567165375
+      ],
+      "speed_mps": 9.538461398506115e-08
+    },
+    "1500": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.5214614868164,
+        -24.04068946838379,
+        -0.004734592512249947
+      ],
+      "speed_mps": 1.907829755509738e-06
+    },
+    "1499": {
+      "type": "vehicle.audi.tt",
+      "role": "dense_city_npc",
+      "xyz": [
+        -233.4520263671875,
+        79.97367095947266,
+        9.954519271850586
+      ],
+      "speed_mps": 17.126876831054688
+    },
+    "1498": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        51.320228576660156,
+        -200.6708984375,
+        -0.0010177420917898417
+      ],
+      "speed_mps": 0.021072212606668472
+    },
+    "1497": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        30.238460540771484,
+        -104.89009857177734,
+        0.002472667722031474
+      ],
+      "speed_mps": 0.14910398423671722
+    },
+    "1479": {
+      "type": "walker.pedestrian.0049",
+      "role": "dense_city_npc",
+      "xyz": [
+        -106.90234375,
+        -100.3530044555664,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1478": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        -7.725287914276123,
+        -7.446021556854248,
+        1.1038751602172852
+      ],
+      "speed_mps": 0.0
+    },
+    "1477": {
+      "type": "walker.pedestrian.0003",
+      "role": "dense_city_npc",
+      "xyz": [
+        -113.30792999267578,
+        -30.200870513916016,
+        1.1038845777511597
+      ],
+      "speed_mps": 0.0
+    },
+    "1476": {
+      "type": "walker.pedestrian.0050",
+      "role": "dense_city_npc",
+      "xyz": [
+        111.32332611083984,
+        34.608646392822266,
+        1.1032518148422241
+      ],
+      "speed_mps": 0.0
+    },
+    "1475": {
+      "type": "walker.pedestrian.0051",
+      "role": "dense_city_npc",
+      "xyz": [
+        39.643253326416016,
+        21.14383316040039,
+        1.1039152145385742
+      ],
+      "speed_mps": 0.0
+    },
+    "1474": {
+      "type": "walker.pedestrian.0036",
+      "role": "dense_city_npc",
+      "xyz": [
+        78.30046081542969,
+        134.81118774414062,
+        1.137170672416687
+      ],
+      "speed_mps": 0.0
+    },
+    "1473": {
+      "type": "walker.pedestrian.0004",
+      "role": "dense_city_npc",
+      "xyz": [
+        58.24275207519531,
+        -214.89285278320312,
+        1.1038835048675537
+      ],
+      "speed_mps": 0.0
+    },
+    "1472": {
+      "type": "walker.pedestrian.0048",
+      "role": "dense_city_npc",
+      "xyz": [
+        217.06600952148438,
+        121.072265625,
+        0.7238999605178833
+      ],
+      "speed_mps": 0.0
+    },
+    "1471": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -208.36721801757812,
+        97.85810089111328,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1470": {
+      "type": "walker.pedestrian.0022",
+      "role": "dense_city_npc",
+      "xyz": [
+        24.182140350341797,
+        -118.78663635253906,
+        1.5487115383148193
+      ],
+      "speed_mps": 0.0
+    },
+    "1469": {
+      "type": "walker.pedestrian.0005",
+      "role": "dense_city_npc",
+      "xyz": [
+        -17.553028106689453,
+        98.45732116699219,
+        1.1037980318069458
+      ],
+      "speed_mps": 0.0
+    },
+    "1468": {
+      "type": "walker.pedestrian.0012",
+      "role": "dense_city_npc",
+      "xyz": [
+        218.96197509765625,
+        -14.718807220458984,
+        0.8207771182060242
+      ],
+      "speed_mps": 0.0
+    },
+    "1467": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        -60.16040802001953,
+        79.06986999511719,
+        1.1593502759933472
+      ],
+      "speed_mps": 0.0
+    },
+    "1466": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        -137.30642700195312,
+        103.61357116699219,
+        1.1036673784255981
+      ],
+      "speed_mps": 0.0
+    },
+    "1465": {
+      "type": "walker.pedestrian.0031",
+      "role": "dense_city_npc",
+      "xyz": [
+        33.20005416870117,
+        -214.4978790283203,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1464": {
+      "type": "walker.pedestrian.0032",
+      "role": "dense_city_npc",
+      "xyz": [
+        111.04821014404297,
+        58.21051788330078,
+        1.1010571718215942
+      ],
+      "speed_mps": 0.0
+    },
+    "1463": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        123.64933013916016,
+        215.47657775878906,
+        1.1038999557495117
+      ],
+      "speed_mps": 0.0
+    },
+    "1462": {
+      "type": "vehicle.citroen.c3",
+      "role": "dense_city_npc",
+      "xyz": [
+        -160.59519958496094,
+        84.36688232421875,
+        0.03859754651784897
+      ],
+      "speed_mps": 3.3187868666573195e-06
+    },
+    "1461": {
+      "type": "vehicle.volkswagen.t2",
+      "role": "dense_city_npc",
+      "xyz": [
+        -77.97066497802734,
+        -132.47410583496094,
+        0.05846807360649109
+      ],
+      "speed_mps": 2.0027423488500062e-06
+    },
+    "1460": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.00140380859375,
+        -38.60346984863281,
+        -0.00471918098628521
+      ],
+      "speed_mps": 1.4877582543704193e-06
+    },
+    "1459": {
+      "type": "vehicle.micro.microlino",
+      "role": "dense_city_npc",
+      "xyz": [
+        35.09980773925781,
+        31.2628116607666,
+        0.0026638030540198088
+      ],
+      "speed_mps": 5.4568376541137695
+    },
+    "1458": {
+      "type": "vehicle.lincoln.mkz_2017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -140.9016876220703,
+        -91.23860931396484,
+        0.03375663608312607
+      ],
+      "speed_mps": 2.6987478918272245e-07
+    },
+    "1457": {
+      "type": "vehicle.nissan.micra",
+      "role": "dense_city_npc",
+      "xyz": [
+        -121.21922302246094,
+        -68.27666473388672,
+        -0.019185122102499008
+      ],
+      "speed_mps": 0.0
+    },
+    "1456": {
+      "type": "vehicle.volkswagen.t2_2021",
+      "role": "dense_city_npc",
+      "xyz": [
+        -184.583740234375,
+        -51.49522399902344,
+        0.05446130782365799
+      ],
+      "speed_mps": 0.0
+    },
+    "1455": {
+      "type": "vehicle.audi.a2",
+      "role": "dense_city_npc",
+      "xyz": [
+        186.671630859375,
+        -117.11018371582031,
+        -0.007770442869514227
+      ],
+      "speed_mps": 16.93646812438965
+    },
+    "1454": {
+      "type": "vehicle.dodge.charger_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        -224.87503051757812,
+        -84.6843032836914,
+        0.00026063917903229594
+      ],
+      "speed_mps": 2.392333507537842
+    },
+    "1453": {
+      "type": "vehicle.ford.mustang",
+      "role": "dense_city_npc",
+      "xyz": [
+        -268.9305725097656,
+        25.69127655029297,
+        -0.005557575263082981
+      ],
+      "speed_mps": 6.677603892057959e-07
+    },
+    "1452": {
+      "type": "vehicle.nissan.micra",
+      "role": "dense_city_npc",
+      "xyz": [
+        -275.71954345703125,
+        46.23542022705078,
+        -0.017873171716928482
+      ],
+      "speed_mps": 4.97254753112793
+    },
+    "1451": {
+      "type": "vehicle.mercedes.coupe_2020",
+      "role": "dense_city_npc",
+      "xyz": [
+        189.51036071777344,
+        -30.75067138671875,
+        -0.001222057268023491
+      ],
+      "speed_mps": 17.130760192871094
+    },
+    "1450": {
+      "type": "vehicle.mercedes.coupe",
+      "role": "dense_city_npc",
+      "xyz": [
+        -265.91998291015625,
+        2.621073007583618,
+        0.1416255533695221
+      ],
+      "speed_mps": 5.585716724395752
+    },
+    "1449": {
+      "type": "vehicle.ford.ambulance",
+      "role": "dense_city_npc",
+      "xyz": [
+        -191.5766143798828,
+        -19.477642059326172,
+        0.050465524196624756
+      ],
+      "speed_mps": 0.023674320429563522
+    },
+    "1448": {
+      "type": "vehicle.lincoln.mkz_2017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -102.19762420654297,
+        -91.54733276367188,
+        0.033757876604795456
+      ],
+      "speed_mps": 9.923943480316666e-07
+    },
+    "1447": {
+      "type": "vehicle.mitsubishi.fusorosa",
+      "role": "dense_city_npc",
+      "xyz": [
+        29.53236198425293,
+        -78.53221130371094,
+        -0.004706515930593014
+      ],
+      "speed_mps": 0.0
+    },
+    "1445": {
+      "type": "walker.pedestrian.0016",
+      "role": "dense_city_npc",
+      "xyz": [
+        219.40036010742188,
+        -1.3398758172988892,
+        1.1038998365402222
+      ],
+      "speed_mps": 0.0
+    },
+    "1443": {
+      "type": "walker.pedestrian.0040",
+      "role": "dense_city_npc",
+      "xyz": [
+        -160.90760803222656,
+        176.68934631347656,
+        9.909768104553223
+      ],
+      "speed_mps": 0.0
+    },
+    "1441": {
+      "type": "walker.pedestrian.0017",
+      "role": "dense_city_npc",
+      "xyz": [
+        -30.132009506225586,
+        215.8290557861328,
+        2.3689095973968506
+      ],
+      "speed_mps": 0.0
+    },
+    "1437": {
+      "type": "walker.pedestrian.0041",
+      "role": "dense_city_npc",
+      "xyz": [
+        184.366943359375,
+        180.4084014892578,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1436": {
+      "type": "walker.pedestrian.0026",
+      "role": "dense_city_npc",
+      "xyz": [
+        40.42970657348633,
+        111.86831665039062,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1435": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        -20.68758201599121,
+        216.1919708251953,
+        1.5925534963607788
+      ],
+      "speed_mps": 0.0
+    },
+    "1433": {
+      "type": "walker.pedestrian.0044",
+      "role": "dense_city_npc",
+      "xyz": [
+        -139.65875244140625,
+        43.760398864746094,
+        5.536780834197998
+      ],
+      "speed_mps": 0.0
+    },
+    "1431": {
+      "type": "walker.pedestrian.0010",
+      "role": "dense_city_npc",
+      "xyz": [
+        55.04326629638672,
+        -216.0076904296875,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1427": {
+      "type": "walker.pedestrian.0016",
+      "role": "dense_city_npc",
+      "xyz": [
+        -32.59138870239258,
+        10.280048370361328,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1425": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        160.65274047851562,
+        -4.454550743103027,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "1423": {
+      "type": "walker.pedestrian.0011",
+      "role": "dense_city_npc",
+      "xyz": [
+        -245.6309356689453,
+        -97.21208953857422,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1421": {
+      "type": "walker.pedestrian.0034",
+      "role": "dense_city_npc",
+      "xyz": [
+        41.25192642211914,
+        125.43221282958984,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1419": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        -71.82659912109375,
+        50.738948822021484,
+        0.7467849850654602
+      ],
+      "speed_mps": 0.0
+    },
+    "1417": {
+      "type": "walker.pedestrian.0045",
+      "role": "dense_city_npc",
+      "xyz": [
+        -71.62703704833984,
+        -8.438212394714355,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1414": {
+      "type": "walker.pedestrian.0009",
+      "role": "dense_city_npc",
+      "xyz": [
+        55.34147262573242,
+        10.037064552307129,
+        0.7067840695381165
+      ],
+      "speed_mps": 0.0
+    },
+    "1413": {
+      "type": "walker.pedestrian.0002",
+      "role": "dense_city_npc",
+      "xyz": [
+        20.601032257080078,
+        1.8324118852615356,
+        0.9453222155570984
+      ],
+      "speed_mps": 0.0
+    },
+    "1411": {
+      "type": "walker.pedestrian.0038",
+      "role": "dense_city_npc",
+      "xyz": [
+        158.28993225097656,
+        -111.16693878173828,
+        1.1267849206924438
+      ],
+      "speed_mps": 0.0
+    },
+    "1409": {
+      "type": "walker.pedestrian.0015",
+      "role": "dense_city_npc",
+      "xyz": [
+        55.99736785888672,
+        -215.47470092773438,
+        1.0867840051651
+      ],
+      "speed_mps": 0.0
+    },
+    "1407": {
+      "type": "walker.pedestrian.0023",
+      "role": "dense_city_npc",
+      "xyz": [
+        -32.18673324584961,
+        -215.8951873779297,
+        4.598109722137451
+      ],
+      "speed_mps": 0.0
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "pid": 353244,
+  "updated_at": 1790128323.510374,
+  "status": "running",
+  "world_id": 16568732170033816192,
+  "map": "Carla/Maps/Town05_Opt",
+  "frame": 1575644,
+  "config": {
+    "vehicles": 250,
+    "walkers": 500,
+    "vehicle_speed_difference_percent": 30,
+    "following_distance_m": 3.0,
+    "auto_lane_change": false,
+    "crossing_factor": 0.15,
+    "vehicle_batch_size": 16,
+    "walker_batch_size": 24,
+    "update_interval_s": 2.0,
+    "ego_clearance_m": 30.0,
+    "walker_speed_min_mps": 1.0,
+    "walker_speed_max_mps": 1.6
+  },
+  "counts": {
+    "vehicles": 250,
+    "walkers": 500,
+    "all_vehicles": 251,
+    "egos": 1,
+    "controllers": 497
+  },
+  "nonowned": {
+    "vehicles": 6,
+    "walkers": -78
+  },
+  "target_shortfall": {
+    "vehicles": 0,
+    "walkers": 0
+  },
+  "moving": {
+    "vehicles": 92,
+    "walkers": 243
+  },
+  "mean_speed_mps": {
+    "vehicles": 3.031764692934444,
+    "walkers": 0.5443919375082376
+  },
+  "walker_speed_source": "snapshot_position_delta_per_simulation_second",
+  "walker_speed_sample_count": 500,
+  "walker_reported_mean_speed_mps": 0.0,
+  "world_fps": 7.112974854000962,
+  "simulation_speed_ratio": 0.3556487479996273,
+  "measurement_window_s": 121.74934085601126,
+  "native_vehicle_spawn_points": 225,
+  "spawn_failures": {
+    "vehicles": 0,
+    "walkers": 231,
+    "controllers": 0,
+    "navigation": 0
+  },
+  "errors": [],
+  "tick_owner": false
+}

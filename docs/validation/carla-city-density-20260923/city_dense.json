@@ -1,0 +1,14 @@
+{
+  "vehicles": 250,
+  "walkers": 500,
+  "vehicle_speed_difference_percent": 30,
+  "following_distance_m": 3.0,
+  "auto_lane_change": false,
+  "crossing_factor": 0.15,
+  "vehicle_batch_size": 16,
+  "walker_batch_size": 24,
+  "update_interval_s": 2.0,
+  "ego_clearance_m": 30.0,
+  "walker_speed_min_mps": 1.0,
+  "walker_speed_max_mps": 1.6
+}

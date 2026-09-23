@@ -1,0 +1,17 @@
+test_cleanup_observes_external_tick_before_reporting_final_counts (__main__.CityTrafficTests.test_cleanup_observes_external_tick_before_reporting_final_counts) ... ok
+test_config_rejects_nonfinite_negative_oversized_and_fractional_counts (__main__.CityTrafficTests.test_config_rejects_nonfinite_negative_oversized_and_fractional_counts) ... ok
+test_controller_stops_before_deletion (__main__.CityTrafficTests.test_controller_stops_before_deletion) ... ok
+test_destroy_filters_unowned_ids_and_never_requests_tick (__main__.CityTrafficTests.test_destroy_filters_unowned_ids_and_never_requests_tick) ... ok
+test_destroy_not_found_is_idempotent_despite_cached_actor (__main__.CityTrafficTests.test_destroy_not_found_is_idempotent_despite_cached_actor) ... ok
+test_ego_and_user_scenario_roles_are_not_background (__main__.CityTrafficTests.test_ego_and_user_scenario_roles_are_not_background) ... ok
+test_existing_population_counts_toward_target_without_spawning (__main__.CityTrafficTests.test_existing_population_counts_toward_target_without_spawning) ... ok
+test_missing_ego_suspends_population_changes (__main__.CityTrafficTests.test_missing_ego_suspends_population_changes) ... ok
+test_orphan_walker_is_reclaimed_when_controller_disappears (__main__.CityTrafficTests.test_orphan_walker_is_reclaimed_when_controller_disappears) ... ok
+test_population_ownership_handles_delayed_actor_registration (__main__.CityTrafficTests.test_population_ownership_handles_delayed_actor_registration) ... ok
+test_shrink_never_removes_external_vehicle_or_pedestrian (__main__.CityTrafficTests.test_shrink_never_removes_external_vehicle_or_pedestrian) ... ok
+test_walker_motion_uses_snapshot_displacement_when_velocity_reports_zero (__main__.CityTrafficTests.test_walker_motion_uses_snapshot_displacement_when_velocity_reports_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.003s
+
+OK

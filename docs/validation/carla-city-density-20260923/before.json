@@ -1,0 +1,234 @@
+{
+  "world_id": 16568732170033816192,
+  "map": "Carla/Maps/Town05_Opt",
+  "sync": true,
+  "fixed_dt": 0.05,
+  "spawn_points": 302,
+  "vehicles": 7,
+  "walkers": 0,
+  "controllers": 0,
+  "actors": [
+    {
+      "id": 367,
+      "type": "vehicle.toyota.prius",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "23,51,236",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "ego_vehicle"
+      },
+      "xyz": [
+        -192.1128692626953,
+        -68.83485412597656,
+        0.09156131744384766
+      ],
+      "yaw": 89.43584442138672,
+      "speed_mps": 5.287425892674946e-07
+    },
+    {
+      "id": 434,
+      "type": "vehicle.lincoln.mkz_2017",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "16,16,16",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        56.380672454833984,
+        191.34765625,
+        0.03412540256977081
+      ],
+      "yaw": -179.71214294433594,
+      "speed_mps": 5.985159873962402
+    },
+    {
+      "id": 433,
+      "type": "vehicle.nissan.patrol",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "183,187,162",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -55.83710861206055,
+        -207.52268981933594,
+        6.4665703773498535
+      ],
+      "yaw": -179.93154907226562,
+      "speed_mps": 21.725004196166992
+    },
+    {
+      "id": 431,
+      "type": "vehicle.tesla.model3",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "17,37,103",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -59.65523910522461,
+        -204.02891540527344,
+        6.95079231262207
+      ],
+      "yaw": -179.9232635498047,
+      "speed_mps": 24.151304244995117
+    },
+    {
+      "id": 430,
+      "type": "vehicle.mini.cooper_s",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "217,217,217",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        28.04019546508789,
+        208.70591735839844,
+        0.04257270693778992
+      ],
+      "yaw": 0.2698453962802887,
+      "speed_mps": 8.050889015197754
+    },
+    {
+      "id": 429,
+      "type": "vehicle.mini.cooper_s_2021",
+      "attributes": {
+        "has_dynamic_doors": "true",
+        "generation": "2",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "73,0,0",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "true",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        68.03376770019531,
+        194.90589904785156,
+        0.003244380932301283
+      ],
+      "yaw": -179.73329162597656,
+      "speed_mps": 7.6914286613464355
+    },
+    {
+      "id": 425,
+      "type": "vehicle.audi.a2",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "168,0,27",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "autopilot"
+      },
+      "xyz": [
+        -75.5113525390625,
+        -190.0496368408203,
+        8.861291885375977
+      ],
+      "yaw": 0.08102675527334213,
+      "speed_mps": 12.270718574523926
+    }
+  ],
+  "ego": [
+    {
+      "id": 367,
+      "type": "vehicle.toyota.prius",
+      "attributes": {
+        "has_dynamic_doors": "false",
+        "generation": "1",
+        "number_of_wheels": "4",
+        "special_type": "electric",
+        "base_type": "car",
+        "object_type": "",
+        "sticky_control": "true",
+        "color": "23,51,236",
+        "terramechanics": "false",
+        "ros_publish_tf": "true",
+        "ros_frame_id": "",
+        "ros_name": "",
+        "has_lights": "false",
+        "role_name": "ego_vehicle"
+      },
+      "xyz": [
+        -192.1128692626953,
+        -68.83485412597656,
+        0.09156131744384766
+      ],
+      "yaw": 89.43584442138672,
+      "speed_mps": 5.287425892674946e-07
+    }
+  ],
+  "frame_hz": 19.983250988218817,
+  "sim_real_ratio": 0.9991625642996231,
+  "max_wait_s": 0.06520698500389699,
+  "median_wait_s": 0.04997422399901552
+}

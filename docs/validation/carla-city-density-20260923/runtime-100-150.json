@@ -1,0 +1,2999 @@
+{
+  "requested_mode": "ground_truth",
+  "duration_wall_s": 8.002632882999023,
+  "parameters": {
+    "/autoware_carla_interface": {
+      "carla_perception_mode": "ground_truth",
+      "ground_truth_range_m": 150.0,
+      "sync_mode": true,
+      "fixed_delta_seconds": 0.05
+    },
+    "/control/autonomous_emergency_braking": {
+      "use_predicted_object_data": true,
+      "use_pointcloud_data": true
+    }
+  },
+  "publishers": {
+    "clock": [
+      {
+        "node": "/autoware_carla_interface",
+        "type": "rosgraph_msgs/msg/Clock",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "odom": [
+      {
+        "node": "/carla_state_publisher",
+        "type": "nav_msgs/msg/Odometry",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "tracked": [
+      {
+        "node": "/autoware_carla_interface",
+        "type": "autoware_perception_msgs/msg/TrackedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "predicted": [
+      {
+        "node": "/perception/object_recognition/prediction/map_based_prediction",
+        "type": "autoware_perception_msgs/msg/PredictedObjects",
+        "reliability": "1",
+        "durability": "2"
+      }
+    ],
+    "centerpoint": [],
+    "detected": [],
+    "mode": [
+      {
+        "node": "/adapi/node/operation_mode",
+        "type": "autoware_adapi_v1_msgs/msg/OperationModeState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route_state": [
+      {
+        "node": "/adapi/node/routing",
+        "type": "autoware_adapi_v1_msgs/msg/RouteState",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ],
+    "route": [
+      {
+        "node": "/planning/mission_planning/mission_planner",
+        "type": "autoware_planning_msgs/msg/LaneletRoute",
+        "reliability": "1",
+        "durability": "1"
+      }
+    ]
+  },
+  "active_nodes": [
+    "/adapi/container",
+    "/adapi/node/autoware_state",
+    "/adapi/node/diagnostics",
+    "/adapi/node/fail_safe",
+    "/adapi/node/heartbeat",
+    "/adapi/node/interface",
+    "/adapi/node/localization",
+    "/adapi/node/manual/local",
+    "/adapi/node/manual/remote",
+    "/adapi/node/motion",
+    "/adapi/node/mrm_request",
+    "/adapi/node/operation_mode",
+    "/adapi/node/perception",
+    "/adapi/node/planning",
+    "/adapi/node/routing",
+    "/adapi/node/vehicle_command",
+    "/adapi/node/vehicle_door",
+    "/adapi/node/vehicle_info",
+    "/adapi/node/vehicle_metrics",
+    "/adapi/node/vehicle_status",
+    "/autoware_carla_interface",
+    "/autoware_raw_vehicle_cmd_converter",
+    "/carla_behavior_runtime_check",
+    "/carla_localization_ready",
+    "/carla_state_publisher",
+    "/carla_traffic_signal_bridge",
+    "/carla_twist2accel",
+    "/control/autonomous_emergency_braking",
+    "/control/autoware_operation_mode_transition_manager",
+    "/control/autoware_shift_decider",
+    "/control/collision_detector",
+    "/control/control_check_container",
+    "/control/control_container",
+    "/control/control_evaluator",
+    "/control/control_validator",
+    "/control/external_cmd_converter",
+    "/control/external_cmd_selector",
+    "/control/trajectory_follower/controller_node_exe",
+    "/control/trajectory_follower/lane_departure_checker_node",
+    "/control/transform_listener_impl_5b3f3a1d0410",
+    "/control/transform_listener_impl_7b9f7003d9e0",
+    "/control/vehicle_cmd_gate",
+    "/default_adapi/helpers/autoware_initial_pose_adaptor",
+    "/default_adapi/helpers/autoware_routing_adaptor",
+    "/default_adapi/helpers/transform_listener_impl_5dc3ff4672a8",
+    "/launch_ros_1",
+    "/logging_diag_graph",
+    "/managed_tf_listener_impl_fa2dd18abf12",
+    "/map/lanelet2_map_loader",
+    "/map/lanelet2_map_visualization",
+    "/map/map_container",
+    "/map/map_hash_generator",
+    "/map/map_projection_loader",
+    "/map/pointcloud_map_loader",
+    "/map/vector_map_tf_generator",
+    "/perception/object_recognition/prediction/map_based_prediction",
+    "/perception/object_recognition/prediction/transform_listener_impl_56e857e24370",
+    "/perception/obstacle_segmentation/common_ground_filter",
+    "/perception/obstacle_segmentation/crop_box_filter",
+    "/perception/obstacle_segmentation/occupancy_grid_based_outlier_filter",
+    "/perception/occupancy_grid_map/occupancy_grid_map_node",
+    "/perception_analytics_publisher",
+    "/planning/mission_planning/goal_pose_visualizer",
+    "/planning/mission_planning/manual_lane_change_handler",
+    "/planning/mission_planning/mission_planner",
+    "/planning/mission_planning/mission_planner_container",
+    "/planning/mission_planning/route_selector",
+    "/planning/mission_planning/transform_listener_impl_7cbf7802dab8",
+    "/planning/planning_evaluator",
+    "/planning/planning_validator",
+    "/planning/planning_validator_container",
+    "/planning/scenario_planning/autoware_hazard_lights_selector",
+    "/planning/scenario_planning/external_velocity_limit_selector",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_planning_container",
+    "/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner",
+    "/planning/scenario_planning/lane_driving/behavior_planning/transform_listener_impl_78f0b404ea90",
+    "/planning/scenario_planning/lane_driving/motion_planning/elastic_band_smoother",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_planning_container",
+    "/planning/scenario_planning/lane_driving/motion_planning/motion_velocity_planner",
+    "/planning/scenario_planning/lane_driving/motion_planning/path_optimizer",
+    "/planning/scenario_planning/lane_driving/motion_planning/transform_listener_impl_70d22c082f40",
+    "/planning/scenario_planning/scenario_selector",
+    "/planning/scenario_planning/velocity_smoother",
+    "/planning/scenario_planning/velocity_smoother_container",
+    "/planning/transform_listener_impl_62971d726460",
+    "/planning/transform_listener_impl_7b2004143560",
+    "/pointcloud_container",
+    "/robot_state_publisher",
+    "/rviz2",
+    "/sensing/imu/gyro_bias_scale_validator",
+    "/sensing/imu/imu_corrector",
+    "/sensing/imu/transform_listener_impl_5922d0ee2df0",
+    "/sensing/imu/transform_listener_impl_5e092c81d0f0",
+    "/sensing/lidar/crop_box_filter_mirror",
+    "/sensing/lidar/crop_box_filter_self",
+    "/sensing/lidar/pointcloud_relay",
+    "/sensing/vehicle_velocity_converter",
+    "/system/aggregator",
+    "/system/component_state_monitor/component",
+    "/system/component_state_monitor/container",
+    "/system/converter",
+    "/system/duplicated_node_checker",
+    "/system/hazard_status_converter",
+    "/system/mrm_comfortable_stop_operator",
+    "/system/mrm_comfortable_stop_operator/mrm_comfortable_stop_operator_container",
+    "/system/mrm_emergency_stop_operator",
+    "/system/mrm_emergency_stop_operator/mrm_emergency_stop_operator_container",
+    "/system/mrm_handler",
+    "/system/pipeline_latency_monitor",
+    "/system/processing_time_checker",
+    "/system/service_log_checker",
+    "/system/topic_state_monitor_control_command_control_cmd",
+    "/system/topic_state_monitor_mission_planning_route",
+    "/system/topic_state_monitor_object_recognition_objects",
+    "/system/topic_state_monitor_obstacle_segmentation_pointcloud",
+    "/system/topic_state_monitor_pointcloud_map",
+    "/system/topic_state_monitor_pose_twist_fusion_filter_pose",
+    "/system/topic_state_monitor_scenario_planning_trajectory",
+    "/system/topic_state_monitor_system_emergency_control_cmd",
+    "/system/topic_state_monitor_traffic_light_recognition_traffic_signals",
+    "/system/topic_state_monitor_trajectory_follower_control_cmd",
+    "/system/topic_state_monitor_transform_map_to_base_link",
+    "/system/topic_state_monitor_vector_map",
+    "/system/topic_state_monitor_vehicle_status_steering_status",
+    "/system/topic_state_monitor_vehicle_status_velocity_status",
+    "/transform_listener_impl_55cce8420540",
+    "/transform_listener_impl_5c29217789e0",
+    "/transform_listener_impl_736c1c051bf0",
+    "/transform_listener_impl_736c7c04bb50",
+    "/vehicle_velocity_converter"
+  ],
+  "streams": {
+    "clock": {
+      "topic": "/clock",
+      "received": 142,
+      "frame": null,
+      "stamp_first": 56565.650842893,
+      "stamp_last": 56572.700842998,
+      "age_wall_s": 0.00337357098760549,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "odom": {
+      "topic": "/localization/kinematic_state",
+      "received": 163,
+      "frame": "map",
+      "stamp_first": 56565.650842893,
+      "stamp_last": 56572.700842998,
+      "age_wall_s": 0.0032840799976838753,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "tracked": {
+      "topic": "/perception/object_recognition/tracking/objects",
+      "received": 142,
+      "frame": "map",
+      "stamp_first": 56565.650842893,
+      "stamp_last": 56572.700842998,
+      "age_wall_s": 0.00014832799206487834,
+      "age_sim_s": 0.0,
+      "stamp_monotonic": true,
+      "object_count_min": 48,
+      "object_count_max": 60,
+      "latest_class_counts": {
+        "7": 31,
+        "1": 28,
+        "3": 1
+      },
+      "latest_objects": [
+        {
+          "label": 7,
+          "position": [
+            -105.76493835449219,
+            -55.15564727783203,
+            1.1054871082305908
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d680af803c38559bb2474885c1fcf012",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -110.09797668457031,
+            -60.50110626220703,
+            1.094476580619812
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "3a2bc89161f95e4a8b1b2accb0a9f386",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -139.5146942138672,
+            -11.25692081451416,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "903e7c3c942e5fecbb21507596e5d0e6",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -151.6060333251953,
+            -215.40724182128906,
+            9.752294540405273
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "c0bb2629e83d535dac8a4c73a3e575f6",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -187.313232421875,
+            -164.57815551757812,
+            10.310225486755371
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d5f729dbdd6c5ba0ac78913c67c66127",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -125.5099868774414,
+            -101.43898010253906,
+            0.9901852011680603
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "5536202ec64359a18f7a19852dc0739c",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -279.5184326171875,
+            -59.04684829711914,
+            0.7067840695381165
+          ],
+          "dimensions": [
+            0.5,
+            0.5,
+            1.100000023841858
+          ],
+          "uuid": "bc173f4f092652a4ae46d7e9a93115f8",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -192.15280151367188,
+            -11.755359649658203,
+            1.0066590309143066
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "16c5b5ae1ba657b0b620e2eeb2d913e3",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -180.3617401123047,
+            -15.387575149536133,
+            1.1467865705490112
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "0f4bf390c2d15bcb9b2108f84bf7c32b",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -137.7703094482422,
+            -105.75404357910156,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "eef5003d1bcd541c9e29fdeabe696f41",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.36122131347656,
+            18.21725082397461,
+            11.086784362792969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "37395efa2d9253f9840fa4607f90b184",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -254.87159729003906,
+            21.399505615234375,
+            11.086784362792969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "becf698a233a519d9e1581f63cb90745",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -168.63436889648438,
+            -9.682415962219238,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "c0b64b07e6a35ccf850ac29a80a50456",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.2693328857422,
+            -106.66929626464844,
+            10.970730781555176
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "6291a19def3b5b92b0f01a24aff39573",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -187.6628313803692,
+            -117.38780110818567,
+            0.7347027336594655
+          ],
+          "dimensions": [
+            2.2072951793670654,
+            1.4809197187423706,
+            1.3760247230529785
+          ],
+          "uuid": "99aab640328a588e899ee91eeed974e6",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            4.951188578789843,
+            -0.09918075965502575,
+            -0.017188349228510258
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -188.01334413565198,
+            -107.31293594237283,
+            0.8636028773804335
+          ],
+          "dimensions": [
+            5.0267767906188965,
+            2.1515462398529053,
+            1.6506516933441162
+          ],
+          "uuid": "333a6b8836c350c2b18cb4e1a3a3fb61",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -3.467589275922157e-05,
+            1.0840051366818851e-06,
+            1.5724232075507287e-06
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -246.59718797965138,
+            -19.679212393573998,
+            10.67803092667269
+          ],
+          "dimensions": [
+            2.2072951793670654,
+            1.4809197187423706,
+            1.3760247230529785
+          ],
+          "uuid": "6322dfc443b05b77b7d40b6f09b2d515",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.525281281359854,
+            7.240753391875933e-05,
+            0.03226094308936164
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -147.161865234375,
+            -9.436826705932617,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d696b173e6b65fc288873594b4ef17b8",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -200.7042694091797,
+            -7.253815650939941,
+            0.9767834544181824
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "e6fdc3d888b45803a6956e8b048b9dd9",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -197.93214416503906,
+            -70.86978912353516,
+            0.7667816281318665
+          ],
+          "dimensions": [
+            0.5,
+            0.5,
+            1.100000023841858
+          ],
+          "uuid": "0148ccad21df50939826999177afb354",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -252.48802185058594,
+            -124.91507720947266,
+            10.8936128616333
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "9831014598685c6aaa92afa127859b65",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -270.59984840270715,
+            -75.56074552122908,
+            0.7346009826163847
+          ],
+          "dimensions": [
+            4.1928300857543945,
+            1.8161858320236206,
+            1.4738311767578125
+          ],
+          "uuid": "440abcd1e39b5ab4a55ae2b2c22ffe19",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.567144699094729,
+            0.32585291837996055,
+            -0.0007236903390303311
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -265.3533594908745,
+            -33.1625617978469,
+            0.7345949796087334
+          ],
+          "dimensions": [
+            4.1928300857543945,
+            1.8161858320236206,
+            1.4738311767578125
+          ],
+          "uuid": "5da08908fa135248bfdfb4f53b652a75",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.594954669454744,
+            -5.128686236381911e-06,
+            -4.614282343283518e-05
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -120.25572869457295,
+            -108.18002635421192,
+            0.6940145017217761
+          ],
+          "dimensions": [
+            5.357479572296143,
+            2.033202886581421,
+            1.4106587171554565
+          ],
+          "uuid": "976b4a1e077a538cb2b6f9010eee7060",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -7.944583869799201e-08,
+            -1.2948687145064449e-07,
+            2.667375527189573e-07
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -109.35958862304688,
+            -101.86248016357422,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "7f3e22354f325cf5b81cab5a14cda20e",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -138.41940307617188,
+            -39.64389419555664,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "6796ae23821e5396aa008e29cd2dec83",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -131.24070739746094,
+            -77.80735778808594,
+            0.9891507625579834
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d226719851815a2ca091e18aed9d9ece",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -112.50666046142578,
+            -51.10987854003906,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "4d30fb770d6f5b0aac73a7a2f065a527",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.26177978515625,
+            -48.43442916870117,
+            11.086784362792969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "a6439eafb6b35983ba0f936fa55641f2",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.42259216308594,
+            -76.2635269165039,
+            11.070955276489258
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "f1875dc39ed0533992c7ba3b49df8bbe",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -112.46620178222656,
+            -38.9588623046875,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "4c26ff28e1c752b5bf3038b23d039af9",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -184.08692001069025,
+            -143.1953869997987,
+            0.7931694202513365
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "1da88898e14c5f6284a5ac59b490f43a",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.588184140788406,
+            0.17701431145848784,
+            9.201849173926766e-05
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -247.03703901320236,
+            -50.404518364490905,
+            11.020420474570665
+          ],
+          "dimensions": [
+            5.565828800201416,
+            2.1499669551849365,
+            2.045147180557251
+          ],
+          "uuid": "f4ebde4e605b5867a80b2d37a58f8618",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.574156857925786,
+            0.049610631954566914,
+            -0.0005755031961094941
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -141.34844157646356,
+            0.6066564004949978,
+            0.7874877552354244
+          ],
+          "dimensions": [
+            5.365678787231445,
+            1.8007241487503052,
+            1.5749659538269043
+          ],
+          "uuid": "d470832ed2ee51eb8ffa598ad43ed65c",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.689550418947763,
+            -2.4820470036241096e-06,
+            -1.0256360967427218e-05
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -250.00234401162317,
+            -6.57893168691532,
+            0.7377460258046448
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "123473265c8f5c40ba7bd4346fbc8f79",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.478609433564573,
+            -0.03470522617617163,
+            0.0006513241313285675
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -223.52061469051273,
+            -136.03109806302012,
+            10.678482919680524
+          ],
+          "dimensions": [
+            4.442183971405029,
+            1.77456533908844,
+            1.9872066974639893
+          ],
+          "uuid": "efb0bcd9fccb520abdd28cf0018557be",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            7.676768173403984,
+            -0.20843820862904033,
+            -0.01865589482795693
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -108.2856737269201,
+            -151.01668357101312,
+            1.0458160008908652
+          ],
+          "dimensions": [
+            4.442183971405029,
+            1.77456533908844,
+            1.9872066974639893
+          ],
+          "uuid": "82fbe5e450b35fc39307465ba8c9b768",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.476606350666172,
+            0.0953341366827755,
+            -0.00028030823743536325
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -255.89905056542398,
+            0.3291053584162972,
+            0.9415509873590214
+          ],
+          "dimensions": [
+            3.866220712661743,
+            1.9051965475082397,
+            1.8779358863830566
+          ],
+          "uuid": "f033cf9c2d655561a67118ab4ba34e67",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            3.844656974605559,
+            -0.0011660481031319724,
+            -0.015960698953455053
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -113.77996063232422,
+            -103.01155853271484,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "3324acb8597d5f2eb15a240e41b46eab",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -205.1326215024776,
+            -164.16941206343495,
+            10.27227978538681
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "3e61925ab2df577d8fd8ad63264aa1e7",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            9.037729574628427,
+            -0.040982929219321625,
+            -0.0013955317427767067
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -160.60478228424012,
+            -150.54897539392513,
+            0.8881538183703537
+          ],
+          "dimensions": [
+            4.611005783081055,
+            2.241713285446167,
+            1.6672759056091309
+          ],
+          "uuid": "0f5a9a064f425f9ea6f2f06c74eac06f",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.531716680369418,
+            0.18859570565517492,
+            0.00011265656594708528
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -246.8144080228236,
+            -35.354730739421804,
+            10.735588788994242
+          ],
+          "dimensions": [
+            3.805800199508667,
+            1.970275640487671,
+            1.4750301837921143
+          ],
+          "uuid": "54b1d3d5da1d577aab25c24e7d70e9cb",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.288168635438985,
+            -0.0002748533590574107,
+            0.0002163277167558141
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -219.8182826677199,
+            -135.95816658420628,
+            10.414198675016664
+          ],
+          "dimensions": [
+            3.805800199508667,
+            1.970275640487671,
+            1.4750301837921143
+          ],
+          "uuid": "f86bb657c84152ee8980ca78348d2594",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            17.035823266017466,
+            0.07335994183504939,
+            -0.0009660391516712885
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -216.09643423816237,
+            -150.30273794081597,
+            10.322956869219608
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "865cea7598455946be3748efc056c9f2",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            7.310865575700116,
+            -0.03280572892072745,
+            -0.07502809541777188
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -191.5763326068697,
+            19.851489465434465,
+            0.9917758709912198
+          ],
+          "dimensions": [
+            4.6045098304748535,
+            1.9315929412841797,
+            1.8548461198806763
+          ],
+          "uuid": "a7577860c2b55685b692afb848bba682",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            -1.859714617793485e-07,
+            -1.5462048390052824e-07,
+            -6.005756808364013e-07
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -108.7192153930664,
+            -98.90336608886719,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "8b03823354b550bf905a55931155c552",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -199.19903564453125,
+            -71.1704330444336,
+            1.14678156375885
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d920b57a6c5055b09f4ddd3cdc6c4945",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -198.11447143554688,
+            11.426552772521973,
+            1.14678156375885
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "16f5f757e624523797761fa9d7f8a9ac",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -243.2066464448774,
+            -27.803885032465356,
+            10.718651679702738
+          ],
+          "dimensions": [
+            4.673638820648193,
+            1.8118125200271606,
+            1.441947340965271
+          ],
+          "uuid": "2b3ef59200e8575aae39ccd3ae71062c",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            4.310384055289404,
+            -6.834272053855997e-06,
+            0.011673968786849787
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -191.54556333844886,
+            -95.2558197101902,
+            0.7904542887269426
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "a57d6e9a708c54fcab20ec2c5719badc",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.680969550837588,
+            -0.0010315685656181886,
+            -0.00010078483747420416
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -120.69827473953008,
+            -59.67051365441343,
+            0.6942060290213145
+          ],
+          "dimensions": [
+            5.357479572296143,
+            2.033202886581421,
+            1.4106587171554565
+          ],
+          "uuid": "001d815b1bdc580bb114cca2c91be8f3",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.554131166827678,
+            0.003155356248877336,
+            0.0003266048947091613
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -196.90460205078125,
+            -76.42281341552734,
+            1.0041943788528442
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "ad19a022cbc158249b460c129e929152",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 7,
+          "position": [
+            -180.0345916748047,
+            -21.290178298950195,
+            1.14678156375885
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "b74f42775f885209bda9b1f239094b81",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 3,
+          "position": [
+            -219.016100031048,
+            -153.73332367219223,
+            11.65880159325893
+          ],
+          "dimensions": [
+            10.272685050964355,
+            3.9441518783569336,
+            4.252848148345947
+          ],
+          "uuid": "ff3d57540f5e5beb96ae230445a70bc2",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            17.085577166751698,
+            0.18386224417534208,
+            -0.010105851026369905
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -184.4967437699976,
+            -106.14276942320792,
+            1.2662692217217506
+          ],
+          "dimensions": [
+            6.36564302444458,
+            2.3511743545532227,
+            2.431375741958618
+          ],
+          "uuid": "714b43f0f9c1584392a45abbcb727c71",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.00168211282972115,
+            -0.0001620198715129053,
+            0.00037629172155685377
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -243.10891764907427,
+            14.83725460323726,
+            10.893806073630465
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "4a3beea1d76f545898bb967f6cb23129",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            16.01631316715854,
+            0.0018914654819734823,
+            -0.021629043271166656
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -119.9951025222675,
+            -77.529193118389,
+            0.8180455309967315
+          ],
+          "dimensions": [
+            5.237514495849609,
+            1.9297595024108887,
+            1.638383150100708
+          ],
+          "uuid": "b9a644a9c04b5106aa28d250e3e7fd42",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            5.282009234576238,
+            -0.9585530602500809,
+            -0.02929341491224033
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -149.86781094048402,
+            -91.39771291246913,
+            1.210874605105235
+          ],
+          "dimensions": [
+            6.36564302444458,
+            2.3511743545532227,
+            2.431375741958618
+          ],
+          "uuid": "00c51d559c7e5090b0326a06392c77e2",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -195.07436062640355,
+            16.55077111023367,
+            0.8635999120010924
+          ],
+          "dimensions": [
+            5.0267767906188965,
+            2.1515462398529053,
+            1.6506516933441162
+          ],
+          "uuid": "85f09eaf88a651ef82e992278f3a9305",
+          "orientation_availability": 2,
+          "is_stationary": true,
+          "velocity": [
+            2.1904129256255995e-08,
+            1.593728105513415e-08,
+            -5.723735414911331e-08
+          ]
+        },
+        {
+          "label": 1,
+          "position": [
+            -183.03358193571546,
+            -184.48806601836645,
+            9.783512536593294
+          ],
+          "dimensions": [
+            4.89238166809082,
+            1.8367133140563965,
+            1.490277647972107
+          ],
+          "uuid": "300c13f7193a54ec95b074fa82d20489",
+          "orientation_availability": 2,
+          "is_stationary": false,
+          "velocity": [
+            16.075638986128357,
+            0.0012534636908019688,
+            0.0306938582963594
+          ]
+        }
+      ]
+    },
+    "predicted": {
+      "topic": "/perception/object_recognition/objects",
+      "received": 141,
+      "frame": "map",
+      "stamp_first": 56565.650842893,
+      "stamp_last": 56572.650842998,
+      "age_wall_s": 0.003909495993866585,
+      "age_sim_s": 0.049999999995634425,
+      "stamp_monotonic": true,
+      "object_count_min": 48,
+      "object_count_max": 59,
+      "latest_class_counts": {
+        "7": 31,
+        "1": 27,
+        "3": 1
+      },
+      "latest_objects": [
+        {
+          "label": 7,
+          "position": [
+            -105.8202896118164,
+            -55.18341827392578,
+            1.1056286096572876
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d680af803c38559bb2474885c1fcf012"
+        },
+        {
+          "label": 7,
+          "position": [
+            -110.1073989868164,
+            -60.45475387573242,
+            1.0939613580703735
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "3a2bc89161f95e4a8b1b2accb0a9f386"
+        },
+        {
+          "label": 7,
+          "position": [
+            -139.56283569335938,
+            -11.250224113464355,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "903e7c3c942e5fecbb21507596e5d0e6"
+        },
+        {
+          "label": 7,
+          "position": [
+            -151.6644744873047,
+            -215.40286254882812,
+            9.752907752990723
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "c0bb2629e83d535dac8a4c73a3e575f6"
+        },
+        {
+          "label": 7,
+          "position": [
+            -187.35911560058594,
+            -164.54478454589844,
+            10.31089973449707
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d5f729dbdd6c5ba0ac78913c67c66127"
+        },
+        {
+          "label": 7,
+          "position": [
+            -125.56697845458984,
+            -101.45191192626953,
+            0.9907922148704529
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "5536202ec64359a18f7a19852dc0739c"
+        },
+        {
+          "label": 7,
+          "position": [
+            -279.5197448730469,
+            -59.12399673461914,
+            0.7067840695381165
+          ],
+          "dimensions": [
+            0.5,
+            0.5,
+            1.100000023841858
+          ],
+          "uuid": "bc173f4f092652a4ae46d7e9a93115f8"
+        },
+        {
+          "label": 7,
+          "position": [
+            -192.20468139648438,
+            -11.755241394042969,
+            1.0067821741104126
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "16c5b5ae1ba657b0b620e2eeb2d913e3"
+        },
+        {
+          "label": 7,
+          "position": [
+            -180.36192321777344,
+            -15.344326972961426,
+            1.1469753980636597
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "0f4bf390c2d15bcb9b2108f84bf7c32b"
+        },
+        {
+          "label": 7,
+          "position": [
+            -137.77354431152344,
+            -105.6969985961914,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "eef5003d1bcd541c9e29fdeabe696f41"
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.361083984375,
+            18.280380249023438,
+            11.086784362792969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "37395efa2d9253f9840fa4607f90b184"
+        },
+        {
+          "label": 7,
+          "position": [
+            -254.8739776611328,
+            21.3264102935791,
+            11.086784362792969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "becf698a233a519d9e1581f63cb90745"
+        },
+        {
+          "label": 7,
+          "position": [
+            -168.7086639404297,
+            -9.678460121154785,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "c0b64b07e6a35ccf850ac29a80a50456"
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.2745819091797,
+            -106.60018157958984,
+            10.971305847167969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "6291a19def3b5b92b0f01a24aff39573"
+        },
+        {
+          "label": 1,
+          "position": [
+            -187.64855127189156,
+            -117.63847505433989,
+            0.7349847732872172
+          ],
+          "dimensions": [
+            2.2072951793670654,
+            1.4809197187423706,
+            1.3760247230529785
+          ],
+          "uuid": "99aab640328a588e899ee91eeed974e6"
+        },
+        {
+          "label": 1,
+          "position": [
+            -188.01334413565198,
+            -107.31293594237283,
+            0.8636028773804335
+          ],
+          "dimensions": [
+            5.0267767906188965,
+            2.1515462398529053,
+            1.6506516933441162
+          ],
+          "uuid": "333a6b8836c350c2b18cb4e1a3a3fb61"
+        },
+        {
+          "label": 1,
+          "position": [
+            -246.593416928032,
+            -19.401196210513596,
+            10.67791731282901
+          ],
+          "dimensions": [
+            2.2072951793670654,
+            1.4809197187423706,
+            1.3760247230529785
+          ],
+          "uuid": "6322dfc443b05b77b7d40b6f09b2d515"
+        },
+        {
+          "label": 7,
+          "position": [
+            -147.1143341064453,
+            -9.43652629852295,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d696b173e6b65fc288873594b4ef17b8"
+        },
+        {
+          "label": 7,
+          "position": [
+            -200.6967315673828,
+            -7.315486907958984,
+            0.9767834544181824
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "e6fdc3d888b45803a6956e8b048b9dd9"
+        },
+        {
+          "label": 7,
+          "position": [
+            -197.936767578125,
+            -70.92056274414062,
+            0.7667816281318665
+          ],
+          "dimensions": [
+            0.5,
+            0.5,
+            1.100000023841858
+          ],
+          "uuid": "0148ccad21df50939826999177afb354"
+        },
+        {
+          "label": 7,
+          "position": [
+            -252.49765014648438,
+            -124.86311340332031,
+            10.89389419555664
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "9831014598685c6aaa92afa127859b65"
+        },
+        {
+          "label": 1,
+          "position": [
+            -270.68864011108417,
+            -75.29632417413792,
+            0.7345998210631143
+          ],
+          "dimensions": [
+            4.1928300857543945,
+            1.8161858320236206,
+            1.4738311767578125
+          ],
+          "uuid": "440abcd1e39b5ab4a55ae2b2c22ffe19"
+        },
+        {
+          "label": 1,
+          "position": [
+            -265.35052138767367,
+            -33.44208065415757,
+            0.7345952475331322
+          ],
+          "dimensions": [
+            4.1928300857543945,
+            1.8161858320236206,
+            1.4738311767578125
+          ],
+          "uuid": "5da08908fa135248bfdfb4f53b652a75"
+        },
+        {
+          "label": 1,
+          "position": [
+            -120.25572869457295,
+            -108.18002635421192,
+            0.6940145017217761
+          ],
+          "dimensions": [
+            5.357479572296143,
+            2.033202886581421,
+            1.4106587171554565
+          ],
+          "uuid": "976b4a1e077a538cb2b6f9010eee7060"
+        },
+        {
+          "label": 7,
+          "position": [
+            -109.41361236572266,
+            -101.85673522949219,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "7f3e22354f325cf5b81cab5a14cda20e"
+        },
+        {
+          "label": 7,
+          "position": [
+            -138.41876220703125,
+            -39.5694465637207,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "6796ae23821e5396aa008e29cd2dec83"
+        },
+        {
+          "label": 7,
+          "position": [
+            -131.31985473632812,
+            -77.81614685058594,
+            0.9885284900665283
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d226719851815a2ca091e18aed9d9ece"
+        },
+        {
+          "label": 7,
+          "position": [
+            -112.49571990966797,
+            -51.0484504699707,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "4d30fb770d6f5b0aac73a7a2f065a527"
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.26138305664062,
+            -48.379154205322266,
+            11.086784362792969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "a6439eafb6b35983ba0f936fa55641f2"
+        },
+        {
+          "label": 7,
+          "position": [
+            -218.4219512939453,
+            -76.20769500732422,
+            11.071647644042969
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "f1875dc39ed0533992c7ba3b49df8bbe"
+        },
+        {
+          "label": 7,
+          "position": [
+            -112.46879577636719,
+            -39.01614761352539,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "4c26ff28e1c752b5bf3038b23d039af9"
+        },
+        {
+          "label": 1,
+          "position": [
+            -184.28559784940407,
+            -142.9950580367142,
+            0.793155339150369
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "1da88898e14c5f6284a5ac59b490f43a"
+        },
+        {
+          "label": 1,
+          "position": [
+            -247.0331244385135,
+            -50.12363299567614,
+            11.020494026609567
+          ],
+          "dimensions": [
+            5.565828800201416,
+            2.1499669551849365,
+            2.045147180557251
+          ],
+          "uuid": "f4ebde4e605b5867a80b2d37a58f8618"
+        },
+        {
+          "label": 1,
+          "position": [
+            -250.2799629686069,
+            -6.576975507576917,
+            0.7377267314570344
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "123473265c8f5c40ba7bd4346fbc8f79"
+        },
+        {
+          "label": 1,
+          "position": [
+            -223.37590572074183,
+            -136.38746992596376,
+            10.674989998337413
+          ],
+          "dimensions": [
+            4.442183971405029,
+            1.77456533908844,
+            1.9872066974639893
+          ],
+          "uuid": "efb0bcd9fccb520abdd28cf0018557be"
+        },
+        {
+          "label": 1,
+          "position": [
+            -108.55941040593054,
+            -151.00764321974438,
+            1.0458191699991488
+          ],
+          "dimensions": [
+            4.442183971405029,
+            1.77456533908844,
+            1.9872066974639893
+          ],
+          "uuid": "82fbe5e450b35fc39307465ba8c9b768"
+        },
+        {
+          "label": 1,
+          "position": [
+            -255.70529837917758,
+            0.3296250214388416,
+            0.9413431366966634
+          ],
+          "dimensions": [
+            3.866220712661743,
+            1.9051965475082397,
+            1.8779358863830566
+          ],
+          "uuid": "f033cf9c2d655561a67118ab4ba34e67"
+        },
+        {
+          "label": 7,
+          "position": [
+            -113.70758819580078,
+            -103.0166015625,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "3324acb8597d5f2eb15a240e41b46eab"
+        },
+        {
+          "label": 1,
+          "position": [
+            -204.81058108328634,
+            -164.49209399585183,
+            10.267642422394202
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "3e61925ab2df577d8fd8ad63264aa1e7"
+        },
+        {
+          "label": 1,
+          "position": [
+            -160.88209812522226,
+            -150.52615334455882,
+            0.8881343870403724
+          ],
+          "dimensions": [
+            4.611005783081055,
+            2.241713285446167,
+            1.6672759056091309
+          ],
+          "uuid": "0f5a9a064f425f9ea6f2f06c74eac06f"
+        },
+        {
+          "label": 1,
+          "position": [
+            -246.81076188060362,
+            -35.08778576799634,
+            10.735585928019635
+          ],
+          "dimensions": [
+            3.805800199508667,
+            1.970275640487671,
+            1.4750301837921143
+          ],
+          "uuid": "54b1d3d5da1d577aab25c24e7d70e9cb"
+        },
+        {
+          "label": 1,
+          "position": [
+            -219.47696899477486,
+            -136.73840690447247,
+            10.407377050273713
+          ],
+          "dimensions": [
+            3.805800199508667,
+            1.970275640487671,
+            1.4750301837921143
+          ],
+          "uuid": "f86bb657c84152ee8980ca78348d2594"
+        },
+        {
+          "label": 1,
+          "position": [
+            -215.89909965645884,
+            -150.60354178955092,
+            10.319636544056374
+          ],
+          "dimensions": [
+            3.705369472503662,
+            1.788678526878357,
+            1.549050211906433
+          ],
+          "uuid": "865cea7598455946be3748efc056c9f2"
+        },
+        {
+          "label": 1,
+          "position": [
+            -191.5763326068697,
+            19.851489465434465,
+            0.9917758709912198
+          ],
+          "dimensions": [
+            4.6045098304748535,
+            1.9315929412841797,
+            1.8548461198806763
+          ],
+          "uuid": "a7577860c2b55685b692afb848bba682"
+        },
+        {
+          "label": 7,
+          "position": [
+            -108.6713638305664,
+            -98.89408874511719,
+            1.0867840051651
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "8b03823354b550bf905a55931155c552"
+        },
+        {
+          "label": 7,
+          "position": [
+            -199.19708251953125,
+            -71.22689056396484,
+            1.14678156375885
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "d920b57a6c5055b09f4ddd3cdc6c4945"
+        },
+        {
+          "label": 7,
+          "position": [
+            -198.11448669433594,
+            11.42658519744873,
+            1.14678156375885
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "16f5f757e624523797761fa9d7f8a9ac"
+        },
+        {
+          "label": 1,
+          "position": [
+            -243.203709913766,
+            -27.59110024564734,
+            10.718549980717627
+          ],
+          "dimensions": [
+            4.673638820648193,
+            1.8118125200271606,
+            1.441947340965271
+          ],
+          "uuid": "2b3ef59200e8575aae39ccd3ae71062c"
+        },
+        {
+          "label": 1,
+          "position": [
+            -191.54578975990324,
+            -94.97227360835689,
+            0.7903421302645212
+          ],
+          "dimensions": [
+            4.791779518127441,
+            2.163450002670288,
+            1.4876600503921509
+          ],
+          "uuid": "a57d6e9a708c54fcab20ec2c5719badc"
+        },
+        {
+          "label": 1,
+          "position": [
+            -120.69634474188919,
+            -59.947126430190316,
+            0.6942106828262484
+          ],
+          "dimensions": [
+            5.357479572296143,
+            2.033202886581421,
+            1.4106587171554565
+          ],
+          "uuid": "001d815b1bdc580bb114cca2c91be8f3"
+        },
+        {
+          "label": 7,
+          "position": [
+            -196.86746215820312,
+            -76.45220184326172,
+            1.0042773485183716
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "ad19a022cbc158249b460c129e929152"
+        },
+        {
+          "label": 7,
+          "position": [
+            -180.0346221923828,
+            -21.341093063354492,
+            1.14678156375885
+          ],
+          "dimensions": [
+            0.3753577768802643,
+            0.3753577768802643,
+            1.8600000143051147
+          ],
+          "uuid": "b74f42775f885209bda9b1f239094b81"
+        },
+        {
+          "label": 3,
+          "position": [
+            -218.5243262750577,
+            -154.4309592835164,
+            11.651199858417822
+          ],
+          "dimensions": [
+            10.272685050964355,
+            3.9441518783569336,
+            4.252848148345947
+          ],
+          "uuid": "ff3d57540f5e5beb96ae230445a70bc2"
+        },
+        {
+          "label": 1,
+          "position": [
+            -184.496753180759,
+            -106.142826186094,
+            1.2662777136847334
+          ],
+          "dimensions": [
+            6.36564302444458,
+            2.3511743545532227,
+            2.431375741958618
+          ],
+          "uuid": "714b43f0f9c1584392a45abbcb727c71"
+        },
+        {
+          "label": 1,
+          "position": [
+            -243.12097357749005,
+            15.641370323221642,
+            10.893871433400793
+          ],
+          "dimensions": [
+            4.552699089050293,
+            2.097072124481201,
+            1.7671663761138916
+          ],
+          "uuid": "4a3beea1d76f545898bb967f6cb23129"
+        },
+        {
+          "label": 1,
+          "position": [
+            -119.93562480297162,
+            -77.79031792243877,
+            0.818011101356028
+          ],
+          "dimensions": [
+            5.237514495849609,
+            1.9297595024108887,
+            1.638383150100708
+          ],
+          "uuid": "b9a644a9c04b5106aa28d250e3e7fd42"
+        },
+        {
+          "label": 1,
+          "position": [
+            -149.86781094048402,
+            -91.39771291246913,
+            1.210874605105235
+          ],
+          "dimensions": [
+            6.36564302444458,
+            2.3511743545532227,
+            2.431375741958618
+          ],
+          "uuid": "00c51d559c7e5090b0326a06392c77e2"
+        },
+        {
+          "label": 1,
+          "position": [
+            -195.07436062640355,
+            16.55077111023367,
+            0.8635999120010924
+          ],
+          "dimensions": [
+            5.0267767906188965,
+            2.1515462398529053,
+            1.6506516933441162
+          ],
+          "uuid": "85f09eaf88a651ef82e992278f3a9305"
+        },
+        {
+          "label": 1,
+          "position": [
+            -182.3145966256221,
+            -184.84566415165156,
+            9.77453034208166
+          ],
+          "dimensions": [
+            4.89238166809082,
+            1.8367133140563965,
+            1.490277647972107
+          ],
+          "uuid": "300c13f7193a54ec95b074fa82d20489"
+        }
+      ]
+    },
+    "centerpoint": {
+      "topic": "/perception/object_recognition/detection/centerpoint/objects",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "detected": {
+      "topic": "/perception/object_recognition/detection/objects",
+      "received": 0,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": null,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "mode": {
+      "topic": "/api/operation_mode/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 8.00173062099202,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route_state": {
+      "topic": "/api/routing/state",
+      "received": 1,
+      "frame": null,
+      "stamp_first": null,
+      "stamp_last": null,
+      "age_wall_s": 8.001697911997326,
+      "age_sim_s": null,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    },
+    "route": {
+      "topic": "/planning/mission_planning/route",
+      "received": 1,
+      "frame": "map",
+      "stamp_first": 56181.500837169,
+      "stamp_last": 56181.500837169,
+      "age_wall_s": 8.001498659999925,
+      "age_sim_s": 391.20000582899956,
+      "stamp_monotonic": true,
+      "object_count_min": null,
+      "object_count_max": null,
+      "latest_class_counts": null,
+      "latest_objects": null
+    }
+  },
+  "checks": [
+    {
+      "name": "bridge mode",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "ground_truth",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "bridge sole tick configuration",
+      "passed": true,
+      "detail": {
+        "carla_perception_mode": "ground_truth",
+        "ground_truth_range_m": 150.0,
+        "sync_mode": true,
+        "fixed_delta_seconds": 0.05
+      }
+    },
+    {
+      "name": "one clock publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "rosgraph_msgs/msg/Clock",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "clock advancing",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 142,
+        "frame": null,
+        "stamp_first": 56565.650842893,
+        "stamp_last": 56572.700842998,
+        "age_wall_s": 0.00337357098760549,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null,
+        "latest_objects": null
+      }
+    },
+    {
+      "name": "clock fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/clock",
+        "received": 142,
+        "frame": null,
+        "stamp_first": 56565.650842893,
+        "stamp_last": 56572.700842998,
+        "age_wall_s": 0.00337357098760549,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "odom fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/localization/kinematic_state",
+        "received": 163,
+        "frame": "map",
+        "stamp_first": 56565.650842893,
+        "stamp_last": 56572.700842998,
+        "age_wall_s": 0.0032840799976838753,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": null,
+        "object_count_max": null,
+        "latest_class_counts": null
+      }
+    },
+    {
+      "name": "tracked fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/tracking/objects",
+        "received": 142,
+        "frame": "map",
+        "stamp_first": 56565.650842893,
+        "stamp_last": 56572.700842998,
+        "age_wall_s": 0.00014832799206487834,
+        "age_sim_s": 0.0,
+        "stamp_monotonic": true,
+        "object_count_min": 48,
+        "object_count_max": 60,
+        "latest_class_counts": {
+          "7": 31,
+          "1": 28,
+          "3": 1
+        }
+      }
+    },
+    {
+      "name": "predicted fresh",
+      "passed": true,
+      "detail": {
+        "topic": "/perception/object_recognition/objects",
+        "received": 141,
+        "frame": "map",
+        "stamp_first": 56565.650842893,
+        "stamp_last": 56572.650842998,
+        "age_wall_s": 0.003909495993866585,
+        "age_sim_s": 0.049999999995634425,
+        "stamp_monotonic": true,
+        "object_count_min": 48,
+        "object_count_max": 59,
+        "latest_class_counts": {
+          "7": 31,
+          "1": 27,
+          "3": 1
+        }
+      }
+    },
+    {
+      "name": "tracked map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "predicted map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "odom map frame",
+      "passed": true,
+      "detail": "map"
+    },
+    {
+      "name": "one tracking publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "one map prediction publisher",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/perception/object_recognition/prediction/map_based_prediction",
+          "type": "autoware_perception_msgs/msg/PredictedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "GT tracking source",
+      "passed": true,
+      "detail": [
+        {
+          "node": "/autoware_carla_interface",
+          "type": "autoware_perception_msgs/msg/TrackedObjects",
+          "reliability": "1",
+          "durability": "2"
+        }
+      ]
+    },
+    {
+      "name": "sensor detection publishers disabled",
+      "passed": true,
+      "detail": {
+        "centerpoint": [],
+        "detected": []
+      }
+    },
+    {
+      "name": "sensor detection and tracking nodes disabled",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "GT range positive",
+      "passed": true,
+      "detail": 150.0
+    },
+    {
+      "name": "AEB predicted input mode",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "AEB LiDAR retained",
+      "passed": true,
+      "detail": {
+        "use_predicted_object_data": true,
+        "use_pointcloud_data": true
+      }
+    },
+    {
+      "name": "operation mode state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 56496,
+          "nanosec": 500841863
+        },
+        "mode": 2,
+        "is_autoware_control_enabled": true,
+        "is_in_transition": false,
+        "is_stop_mode_available": true,
+        "is_autonomous_mode_available": false,
+        "is_local_mode_available": true,
+        "is_remote_mode_available": true
+      }
+    },
+    {
+      "name": "route state present",
+      "passed": true,
+      "detail": {
+        "stamp": {
+          "sec": 56182,
+          "nanosec": 100837178
+        },
+        "state": 2
+      }
+    }
+  ],
+  "mode": {
+    "stamp": {
+      "sec": 56496,
+      "nanosec": 500841863
+    },
+    "mode": 2,
+    "is_autoware_control_enabled": true,
+    "is_in_transition": false,
+    "is_stop_mode_available": true,
+    "is_autonomous_mode_available": false,
+    "is_local_mode_available": true,
+    "is_remote_mode_available": true
+  },
+  "route_state": {
+    "stamp": {
+      "sec": 56182,
+      "nanosec": 100837178
+    },
+    "state": 2
+  },
+  "route": {
+    "header": {
+      "stamp": {
+        "sec": 56181,
+        "nanosec": 500837169
+      },
+      "frame_id": "map"
+    },
+    "start_pose": {
+      "position": {
+        "x": -192.12625122070312,
+        "y": 70.23403930664062,
+        "z": 0.0533154122531414
+      },
+      "orientation": {
+        "x": 1.8821082147398153e-07,
+        "y": 5.685690147417839e-07,
+        "z": -0.7036170075975208,
+        "w": 0.710579416124019
+      }
+    },
+    "goal_pose": {
+      "position": {
+        "x": -227.9638214111328,
+        "y": 122.48344421386719,
+        "z": 10.001024540256873
+      },
+      "orientation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.6053735896550055,
+        "w": 0.7959414657801244
+      }
+    },
+    "segments": [
+      {
+        "preferred_primitive": {
+          "id": 21752,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 21752,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 21817,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 32147,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 32147,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 32176,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 21434,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 21434,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 21496,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 25028,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 25028,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 5797,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 5761,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 5797,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 32057,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 32021,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 32057,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 5621,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 5571,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 5621,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 34348,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 34317,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 34348,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 5375,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 5318,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 5375,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 26042,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 26042,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 6917,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 6886,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 6917,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 24146,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 24117,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 24146,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 6766,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 6741,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 6766,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 31450,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 31450,
+            "primitive_type": "lane"
+          }
+        ]
+      },
+      {
+        "preferred_primitive": {
+          "id": 16629,
+          "primitive_type": "lane"
+        },
+        "primitives": [
+          {
+            "id": 15811,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 16629,
+            "primitive_type": "lane"
+          },
+          {
+            "id": 17447,
+            "primitive_type": "lane"
+          }
+        ]
+      }
+    ],
+    "uuid": {
+      "uuid": [
+        95,
+        22,
+        0,
+        56,
+        242,
+        250,
+        75,
+        158,
+        161,
+        113,
+        125,
+        14,
+        90,
+        150,
+        174,
+        101
+      ]
+    },
+    "allow_modification": false
+  },
+  "odometry": {
+    "frame_id": "map",
+    "child_frame_id": "base_link",
+    "position": {
+      "x": -228.10800170898438,
+      "y": -122.1043930053711,
+      "z": 9.789299011230469
+    },
+    "linear_velocity": {
+      "x": 5.7030181884765625,
+      "y": 0.0028831481467932463,
+      "z": 0.0
+    }
+  },
+  "success": true
+}

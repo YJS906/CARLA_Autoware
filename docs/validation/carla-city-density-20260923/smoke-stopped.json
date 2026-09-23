@@ -1,0 +1,75 @@
+{
+  "pid": 352395,
+  "updated_at": 1790127153.4550545,
+  "status": "stopped",
+  "world_id": 16568732170033816192,
+  "map": "Carla/Maps/Town05_Opt",
+  "frame": 1563191,
+  "config": {
+    "vehicles": 12,
+    "walkers": 20,
+    "vehicle_speed_difference_percent": 30,
+    "following_distance_m": 3.0,
+    "auto_lane_change": false,
+    "crossing_factor": 0.15,
+    "vehicle_batch_size": 16,
+    "walker_batch_size": 24,
+    "update_interval_s": 2.0,
+    "ego_clearance_m": 15.0,
+    "walker_speed_min_mps": 1.0,
+    "walker_speed_max_mps": 1.6
+  },
+  "counts": {
+    "vehicles": 12,
+    "walkers": 20,
+    "all_vehicles": 13,
+    "egos": 1,
+    "controllers": 20
+  },
+  "owned": {
+    "vehicles": [],
+    "walkers": [
+      443
+    ],
+    "controllers": [
+      455
+    ]
+  },
+  "nonowned": {
+    "vehicles": 12,
+    "walkers": 19
+  },
+  "target_shortfall": {
+    "vehicles": 0,
+    "walkers": 0
+  },
+  "moving": {
+    "vehicles": 8,
+    "walkers": 0
+  },
+  "mean_speed_mps": {
+    "vehicles": 8.53405500871448,
+    "walkers": 0.0
+  },
+  "world_fps": 19.973931970246312,
+  "simulation_speed_ratio": 0.9986966133940546,
+  "measurement_window_s": 118.50445888801187,
+  "native_vehicle_spawn_points": 225,
+  "spawn_failures": {
+    "vehicles": 0,
+    "walkers": 10,
+    "controllers": 0,
+    "navigation": 0
+  },
+  "errors": [
+    {
+      "time": 1790127153.4512868,
+      "message": "cannot remove owned actor 455: unable to destroy actor: not found"
+    },
+    {
+      "time": 1790127153.452491,
+      "message": "cannot remove owned actor 443: unable to destroy actor: not found"
+    }
+  ],
+  "tick_owner": false
+}

@@ -1,0 +1,287 @@
+[component_container_mt-36] [INFO] [1790128048.336820612] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128048.370713662] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=1 left=unsafe right=not_evaluated selected=NONE ready=false
+[component_container_mt-40] [INFO] [1790128049.443784393] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [WARN] [1790128050.091111159] [behavior_path_planner.utils]: Invalid erase indices: start_idx=90, end_idx=89, vector_size=91. Skipping this polygon.
+[component_container_mt-36] [INFO] [1790128051.437209648] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128051.471621877] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=1 left=unsafe right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128051.710127306] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [ERROR] [1790128052.985271983] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.050 [rad], input_steer=-0.514 [rad], output_steer=-0.599 [rad]
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128052.985532133] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -2.499995 < min acc on map: -2.180000. return max value.
+[component_container_mt-40] [ERROR] [1790128053.129710122] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering rate limit: constraint=±1.000 [rad/s], input=2.110 [rad/s], output=1.000 [rad/s]
+[component_container_mt-7] [WARN] [1790128057.649441403] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56885.050847653
+[component_container_mt-40] [INFO] [1790128057.989626865] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container-13] [INFO] [1790128060.234836327] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [ERROR] [1790128063.942581706] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle limit: constraint=±1.000 [rad], input=1.020 [rad], output=1.000 [rad]
+[component_container_mt-40] [ERROR] [1790128064.369278744] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Velocity change limit by longitudinal acceleration: constraint(delta)=±0.250 [m/s], input_vel=0.521 [m/s], output_vel=0.750 [m/s]
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128065.651647445] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -2.706544 < min acc on map: -2.180000. return max value.
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128066.672443813] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -3.400000 < min acc on map: -2.180000. return max value.
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128067.674933616] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -3.400000 < min acc on map: -2.180000. return max value.
+[component_container-13] [INFO] [1790128068.816899039] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-7] [WARN] [1790128071.975793409] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56890.050847727
+[component_container-13] [INFO] [1790128077.528084415] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [INFO] [1790128078.367694317] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container-13] [INFO] [1790128086.288072544] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [WARN] [1790128086.363092629] [behavior_path_planner.utils]: Invalid erase indices: start_idx=1, end_idx=0, vector_size=192. Skipping this polygon.
+[component_container_mt-7] [WARN] [1790128086.526856993] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56895.050847802
+[component_container_mt-40] [INFO] [1790128087.161493359] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-40] [ERROR] [1790128090.053697800] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.050 [rad], input_steer=-0.001 [rad], output_steer=-0.001 [rad]
+[component_container_mt-36] [WARN] [1790128091.564739920] [behavior_path_planner.utils]: Invalid erase indices: start_idx=1, end_idx=0, vector_size=191. Skipping this polygon.
+[component_container-13] [INFO] [1790128094.999108890] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [INFO] [1790128095.867830472] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128095.952934039] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128095.990997429] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128096.261074154] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner]: 
+[component_container_mt-36] === BEHAVIOR VELOCITY PLANNER MODULE REGISTRATION ===
+[component_container_mt-36] Module Name: crosswalk
+[component_container_mt-36] Module ID: 36896
+[component_container_mt-36] Ego position: (-35.81, 92.29, -0.00), velocity: (0.93, -0.07) m/s
+[component_container_mt-36] Registered Module IDs: [37172, 37276, 36896]
+[component_container_mt-36] ========================================================
+[component_container_mt-36] 
+[component_container_mt-36] [INFO] [1790128096.261577001] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner]: 
+[component_container_mt-36] === BEHAVIOR VELOCITY PLANNER MODULE REGISTRATION ===
+[component_container_mt-36] Module Name: crosswalk
+[component_container_mt-36] Module ID: 36844
+[component_container_mt-36] Ego position: (-35.81, 92.29, -0.00), velocity: (0.93, -0.07) m/s
+[component_container_mt-36] Registered Module IDs: [37172, 37276, 36896, 36844]
+[component_container_mt-36] ========================================================
+[component_container_mt-36] 
+[component_container_mt-36] [INFO] [1790128096.261969678] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner]: 
+[component_container_mt-36] === BEHAVIOR VELOCITY PLANNER MODULE REGISTRATION ===
+[component_container_mt-36] Module Name: crosswalk
+[component_container_mt-36] Module ID: 37099
+[component_container_mt-36] Ego position: (-35.81, 92.29, -0.00), velocity: (0.93, -0.07) m/s
+[component_container_mt-36] Registered Module IDs: [37172, 37276, 36896, 36844, 37099]
+[component_container_mt-36] ========================================================
+[component_container_mt-36] 
+[component_container_mt-36] [INFO] [1790128096.262347253] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner]: 
+[component_container_mt-36] === BEHAVIOR VELOCITY PLANNER MODULE REGISTRATION ===
+[component_container_mt-36] Module Name: crosswalk
+[component_container_mt-36] Module ID: 36956
+[component_container_mt-36] Ego position: (-35.81, 92.29, -0.00), velocity: (0.93, -0.07) m/s
+[component_container_mt-36] Registered Module IDs: [37172, 37276, 36896, 36956, 36844, 37099]
+[component_container_mt-36] ========================================================
+[component_container_mt-36] 
+[component_container_mt-36] [INFO] [1790128096.332952307] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner]: 
+[component_container_mt-36] === BEHAVIOR VELOCITY PLANNER MODULE REGISTRATION ===
+[component_container_mt-36] Module Name: intersection
+[component_container_mt-36] Module ID: 28129
+[component_container_mt-36] Ego position: (-35.81, 92.29, -0.00), velocity: (0.93, -0.07) m/s
+[component_container_mt-36] Registered Module IDs: [26475, 28129]
+[component_container_mt-36] ========================================================
+[component_container_mt-36] 
+[component_container_mt-36] [INFO] [1790128099.109159824] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128099.135226016] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128100.903002601] [Trajectory]: The arc length -0.103065 is out of the trajectory length 182.644587
+[component_container_mt-7] [WARN] [1790128101.023982174] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56900.050847876
+[component_container_mt-36] [WARN] [1790128101.176614798] [Trajectory]: The arc length -0.248550 is out of the trajectory length 182.499669
+[component_container_mt-36] [WARN] [1790128101.477176552] [Trajectory]: The arc length -0.396723 is out of the trajectory length 182.351152
+[component_container_mt-36] [WARN] [1790128101.761351803] [Trajectory]: The arc length -0.548217 is out of the trajectory length 182.199471
+[component_container_mt-36] [WARN] [1790128102.045866878] [Trajectory]: The arc length -0.703065 is out of the trajectory length 182.044310
+[component_container_mt-36] [INFO] [1790128102.257451965] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128102.283613143] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128102.327572702] [Trajectory]: The arc length -0.861522 is out of the trajectory length 181.884853
+[component_container_mt-36] [WARN] [1790128102.629020061] [Trajectory]: The arc length -1.025145 is out of the trajectory length 181.720420
+[component_container_mt-36] [WARN] [1790128102.921414247] [Trajectory]: The arc length -1.194099 is out of the trajectory length 181.551209
+[component_container_mt-36] [WARN] [1790128103.206199338] [Trajectory]: The arc length -1.368287 is out of the trajectory length 181.376995
+[component_container_mt-36] [WARN] [1790128103.506354328] [Trajectory]: The arc length -1.548151 is out of the trajectory length 181.197587
+[component_container-13] [INFO] [1790128103.679925180] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [WARN] [1790128103.793749854] [Trajectory]: The arc length -1.732795 is out of the trajectory length 181.013194
+[component_container_mt-36] [WARN] [1790128104.086805286] [Trajectory]: The arc length -1.923766 is out of the trajectory length 180.823197
+[component_container_mt-36] [WARN] [1790128104.385583766] [Trajectory]: The arc length -2.120406 is out of the trajectory length 180.627218
+[component_container_mt-40] [INFO] [1790128104.567718381] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [WARN] [1790128104.681367908] [Trajectory]: The arc length -2.323297 is out of the trajectory length 180.425114
+[component_container_mt-36] [WARN] [1790128104.960935689] [Trajectory]: The arc length -2.531409 is out of the trajectory length 180.216656
+[component_container_mt-36] [WARN] [1790128105.296431550] [Trajectory]: The arc length -0.745250 is out of the trajectory length 182.001692
+[component_container_mt-36] [INFO] [1790128105.534540608] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128105.560710413] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128105.611617301] [Trajectory]: The arc length -2.965359 is out of the trajectory length 179.780489
+[component_container_mt-36] [WARN] [1790128105.886647724] [Trajectory]: The arc length -3.189960 is out of the trajectory length 179.555676
+[component_container_mt-36] [WARN] [1790128106.170811153] [Trajectory]: The arc length -3.417916 is out of the trajectory length 179.327260
+[component_container_mt-36] [WARN] [1790128106.456084036] [Trajectory]: The arc length -3.653482 is out of the trajectory length 179.092055
+[component_container_mt-36] [WARN] [1790128106.766540619] [Trajectory]: The arc length -3.896484 is out of the trajectory length 178.850629
+[component_container_mt-36] [WARN] [1790128107.043556469] [Trajectory]: The arc length -4.145128 is out of the trajectory length 178.602612
+[component_container_mt-36] [WARN] [1790128107.339943221] [Trajectory]: The arc length -4.400634 is out of the trajectory length 178.347778
+[component_container_mt-36] [WARN] [1790128107.627580272] [Trajectory]: The arc length -4.676732 is out of the trajectory length 178.070950
+[component_container_mt-36] [WARN] [1790128107.942112135] [Trajectory]: The arc length -4.676467 is out of the trajectory length 178.069765
+[component_container_mt-36] [WARN] [1790128108.238934959] [Trajectory]: The arc length -4.676716 is out of the trajectory length 178.068830
+[component_container_mt-36] [WARN] [1790128108.524795657] [Trajectory]: The arc length -4.676723 is out of the trajectory length 178.068948
+[component_container_mt-36] [INFO] [1790128108.726400264] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128108.755978207] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128108.810435175] [Trajectory]: The arc length -3.769623 is out of the trajectory length 178.977110
+[component_container_mt-36] [WARN] [1790128109.100236927] [Trajectory]: The arc length -4.062114 is out of the trajectory length 178.685650
+[component_container_mt-36] [WARN] [1790128109.390769585] [Trajectory]: The arc length -4.676816 is out of the trajectory length 178.084948
+[component_container_mt-36] [INFO] [1790128109.634293505] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner]: 
+[component_container_mt-36] === BEHAVIOR VELOCITY PLANNER MODULE REGISTRATION ===
+[component_container_mt-36] Module Name: crosswalk
+[component_container_mt-36] Module ID: 36896
+[component_container_mt-36] Ego position: (-44.24, 91.34, 0.01), velocity: (3.13, -0.01) m/s
+[component_container_mt-36] Registered Module IDs: [37172, 37276, 36956, 37099, 36896]
+[component_container_mt-36] ========================================================
+[component_container_mt-36] 
+[component_container_mt-36] [INFO] [1790128109.634691001] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner]: 
+[component_container_mt-36] === BEHAVIOR VELOCITY PLANNER MODULE REGISTRATION ===
+[component_container_mt-36] Module Name: crosswalk
+[component_container_mt-36] Module ID: 36844
+[component_container_mt-36] Ego position: (-44.24, 91.34, 0.01), velocity: (3.13, -0.01) m/s
+[component_container_mt-36] Registered Module IDs: [37172, 37276, 36956, 37099, 36896, 36844]
+[component_container_mt-36] ========================================================
+[component_container_mt-36] 
+[component_container_mt-36] [WARN] [1790128109.642726043] [Trajectory]: The arc length -4.676489 is out of the trajectory length 178.070933
+[component_container_mt-36] [WARN] [1790128109.926139315] [Trajectory]: The arc length -6.976988 is out of the trajectory length 175.769332
+[component_container_mt-36] [WARN] [1790128110.226615254] [Trajectory]: The arc length -4.793811 is out of the trajectory length 175.451470
+[component_container_mt-36] [WARN] [1790128110.538186297] [Trajectory]: The arc length -5.116742 is out of the trajectory length 175.128908
+[component_container_mt-36] [WARN] [1790128110.824046204] [Trajectory]: The arc length -5.445555 is out of the trajectory length 174.801585
+[component_container_mt-36] [WARN] [1790128111.113020488] [Trajectory]: The arc length -5.779761 is out of the trajectory length 174.468324
+[component_container_mt-36] [WARN] [1790128111.370947699] [Trajectory]: The arc length -6.619454 is out of the trajectory length 176.128680
+[component_container_mt-36] [WARN] [1790128111.665750533] [Trajectory]: The arc length -6.963250 is out of the trajectory length 175.783196
+[component_container_mt-40] [ERROR] [1790128111.698880354] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.050 [rad], input_steer=-0.000 [rad], output_steer=-0.000 [rad]
+[component_container_mt-36] [INFO] [1790128111.885093514] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128111.911184744] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128111.960475465] [Trajectory]: The arc length -4.811287 is out of the trajectory length 175.433770
+[component_container_mt-36] [WARN] [1790128112.269160375] [Trajectory]: The arc length -5.164455 is out of the trajectory length 175.081332
+[component_container-13] [INFO] [1790128112.454300896] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [INFO] [1790128113.290567795] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128115.074420792] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128115.100135662] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-7] [WARN] [1790128115.567333674] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56905.050847951
+[component_container_mt-36] [INFO] [1790128118.093482556] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128118.119822637] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128121.241401868] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128121.276849998] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128121.302450388] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128121.921829954] [Trajectory]: The arc length -1.525862 is out of the trajectory length 158.681334
+[component_container_mt-40] [INFO] [1790128122.117460975] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [WARN] [1790128122.220806372] [Trajectory]: The arc length -2.030106 is out of the trajectory length 158.177563
+[component_container_mt-36] [WARN] [1790128122.517201216] [Trajectory]: The arc length -2.537138 is out of the trajectory length 157.668257
+[component_container_mt-36] [WARN] [1790128122.801642604] [Trajectory]: The arc length -3.047347 is out of the trajectory length 157.157696
+[component_container_mt-36] [WARN] [1790128123.077595380] [Trajectory]: The arc length -3.561694 is out of the trajectory length 156.645508
+[component_container_mt-36] [WARN] [1790128123.367699735] [Trajectory]: The arc length -4.080371 is out of the trajectory length 156.127351
+[component_container_mt-36] [WARN] [1790128123.649295726] [Trajectory]: The arc length -4.601660 is out of the trajectory length 155.603219
+[component_container_mt-36] [WARN] [1790128123.968571858] [Trajectory]: The arc length -5.127162 is out of the trajectory length 155.078309
+[component_container_mt-36] [INFO] [1790128124.489156285] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128124.514424927] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128127.687017365] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128127.711914500] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128129.960677448] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-7] [WARN] [1790128130.185218430] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56910.050848025
+[component_container_mt-40] [INFO] [1790128130.841503698] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128130.874806525] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128130.897199808] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128134.171050682] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128134.192845782] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-40] [ERROR] [1790128135.881323772] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.039 [rad], input_steer=0.000 [rad], output_steer=0.000 [rad]
+[component_container_mt-36] [INFO] [1790128137.386260359] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128137.407239659] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128138.866801500] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [INFO] [1790128139.724325520] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128140.672745940] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128140.697684618] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-40] [ERROR] [1790128141.814500089] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Acceleration change limit by longitudinal jerk: constraint(delta)=±0.000 [m/s^2], input_acc=-0.753 [m/s^2], output_acc=-0.804 [m/s^2]
+[component_container_mt-40] [ERROR] [1790128141.814549586] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Velocity change limit by longitudinal acceleration: constraint(delta)=±0.000 [m/s], input_vel=2.872 [m/s], output_vel=2.958 [m/s]
+[component_container_mt-36] [INFO] [1790128143.691331751] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[component_container_mt-36] [INFO] [1790128143.941113702] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128143.962077102] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128144.000256349] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[component_container_mt-7] [WARN] [1790128145.047567857] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56915.050848100
+[component_container_mt-36] [INFO] [1790128147.185064547] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128147.206037377] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128147.733023836] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [INFO] [1790128148.602869567] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128150.417795726] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128150.438733438] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128151.956838659] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[component_container_mt-36] [INFO] [1790128151.963487417] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128152.145966308] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -2.579752 < min acc on map: -2.180000. return max value.
+[component_container_mt-40] [ERROR] [1790128152.885591156] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.050 [rad], input_steer=-0.000 [rad], output_steer=-0.000 [rad]
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128153.169941880] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -3.400000 < min acc on map: -2.180000. return max value.
+[component_container_mt-36] [INFO] [1790128153.637341962] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128153.658111684] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128154.197905105] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -3.400000 < min acc on map: -2.180000. return max value.
+[component_container-13] [INFO] [1790128156.451738495] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128156.781158125] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128156.801005201] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-7] [WARN] [1790128159.547997402] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56920.050848174
+[component_container_mt-36] [INFO] [1790128159.922134628] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128159.942190952] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128163.071331367] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128163.091074871] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128164.501010594] [behavior_path_planner.utils]: Invalid erase indices: start_idx=1, end_idx=0, vector_size=121. Skipping this polygon.
+[component_container-13] [INFO] [1790128165.021729288] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128166.223502017] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128166.242576863] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128169.325014463] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128169.344510766] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128172.424128546] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128172.443656955] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128173.552595947] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-7] [WARN] [1790128173.777025333] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56925.050848249
+[component_container_mt-36] [INFO] [1790128175.529581602] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128175.549169159] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128178.614418933] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128178.633137600] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-40] [ERROR] [1790128179.701380407] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.050 [rad], input_steer=-0.000 [rad], output_steer=-0.000 [rad]
+[component_container_mt-40] [ERROR] [1790128179.857227965] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Velocity change limit by longitudinal acceleration: constraint(delta)=±0.250 [m/s], input_vel=0.250 [m/s], output_vel=0.250 [m/s]
+[component_container_mt-40] [INFO] [1790128180.283469566] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128181.746625140] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128181.766194598] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128181.985913163] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128185.018895813] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128185.037295747] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-7] [WARN] [1790128188.213056926] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56930.050848323
+[component_container_mt-36] [INFO] [1790128188.297074866] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128188.316069069] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-40] [INFO] [1790128189.164209987] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container-13] [INFO] [1790128190.919923386] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128191.575244879] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128191.594193266] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128194.759380063] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128194.777308787] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128195.107122723] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[component_container_mt-40] [ERROR] [1790128195.304381662] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Velocity change limit by longitudinal acceleration: constraint(delta)=±0.250 [m/s], input_vel=0.250 [m/s], output_vel=1.366 [m/s]
+[component_container_mt-36] [INFO] [1790128195.391069993] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[component_container_mt-40] [ERROR] [1790128197.403220306] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.000 [rad], input_steer=-0.000 [rad], output_steer=-0.000 [rad]
+[component_container_mt-40] [ERROR] [1790128197.403285558] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Acceleration change limit by longitudinal jerk: constraint(delta)=±0.000 [m/s^2], input_acc=0.597 [m/s^2], output_acc=0.597 [m/s^2]
+[component_container_mt-40] [INFO] [1790128198.024264522] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128198.050001859] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128198.068329568] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128199.751752186] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128201.194756155] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128201.212965573] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128202.427482053] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: Abandon to stop. Can not stop against the nearest pedestrian with a specified deceleration. dist to stop: 1.296678, braking distance: 1.318949
+[component_container_mt-7] [WARN] [1790128202.907026575] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56935.050848398
+[component_container_mt-36] [INFO] [1790128204.444345518] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128204.472290299] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128205.390745880] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: Abandon to stop. Can not stop against the nearest pedestrian with a specified deceleration. dist to stop: 0.476209, braking distance: 2.100411
+[component_container_mt-40] [INFO] [1790128206.703719945] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128207.564489047] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128207.582787946] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [WARN] [1790128207.884945143] [behavior_path_planner.utils]: Invalid erase indices: start_idx=1, end_idx=0, vector_size=119. Skipping this polygon.
+[component_container_mt-36] [INFO] [1790128208.192148339] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: Abandon to stop. Can not stop against the nearest pedestrian with a specified deceleration. dist to stop: -0.762533, braking distance: 3.111399
+[component_container-13] [INFO] [1790128208.367134628] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128210.607838992] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128210.626268707] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128210.924398464] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: Abandon to stop. Can not stop against the nearest pedestrian with a specified deceleration. dist to stop: -2.469638, braking distance: 3.446518
+[component_container_mt-36] [INFO] [1790128212.333710065] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[component_container_mt-36] [INFO] [1790128212.627002402] [planning.scenario_planning.lane_driving.behavior_planning.behavior_velocity_planner.crosswalk_module]: weak_brake_stop is beyond the path horizon. Crosswalk stop will be canceled.
+[component_container_mt-40] [ERROR] [1790128212.680826293] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Velocity change limit by longitudinal acceleration: constraint(delta)=±0.250 [m/s], input_vel=0.250 [m/s], output_vel=1.438 [m/s]
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128213.085652131] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -2.825981 < min acc on map: -2.180002. return max value.
+[component_container_mt-40] [ERROR] [1790128213.221003149] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Steering angle change rate limit: constraint(delta)=±0.050 [rad], input_steer=0.000 [rad], output_steer=0.000 [rad]
+[component_container_mt-36] [INFO] [1790128213.676975392] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128213.695263615] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[autoware_raw_vehicle_cmd_converter_node-2] [WARN] [1790128214.212120119] [autoware_raw_vehicle_cmd_converter.accel_map]: Exceeding the acc range. Desired acc: -3.400000 < min acc on map: -2.180000. return max value.
+[component_container-13] [INFO] [1790128216.749239855] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-36] [INFO] [1790128216.776237622] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128216.794112989] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-7] [WARN] [1790128216.986123651] [sensing.lidar.crop_box_filter_self]: Invalid PointCloud: is_dense is false. The point cloud should be organized (dense) and contain only valid points. This will be an ERROR starting in 2026 JulyFrame: 'velodyne_top', Stamp: 56940.050848472
+[component_container_mt-40] [INFO] [1790128219.015692840] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
+[component_container_mt-36] [INFO] [1790128219.862984322] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128219.881376481] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-36] [INFO] [1790128222.903882539] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128222.922790146] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container-13] [INFO] [1790128225.133516491] [system.topic_state_monitor_pose_twist_fusion_filter_pose]: /localization/pose_twist_fusion_filter/pose has not received. Set ERROR in diagnostics.
+[component_container_mt-40] [ERROR] [1790128225.685023351] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Acceleration change limit by longitudinal jerk: constraint(delta)=±0.000 [m/s^2], input_acc=0.059 [m/s^2], output_acc=0.059 [m/s^2]
+[component_container_mt-36] [INFO] [1790128225.965681563] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+[component_container_mt-36] [INFO] [1790128225.986899111] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=0 left=not_evaluated right=not_evaluated selected=NONE ready=false
+[component_container_mt-40] [ERROR] [1790128226.583599718] [control.vehicle_cmd_gate]: [VehicleCmdFilter] Velocity change limit by longitudinal acceleration: constraint(delta)=±0.250 [m/s], input_vel=0.250 [m/s], output_vel=0.280 [m/s]
+[component_container_mt-40] [INFO] [1790128227.248881572] [control.autoware_operation_mode_transition_manager]: Engage unavailable: enable_engage_on_driving is false, and the vehicle is not stationary.
