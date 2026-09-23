@@ -17,6 +17,8 @@ RUN source /opt/ros/jazzy/setup.bash && \
     colcon --log-base /opt/carla-build/log build \
       --base-paths /opt/carla-build/src \
       --packages-select autoware_mission_planner_universe \
+        autoware_behavior_path_lane_change_module \
+        autoware_behavior_path_avoidance_by_lane_change_module \
         autoware_behavior_path_static_obstacle_avoidance_module \
         autoware_drivable_corridor_recovery autoware_carla_interface \
         autoware_autonomous_emergency_braking \

@@ -49,6 +49,8 @@ def install(config, root):
 
     launch_share = "/opt/autoware/autoware_launch/share/autoware_launch"
     bridge_share = "/opt/carla_overlay/share/autoware_carla_interface"
+    copy("control/trajectory_follower/longitudinal/pid.param.yaml",
+         launch_share + "/config/control/trajectory_follower/longitudinal/pid.param.yaml")
     for name in ("autoware.launch.xml", "e2e_simulator.launch.xml"):
         ET.parse(config / "launch" / name)
         copy("launch/" + name, launch_share + "/launch/" + name)

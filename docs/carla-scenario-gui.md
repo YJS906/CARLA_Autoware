@@ -4,8 +4,11 @@
 바탕화면의 **CARLA 시나리오 스튜디오** 또는 다음 명령으로 엽니다.
 
 ```bash
-./scripts/carla/carla_scenario_gui
+/home/a/carla_pp/scripts/carla/carla_scenario_gui
 ```
+
+CARLA가 먼저 실행 중이어야 합니다. 전체 시작/재시작 순서는
+[실행 명령 안내](carla-operations.md)를 참고하세요.
 
 CARLA 0.9.16 Python 환경(`/home/a/CARLA/venv-0.9.16`)과 Tkinter가 필요합니다.
 다른 Python 경로는 `CARLA_PYTHON`으로 지정할 수 있습니다.

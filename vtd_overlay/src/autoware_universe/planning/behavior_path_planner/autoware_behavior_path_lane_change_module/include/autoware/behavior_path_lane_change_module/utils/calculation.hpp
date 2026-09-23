@@ -103,6 +103,14 @@ double calc_dist_to_last_fit_width(
 double calc_maximum_prepare_length(const CommonDataPtr & common_data_ptr);
 
 /**
+ * @brief Signed arc distance to a lane start on the full current lane sequence.
+ * Returns numeric_limits<double>::max() when current_lanes is empty.
+ */
+double calc_distance_to_lane_start(
+  const lanelet::ConstLanelets & current_lanes, const Pose & ego_pose,
+  const geometry_msgs::msg::Point & target_start);
+
+/**
  * @brief Calculates the distance from the ego vehicle to the start of the target lanes.
  *
  * This function computes the shortest distance from the current position of the ego vehicle

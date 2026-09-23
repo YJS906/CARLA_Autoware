@@ -347,8 +347,8 @@ std::vector<lanelet::ConstLanelet> AvoidanceByLaneChange::getTargetLaneCandidate
 
     const auto target_front =
       autoware::experimental::lanelet2_utils::to_ros(target_lane.centerline().front());
-    const double target_start = autoware::motion_utils::calcSignedArcLength(
-      avoidance_data_.reference_path.points, getEgoPosition(), target_front);
+    const double target_start = utils::lane_change::calculation::calc_distance_to_lane_start(
+      avoidance_data_.current_lanelets, getEgoPose(), target_front);
     const bool available_before_object = target_start <= nearest_object.longitudinal;
     RCLCPP_DEBUG(
       logger_,

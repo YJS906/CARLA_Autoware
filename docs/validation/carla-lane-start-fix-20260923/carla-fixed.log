@@ -1,0 +1,26 @@
+INPUT xy=-20.0779,186.291 speed=0.000244117
+
+>>> [rcutils|error_handling.c:108] rcutils_set_error_state()
+This error state is being overwritten:
+
+  'Handle's typesupport identifier (rosidl_typesupport_cpp) is not supported by this library, at ./src/type_support_dispatch.hpp:114'
+
+with this new error message:
+
+  'Failed to get logger entry for 'behavior_path_planner'., at ./src/rcl/logging_rosout.c:416'
+
+rcutils_reset_error() should be called after error handling to avoid this.
+<<<
+[INFO] [1790146251.880241137] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+CURRENT rank=1 departure_allowed=1
+OBJECT id=ee4f9dc83aab59d691287a73e460a2ca longitudinal=10.5271 length=4.39379 persistent=1 request_min=4
+REGULATORY distance=34.2473 required=19.4208
+STATIC valid=1 object=ee4f9dc83aab59d691287a73e460a2ca collision_arc=12.8041 ego_arc=6.85769
+SELECT_REASON none actual_target_ids=16629,10895,
+TARGET id=16629 direction=LEFT rank=1 departure=1 selected=1 required_check=1
+SELECT_REASON none actual_target_ids=15811,10879,
+TARGET id=15811 direction=LEFT rank=2 departure=1 selected=1 required_check=1
+[INFO] [1790146253.137130202] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=2 evaluated=2 left=unsafe right=not_evaluated selected=LEFT ready=false
+RESULT label=installed-config valid=1 safe=0 paths=36 direction=LEFT stuck=1
+COLLISION object=e90079b7-3166-5e5e-bdf2-6b1fc0bfadce safe=0 reason=overlap_extended_polygon rss=113.512 lat=1.96488 front=59.375 back=-2.61876
+PATH static_valid=1 static_collision=0 prepare=1.5 shift=4.02008

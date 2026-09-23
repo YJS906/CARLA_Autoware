@@ -1,0 +1,9 @@
+{
+  "world_id": 874540385467280362,
+  "fixed_delta_seconds": 0.05,
+  "ego_id": 2403,
+  "pose": "Transform(Location(x=28.756115, y=-173.673279, z=0.036082), Rotation(pitch=0.000034, yaw=91.464264, roll=0.000007))",
+  "speed": 6.505966892807262e-05,
+  "vehicles": 76,
+  "walkers": 250
+}

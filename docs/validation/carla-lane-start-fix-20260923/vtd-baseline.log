@@ -1,0 +1,31 @@
+INPUT xy=897.085,-463.04 speed=0
+
+>>> [rcutils|error_handling.c:108] rcutils_set_error_state()
+This error state is being overwritten:
+
+  'Handle's typesupport identifier (rosidl_typesupport_cpp) is not supported by this library, at ./src/type_support_dispatch.hpp:114'
+
+with this new error message:
+
+  'Failed to get logger entry for 'behavior_path_planner'., at ./src/rcl/logging_rosout.c:416'
+
+rcutils_reset_error() should be called after error handling to avoid this.
+<<<
+[INFO] [1790146134.357736077] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance obstacle velocity cap applied: 10.00 m/s (60% of max)
+CURRENT rank=1 departure_allowed=1
+OBJECT id=0cc00000000000006e4758f6702b78b4 longitudinal=8.14481 length=4.994 persistent=1 request_min=7
+REGULATORY distance=44.2991 required=17.6388
+STATIC valid=1 object=0cc00000000000006e4758f6702b78b4 collision_arc=11.1 ego_arc=7.1
+SELECT_REASON none actual_target_ids=204620,
+TARGET id=204620 direction=LEFT rank=1 departure=1 selected=1 required_check=1
+[INFO] [1790146134.544814676] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance stepwise: candidates=1 evaluated=1 left=safe right=not_evaluated selected=LEFT ready=true
+RESULT label=installed-config valid=1 safe=1 paths=1 direction=LEFT stuck=1
+COLLISION object=eae00000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+COLLISION object=9be00000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+COLLISION object=85e00000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+COLLISION object=71e00000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+COLLISION object=d5df0000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+COLLISION object=5fe00000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+COLLISION object=5ee00000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+COLLISION object=0cc00000-0000-0000-6e47-58f6702b78b4 safe=1 reason= rss=0 lat=1.448 front=4.694 back=-1.85
+PATH static_valid=1 static_collision=0 prepare=1.5 shift=8.84836

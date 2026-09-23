@@ -196,6 +196,23 @@ double calc_maximum_prepare_length(const CommonDataPtr & common_data_ptr)
   return max_prepare_duration * ego_max_speed;
 }
 
+double calc_distance_to_lane_start(
+  const lanelet::ConstLanelets & current_lanes, const Pose & ego_pose,
+  const geometry_msgs::msg::Point & target_start)
+{
+  if (current_lanes.empty()) {
+    return std::numeric_limits<double>::max();
+  }
+  // A clipped reference path can omit the start of a long adjacent lane and
+  // project that point onto a later leg of the route. Measure both positions
+  // on the complete current lane sequence, retaining signed distance for lanes
+  // that actually begin ahead of ego.
+  Pose start_pose;
+  start_pose.position = target_start;
+  start_pose.orientation = ego_pose.orientation;
+  return utils::getSignedDistance(ego_pose, start_pose, current_lanes);
+}
+
 double calc_ego_dist_to_lanes_start(
   const CommonDataPtr & common_data_ptr, const lanelet::ConstLanelets & current_lanes,
   const lanelet::ConstLanelets & target_lanes)
@@ -215,16 +232,9 @@ double calc_ego_dist_to_lanes_start(
     return std::numeric_limits<double>::max();
   }
 
-  const auto & path = common_data_ptr->current_lanes_path;
-
-  if (path.points.empty()) {
-    return std::numeric_limits<double>::max();
-  }
-
   const auto target_front_pt = experimental::lanelet2_utils::to_ros(target_bound.front());
-  const auto ego_position = common_data_ptr->get_ego_pose().position;
-
-  return motion_utils::calcSignedArcLength(path.points, ego_position, target_front_pt);
+  return calc_distance_to_lane_start(
+    current_lanes, common_data_ptr->get_ego_pose(), target_front_pt);
 }
 
 double calc_minimum_acceleration(

@@ -118,8 +118,10 @@ For a desktop map editor with vehicle/pedestrian placement, save/load, and
 traffic count controls, see [Town05 scenario GUI](docs/carla-scenario-gui.md).
 The [crosswalk stop-line update](docs/carla-stop-lines.md) places matched existing
 stop lines 3 m before crosswalk centers. The [current route-block diagnosis](docs/carla-route-block-20260923.md)
-documents an unresolved lane-start projection error that excludes an adjacent
-lane from avoidance candidates on long Town05 lanelets.
+identifies a lane-start projection error on long Town05 lanelets. The
+[fix and VTD comparison](docs/carla-lane-start-fix-20260923.md) records the repaired
+candidates, live avoidance/return, and a right-turn continuation at half simulation speed;
+normal-speed planning-rate warnings remain a validation limitation.
 
 See the earlier [Town05 repair and validation record](docs/carla-repair-20260922.md)
 for the Prius calibration, CARLA planning preset, native traffic signals/crosswalks,
@@ -151,6 +153,9 @@ above and run:
 CARLA_PERCEPTION_MODE=ground_truth ./scripts/carla/carla_autoware start-town05
 ./scripts/carla/carla_autoware status
 ```
+
+For separate terminal commands, full restart instructions, the scenario GUI, and
+the `start-town05: command not found` fix, see [the operations guide](docs/carla-operations.md).
 
 The default object mode is `sensor`. Stop the existing runtime before switching
 object modes; the launcher does not engage AUTO on startup.

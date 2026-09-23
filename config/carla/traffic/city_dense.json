@@ -1,5 +1,5 @@
 {
-  "vehicles": 75,
+  "vehicles": 0,
   "walkers": 250,
   "vehicle_speed_difference_percent": 30,
   "following_distance_m": 3.0,
