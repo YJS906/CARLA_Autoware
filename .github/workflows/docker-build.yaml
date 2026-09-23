@@ -89,7 +89,7 @@ jobs:
         run: sudo chown -R $USER:$USER ${{ github.workspace }}
 
       - name: 📥 Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🧹 Free disk space
         if: inputs.free-disk-space && runner.environment == 'github-hosted'
