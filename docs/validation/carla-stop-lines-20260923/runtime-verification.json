@@ -1,0 +1,18 @@
+{
+  "map_sha256": "59197c86022c27ade92902aa4ec9e42e2b154b8f456edc5c8b1912cf2c5c14be",
+  "map_path": "/home/aw/autoware_data/maps/Town05/lanelet2_map.osm",
+  "map_loader_published": true,
+  "containers": [
+    "selfcar-carla-spectator: Up 2 minutes",
+    "selfcar-carla-signals: Up 2 minutes",
+    "selfcar-carla-autoware: Up 2 minutes"
+  ],
+  "traffic": {
+    "vehicles": 75,
+    "walkers": 250,
+    "all_vehicles": 76,
+    "egos": 1,
+    "controllers": 249
+  },
+  "autonomous_engage_requested_by_this_task": false
+}

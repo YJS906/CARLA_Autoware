@@ -1,0 +1,5 @@
+[component_container_mt-36] [DEBUG] [1790142389.570129363] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance route-lane candidate direction=LEFT lane=16629 start=235.12 object=10.69 clear=false usable=false
+[component_container_mt-36] [DEBUG] [1790142389.690628200] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance route-lane candidate direction=LEFT lane=16629 start=235.12 object=10.69 clear=false usable=false
+[component_container_mt-36] [DEBUG] [1790142389.809644289] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance route-lane candidate direction=LEFT lane=16629 start=235.12 object=10.69 clear=false usable=false
+[component_container_mt-36] [DEBUG] [1790142389.942390682] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance route-lane candidate direction=LEFT lane=16629 start=235.12 object=10.69 clear=false usable=false
+[component_container_mt-36] [DEBUG] [1790142390.047415851] [lane_change.AVOIDANCE_BY_LANE_CHANGE]: avoidance route-lane candidate direction=LEFT lane=16629 start=235.12 object=10.69 clear=false usable=false

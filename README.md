@@ -114,6 +114,12 @@ See the [object input mode guide](docs/carla-ground-truth.md),
 
 For dense background vehicles and roaming pedestrians without restarting
 Autoware, see [Town05 city traffic settings](docs/carla-city-traffic.md).
+For a desktop map editor with vehicle/pedestrian placement, save/load, and
+traffic count controls, see [Town05 scenario GUI](docs/carla-scenario-gui.md).
+The [crosswalk stop-line update](docs/carla-stop-lines.md) places matched existing
+stop lines 3 m before crosswalk centers. The [current route-block diagnosis](docs/carla-route-block-20260923.md)
+documents an unresolved lane-start projection error that excludes an adjacent
+lane from avoidance candidates on long Town05 lanelets.
 
 See the earlier [Town05 repair and validation record](docs/carla-repair-20260922.md)
 for the Prius calibration, CARLA planning preset, native traffic signals/crosswalks,

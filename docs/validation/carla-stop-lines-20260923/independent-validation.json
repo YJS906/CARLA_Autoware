@@ -1,0 +1,12 @@
+{
+  "moved_stop_lines": 57,
+  "crosswalks_unchanged": 66,
+  "changed_nodes": 114,
+  "max_center_distance_error_m": 4.849542989404654e-10,
+  "overlapping_crosswalks": 0,
+  "lines_outside_drivable_roads": 0,
+  "edge_clearance_range_m": [
+    0.5893996593573786,
+    1.7802740290471315
+  ]
+}

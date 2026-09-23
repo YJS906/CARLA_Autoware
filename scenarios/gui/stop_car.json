@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "map": "Town05_Opt",
+  "actors": [
+    {
+      "id": "0b3cd6dacfd44b02a4edaa522e4df779",
+      "kind": "vehicle",
+      "mode": "parked",
+      "speed": 0,
+      "target": null,
+      "x": -7.388106346130371,
+      "y": 186.4589080810547,
+      "z": 1.1564086079597473,
+      "yaw": -0.076446533203125
+    }
+  ]
+}
